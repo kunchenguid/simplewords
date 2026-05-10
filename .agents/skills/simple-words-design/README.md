@@ -16,7 +16,9 @@ This design system extends the bare functional shell into something that feels *
   - `extension/options.html` — current options-page DOM and inline CSS
   - `src/content.ts` — floating button + panel injected into page
   - `src/options.ts` / `src/settings.ts` — settings model and defaults
-- No Figma file or external brand assets were provided. The extension itself has **no logo, no icon set, no font files** and currently relies on `system-ui`; marketing-video-specific assets now live under `marketing-video/assets/`.
+- No Figma file or external brand assets were provided.
+  The options page now loads Instrument Serif, Geist, and Geist Mono from Google Fonts; the content script still relies on host-page font availability with system fallbacks.
+  The extension uses an inline `sw` glyph on the options page and inline SVG icons in the injected UI; marketing-video-specific assets now live under `marketing-video/assets/`.
 
 ## Index
 
@@ -41,7 +43,8 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 - **Plain, direct, considered.** No exclamation marks, no marketing puff. The product _itself_ is about turning rough into polished, so the copy practices what it preaches.
 - **Confidently quiet.** No "✨ AI-powered" flourishes. No emoji. The intelligence is in the result, not the chrome.
 - **Humble about LLMs.** From the existing options copy: _"Chrome extensions cannot silently read Codex CLI auth from disk."_ — explains the limitation, then offers the workaround. No hand-waving.
-- **Lowercase except where required.** Sentence case for headings (`Writing Instructions`, not `Writing instructions` or `WRITING INSTRUCTIONS`). Buttons are sentence case (`Replace draft`, `Dismiss`, `Save`).
+- **Lowercase except where required.** Sentence case for headings (`Writing instructions`, not `Writing Instructions` or `WRITING INSTRUCTIONS`).
+  Buttons are sentence case (`Replace draft`, `Dismiss`, `Save`).
 
 ### Person & address
 
@@ -51,7 +54,7 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 
 ### Casing
 
-- **Headings:** sentence case. `Writing Instructions`, `OpenAI-Compatible`, `Codex Backend`.
+- **Headings:** sentence case. `Writing instructions`, `OpenAI-compatible`, `Codex backend`.
 - **Buttons:** sentence case verb-first when an action (`Save`, `Replace draft`, `Dismiss`). Title case for the brand button itself: `Simple Words`.
 - **Labels:** sentence case (`My name`, `System prompt`, `Reasoning effort`).
 - **Provider/option values:** lowercase (`none`, `low`, `medium`, `high`, `xhigh`).
@@ -76,7 +79,8 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 
 ## Visual Foundations
 
-The current extension is functional but unstyled — `system-ui`, off-the-shelf slate. The design system pushes it toward _quiet sophistication_:
+The current extension ships the Simple Words visual refresh in the options page and injected content UI.
+The design system keeps it grounded in _quiet sophistication_:
 
 ### The core idea: paper × ink × intelligence
 
@@ -102,7 +106,9 @@ Weights are restrained: 400 for body, 500 for emphasized labels, 600 for buttons
 
 ### Color
 
-See `colors_and_type.css` for tokens. The system has only ~12 colors total. The extension's existing values (`#172033`, `#526071`, `#176b3a`, `#c9d2e3`, `#f1f5f9`) are preserved as semantic tokens so the existing options page maps cleanly into the system; the new tokens (`paper`, `paper-2`, `accent`) extend it.
+See `colors_and_type.css` for tokens.
+The system has only ~12 colors total.
+The extension's refreshed values (`#0E1525`, `#526071`, `#176b3a`, `#c9d2e3`, `#f1f5f9`) are preserved as semantic tokens so the options page and injected UI map cleanly into the system; the warm paper tokens (`paper`, `paper-2`, `paper-3`) extend it.
 
 ### Spacing
 
@@ -122,7 +128,7 @@ Inherited from the source and refined into a 3-step elevation scale. Shadows are
 
 - **`--shadow-1`** — `0 1px 2px rgba(14, 21, 37, 0.06)` — flat surfaces, hairline lift
 - **`--shadow-2`** — `0 8px 24px rgba(14, 21, 37, 0.22)` — the floating button (matches source)
-- **`--shadow-3`** — `0 18px 48px rgba(14, 21, 37, 0.28)` — the floating panel (matches source)
+- **`--shadow-3`** — `0 18px 48px rgba(14, 21, 37, 0.22)` — the floating panel (matches source)
 
 No inset shadows. No glows. No ambient/key-light double-stacks.
 
@@ -159,13 +165,19 @@ The button on press: scales to `0.98` and darkens by ~5%. The panel on appear: f
 
 ### Transparency & blur
 
-Used **once**: the floating panel can sit on top of host-page content. We use `backdrop-filter: blur(12px) saturate(1.2)` with a `rgba(255, 252, 247, 0.92)` paper-tinted overlay for the panel. **Nowhere else.** The options page is fully opaque.
+Used **once**: the floating panel can sit on top of host-page content.
+We use `backdrop-filter: blur(12px) saturate(1.2)` with a `rgba(255, 252, 247, 0.96)` paper-tinted overlay for the panel.
+**Nowhere else.**
+The options page is fully opaque.
 
 ### Layout rules
 
 - **Floating button** is `position: fixed`, `z-index: 2147483647` (max), anchored 8px below the active editable field's bottom-right corner. This is non-negotiable — it must clear every host page, including ones with their own floating UI.
-- **Options page** is a single column, `max-width: 680px`, generous 32px outer margins. Never multi-column. Reading width is sacred.
-- **Floating panel** sits _above_ the button (`panelPositionAboveButton` in source) when there's room, else flips to below. Max-width 420px, min-width 260px.
+- **Options page** is a single column, `max-width: 680px`, with `48px 24px 80px` page padding.
+  Never multi-column.
+  Reading width is sacred.
+- **Floating panel** sits _above_ the button (`panelPositionAboveButton` in source) when there's room, else flips to below.
+  Max-width 420px, min-width 280px.
 
 ### Imagery & color vibe
 
@@ -183,21 +195,32 @@ Cards are **defined by tone, not by chrome.** A card is a `--paper-2` rectangle 
 
 ## Caveats / substitutions flagged for review
 
-The extension ships **no fonts, no logo, no icons** and currently relies on `system-ui`. Everything visual in this design system is therefore a _proposal_ extending the existing color/spacing/copy heritage; the marketing video uses those proposed assets from `marketing-video/assets/`. Specifically flagged:
+The production extension now uses the core visual refresh, but packaged brand assets are still limited.
+The options page loads fonts from Google Fonts, renders an inline `sw` glyph, and the injected UI inlines minimal SVG icons.
+The marketing video uses proposed assets from `marketing-video/assets/`.
+Specifically flagged:
 
-- **Fonts: substituted from Google Fonts.** Instrument Serif + Geist + Geist Mono are loaded via Google Fonts CDN in `colors_and_type.css`. If the project has license-procured TTFs of these (or different) families, drop them in `fonts/` and update the `@import` line.
-- **Wordmark and glyph: design-system-introduced.** Live in `assets/wordmark.svg` and `assets/glyph.svg`. Replace if a real mark exists.
-- **Icon set: Lucide, linked from CDN** (closest match to the "intelligent + minimalist" brief at 1.5px stroke). A handful are inlined under `assets/icon-*.svg`. Swap if there's a preferred set.
-- **Accent color (`#2747D6`): introduced** — the source has no accent. Used only for the AI loading moment and focus rings.
+- **Fonts: substituted from Google Fonts.** Instrument Serif + Geist + Geist Mono are loaded via Google Fonts CDN in `extension/options.html` and `colors_and_type.css`.
+  If the project has license-procured TTFs of these (or different) families, drop them in `fonts/` and update the imports.
+- **Wordmark and glyph: design-system-introduced.** The options page renders an inline `sw` glyph; design-system asset files live in `assets/wordmark.svg` and `assets/glyph.svg`.
+  Replace if a real mark exists.
+- **Icon set: inline SVGs.** The production floating button and panel use inline sparkles and loader SVGs at 1.5px stroke.
+  A handful of design-system icons are inlined under `assets/icon-*.svg`.
+  Swap if there's a preferred set.
+- **Accent color (`#2747D6`): introduced.** Used only for the AI loading moment and focus rings.
 
 ## Iconography
 
-The Simple Words extension ships **zero icons or images**. The current options page is text-only; the floating button is a text pill (`"Simple Words"`). Marketing-video-specific icons and marks live under `marketing-video/assets/`.
+The Simple Words extension ships no packaged icon font or image set.
+The options page uses an inline `sw` glyph, and the floating button/panel use inline sparkles and loader SVGs.
+Marketing-video-specific icons and marks live under `marketing-video/assets/`.
 
-Because there is no existing icon system, this design system establishes one:
+Because there is no packaged icon system, this design system establishes one:
 
-- **Icon set:** [**Lucide**](https://lucide.dev/) — chosen for its 1.5px stroke weight, geometric construction, and quietly modern feel. Matches the "intelligent and minimalist" brief without being trendy.
-- **Linking:** loaded from CDN (`https://unpkg.com/lucide-static@latest`) — no codebase icon font yet, so we link the closest CDN match. **Flagged for the user** as a substitution.
+- **Icon set:** Lucide-style inline SVGs, chosen for their 1.5px stroke weight, geometric construction, and quietly modern feel.
+  Matches the "intelligent and minimalist" brief without being trendy.
+- **Linking:** production UI inlines the required SVGs.
+  The broader design system may use CDN-backed Lucide references only for prototypes.
 - **Stroke weight:** always `1.5px`, never `2px`. Always `currentColor`.
 - **Sizing:** `16px` inline with body, `20px` in buttons, `24px` for section heads. Never larger than `24px` in product UI.
 - **Fill style:** outlined only. Never filled. Never two-tone.
