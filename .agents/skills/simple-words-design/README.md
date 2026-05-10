@@ -11,7 +11,7 @@ This design system extends the bare functional shell into something that feels *
 
 ## Sources
 
-- **GitHub repo** — [`kunchenguid/simplewords`](https://github.com/kunchenguid/simplewords) (`main` @ commit `80776395`). Manifest V3 Chrome extension, TypeScript + esbuild. Key files inspected:
+- **GitHub repo** — [`kunchenguid/simplewords`](https://github.com/kunchenguid/simplewords) (`fix/content-editor-visibility` @ commit `0b78e5b72c11eae2cbed48751d8a7b61f7d10821`). Manifest V3 Chrome extension, TypeScript + esbuild. Key files inspected:
   - `extension/manifest.json` — name, description, permissions
   - `extension/options.html` — current options-page DOM and inline CSS
   - `src/content.ts` — floating button + panel injected into page
@@ -64,7 +64,7 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 - Tagline / extension description: _"Turn rough replies into friendly drafts using surrounding page context."_
 - Options-page intro: _"Choose an LLM provider. The extension calls the selected provider directly after you click the Simple Words button."_
 - Empty-state error: _"Write a rough reply first."_
-- Loading: _"Refining…"_
+- Loading: button _"Refining"_, panel heading _"Refining draft"_, panel body _"Refining…"_
 - System-prompt hint: _"Leave blank to restore the default system prompt."_
 - Save confirmation: _"Saved."_ (single word, with period.)
 
@@ -229,7 +229,7 @@ Because there is no packaged icon system, this design system establishes one:
 - **Linking:** production UI inlines the required SVGs.
   The broader design system may use CDN-backed Lucide references only for prototypes.
 - **Stroke weight:** always `1.5px`, never `2px`. Always `currentColor`.
-- **Sizing:** `16px` inline with body, `20px` in buttons, `24px` for section heads. Never larger than `24px` in product UI.
+- **Sizing:** `16px` inline with body and loaders, `14px` in the injected floating button and panel heading, `24px` for section heads. Never larger than `24px` in product UI.
 - **Fill style:** outlined only. Never filled. Never two-tone.
 
 **Emoji:** never used. Anywhere. Not in product, not in marketing, not in error states.
