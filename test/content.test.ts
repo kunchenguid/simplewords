@@ -118,4 +118,42 @@ describe('content script button visibility', () => {
 
     expect(button.textContent).toContain('Simple Words')
   })
+
+  test('ignores an older same-editor refinement after a newer one starts', async () => {
+    document.body.innerHTML = '<textarea>rough reply</textarea>'
+
+    const refinements: Array<(response: { reply: string }) => void> = []
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage: vi.fn(
+          () =>
+            new Promise<{ reply: string }>((resolve) => {
+              refinements.push(resolve)
+            })
+        )
+      }
+    })
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    button.click()
+
+    refinements[1]?.({ reply: 'newer polished reply' })
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    const panel = document.getElementById('simplewords-panel') as HTMLDivElement
+    expect(panel.textContent).toContain('newer polished reply')
+    expect(button.textContent).toContain('Simple Words')
+
+    refinements[0]?.({ reply: 'older polished reply' })
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    expect(panel.textContent).toContain('newer polished reply')
+    expect(panel.textContent).not.toContain('older polished reply')
+  })
 })

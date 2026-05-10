@@ -283,10 +283,12 @@ async function refineActiveEditor(): Promise<void> {
     url: location.href
   })) as { reply?: string; error?: string }
 
+  if (refinementId !== activeRefinementId) {
+    return
+  }
+
   if (editor !== activeEditor || !isActiveEditorVisible(editor)) {
-    if (refinementId === activeRefinementId) {
-      setButtonState(button, 'idle')
-    }
+    setButtonState(button, 'idle')
     return
   }
 
