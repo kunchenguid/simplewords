@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simple Words Options</title>
+    <style>
+      body {
+        color: #172033;
+        font:
+          14px/1.45 system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+        margin: 32px;
+        max-width: 680px;
+      }
+
+      label {
+        display: block;
+        font-weight: 650;
+        margin-bottom: 8px;
+      }
+
+      input,
+      select {
+        border: 1px solid #c9d2e3;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font: inherit;
+        margin-bottom: 14px;
+        padding: 10px 12px;
+        width: 100%;
+      }
+
+      section {
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        margin-top: 18px;
+        padding: 18px;
+      }
+
+      h2 {
+        font-size: 16px;
+        margin: 0 0 12px;
+      }
+
+      button {
+        background: #172033;
+        border: 0;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 650;
+        margin-top: 12px;
+        padding: 10px 14px;
+      }
+
+      p {
+        color: #526071;
+      }
+
+      code {
+        background: #f1f5f9;
+        border-radius: 5px;
+        padding: 1px 5px;
+      }
+
+      #status {
+        color: #176b3a;
+        min-height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Simple Words</h1>
+    <p>
+      Choose an LLM provider. The extension calls the selected provider directly
+      after you click the Simple Words button.
+    </p>
+
+    <label for="provider">Provider</label>
+    <select id="provider">
+      <option value="openai">OpenAI-compatible</option>
+      <option value="codex">Codex backend</option>
+      <option value="ollama">Ollama</option>
+    </select>
+
+    <section data-provider-section="openai">
+      <h2>OpenAI-Compatible</h2>
+      <label for="openaiApiKey">API key</label>
+      <input
+        id="openaiApiKey"
+        type="password"
+        autocomplete="off"
+        placeholder="sk-..."
+      />
+      <label for="openaiBaseURL">Base URL</label>
+      <input
+        id="openaiBaseURL"
+        type="url"
+        placeholder="https://api.openai.com/v1"
+      />
+      <label for="openaiModel">Model</label>
+      <input id="openaiModel" type="text" placeholder="gpt-5.5" />
+      <label for="openaiReasoningEffort">Reasoning effort</label>
+      <select id="openaiReasoningEffort">
+        <option value="none">none</option>
+        <option value="low">low</option>
+        <option value="medium">medium</option>
+        <option value="high">high</option>
+        <option value="xhigh">xhigh</option>
+      </select>
+    </section>
+
+    <section data-provider-section="codex">
+      <h2>Codex Backend</h2>
+      <p>
+        Chrome extensions cannot silently read Codex CLI auth from disk. Select
+        your Codex CLI auth file, usually <code>~/.codex/auth.json</code>, to
+        import the token.
+      </p>
+      <label for="codexAuthFile">Codex auth.json</label>
+      <input id="codexAuthFile" type="file" accept="application/json,.json" />
+      <label for="codexAccessToken">Access token</label>
+      <input
+        id="codexAccessToken"
+        type="password"
+        autocomplete="off"
+        placeholder="Imported from auth.json or pasted manually"
+      />
+      <input id="codexRefreshToken" type="hidden" />
+      <label for="codexAccountId">ChatGPT account ID</label>
+      <input id="codexAccountId" type="text" placeholder="Optional" />
+      <label for="codexBaseURL">Base URL</label>
+      <input
+        id="codexBaseURL"
+        type="url"
+        placeholder="https://chatgpt.com/backend-api/codex"
+      />
+      <label for="codexModel">Model</label>
+      <input id="codexModel" type="text" placeholder="gpt-5.5-fast" />
+      <label for="codexReasoningEffort">Reasoning effort</label>
+      <select id="codexReasoningEffort">
+        <option value="none">none</option>
+        <option value="low">low</option>
+        <option value="medium">medium</option>
+        <option value="high">high</option>
+        <option value="xhigh">xhigh</option>
+      </select>
+    </section>
+
+    <section data-provider-section="ollama">
+      <h2>Ollama</h2>
+      <label for="ollamaBaseURL">Base URL</label>
+      <input
+        id="ollamaBaseURL"
+        type="url"
+        placeholder="http://localhost:11434/v1"
+      />
+      <label for="ollamaModel">Model</label>
+      <input id="ollamaModel" type="text" placeholder="llama3.2" />
+    </section>
+
+    <button id="save" type="button">Save</button>
+    <p id="status" role="status"></p>
+    <script src="options.js"></script>
+  </body>
+</html>

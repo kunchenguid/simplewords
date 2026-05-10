@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Simple Words",
+  "version": "0.1.0",
+  "description": "Turn rough replies into friendly drafts using surrounding page context.",
+  "permissions": ["storage"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html"
+}
