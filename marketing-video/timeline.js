@@ -1,3 +1,5 @@
+/* global window, gsap */
+
 window.__timelines = window.__timelines || {}
 const tl = gsap.timeline({ paused: true })
 
