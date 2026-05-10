@@ -53,7 +53,6 @@ https://hyperframes.heygen.com/llms.txt
 ## Project Structure
 
 - `index.html` — main composition (root timeline)
-- `compositions/` — sub-compositions referenced via `data-composition-src`
 - `assets/` - source media files used by the marketing video
 - `simplewords-marketing.mp4` - rendered marketing video output from `npm run render`
 - `meta.json` — project metadata (id, name)
