@@ -1,41 +1,81 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Ink scale</title>
-<link rel="stylesheet" href="_card.css">
-<style>
-  .swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
-  .sw {
-    aspect-ratio: 1 / 1.05;
-    border-radius: 10px;
-    padding: 10px 12px;
-    display: flex; flex-direction: column; justify-content: space-between;
-  }
-  .sw .name {
-    font-family: var(--font-sans);
-    font-size: 11px;
-    font-weight: 500;
-  }
-  .sw .hex { font-family: var(--font-mono); font-size: 10px; opacity: 0.85; }
-  .ink-900 { background: #0E1525; color: #FAF8F5; }
-  .ink-800 { background: #172033; color: #FAF8F5; }
-  .ink-700 { background: #2A3142; color: #FAF8F5; }
-  .ink-500 { background: #526071; color: #FAF8F5; }
-  .ink-400 { background: #6B7180; color: #FAF8F5; }
-  .ink-300 { background: #9099AA; color: #0E1525; }
-</style>
-</head>
-<body>
-<div class="card">
-  <div class="swatches">
-    <div class="sw ink-900"><span class="name">ink-900</span><span class="hex">#0E1525</span></div>
-    <div class="sw ink-800"><span class="name">ink-800</span><span class="hex">#172033</span></div>
-    <div class="sw ink-700"><span class="name">ink-700</span><span class="hex">#2A3142</span></div>
-    <div class="sw ink-500"><span class="name">ink-500</span><span class="hex">#526071</span></div>
-    <div class="sw ink-400"><span class="name">ink-400</span><span class="hex">#6B7180</span></div>
-    <div class="sw ink-300"><span class="name">ink-300</span><span class="hex">#9099AA</span></div>
-  </div>
-</div>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Ink scale</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+      }
+      .sw {
+        aspect-ratio: 1 / 1.05;
+        border-radius: 10px;
+        padding: 10px 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .sw .name {
+        font-family: var(--font-sans);
+        font-size: 11px;
+        font-weight: 500;
+      }
+      .sw .hex {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        opacity: 0.85;
+      }
+      .ink-900 {
+        background: #0e1525;
+        color: #faf8f5;
+      }
+      .ink-800 {
+        background: #172033;
+        color: #faf8f5;
+      }
+      .ink-700 {
+        background: #2a3142;
+        color: #faf8f5;
+      }
+      .ink-500 {
+        background: #526071;
+        color: #faf8f5;
+      }
+      .ink-400 {
+        background: #6b7180;
+        color: #faf8f5;
+      }
+      .ink-300 {
+        background: #9099aa;
+        color: #0e1525;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="swatches">
+        <div class="sw ink-900">
+          <span class="name">ink-900</span><span class="hex">#0E1525</span>
+        </div>
+        <div class="sw ink-800">
+          <span class="name">ink-800</span><span class="hex">#172033</span>
+        </div>
+        <div class="sw ink-700">
+          <span class="name">ink-700</span><span class="hex">#2A3142</span>
+        </div>
+        <div class="sw ink-500">
+          <span class="name">ink-500</span><span class="hex">#526071</span>
+        </div>
+        <div class="sw ink-400">
+          <span class="name">ink-400</span><span class="hex">#6B7180</span>
+        </div>
+        <div class="sw ink-300">
+          <span class="name">ink-300</span><span class="hex">#9099AA</span>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

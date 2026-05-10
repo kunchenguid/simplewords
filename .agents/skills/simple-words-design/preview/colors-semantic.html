@@ -1,45 +1,80 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Accent & semantic</title>
-<link rel="stylesheet" href="_card.css">
-<style>
-  .swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .sw {
-    aspect-ratio: 1 / 1;
-    border-radius: 12px;
-    padding: 12px 14px;
-    display: flex; flex-direction: column; justify-content: space-between;
-    border: 1px solid transparent;
-  }
-  .sw .name {
-    font-family: var(--font-sans);
-    font-size: 12px;
-    font-weight: 600;
-  }
-  .sw .role {
-    font-family: var(--font-sans);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    opacity: 0.65;
-  }
-  .sw .hex { font-family: var(--font-mono); font-size: 10px; opacity: 0.8; }
-  .accent      { background: #2747D6; color: #FAF8F5; }
-  .accent-soft { background: #E6EAFB; color: #2747D6; border-color: #D8DDF6; }
-  .success     { background: #176B3A; color: #FAF8F5; }
-  .danger      { background: #B0302E; color: #FAF8F5; }
-</style>
-</head>
-<body>
-<div class="card">
-  <div class="swatches">
-    <div class="sw accent"><span class="role">Accent</span><span class="name">accent</span><span class="hex">#2747D6</span></div>
-    <div class="sw accent-soft"><span class="role">Accent soft</span><span class="name">accent-soft</span><span class="hex">#E6EAFB</span></div>
-    <div class="sw success"><span class="role">Semantic</span><span class="name">success</span><span class="hex">#176B3A</span></div>
-    <div class="sw danger"><span class="role">Semantic</span><span class="name">danger</span><span class="hex">#B0302E</span></div>
-  </div>
-</div>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Accent & semantic</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .sw {
+        aspect-ratio: 1 / 1;
+        border-radius: 12px;
+        padding: 12px 14px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid transparent;
+      }
+      .sw .name {
+        font-family: var(--font-sans);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .sw .role {
+        font-family: var(--font-sans);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        opacity: 0.65;
+      }
+      .sw .hex {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        opacity: 0.8;
+      }
+      .accent {
+        background: #2747d6;
+        color: #faf8f5;
+      }
+      .accent-soft {
+        background: #e6eafb;
+        color: #2747d6;
+        border-color: #d8ddf6;
+      }
+      .success {
+        background: #176b3a;
+        color: #faf8f5;
+      }
+      .danger {
+        background: #b0302e;
+        color: #faf8f5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="swatches">
+        <div class="sw accent">
+          <span class="role">Accent</span><span class="name">accent</span
+          ><span class="hex">#2747D6</span>
+        </div>
+        <div class="sw accent-soft">
+          <span class="role">Accent soft</span
+          ><span class="name">accent-soft</span><span class="hex">#E6EAFB</span>
+        </div>
+        <div class="sw success">
+          <span class="role">Semantic</span><span class="name">success</span
+          ><span class="hex">#176B3A</span>
+        </div>
+        <div class="sw danger">
+          <span class="role">Semantic</span><span class="name">danger</span
+          ><span class="hex">#B0302E</span>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

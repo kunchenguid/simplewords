@@ -1,47 +1,65 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Paper neutrals</title>
-<link rel="stylesheet" href="_card.css">
-<style>
-  .swatches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .sw {
-    aspect-ratio: 5 / 3;
-    border-radius: 12px;
-    padding: 14px 16px;
-    display: flex; flex-direction: column; justify-content: space-between;
-    border: 1px solid var(--line);
-  }
-  .sw .name {
-    font-family: var(--font-sans);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .sw .hex { font-family: var(--font-mono); font-size: 11px; }
-  .paper   { background: #FAF8F5; color: #0E1525; }
-  .paper-2 { background: #F1EEE8; color: #0E1525; }
-  .paper-3 { background: #E5E0D6; color: #0E1525; }
-</style>
-</head>
-<body>
-<div class="card">
-  <div class="swatches">
-    <div class="sw paper">
-      <span class="name">paper</span>
-      <span class="hex">#FAF8F5</span>
+  <head>
+    <meta charset="utf-8" />
+    <title>Paper neutrals</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .sw {
+        aspect-ratio: 5 / 3;
+        border-radius: 12px;
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid var(--line);
+      }
+      .sw .name {
+        font-family: var(--font-sans);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .sw .hex {
+        font-family: var(--font-mono);
+        font-size: 11px;
+      }
+      .paper {
+        background: #faf8f5;
+        color: #0e1525;
+      }
+      .paper-2 {
+        background: #f1eee8;
+        color: #0e1525;
+      }
+      .paper-3 {
+        background: #e5e0d6;
+        color: #0e1525;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="swatches">
+        <div class="sw paper">
+          <span class="name">paper</span>
+          <span class="hex">#FAF8F5</span>
+        </div>
+        <div class="sw paper-2">
+          <span class="name">paper-2</span>
+          <span class="hex">#F1EEE8</span>
+        </div>
+        <div class="sw paper-3">
+          <span class="name">paper-3</span>
+          <span class="hex">#E5E0D6</span>
+        </div>
+      </div>
     </div>
-    <div class="sw paper-2">
-      <span class="name">paper-2</span>
-      <span class="hex">#F1EEE8</span>
-    </div>
-    <div class="sw paper-3">
-      <span class="name">paper-3</span>
-      <span class="hex">#E5E0D6</span>
-    </div>
-  </div>
-</div>
-</body>
+  </body>
 </html>
