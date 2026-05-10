@@ -149,7 +149,9 @@
         border-radius: var(--radius-sm);
         box-sizing: border-box;
         color: var(--ink-900);
-        font: 14px/1.5 var(--font-sans), system-ui;
+        font:
+          14px/1.5 var(--font-sans),
+          system-ui;
         margin-bottom: 14px;
         padding: 10px 12px;
         transition:
@@ -217,7 +219,9 @@
         border-radius: var(--radius-sm);
         color: var(--paper);
         cursor: pointer;
-        font: 600 13px/1 var(--font-sans), system-ui;
+        font:
+          600 13px/1 var(--font-sans),
+          system-ui;
         padding: 11px 16px;
         transition:
           background 120ms var(--ease-out),
@@ -352,7 +356,11 @@
         </p>
         <div>
           <label for="codexAuthFile">Codex auth.json</label>
-          <input id="codexAuthFile" type="file" accept="application/json,.json" />
+          <input
+            id="codexAuthFile"
+            type="file"
+            accept="application/json,.json"
+          />
         </div>
         <div>
           <label for="codexAccessToken">Access token</label>

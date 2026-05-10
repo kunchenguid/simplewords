@@ -113,6 +113,7 @@ const STYLE_CSS = `
 `
 
 let activeEditor: HTMLElement | null = null
+let activeRefinementId = 0
 
 const editorVisibilityObserver = new MutationObserver((mutations) => {
   if (!activeEditor || !mutations.some(mutationAffectsActiveEditor)) {
@@ -266,6 +267,7 @@ async function refineActiveEditor(): Promise<void> {
   }
 
   const button = getOrCreateButton()
+  const refinementId = ++activeRefinementId
   setButtonState(button, 'working')
   showPanel(editor, { kind: 'loading' })
 
@@ -282,7 +284,7 @@ async function refineActiveEditor(): Promise<void> {
   })) as { reply?: string; error?: string }
 
   if (editor !== activeEditor || !isActiveEditorVisible(editor)) {
-    if (!activeEditor) {
+    if (refinementId === activeRefinementId) {
       setButtonState(button, 'idle')
     }
     return

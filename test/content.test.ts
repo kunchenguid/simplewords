@@ -84,4 +84,38 @@ describe('content script button visibility', () => {
     expect(button.hidden).toBe(true)
     expect(panel.hidden).toBe(true)
   })
+
+  test('resets the button when a refinement completes after focus moves to another editor', async () => {
+    document.body.innerHTML =
+      '<textarea>first draft</textarea><textarea>second draft</textarea>'
+
+    let resolveRefinement: (response: { reply: string }) => void = () => {}
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage: vi.fn(
+          () =>
+            new Promise<{ reply: string }>((resolve) => {
+              resolveRefinement = resolve
+            })
+        )
+      }
+    })
+
+    const editors = Array.from(document.querySelectorAll('textarea'))
+    const firstEditor = editors[0] as HTMLTextAreaElement
+    const secondEditor = editors[1] as HTMLTextAreaElement
+    firstEditor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    expect(button.textContent).toContain('Refining')
+
+    secondEditor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+    resolveRefinement({ reply: 'polished reply' })
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    expect(button.textContent).toContain('Simple Words')
+  })
 })
