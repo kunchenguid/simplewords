@@ -120,10 +120,9 @@
 
 /* =============================================================
    SEMANTIC ELEMENT STYLES
-   Apply on a wrapper (e.g. `.sw-typeset`) so we don't pollute
-   host-page styles when the extension injects DOM into 3rd-party
-   pages. The floating button + panel inside the extension
-   namespace use these.
+   Apply on a wrapper (e.g. `.sw-typeset`) so prototype surfaces
+   don't pollute host-page styles. Production injected UI lives in
+   src/content.ts and may copy token values without using these classes.
    ============================================================= */
 
 .sw-typeset {
