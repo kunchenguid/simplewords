@@ -1,810 +1,263 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=1080, height=1080">
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body {
-    width: 1080px;
-    height: 1080px;
-    overflow: hidden;
-    background: #FAF8F5;
-    font-family: 'Geist', system-ui, -apple-system, sans-serif;
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="27"
+      data-width="1080"
+      data-height="1080"
+    >
+      <!-- ============== INTRO ============== -->
+      <div class="intro" id="intro">
+        <div class="intro__eyebrow" id="intro-eyebrow">
+          <span class="dot"></span>Simple Words
+        </div>
+        <div class="intro__headline" id="intro-headline">
+          Reply faster.<br />Sound better.
+        </div>
+      </div>
 
-  #root {
-    position: relative;
-    width: 1080px;
-    height: 1080px;
-    background: #FAF8F5;
-    color: #0E1525;
-    overflow: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+      <!-- ============== CHROME / GMAIL ============== -->
+      <div class="chrome" id="chrome">
+        <div class="chrome__bar">
+          <span class="chrome__dot chrome__dot--r"></span>
+          <span class="chrome__dot chrome__dot--y"></span>
+          <span class="chrome__dot chrome__dot--g"></span>
+          <span class="chrome__title">friday night</span>
+          <span class="chrome__url">mail.app</span>
+        </div>
 
-  /* ==========================================================
-     INTRO
-     ========================================================== */
-  .intro {
-    position: absolute;
-    inset: 0;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 120px;
-    background: #FAF8F5;
-  }
-  .intro__eyebrow {
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 26px;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #526071;
-    margin-bottom: 36px;
-  }
-  .intro__eyebrow .dot {
-    display: inline-block;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #2747D6;
-    margin-right: 14px;
-    vertical-align: 4px;
-  }
-  .intro__headline {
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-style: italic;
-    font-size: 132px;
-    line-height: 1.0;
-    letter-spacing: -0.025em;
-    color: #0E1525;
-    text-align: center;
-    max-width: 900px;
-    overflow: visible;
-  }
-  .intro__sub {
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 1.4;
-    color: #526071;
-    margin-top: 40px;
-    text-align: center;
-    max-width: 700px;
-  }
+        <div class="mail-content" id="mail-content">
+          <div class="mail__head">
+            <div class="mail__subject" id="mail-subject">friday night</div>
+            <div class="mail__from" id="mail-from">
+              <div class="mail__avatar">S</div>
+              <div>
+                <div class="mail__from-name">Sarah Park</div>
+                <div class="mail__from-meta">to me &middot; Wed 4:12 PM</div>
+              </div>
+            </div>
+          </div>
 
-  /* ==========================================================
-     CHROME WINDOW (DEMO STAGE)
-     ========================================================== */
-  .chrome {
-    position: absolute;
-    top: 60px;
-    left: 60px;
-    width: 960px;
-    height: 960px;
-    background: #FFFFFF;
-    border-radius: 24px;
-    border: 1px solid #E3E6EA;
-    box-shadow: 0 18px 48px rgba(14, 21, 37, 0.12);
-    overflow: hidden;
-  }
-  .chrome__bar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 22px 28px;
-    border-bottom: 1px solid #EBEEF2;
-    color: #5F6368;
-    font-size: 22px;
-    background: #FCFCFC;
-  }
-  .chrome__dot {
-    width: 14px; height: 14px; border-radius: 50%;
-  }
-  .chrome__dot--r { background: #FF5F57; }
-  .chrome__dot--y { background: #FEBC2E; }
-  .chrome__dot--g { background: #28C840; }
-  .chrome__title {
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 22px;
-    font-weight: 500;
-    color: #202124;
-    flex: 1;
-    margin-left: 18px;
-    white-space: nowrap;
-  }
-  .chrome__url {
-    font-family: 'Geist Mono', ui-monospace, monospace;
-    font-size: 18px;
-    color: #5F6368;
-  }
+          <div class="mail__quote" id="mail-quote">
+            Hey Alex - it's been ages, I keep meaning to reach out. Anyway,
+            throwing a small thing at mine on Friday night, 8pm. Drinks,
+            dumplings, a few people from the old crew. Would really love to see
+            you, it feels like forever since we properly caught up.
+          </div>
 
-  /* Email head */
-  .mail-content {
-    position: absolute;
-    top: 75px;
-    left: 0; right: 0; bottom: 0;
-  }
-  .mail__head {
-    padding: 32px 40px 0;
-  }
-  .mail__subject {
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-style: italic;
-    font-size: 56px;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: #0E1525;
-    margin-bottom: 20px;
-  }
-  .mail__from {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    margin-bottom: 26px;
-  }
-  .mail__avatar {
-    width: 60px; height: 60px;
-    border-radius: 50%;
-    background: #E5E0D6;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-style: italic;
-    font-size: 32px;
-    color: #0E1525;
-    flex-shrink: 0;
-  }
-  .mail__from-name {
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 26px;
-    font-weight: 500;
-    color: #202124;
-    line-height: 1.2;
-  }
-  .mail__from-meta {
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 20px;
-    color: #5F6368;
-    line-height: 1.3;
-    margin-top: 2px;
-  }
-
-  /* Quoted email body */
-  .mail__quote {
-    margin: 0 40px;
-    padding: 28px 32px;
-    background: #FAFAF8;
-    border-left: 3px solid #E5E0D6;
-    border-radius: 8px;
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 28px;
-    line-height: 1.5;
-    color: #2A3142;
-  }
-
-  /* Reply editor */
-  .reply {
-    position: absolute;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
-    padding: 28px 32px;
-    background: #FFFFFF;
-    border: 1px solid #EBEEF2;
-    border-radius: 14px;
-  }
-  .reply__editor-wrap {
-    position: relative;
-    min-height: 360px;
-  }
-  .reply__editor {
-    position: absolute;
-    inset: 0;
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 36px;
-    line-height: 1.4;
-    color: #202124;
-  }
-  .reply__editor .char { display: inline; }
-  .reply__editor.is-multiline {
-    font-size: 24px;
-    line-height: 1.5;
-  }
-  .reply__editor .line { display: block; }
-  .reply__editor .line + .line { margin-top: 6px; }
-  .reply__caret {
-    position: absolute;
-    width: 3px;
-    height: 38px;
-    background: #2747D6;
-    will-change: opacity, transform;
-    top: 5px; left: 0;
-  }
-
-  .reply__actions {
-    margin-top: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 16px;
-  }
-  .reply__send {
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 26px;
-    font-weight: 500;
-    color: #fff;
-    background: #0B57D0;
-    border: 0;
-    border-radius: 24px;
-    padding: 14px 40px;
-    box-shadow: 0 1px 2px rgba(11, 87, 208, 0.2);
-    cursor: pointer;
-  }
-
-  /* ==========================================================
-     FLOATING ACTION BUTTON (Simple Words)
-     ========================================================== */
-  .fab {
-    position: absolute;
-    bottom: 124px;
-    right: 110px;
-    z-index: 50;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    border: 0;
-    border-radius: 999px;
-    padding: 18px 30px;
-    background: #0E1525;
-    color: #FAF8F5;
-    box-shadow: 0 12px 32px rgba(14, 21, 37, 0.32);
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 26px;
-    font-weight: 600;
-    cursor: pointer;
-    line-height: 1;
-  }
-  .fab svg { width: 24px; height: 24px; }
-  .fab__icon-wrap { display: inline-flex; align-items: center; }
-
-  /* ==========================================================
-     REFINE PANEL
-     ========================================================== */
-  .panel {
-    position: absolute;
-    z-index: 60;
-    left: 130px;
-    right: 130px;
-    bottom: 290px;
-    padding: 30px 32px 28px;
-    background: rgba(255, 252, 247, 0.97);
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
-    border: 1px solid #E5E0D6;
-    border-radius: 18px;
-    box-shadow: 0 24px 56px rgba(14, 21, 37, 0.28);
-  }
-  .panel__head {
-    display: flex; align-items: center; gap: 12px;
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 18px;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: #526071;
-    font-weight: 500;
-    margin-bottom: 16px;
-  }
-  .panel__head svg { width: 20px; height: 20px; color: #2747D6; }
-  .panel__loading {
-    display: flex; align-items: center; gap: 14px;
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 28px;
-    color: #526071;
-    min-height: 60px;
-    overflow: hidden;
-  }
-  .panel__loading svg { width: 26px; height: 26px; color: #2747D6; }
-  .panel__body {
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 26px;
-    line-height: 1.5;
-    color: #0E1525;
-    margin-bottom: 22px;
-  }
-  .panel__body .line { display: block; }
-  .panel__body .line + .line { margin-top: 6px; }
-  .panel__actions { display: flex; gap: 14px; }
-  .btn {
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    border: 0;
-    border-radius: 10px;
-    padding: 16px 24px;
-    line-height: 1;
-    cursor: pointer;
-  }
-  .btn--primary { background: #0E1525; color: #FAF8F5; }
-  .btn--ghost { background: transparent; color: #0E1525; border: 1px solid #C9D2E3; }
-
-  /* ==========================================================
-     CURSOR + DELIGHT
-     ========================================================== */
-  .cursor {
-    position: absolute;
-    width: 36px; height: 36px;
-    z-index: 200;
-    pointer-events: none;
-    will-change: transform;
-    top: 0; left: 0;
-    opacity: 0;
-  }
-  .cursor svg {
-    width: 100%; height: 100%;
-    filter: drop-shadow(0 4px 8px rgba(14,21,37,0.28));
-  }
-
-  .click-ring {
-    position: absolute;
-    width: 80px; height: 80px;
-    border-radius: 50%;
-    border: 4px solid #2747D6;
-    z-index: 180;
-    pointer-events: none;
-    top: 0; left: 0;
-    margin-left: -40px;
-    margin-top: -40px;
-    opacity: 0;
-  }
-
-  .sparkle {
-    position: absolute;
-    width: 22px; height: 22px;
-    z-index: 170;
-    pointer-events: none;
-    color: #2747D6;
-    top: 0; left: 0;
-    margin-left: -11px;
-    margin-top: -11px;
-    opacity: 0;
-  }
-  .sparkle svg { width: 100%; height: 100%; }
-
-  .send-trail {
-    position: absolute;
-    width: 14px; height: 14px;
-    z-index: 170;
-    pointer-events: none;
-    background: #2747D6;
-    border-radius: 50%;
-    top: 0; left: 0;
-    margin-left: -7px;
-    margin-top: -7px;
-    opacity: 0;
-  }
-
-  /* ==========================================================
-     OUTRO
-     ========================================================== */
-  .outro {
-    position: absolute;
-    inset: 0;
-    z-index: 110;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 120px;
-    background: #FAF8F5;
-    opacity: 0;
-  }
-  .outro__glyph {
-    width: 132px; height: 132px;
-    border-radius: 28px;
-    background: #0E1525;
-    color: #FAF8F5;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-style: italic;
-    font-size: 84px;
-    line-height: 1;
-    margin-bottom: 40px;
-  }
-  .outro__wordmark {
-    font-family: 'Instrument Serif', Georgia, serif;
-    font-style: italic;
-    font-size: 104px;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: #0E1525;
-    margin-bottom: 24px;
-  }
-  .outro__tag {
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 32px;
-    line-height: 1.4;
-    color: #526071;
-    text-align: center;
-    max-width: 720px;
-  }
-  .outro__cta {
-    margin-top: 56px;
-    font-family: 'Geist', system-ui, sans-serif;
-    font-size: 22px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #2747D6;
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .outro__cta::before,
-  .outro__cta::after {
-    content: "";
-    display: inline-block;
-    width: 32px;
-    height: 1px;
-    background: #2747D6;
-  }
-
-  /* Wipe overlay (scene transitions) */
-  .wipe {
-    position: absolute;
-    inset: 0;
-    z-index: 250;
-    background: #0E1525;
-    transform: translateY(100%);
-    pointer-events: none;
-  }
-</style>
-</head>
-<body>
-<div id="root" data-composition-id="main" data-start="0" data-duration="27" data-width="1080" data-height="1080">
-
-  <!-- ============== INTRO ============== -->
-  <div class="intro" id="intro">
-    <div class="intro__eyebrow" id="intro-eyebrow"><span class="dot"></span>Simple Words</div>
-    <div class="intro__headline" id="intro-headline">Reply faster.<br>Sound better.</div>
-  </div>
-
-  <!-- ============== CHROME / GMAIL ============== -->
-  <div class="chrome" id="chrome">
-    <div class="chrome__bar">
-      <span class="chrome__dot chrome__dot--r"></span>
-      <span class="chrome__dot chrome__dot--y"></span>
-      <span class="chrome__dot chrome__dot--g"></span>
-      <span class="chrome__title">friday night</span>
-      <span class="chrome__url">mail.app</span>
-    </div>
-
-    <div class="mail-content" id="mail-content">
-      <div class="mail__head">
-        <div class="mail__subject" id="mail-subject">friday night</div>
-        <div class="mail__from" id="mail-from">
-          <div class="mail__avatar">S</div>
-          <div>
-            <div class="mail__from-name">Sarah Park</div>
-            <div class="mail__from-meta">to me &middot; Wed 4:12 PM</div>
+          <div class="reply" id="reply">
+            <div class="reply__editor-wrap">
+              <div class="reply__editor" id="reply-rough">
+                <span class="char">i</span><span class="char">&nbsp;</span
+                ><span class="char">h</span><span class="char">a</span
+                ><span class="char">v</span><span class="char">e</span
+                ><span class="char">&nbsp;</span><span class="char">p</span
+                ><span class="char">l</span><span class="char">a</span
+                ><span class="char">n</span><span class="char">s</span>
+              </div>
+              <div class="reply__editor is-multiline" id="reply-refined">
+                <span class="line">Hi Sarah,</span
+                ><span class="line"
+                  >It's so good to hear from you - it really has been too long.
+                  I'd love to be there, but I already have plans locked in for
+                  Friday night. Could we get coffee next week and properly catch
+                  up? I want to hear everything.</span
+                ><span class="line">Take care,</span
+                ><span class="line">Alex</span>
+              </div>
+              <div class="reply__caret" id="reply-caret"></div>
+            </div>
+            <div class="reply__actions">
+              <button class="reply__send" id="reply-send">Send</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="mail__quote" id="mail-quote">
-        Hey Alex - it's been ages, I keep meaning to reach out. Anyway, throwing a small thing at mine on Friday night, 8pm. Drinks, dumplings, a few people from the old crew. Would really love to see you, it feels like forever since we properly caught up.
+      <!-- ============== FAB ============== -->
+      <button class="fab" id="fab" aria-label="Simple Words">
+        <span class="fab__icon-wrap" id="fab-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+            ></path>
+            <path d="M20 3v4"></path>
+            <path d="M22 5h-4"></path>
+            <path d="M4 17v2"></path>
+            <path d="M5 18H3"></path>
+          </svg>
+        </span>
+        <span id="fab-label">Simple Words</span>
+      </button>
+
+      <!-- ============== PANEL ============== -->
+      <div class="panel" id="panel">
+        <div class="panel__head">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+            ></path>
+            <path d="M20 3v4"></path>
+            <path d="M22 5h-4"></path>
+            <path d="M4 17v2"></path>
+            <path d="M5 18H3"></path>
+          </svg>
+          <span>Refined draft</span>
+        </div>
+        <div class="panel__loading" id="panel-loading">
+          <svg
+            id="panel-loading-svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+          </svg>
+          <span>Refining</span>
+        </div>
+        <div class="panel__body" id="panel-body">
+          <span class="line" id="panel-line-1">Hi Sarah,</span
+          ><span class="line" id="panel-line-2"
+            >It's so good to hear from you - it really has been too long. I'd
+            love to be there, but I already have plans locked in for Friday
+            night. Could we get coffee next week and properly catch up? I want
+            to hear everything.</span
+          ><span class="line" id="panel-line-3">Take care,</span
+          ><span class="line" id="panel-line-4">Alex</span>
+        </div>
+        <div class="panel__actions" id="panel-actions">
+          <button class="btn btn--primary" id="btn-replace">
+            Replace draft
+          </button>
+          <button class="btn btn--ghost" id="btn-dismiss">Dismiss</button>
+        </div>
       </div>
 
-      <div class="reply" id="reply">
-        <div class="reply__editor-wrap">
-          <div class="reply__editor" id="reply-rough"><span class="char">i</span><span class="char">&nbsp;</span><span class="char">h</span><span class="char">a</span><span class="char">v</span><span class="char">e</span><span class="char">&nbsp;</span><span class="char">p</span><span class="char">l</span><span class="char">a</span><span class="char">n</span><span class="char">s</span></div>
-          <div class="reply__editor is-multiline" id="reply-refined"><span class="line">Hi Sarah,</span><span class="line">It's so good to hear from you - it really has been too long. I'd love to be there, but I already have plans locked in for Friday night. Could we get coffee next week and properly catch up? I want to hear everything.</span><span class="line">Take care,</span><span class="line">Alex</span></div>
-          <div class="reply__caret" id="reply-caret"></div>
-        </div>
-        <div class="reply__actions">
-          <button class="reply__send" id="reply-send">Send</button>
-        </div>
+      <!-- ============== CURSOR ============== -->
+      <div class="cursor" id="cursor">
+        <svg viewBox="0 0 32 32">
+          <path
+            d="M5 3 L5 25 L11 19.5 L14.5 27 L18.5 25 L15 17.5 L23 17.5 Z"
+            fill="#0E1525"
+            stroke="#FAF8F5"
+            stroke-width="1.4"
+            stroke-linejoin="round"
+          />
+        </svg>
       </div>
+
+      <!-- ============== CLICK RING ============== -->
+      <div class="click-ring" id="click-ring"></div>
+
+      <!-- ============== SPARKLES (8) ============== -->
+      <div class="sparkle" id="sp-1">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+          />
+        </svg>
+      </div>
+      <div class="sparkle" id="sp-2">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+          />
+        </svg>
+      </div>
+      <div class="sparkle" id="sp-3">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+          />
+        </svg>
+      </div>
+      <div class="sparkle" id="sp-4">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+          />
+        </svg>
+      </div>
+      <div class="sparkle" id="sp-5">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+          />
+        </svg>
+      </div>
+      <div class="sparkle" id="sp-6">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+          />
+        </svg>
+      </div>
+      <div class="sparkle" id="sp-7">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+          />
+        </svg>
+      </div>
+      <div class="sparkle" id="sp-8">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+          />
+        </svg>
+      </div>
+
+      <!-- ============== SEND TRAIL DOTS ============== -->
+      <div class="send-trail" id="st-1"></div>
+      <div class="send-trail" id="st-2"></div>
+      <div class="send-trail" id="st-3"></div>
+      <div class="send-trail" id="st-4"></div>
+      <div class="send-trail" id="st-5"></div>
+
+      <!-- ============== OUTRO ============== -->
+      <div class="outro" id="outro">
+        <div class="outro__glyph" id="outro-glyph">sw</div>
+        <div class="outro__wordmark" id="outro-wordmark">Simple Words</div>
+        <div class="outro__tag" id="outro-tag">
+          Say what you mean.<br />Send what you want.
+        </div>
+        <div class="outro__cta" id="outro-cta">A Chrome extension</div>
+      </div>
+
+      <!-- ============== WIPE ============== -->
+      <div class="wipe" id="wipe"></div>
     </div>
-  </div>
 
-  <!-- ============== FAB ============== -->
-  <button class="fab" id="fab" aria-label="Simple Words">
-    <span class="fab__icon-wrap" id="fab-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
-        <path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path>
-      </svg>
-    </span>
-    <span id="fab-label">Simple Words</span>
-  </button>
-
-  <!-- ============== PANEL ============== -->
-  <div class="panel" id="panel">
-    <div class="panel__head">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
-        <path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path>
-      </svg>
-      <span>Refined draft</span>
-    </div>
-    <div class="panel__loading" id="panel-loading">
-      <svg id="panel-loading-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
-      </svg>
-      <span>Refining</span>
-    </div>
-    <div class="panel__body" id="panel-body"><span class="line" id="panel-line-1">Hi Sarah,</span><span class="line" id="panel-line-2">It's so good to hear from you - it really has been too long. I'd love to be there, but I already have plans locked in for Friday night. Could we get coffee next week and properly catch up? I want to hear everything.</span><span class="line" id="panel-line-3">Take care,</span><span class="line" id="panel-line-4">Alex</span></div>
-    <div class="panel__actions" id="panel-actions">
-      <button class="btn btn--primary" id="btn-replace">Replace draft</button>
-      <button class="btn btn--ghost" id="btn-dismiss">Dismiss</button>
-    </div>
-  </div>
-
-  <!-- ============== CURSOR ============== -->
-  <div class="cursor" id="cursor">
-    <svg viewBox="0 0 32 32">
-      <path d="M5 3 L5 25 L11 19.5 L14.5 27 L18.5 25 L15 17.5 L23 17.5 Z" fill="#0E1525" stroke="#FAF8F5" stroke-width="1.4" stroke-linejoin="round"/>
-    </svg>
-  </div>
-
-  <!-- ============== CLICK RING ============== -->
-  <div class="click-ring" id="click-ring"></div>
-
-  <!-- ============== SPARKLES (8) ============== -->
-  <div class="sparkle" id="sp-1"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"/></svg></div>
-  <div class="sparkle" id="sp-2"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"/></svg></div>
-  <div class="sparkle" id="sp-3"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"/></svg></div>
-  <div class="sparkle" id="sp-4"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"/></svg></div>
-  <div class="sparkle" id="sp-5"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"/></svg></div>
-  <div class="sparkle" id="sp-6"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"/></svg></div>
-  <div class="sparkle" id="sp-7"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"/></svg></div>
-  <div class="sparkle" id="sp-8"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"/></svg></div>
-
-  <!-- ============== SEND TRAIL DOTS ============== -->
-  <div class="send-trail" id="st-1"></div>
-  <div class="send-trail" id="st-2"></div>
-  <div class="send-trail" id="st-3"></div>
-  <div class="send-trail" id="st-4"></div>
-  <div class="send-trail" id="st-5"></div>
-
-  <!-- ============== OUTRO ============== -->
-  <div class="outro" id="outro">
-    <div class="outro__glyph" id="outro-glyph">sw</div>
-    <div class="outro__wordmark" id="outro-wordmark">Simple Words</div>
-    <div class="outro__tag" id="outro-tag">Say what you mean.<br>Send what you want.</div>
-    <div class="outro__cta" id="outro-cta">A Chrome extension</div>
-  </div>
-
-  <!-- ============== WIPE ============== -->
-  <div class="wipe" id="wipe"></div>
-</div>
-
-<script>
-  window.__timelines = window.__timelines || {};
-  const tl = gsap.timeline({ paused: true });
-
-  // ===== Anchor positions on the 1080x1080 canvas =====
-  // Send and FAB share the same Y axis (centered on the reply actions row).
-  // Reply layout: chrome.top(60) + reply.top(432) + padding(28) + editor-wrap(360) + margin(18) + send.height/2(27) = 925
-  const ACTIONS_CY = 925;
-
-  const FAB_CX = 1080 - 110 - 135;   // ~835
-  const FAB_CY = ACTIONS_CY;
-
-  const REPLY_CX = 540;
-  const REPLY_CY = 700;
-
-  const REPLACE_CX = 130 + 32 + 95;  // ~257
-  const REPLACE_CY = 1080 - 320;     // ~760
-
-  // Send button x: chrome.left(60) + reply.left(40) + reply.padding-left(32) + button-width/2(75) = ~207
-  const SEND_CX = 207;
-  const SEND_CY = ACTIONS_CY;
-
-  const SPARKLE_OFFS = [
-    { x: 90, y: 0 }, { x: 64, y: -64 }, { x: 0, y: -90 }, { x: -64, y: -64 },
-    { x: -90, y: 0 }, { x: -64, y: 64 }, { x: 0, y: 90 }, { x: 64, y: 64 }
-  ];
-
-  // ===== Initial state at t=0 =====
-  tl.set("#chrome", { opacity: 0 }, 0);
-  tl.set("#mail-subject", { opacity: 0, y: 16 }, 0);
-  tl.set("#mail-from", { opacity: 0, y: 16 }, 0);
-  tl.set("#mail-quote", { opacity: 0, y: 16 }, 0);
-  tl.set("#reply", { opacity: 0, y: 16 }, 0);
-  tl.set("#reply-rough .char", { opacity: 0 }, 0);
-  tl.set("#reply-refined", { opacity: 0 }, 0);
-  tl.set("#reply-caret", { opacity: 0, x: 0, y: 0 }, 0);
-
-  tl.set("#fab", { opacity: 0, scale: 0.85, transformOrigin: "center center" }, 0);
-  tl.set("#panel", { opacity: 0, y: 24 }, 0);
-  tl.set("#panel-loading", { opacity: 1 }, 0);
-  tl.set("#panel-line-1", { opacity: 0, y: 10 }, 0);
-  tl.set("#panel-line-2", { opacity: 0, y: 10 }, 0);
-  tl.set("#panel-line-3", { opacity: 0, y: 10 }, 0);
-  tl.set("#panel-line-4", { opacity: 0, y: 10 }, 0);
-  tl.set("#panel-actions", { opacity: 0, y: 8 }, 0);
-
-  tl.set("#cursor", { opacity: 0, x: 1080, y: 1080 }, 0);
-  tl.set("#click-ring", { opacity: 0, scale: 0, x: 0, y: 0 }, 0);
-  tl.set(".sparkle", { opacity: 0, scale: 0, x: FAB_CX, y: FAB_CY }, 0);
-  tl.set(".send-trail", { opacity: 0, scale: 0, x: SEND_CX, y: SEND_CY }, 0);
-
-  tl.set("#outro", { opacity: 0 }, 0);
-  tl.set("#outro-glyph", { opacity: 0, y: 30, scale: 0.92 }, 0);
-  tl.set("#outro-wordmark", { opacity: 0, y: 24 }, 0);
-  tl.set("#outro-tag", { opacity: 0, y: 16 }, 0);
-  tl.set("#outro-cta", { opacity: 0, y: 12 }, 0);
-
-  tl.set("#wipe", { y: "100%" }, 0);
-
-  // ====================================================================
-  // SCENE 1 — INTRO (0.0 -> 2.2)
-  // ====================================================================
-  tl.from("#intro-eyebrow", { opacity: 0, y: 12, duration: 0.5, ease: "power2.out" }, 0.20);
-  tl.from("#intro-headline", { opacity: 0, y: 36, duration: 0.9, ease: "power3.out" }, 0.50);
-
-  // ====================================================================
-  // TRANSITION — wipe up (2.2 -> 2.9)
-  // ====================================================================
-  tl.to("#wipe", { y: "0%", duration: 0.32, ease: "power3.in" }, 2.20);
-  tl.set("#intro", { opacity: 0 }, 2.55);
-  tl.set("#chrome", { opacity: 1 }, 2.55);
-  tl.to("#wipe", { y: "-100%", duration: 0.32, ease: "power3.out" }, 2.55);
-
-  // ====================================================================
-  // SCENE 2 — EMAIL REVEAL (2.95 -> 4.5)
-  // ====================================================================
-  tl.to("#mail-subject", { opacity: 1, y: 0, duration: 0.6,  ease: "power3.out" }, 2.95);
-  tl.to("#mail-from",    { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 3.10);
-  tl.to("#mail-quote",   { opacity: 1, y: 0, duration: 0.7,  ease: "expo.out"   }, 3.30);
-  tl.to("#reply",        { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 3.65);
-
-  // ====================================================================
-  // SCENE 3 — HOLD reading email (longer now), then CURSOR + TYPEWRITER
-  // ====================================================================
-  // Quote finishes at ~4.0; longer email needs ~3.5s reading time.
-  tl.to("#cursor", { opacity: 1, x: REPLY_CX - 16, y: REPLY_CY - 16, duration: 0.85, ease: "power2.inOut" }, 7.20);
-  tl.set("#reply-caret", { x: 0, y: 0 }, 8.05);
-  tl.to("#reply-caret", { opacity: 1, duration: 0.15, ease: "power1.out" }, 8.05);
-
-  const TYPED = "i have plans";
-  let caretX = 0;
-  for (let i = 0; i < TYPED.length; i++) {
-    const t = 8.25 + i * 0.085;
-    tl.to("#reply-rough .char:nth-child(" + (i + 1) + ")", { opacity: 1, duration: 0.06, ease: "none" }, t);
-    const ch = TYPED[i];
-    let w = 16;
-    if (ch === ' ') w = 9;
-    else if (ch === 'i' || ch === 'l') w = 8;
-    else if (ch === 'n' || ch === 'o' || ch === 'a' || ch === 'e' || ch === 's') w = 19;
-    else if (ch === 'h' || ch === 'p' || ch === 'v') w = 20;
-    caretX += w;
-    tl.to("#reply-caret", { x: caretX, duration: 0.07, ease: "none" }, t);
-  }
-  // Typing ends ~9.55. Caret blinks while we sit on the bare reply.
-  tl.to("#reply-caret", { opacity: 0, duration: 0.45, ease: "power1.inOut", yoyo: true, repeat: 4 }, 9.60);
-
-  // ====================================================================
-  // SCENE 4 — HOLD on bare reply, then FAB APPEARS + CURSOR MOVES
-  // ====================================================================
-  tl.to("#fab", { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 11.10);
-  tl.to("#cursor", { x: FAB_CX - 16, y: FAB_CY - 18, duration: 0.95, ease: "power2.inOut" }, 11.60);
-
-  // ====================================================================
-  // SCENE 5 — CLICK SIMPLE WORDS
-  // ====================================================================
-  tl.to("#fab", { scale: 0.94, duration: 0.10, ease: "power2.out" }, 12.60);
-  tl.to("#fab", { scale: 1.0,  duration: 0.18, ease: "power2.out" }, 12.70);
-  tl.to("#cursor", { scale: 0.92, duration: 0.10, ease: "power2.out" }, 12.60);
-  tl.to("#cursor", { scale: 1.0,  duration: 0.18, ease: "power2.out" }, 12.70);
-
-  tl.set("#click-ring", { x: FAB_CX, y: FAB_CY, scale: 0, opacity: 1 }, 12.63);
-  tl.to("#click-ring", { scale: 2.4, opacity: 0, duration: 0.55, ease: "power2.out" }, 12.63);
-
-  for (let i = 0; i < 8; i++) {
-    const off = SPARKLE_OFFS[i];
-    const id = "#sp-" + (i + 1);
-    tl.set(id, { x: FAB_CX, y: FAB_CY, scale: 0, opacity: 0 }, 12.63);
-    tl.to(id, { x: FAB_CX + off.x, y: FAB_CY + off.y, scale: 1, opacity: 1, duration: 0.22, ease: "power2.out" }, 12.65 + i * 0.012);
-    tl.to(id, { x: FAB_CX + off.x * 1.45, y: FAB_CY + off.y * 1.45, scale: 0, opacity: 0, duration: 0.5, ease: "power1.in" }, 12.89 + i * 0.012);
-  }
-
-  tl.to("#fab", { backgroundColor: "#2747D6", duration: 0.25, ease: "power2.inOut" }, 12.80);
-
-  // ====================================================================
-  // SCENE 6 — PANEL APPEARS + LOADING
-  // ====================================================================
-  tl.fromTo("#panel",
-    { opacity: 0, y: 24, scale: 0.98 },
-    { opacity: 1, y: 0,  scale: 1,    duration: 0.45, ease: "power3.out" },
-    12.90);
-  tl.to("#panel-loading-svg", { rotation: 360, duration: 0.95, ease: "none", transformOrigin: "center center" }, 13.00);
-
-  // ====================================================================
-  // SCENE 7 — REFINED DRAFT REVEALS (longer copy now)
-  // ====================================================================
-  tl.to("#panel-loading", { opacity: 0, height: 0, marginBottom: 0, duration: 0.30, ease: "power2.in" }, 14.00);
-  tl.to("#panel-line-1", { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 14.15);
-  tl.to("#panel-line-2", { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 14.35);
-  tl.to("#panel-line-3", { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 14.70);
-  tl.to("#panel-line-4", { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 14.90);
-  tl.to("#panel-actions", { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 15.15);
-
-  // ====================================================================
-  // SCENE 8 — HOLD reading refined draft (~3s), then CURSOR -> REPLACE
-  // ====================================================================
-  tl.to("#cursor", { x: REPLACE_CX - 16, y: REPLACE_CY - 18, duration: 0.95, ease: "power2.inOut" }, 18.40);
-  tl.to("#cursor", { scale: 0.92, duration: 0.10, ease: "power2.out" }, 19.35);
-  tl.to("#cursor", { scale: 1.0,  duration: 0.18, ease: "power2.out" }, 19.45);
-  tl.set("#click-ring", { x: REPLACE_CX, y: REPLACE_CY, scale: 0, opacity: 1 }, 19.35);
-  tl.to("#click-ring", { scale: 2.0, opacity: 0, duration: 0.5, ease: "power2.out" }, 19.35);
-
-  // ====================================================================
-  // SCENE 9 — REPLY EDITOR SWAPS
-  // ====================================================================
-  tl.to("#reply-rough", { opacity: 0, y: -8, duration: 0.30, ease: "power2.in" }, 19.50);
-  tl.to("#reply-caret", { opacity: 0, duration: 0.20, ease: "power2.in" }, 19.50);
-  tl.to("#panel", { opacity: 0, y: -16, scale: 0.98, duration: 0.45, ease: "power2.inOut" }, 19.55);
-  tl.fromTo("#reply-refined",
-    { opacity: 0, y: 8 },
-    { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" },
-    19.80);
-  tl.to("#fab", { opacity: 0, scale: 0.92, duration: 0.35, ease: "power2.in" }, 19.65);
-
-  // ====================================================================
-  // SCENE 10 — HOLD seeing the new draft, then CURSOR -> SEND
-  // ====================================================================
-  tl.to("#cursor", { x: SEND_CX - 16, y: SEND_CY - 18, duration: 0.85, ease: "power2.inOut" }, 22.20);
-  tl.to("#cursor", { scale: 0.92, duration: 0.10, ease: "power2.out" }, 23.05);
-  tl.to("#cursor", { scale: 1.0,  duration: 0.18, ease: "power2.out" }, 23.15);
-  tl.to("#reply-send", { scale: 0.96, duration: 0.10, ease: "power2.out", transformOrigin: "center center" }, 23.05);
-  tl.to("#reply-send", { scale: 1.0,  duration: 0.18, ease: "power2.out" }, 23.15);
-  tl.set("#click-ring", { x: SEND_CX, y: SEND_CY, scale: 0, opacity: 1 }, 23.05);
-  tl.to("#click-ring", { scale: 1.8, opacity: 0, duration: 0.45, ease: "power2.out" }, 23.05);
-
-  // ====================================================================
-  // SCENE 11 — SEND LIFTOFF
-  // ====================================================================
-  tl.to("#mail-content", { opacity: 0, y: -180, scale: 0.98, duration: 0.85, ease: "power2.in", transformOrigin: "center center" }, 23.30);
-  tl.to("#cursor", { opacity: 0, duration: 0.40, ease: "power2.in" }, 23.45);
-
-  const trailOffsets = [
-    { x: -30, y: -60 }, { x: 10, y: -110 }, { x: -10, y: -180 },
-    { x: 30, y: -240 }, { x: 0,  y: -300 }
-  ];
-  for (let i = 0; i < trailOffsets.length; i++) {
-    const off = trailOffsets[i];
-    const id = "#st-" + (i + 1);
-    tl.set(id, { x: SEND_CX, y: SEND_CY, scale: 0, opacity: 0 }, 23.25);
-    tl.to(id, { x: SEND_CX + off.x, y: SEND_CY + off.y, scale: 1, opacity: 0.9, duration: 0.30, ease: "power2.out" }, 23.30 + i * 0.05);
-    tl.to(id, { y: SEND_CY + off.y - 80, scale: 0, opacity: 0, duration: 0.55, ease: "power1.in" }, 23.60 + i * 0.05);
-  }
-
-  // ====================================================================
-  // TRANSITION — wipe down
-  // ====================================================================
-  tl.set("#wipe", { y: "-100%" }, 24.20);
-  tl.to("#wipe", { y: "0%", duration: 0.30, ease: "power3.in" }, 24.20);
-  tl.set("#chrome", { opacity: 0 }, 24.51);
-  tl.set("#outro", { opacity: 1 }, 24.51);
-  tl.to("#wipe", { y: "100%", duration: 0.32, ease: "power3.out", overwrite: "auto" }, 24.53);
-
-  // ====================================================================
-  // SCENE 12 — OUTRO
-  // ====================================================================
-  tl.to("#outro-glyph",    { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }, 24.75);
-  tl.to("#outro-wordmark", { opacity: 1, y: 0, duration: 0.65, ease: "expo.out"   }, 24.95);
-  tl.to("#outro-tag",      { opacity: 1, y: 0, duration: 0.60, ease: "power2.out" }, 25.20);
-  tl.to("#outro-cta",      { opacity: 1, y: 0, duration: 0.50, ease: "power2.out" }, 25.50);
-  tl.to("#outro-glyph", { y: -6, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1 }, 25.70);
-
-  window.__timelines["main"] = tl;
-</script>
-</body>
+    <script>
+      window.__timelines = window.__timelines || {}
+      window.__timelines['main'] = window.__timelines['main'] || null
+    </script>
+    <script src="./timeline.js"></script>
+  </body>
 </html>
