@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Voice & tone</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+  .stage { padding: 26px 32px; background: var(--paper); display: flex; flex-direction: column; gap: 14px; }
+  .quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ink-900);
+    max-width: 580px;
+  }
+  .row { display: flex; gap: 12px; }
+  .pill {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    padding: 4px 10px;
+  }
+  .yes { background: #E2F1E8; color: #176B3A; }
+  .no  { background: #F8E6E5; color: #B0302E; }
+  .examples { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; font-family: var(--font-sans); font-size: 13px; line-height: 1.5; }
+  .examples .col { display: flex; flex-direction: column; gap: 4px; }
+  .examples .col span { color: var(--ink-700); }
+  .examples .col .head {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+  .head.yes-head { color: #176B3A; }
+  .head.no-head  { color: #B0302E; }
+  .strike { text-decoration: line-through; color: var(--fg-3); }
+</style>
+</head>
+<body>
+<div class="stage">
+  <span class="quote">Turn rough replies into friendly drafts using surrounding page context.</span>
+  <div class="examples">
+    <div class="col">
+      <span class="head yes-head">Sounds like us</span>
+      <span>"Write a rough reply first."</span>
+      <span>"Leave blank to restore the default."</span>
+      <span>"Saved."</span>
+    </div>
+    <div class="col">
+      <span class="head no-head">Doesn't</span>
+      <span class="strike">"Let's get you started! ✨"</span>
+      <span class="strike">"Supercharge your replies"</span>
+      <span class="strike">"Successfully saved!! 🎉"</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

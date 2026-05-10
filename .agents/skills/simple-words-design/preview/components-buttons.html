@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Buttons</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+  .stage {
+    padding: 28px 32px;
+    background: var(--paper);
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    border: 0;
+    cursor: pointer;
+    transition: all 120ms cubic-bezier(0.2,0.8,0.2,1);
+  }
+  .btn--pill {
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: #0E1525;
+    color: #FAF8F5;
+    box-shadow: 0 8px 24px rgba(14,21,37,0.22);
+  }
+  .btn--primary {
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: #0E1525;
+    color: #FAF8F5;
+  }
+  .btn--ghost {
+    border-radius: 8px;
+    padding: 9px 13px;
+    background: transparent;
+    color: #0E1525;
+    border: 1px solid #C9D2E3;
+  }
+  .btn--accent {
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: #2747D6;
+    color: #FAF8F5;
+  }
+  .btn--small {
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 12px;
+    background: #F1EEE8;
+    color: #0E1525;
+  }
+  .focused { outline: 2px solid #2747D6; outline-offset: 2px; }
+  .label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-3); width: 60px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="row">
+    <span class="label">Default</span>
+    <button class="btn btn--pill">Simple Words</button>
+    <button class="btn btn--primary">Save</button>
+    <button class="btn btn--ghost">Dismiss</button>
+    <button class="btn btn--accent">Refining…</button>
+    <button class="btn btn--small">Replace draft</button>
+  </div>
+  <div class="row">
+    <span class="label">Focus</span>
+    <button class="btn btn--pill focused">Simple Words</button>
+    <button class="btn btn--primary focused">Save</button>
+    <button class="btn btn--ghost focused">Dismiss</button>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Form fields</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+  .stage { padding: 24px 32px; background: var(--paper); display: flex; flex-direction: column; gap: 14px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .lbl {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    color: #0E1525;
+  }
+  .ipt {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: #0E1525;
+    border: 1px solid #C9D2E3;
+    border-radius: 8px;
+    padding: 10px 12px;
+    background: #fff;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .ipt:focus { outline: 2px solid #2747D6; outline-offset: 1px; border-color: #2747D6; }
+  .ipt--focused { outline: 2px solid #2747D6; outline-offset: 1px; border-color: #2747D6; }
+  .row { display: flex; gap: 12px; }
+  .row > * { flex: 1; }
+  .hint {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: #526071;
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="field">
+    <label class="lbl">My name</label>
+    <input class="ipt" placeholder="Optional" value="">
+  </div>
+  <div class="row">
+    <div class="field">
+      <label class="lbl">Model</label>
+      <input class="ipt ipt--focused" value="gpt-5.5">
+    </div>
+    <div class="field">
+      <label class="lbl">Reasoning effort</label>
+      <input class="ipt" value="low">
+    </div>
+  </div>
+</div>
+</body>
+</html>

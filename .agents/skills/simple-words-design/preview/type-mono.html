@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mono type</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+  .stage { padding: 26px 32px; background: var(--paper); display: flex; flex-direction: column; gap: 16px; }
+  .specimen {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    line-height: 1.1;
+    color: var(--ink-900);
+    letter-spacing: -0.005em;
+  }
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: var(--code-bg);
+    border-radius: 5px;
+    padding: 2px 6px;
+    color: var(--ink-800);
+  }
+  .meta { font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); }
+</style>
+</head>
+<body>
+<div class="stage">
+  <span class="specimen">gpt-5.5-fast · llama3.2</span>
+  <div class="row">
+    <span class="chip">~/.codex/auth.json</span>
+    <span class="chip">https://api.openai.com/v1</span>
+    <span class="chip">reasoning_effort: low</span>
+  </div>
+  <span class="meta">Geist Mono · 400/500 · used for model names, API endpoints, code, settings values.</span>
+</div>
+</body>
+</html>

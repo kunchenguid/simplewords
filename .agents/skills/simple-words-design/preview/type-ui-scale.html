@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>UI type scale</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+  .stage { padding: 28px 32px; background: var(--paper); display: flex; flex-direction: column; gap: 14px; }
+  .row { display: flex; align-items: baseline; gap: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .row:last-child { border-bottom: 0; }
+  .specimen { font-family: var(--font-sans); color: var(--ink-900); }
+  .h1 { font-size: 32px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.1; }
+  .h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.005em; line-height: 1.2; }
+  .h3 { font-size: 17px; font-weight: 600; line-height: 1.25; }
+  .body { font-size: 14px; font-weight: 400; line-height: 1.45; color: var(--ink-700); }
+  .small { font-size: 13px; font-weight: 600; line-height: 1; }
+  .meta {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--fg-3);
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="row"><span class="specimen h1">Writing Instructions</span><span class="meta">h1 · 32 / 600</span></div>
+  <div class="row"><span class="specimen h2">OpenAI-Compatible</span><span class="meta">h2 · 22 / 600</span></div>
+  <div class="row"><span class="specimen h3">Reasoning effort</span><span class="meta">h3 · 17 / 600</span></div>
+  <div class="row"><span class="specimen body">Choose an LLM provider. Calls go directly to it.</span><span class="meta">body · 14 / 400</span></div>
+  <div class="row"><span class="specimen small">Replace draft</span><span class="meta">small · 13 / 600</span></div>
+</div>
+</body>
+</html>
