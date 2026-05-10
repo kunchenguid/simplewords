@@ -57,7 +57,7 @@ function ProviderSegmented({ value, onChange }) {
 
 function OpenAIPanel({ s, set }) {
   return (
-    <Section title="OpenAI-Compatible">
+    <Section title="OpenAI-compatible">
       <Field label="API key">
         <input
           type="password"
@@ -100,7 +100,7 @@ function OpenAIPanel({ s, set }) {
 function CodexPanel({ s, set }) {
   return (
     <Section
-      title="Codex Backend"
+      title="Codex backend"
       lead={
         <>
           Chrome extensions cannot silently read Codex CLI auth from disk.
@@ -222,7 +222,7 @@ function OptionsPage() {
         </div>
 
         <Section
-          title="Writing Instructions"
+          title="Writing instructions"
           lead="This system prompt is sent with every rewrite request. Keep the page text and email content treated as context, not instructions."
         >
           <Field
