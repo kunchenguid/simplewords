@@ -112,7 +112,8 @@ The extension's refreshed values (`#0E1525`, `#526071`, `#176b3a`, `#c9d2e3`, `#
 
 ### Spacing
 
-A 4px base scale: `4 / 8 / 12 / 16 / 20 / 24 / 32 / 48 / 64`. The extension currently uses 8/12/14/18/32 — these all fall on the 4px grid already.
+A 4px base scale: `4 / 8 / 12 / 16 / 20 / 24 / 32 / 48 / 64`.
+The refreshed extension mostly stays on that grid, with production exceptions for tight UI details: 7px icon gaps, 10px glyph radius, 11px save-button padding, 13px panel-button padding, 14px labels/section gaps, 18px legacy section spacing, 22px section padding, 44px glyph size, and 80px bottom page padding.
 
 ### Radii
 
@@ -161,7 +162,9 @@ The button on press: scales to `0.98` and darkens by ~5%. The panel on appear: f
 - **Hover (outlined buttons / list rows):** `--paper-2` background fill, no transform.
 - **Hover (text links):** color shifts to `--accent`, no underline change.
 - **Press:** `transform: scale(0.98)`, transition 120ms.
-- **Focus:** 2px solid `--accent` outline, 2px offset. Always visible — accessibility is non-negotiable for a tool that lives in every page.
+- **Focus (buttons):** 2px solid `--accent` outline, 2px offset.
+- **Focus (form fields):** `--accent` border plus `0 0 0 3px rgba(39, 71, 214, 0.16)` ring, with native outline removed.
+  Always visible — accessibility is non-negotiable for a tool that lives in every page.
 
 ### Transparency & blur
 
@@ -172,7 +175,11 @@ The options page is fully opaque.
 
 ### Layout rules
 
-- **Floating button** is `position: fixed`, `z-index: 2147483647` (max), anchored 8px below the active editable field's bottom-right corner. This is non-negotiable — it must clear every host page, including ones with their own floating UI.
+- **Floating button** is `position: fixed`, `z-index: 2147483647` (max), anchored 8px below the active editable field's bottom-right corner.
+  This is non-negotiable — it must clear every host page, including ones with their own floating UI.
+  The injected button and panel are visible only while the active editor is connected and visible.
+  Hide them when the editor or any ancestor is `hidden`, `aria-hidden="true"`, `display: none`, `visibility: hidden`, `visibility: collapse`, inside a closed `dialog`, or inside closed `details` content.
+  Stale refinement results must stay suppressed after focus moves or the editor becomes hidden.
 - **Options page** is a single column, `max-width: 680px`, with `48px 24px 80px` page padding.
   Never multi-column.
   Reading width is sacred.
