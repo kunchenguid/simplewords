@@ -11,7 +11,7 @@ This design system extends the bare functional shell into something that feels *
 
 ## Sources
 
-- **GitHub repo** — [`kunchenguid/simplewords`](https://github.com/kunchenguid/simplewords) (`fix/content-editor-visibility` @ commit `df7f9f4e5e50e0c045519d27ee70467288f52921`). Manifest V3 Chrome extension, TypeScript + esbuild. Key files inspected:
+- **GitHub repo** — [`kunchenguid/simplewords`](https://github.com/kunchenguid/simplewords) (`fix/content-editor-visibility`). Manifest V3 Chrome extension, TypeScript + esbuild. Key files inspected:
   - `extension/manifest.json` — name, description, permissions
   - `extension/options.html` — current options-page DOM and inline CSS
   - `src/content.ts` — floating button + panel injected into page
