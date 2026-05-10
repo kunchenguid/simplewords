@@ -19,6 +19,8 @@
         flex-wrap: wrap;
       }
       .btn {
+        align-items: center;
+        display: inline-flex;
         font-family: var(--font-sans);
         font-size: 13px;
         font-weight: 600;
@@ -29,14 +31,19 @@
       }
       .btn--pill {
         border-radius: 999px;
-        padding: 8px 12px;
+        gap: 7px;
+        padding: 8px 14px;
         background: #0e1525;
         color: #faf8f5;
         box-shadow: 0 8px 24px rgba(14, 21, 37, 0.22);
       }
+      .btn--pill svg {
+        height: 14px;
+        width: 14px;
+      }
       .btn--primary {
         border-radius: 8px;
-        padding: 10px 14px;
+        padding: 11px 16px;
         background: #0e1525;
         color: #faf8f5;
       }
@@ -48,10 +55,15 @@
         border: 1px solid #c9d2e3;
       }
       .btn--accent {
+        gap: 7px;
         border-radius: 8px;
-        padding: 10px 14px;
+        padding: 8px 14px;
         background: #2747d6;
         color: #faf8f5;
+      }
+      .btn--accent svg {
+        height: 14px;
+        width: 14px;
       }
       .btn--small {
         border-radius: 6px;
@@ -78,15 +90,66 @@
     <div class="stage">
       <div class="row">
         <span class="label">Default</span>
-        <button class="btn btn--pill">Simple Words</button>
+        <button class="btn btn--pill">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+            />
+            <path d="M20 3v4" />
+            <path d="M22 5h-4" />
+            <path d="M4 17v2" />
+            <path d="M5 18H3" />
+          </svg>
+          Simple Words
+        </button>
         <button class="btn btn--primary">Save</button>
         <button class="btn btn--ghost">Dismiss</button>
-        <button class="btn btn--accent">Refining…</button>
+        <button class="btn btn--accent">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+          </svg>
+          Refining
+        </button>
         <button class="btn btn--small">Replace draft</button>
       </div>
       <div class="row">
         <span class="label">Focus</span>
-        <button class="btn btn--pill focused">Simple Words</button>
+        <button class="btn btn--pill focused">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+            />
+            <path d="M20 3v4" />
+            <path d="M22 5h-4" />
+            <path d="M4 17v2" />
+            <path d="M5 18H3" />
+          </svg>
+          Simple Words
+        </button>
         <button class="btn btn--primary focused">Save</button>
         <button class="btn btn--ghost focused">Dismiss</button>
       </div>

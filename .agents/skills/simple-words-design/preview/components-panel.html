@@ -26,6 +26,22 @@
         font-size: 14px;
         line-height: 1.5;
       }
+      .panel .head {
+        align-items: center;
+        color: #526071;
+        display: flex;
+        font-size: 11px;
+        font-weight: 500;
+        gap: 8px;
+        letter-spacing: 0.08em;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+      .panel .head svg {
+        color: #2747d6;
+        height: 14px;
+        width: 14px;
+      }
       .panel .reply {
         white-space: pre-wrap;
         margin-bottom: 14px;
@@ -35,13 +51,16 @@
         gap: 8px;
       }
       .btn {
+        align-items: center;
+        display: inline-flex;
         font-family: var(--font-sans);
         font-size: 13px;
         font-weight: 600;
+        line-height: 1;
         border: 0;
         cursor: pointer;
         border-radius: 8px;
-        padding: 8px 12px;
+        padding: 9px 13px;
       }
       .btn--primary {
         background: #0e1525;
@@ -53,18 +72,26 @@
         border: 1px solid #c9d2e3;
       }
       .pill {
+        align-items: center;
+        display: inline-flex;
+        gap: 7px;
         position: absolute;
         bottom: 28px;
         right: 60px;
         border-radius: 999px;
-        padding: 8px 12px;
+        padding: 8px 14px;
         background: #0e1525;
         color: #faf8f5;
         font-family: var(--font-sans);
         font-size: 13px;
         font-weight: 600;
+        line-height: 1;
         box-shadow: 0 8px 24px rgba(14, 21, 37, 0.22);
         border: 0;
+      }
+      .pill svg {
+        height: 14px;
+        width: 14px;
       }
       .stage {
         position: relative;
@@ -74,6 +101,26 @@
   <body>
     <div class="stage">
       <div class="panel">
+        <div class="head">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+            />
+            <path d="M20 3v4" />
+            <path d="M22 5h-4" />
+            <path d="M4 17v2" />
+            <path d="M5 18H3" />
+          </svg>
+          <span>Refined draft</span>
+        </div>
         <div class="reply">
           Hi Sarah, Thanks for sending the brief - I'll have a first pass back
           to you by Thursday. A couple of small questions are coming in a
@@ -84,7 +131,26 @@
           <button class="btn btn--ghost">Dismiss</button>
         </div>
       </div>
-      <button class="pill">Simple Words</button>
+      <button class="pill">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+          />
+          <path d="M20 3v4" />
+          <path d="M22 5h-4" />
+          <path d="M4 17v2" />
+          <path d="M5 18H3" />
+        </svg>
+        Simple Words
+      </button>
     </div>
   </body>
 </html>

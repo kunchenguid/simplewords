@@ -99,7 +99,7 @@ function RefinePanel({
     >
       <div className="sw-panel__head">
         <IconSparkles />
-        <span>Refined draft</span>
+        <span>{state === 'loading' ? 'Refining draft' : 'Refined draft'}</span>
       </div>
       {state === 'loading' ? (
         <div className="sw-panel__loading">

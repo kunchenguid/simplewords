@@ -166,7 +166,7 @@ body {
   cursor: pointer;
 }
 
-/* Floating button (matches src/content.ts exactly) */
+/* Floating button prototype derived from src/content.ts */
 .sw-fab {
   position: absolute;
   z-index: 50;
