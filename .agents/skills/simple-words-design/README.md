@@ -30,7 +30,7 @@ This design system extends the bare functional shell into something that feels *
 | `fonts/`              | Webfont files (Instrument Serif, Geist, Geist Mono — see Visual Foundations). |
 | `assets/`             | Logo lockups, glyph mark, icon SVGs.                                          |
 | `preview/`            | Small HTML cards that populate the Design System tab.                         |
-| `ui_kits/extension/`  | Pixel-faithful recreation of the floating button + panel + options page.      |
+| `ui_kits/extension/`  | Production-derived prototypes for the floating button, panel, and options.    |
 
 ---
 
@@ -179,7 +179,7 @@ The options page is fully opaque.
   This is non-negotiable — it must clear every host page, including ones with their own floating UI.
   The injected button and panel are visible only while the active editor is connected and visible.
   Hide them when the editor or any ancestor is `hidden`, `aria-hidden="true"`, `display: none`, `visibility: hidden`, `visibility: collapse`, inside a closed `dialog`, or inside closed `details` content.
-  Stale refinement results must stay suppressed after focus moves or the editor becomes hidden.
+  Stale refinement results must stay suppressed after focus moves, the editor becomes hidden, or a newer refinement starts for the same editor.
 - **Options page** is a single column, `max-width: 680px`, with `48px 24px 80px` page padding.
   Never multi-column.
   Reading width is sacred.

@@ -211,7 +211,7 @@
   padding: 1px 5px;
 }
 
-/* Buttons — capture the floating-pill + options-page button as primitives */
+/* Buttons - prototype primitives; check production files for exact button values */
 
 .sw-btn {
   display: inline-flex;

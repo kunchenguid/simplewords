@@ -11,7 +11,7 @@ Check the production extension files before treating this kit as pixel-faithful.
 4. **Host page** (`HostPage.jsx`) - a faked Gmail-like compose window, just so the floating button has something to attach to in `index.html`.
 
 The production floating button and panel hide when the active editor is disconnected or hidden, including `hidden`, `aria-hidden="true"`, CSS-hidden ancestors, closed `dialog` elements, and closed `details` content outside the summary.
-They also suppress stale refinement results after focus moves or the editor becomes hidden.
+They also suppress stale refinement results after focus moves, the editor becomes hidden, or a newer refinement starts for the same editor.
 Preserve that visibility contract in production-facing work.
 
 ## Component breakdown
