@@ -149,4 +149,54 @@ describe('refineWithProvider', () => {
     expect(body.instructions).toContain('Rewrite like me.')
     expect(body.instructions).toContain("The user's name is Kun Chen.")
   })
+
+  test('uses the configured system prompt for OpenAI-compatible requests', async () => {
+    const calls: Array<{ url: string; init: RequestInit }> = []
+    const fetchFn = async (url: string | URL | Request, init?: RequestInit) => {
+      calls.push({ url: String(url), init: init ?? {} })
+      return new Response(JSON.stringify({ error: { message: 'test stop' } }), {
+        status: 400,
+        headers: { 'content-type': 'application/json' }
+      })
+    }
+
+    await expect(
+      refineWithProvider(
+        {
+          provider: 'openai',
+          myName: 'Kun Chen',
+          systemPrompt: 'Rewrite like a concise support teammate.',
+          openaiApiKey: 'openai-token',
+          openaiBaseURL: 'https://api.openai.example.test/v1/',
+          openaiModel: 'gpt-test',
+          openaiReasoningEffort: 'none',
+          codexAccessToken: '',
+          codexRefreshToken: '',
+          codexAccountId: '',
+          codexBaseURL: '',
+          codexModel: '',
+          codexReasoningEffort: 'none',
+          ollamaBaseURL: '',
+          ollamaModel: ''
+        },
+        input,
+        fetchFn as typeof fetch
+      )
+    ).rejects.toThrow()
+
+    expect(calls[0].url).toBe(
+      'https://api.openai.example.test/v1/chat/completions'
+    )
+    const body = JSON.parse(String(calls[0].init.body)) as {
+      messages: Array<{ role: string; content: string }>
+    }
+    expect(body.messages[0]).toEqual({
+      role: 'system',
+      content: [
+        'Rewrite like a concise support teammate.',
+        '',
+        "The user's name is Kun Chen."
+      ].join('\n')
+    })
+  })
 })
