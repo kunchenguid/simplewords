@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 import '../src/content'
 
 describe('content script button visibility', () => {
@@ -6,6 +6,8 @@ describe('content script button visibility', () => {
     document.body.replaceChildren()
     document.getElementById('simplewords-button')?.remove()
     document.getElementById('simplewords-panel')?.remove()
+    vi.restoreAllMocks()
+    Reflect.deleteProperty(globalThis, 'chrome')
   })
 
   test('hides the Simple Words button when the active editor is hidden', async () => {
@@ -42,5 +44,44 @@ describe('content script button visibility', () => {
     await new Promise((resolve) => setTimeout(resolve, 0))
 
     expect(button.hidden).toBe(true)
+  })
+
+  test('keeps the panel hidden when the active editor is hidden before refinement completes', async () => {
+    document.body.innerHTML = '<textarea>rough reply</textarea>'
+
+    let resolveRefinement: (response: { reply: string }) => void = () => {}
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage: vi.fn(
+          () =>
+            new Promise<{ reply: string }>((resolve) => {
+              resolveRefinement = resolve
+            })
+        )
+      }
+    })
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+
+    const panel = document.getElementById('simplewords-panel') as HTMLDivElement
+    expect(panel.hidden).toBe(false)
+
+    editor.hidden = true
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    expect(button.hidden).toBe(true)
+    expect(panel.hidden).toBe(true)
+
+    resolveRefinement({ reply: 'polished reply' })
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    expect(button.hidden).toBe(true)
+    expect(panel.hidden).toBe(true)
   })
 })

@@ -258,7 +258,10 @@ async function refineActiveEditor(): Promise<void> {
 
   const draft = getEditorText(editor)
   if (!draft) {
-    showPanel(editor, { kind: 'message', message: 'Write a rough reply first.' })
+    showPanel(editor, {
+      kind: 'message',
+      message: 'Write a rough reply first.'
+    })
     return
   }
 
@@ -277,6 +280,13 @@ async function refineActiveEditor(): Promise<void> {
     title: document.title,
     url: location.href
   })) as { reply?: string; error?: string }
+
+  if (editor !== activeEditor || !isActiveEditorVisible(editor)) {
+    if (!activeEditor) {
+      setButtonState(button, 'idle')
+    }
+    return
+  }
 
   setButtonState(button, 'idle')
 
