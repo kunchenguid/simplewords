@@ -19,7 +19,7 @@ Preserve that visibility contract in production-facing work.
 - `FloatingButton` - the brand pill, `border-radius: 999px`, ink-900 background.
   Inherits from `colors_and_type.css`.
 - `RefinePanel` - paper-tinted blur panel with `--shadow-3`.
-  Two states: `loading` ("Refining..." with the loader spin) and `ready` (rewritten reply + actions).
+  Two states: `loading` ("Refining…" with the loader spin) and `ready` (rewritten reply + actions).
 - `OptionsPage` - single column 680px max width.
   Production keeps a native provider `select` inside a Provider section and preserves the existing provider-section show/hide contract.
   This prototype may use a tabbed `ProviderSelect`; do not copy that pattern into production without checking `extension/options.html`.
@@ -28,7 +28,7 @@ Preserve that visibility contract in production-facing work.
 ## Demo
 
 `index.html` boots a fake Gmail compose window with a draft typed in.
-The Simple Words button is anchored below the textarea; clicking it opens the refine panel with a 1-second simulated "Refining..." state, then a rewritten draft.
+The Simple Words button is anchored below the textarea; clicking it opens the refine panel with a 1-second simulated "Refining…" state, then a rewritten draft.
 Click "Replace draft" to swap the textarea content; click "Dismiss" to close.
 There's also a tab switch at the top to jump to the **Options page** view.
 
