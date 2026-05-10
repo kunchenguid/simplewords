@@ -16,7 +16,7 @@ This design system extends the bare functional shell into something that feels *
   - `extension/options.html` — current options-page DOM and inline CSS
   - `src/content.ts` — floating button + panel injected into page
   - `src/options.ts` / `src/settings.ts` — settings model and defaults
-- No Figma file or external brand assets were provided. There is **no logo, no icon set, no font files** in the source repo — the extension currently relies on `system-ui` and ships no graphics.
+- No Figma file or external brand assets were provided. The extension itself has **no logo, no icon set, no font files** and currently relies on `system-ui`; marketing-video-specific assets now live under `marketing-video/assets/`.
 
 ## Index
 
@@ -180,7 +180,7 @@ Cards are **defined by tone, not by chrome.** A card is a `--paper-2` rectangle 
 
 ## Caveats / substitutions flagged for review
 
-The source repo ships **no fonts, no logo, no icons** — the extension currently relies on `system-ui` and ships zero graphics. Everything visual in this design system is therefore a *proposal* extending the existing color/spacing/copy heritage. Specifically flagged:
+The extension ships **no fonts, no logo, no icons** and currently relies on `system-ui`. Everything visual in this design system is therefore a *proposal* extending the existing color/spacing/copy heritage; the marketing video uses those proposed assets from `marketing-video/assets/`. Specifically flagged:
 
 - **Fonts: substituted from Google Fonts.** Instrument Serif + Geist + Geist Mono are loaded via Google Fonts CDN in `colors_and_type.css`. If the project has license-procured TTFs of these (or different) families, drop them in `fonts/` and update the `@import` line.
 - **Wordmark and glyph: design-system-introduced.** Live in `assets/wordmark.svg` and `assets/glyph.svg`. Replace if a real mark exists.
@@ -189,7 +189,7 @@ The source repo ships **no fonts, no logo, no icons** — the extension currentl
 
 ## Iconography
 
-The Simple Words source repo ships **zero icons or images**. The current options page is text-only; the floating button is a text pill (`"Simple Words"`).
+The Simple Words extension ships **zero icons or images**. The current options page is text-only; the floating button is a text pill (`"Simple Words"`). Marketing-video-specific icons and marks live under `marketing-video/assets/`.
 
 Because there is no existing icon system, this design system establishes one:
 

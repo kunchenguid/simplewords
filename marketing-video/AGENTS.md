@@ -25,6 +25,7 @@ npx hyperframes docs <topic> # reference docs in terminal
 - `index.html` — main composition (root timeline)
 - `compositions/` — sub-compositions referenced via `data-composition-src`
 - `assets/` — media files (video, audio, images)
+- `simplewords-marketing.mp4` — rendered marketing video output from `npm run render`
 - `meta.json` — project metadata (id, name)
 - `transcript.json` — whisper word-level transcript (if generated)
 
