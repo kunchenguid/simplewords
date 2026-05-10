@@ -11,109 +11,111 @@
   /* ---------- COLOR ---------- */
 
   /* Paper (warm neutrals — the base) */
-  --paper:        #FAF8F5;   /* primary surface, "page" */
-  --paper-2:      #F1EEE8;   /* card surface, hover row */
-  --paper-3:      #E5E0D6;   /* hairline / divider on warm bg */
+  --paper: #faf8f5; /* primary surface, "page" */
+  --paper-2: #f1eee8; /* card surface, hover row */
+  --paper-3: #e5e0d6; /* hairline / divider on warm bg */
 
   /* Ink (cool dark — the foreground)
      ink-900 is the original repo's #172033 bumped one step deeper for the design-system era;
      mid + light tones derived to match the existing slate palette. */
-  --ink-900:      #0E1525;   /* darkest — buttons, brand pill, headings */
-  --ink-800:      #172033;   /* original brand dark — preserved for code-compat */
-  --ink-700:      #2A3142;   /* heavy body text */
-  --ink-500:      #526071;   /* original repo --muted body — preserved */
-  --ink-400:      #6B7180;   /* secondary body */
-  --ink-300:      #9099AA;   /* muted, captions */
+  --ink-900: #0e1525; /* darkest — buttons, brand pill, headings */
+  --ink-800: #172033; /* original brand dark — preserved for code-compat */
+  --ink-700: #2a3142; /* heavy body text */
+  --ink-500: #526071; /* original repo --muted body — preserved */
+  --ink-400: #6b7180; /* secondary body */
+  --ink-300: #9099aa; /* muted, captions */
 
   /* Lines (cool — for inputs/forms, matches existing repo values) */
-  --line:         #E5E0D6;   /* warm hairline (default) */
-  --line-cool:    #C9D2E3;   /* original repo input border — preserved */
-  --line-cool-2:  #E2E8F0;   /* original repo section border — preserved */
+  --line: #e5e0d6; /* warm hairline (default) */
+  --line-cool: #c9d2e3; /* original repo input border — preserved */
+  --line-cool-2: #e2e8f0; /* original repo section border — preserved */
 
   /* Accent — the single intelligence color */
-  --accent:       #2747D6;   /* electric ink — used ONLY for AI moments + focus */
-  --accent-hover: #1F3CC1;
-  --accent-soft:  #E6EAFB;   /* tinted paper for accent-toned cards/badges */
+  --accent: #2747d6; /* electric ink — used ONLY for AI moments + focus */
+  --accent-hover: #1f3cc1;
+  --accent-soft: #e6eafb; /* tinted paper for accent-toned cards/badges */
 
   /* Semantic */
-  --success:      #176B3A;   /* original repo --success — preserved */
-  --success-soft: #E2F1E8;
-  --danger:       #B0302E;
-  --danger-soft:  #F8E6E5;
-  --code-bg:      #F1F5F9;   /* original repo code bg — preserved */
+  --success: #176b3a; /* original repo --success — preserved */
+  --success-soft: #e2f1e8;
+  --danger: #b0302e;
+  --danger-soft: #f8e6e5;
+  --code-bg: #f1f5f9; /* original repo code bg — preserved */
 
   /* Aliases (semantic → palette) */
-  --fg-1:         var(--ink-900);   /* headings, primary text */
-  --fg-2:         var(--ink-700);   /* body */
-  --fg-3:         var(--ink-500);   /* muted body */
-  --fg-4:         var(--ink-300);   /* hint, caption */
-  --bg-1:         var(--paper);     /* page */
-  --bg-2:         var(--paper-2);   /* card, hover */
-  --bg-3:         var(--paper-3);   /* divider stripe */
-  --bg-inverse:   var(--ink-900);
-  --fg-inverse:   var(--paper);
+  --fg-1: var(--ink-900); /* headings, primary text */
+  --fg-2: var(--ink-700); /* body */
+  --fg-3: var(--ink-500); /* muted body */
+  --fg-4: var(--ink-300); /* hint, caption */
+  --bg-1: var(--paper); /* page */
+  --bg-2: var(--paper-2); /* card, hover */
+  --bg-3: var(--paper-3); /* divider stripe */
+  --bg-inverse: var(--ink-900);
+  --fg-inverse: var(--paper);
 
   /* ---------- TYPOGRAPHY ---------- */
 
-  --font-serif:   'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif;
-  --font-sans:    'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono:    'Geist Mono', ui-monospace, 'SF Mono', 'Menlo', monospace;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-sans:
+    'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', 'Menlo', monospace;
 
   /* Type scale — modular, restrained */
-  --fs-display:   56px;   /* hero serif */
-  --fs-h1:        32px;
-  --fs-h2:        22px;
-  --fs-h3:        17px;
-  --fs-body:      14px;   /* matches options.html */
-  --fs-small:     13px;   /* matches floating button */
-  --fs-caption:   12px;
+  --fs-display: 56px; /* hero serif */
+  --fs-h1: 32px;
+  --fs-h2: 22px;
+  --fs-h3: 17px;
+  --fs-body: 14px; /* matches options.html */
+  --fs-small: 13px; /* matches floating button */
+  --fs-caption: 12px;
 
-  --lh-tight:     1.05;
-  --lh-snug:      1.2;
-  --lh-normal:    1.45;   /* matches options.html */
-  --lh-relaxed:   1.6;
+  --lh-tight: 1.05;
+  --lh-snug: 1.2;
+  --lh-normal: 1.45; /* matches options.html */
+  --lh-relaxed: 1.6;
 
-  --fw-regular:   400;
-  --fw-medium:    500;
-  --fw-semibold:  600;    /* options.html uses 650 — we round to 600 */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600; /* options.html uses 650 — we round to 600 */
 
-  --tracking-tight:  -0.02em;
-  --tracking-snug:   -0.01em;
+  --tracking-tight: -0.02em;
+  --tracking-snug: -0.01em;
   --tracking-normal: 0;
-  --tracking-loose:  0.02em;
-  --tracking-caps:   0.08em;
+  --tracking-loose: 0.02em;
+  --tracking-caps: 0.08em;
 
   /* ---------- SPACING (4px base) ---------- */
-  --sp-1:  4px;
-  --sp-2:  8px;
-  --sp-3:  12px;
-  --sp-4:  16px;
-  --sp-5:  20px;
-  --sp-6:  24px;
-  --sp-8:  32px;
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
   --sp-10: 40px;
   --sp-12: 48px;
   --sp-16: 64px;
 
   /* ---------- RADII ---------- */
-  --radius-sm:    8px;   /* inputs, secondary buttons */
-  --radius-md:    14px;  /* cards, panels, sections */
-  --radius-pill:  999px; /* floating brand button only */
+  --radius-sm: 8px; /* inputs, secondary buttons */
+  --radius-md: 14px; /* cards, panels, sections */
+  --radius-pill: 999px; /* floating brand button only */
 
   /* ---------- SHADOWS ---------- */
   --shadow-1: 0 1px 2px rgba(14, 21, 37, 0.06);
-  --shadow-2: 0 8px 24px rgba(14, 21, 37, 0.22);   /* matches src */
-  --shadow-3: 0 18px 48px rgba(14, 21, 37, 0.28);  /* matches src */
+  --shadow-2: 0 8px 24px rgba(14, 21, 37, 0.22); /* matches src */
+  --shadow-3: 0 18px 48px rgba(14, 21, 37, 0.28); /* matches src */
 
   /* ---------- MOTION ---------- */
-  --ease-out:     cubic-bezier(0.2, 0.8, 0.2, 1);
-  --ease-in-out:  cubic-bezier(0.4, 0, 0.2, 1);
-  --dur-fast:     120ms;
-  --dur-base:     200ms;
-  --dur-slow:     320ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
 
   /* ---------- LAYERS ---------- */
-  --z-floating:   2147483647;  /* matches src */
+  --z-floating: 2147483647; /* matches src */
 }
 
 /* =============================================================
@@ -129,7 +131,7 @@
   font-size: var(--fs-body);
   line-height: var(--lh-normal);
   color: var(--fg-2);
-  font-feature-settings: 'ss01', 'cv11';   /* Geist stylistic alternates */
+  font-feature-settings: 'ss01', 'cv11'; /* Geist stylistic alternates */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -205,7 +207,7 @@
   font-size: 0.9em;
   font-weight: var(--fw-regular);
   background: var(--code-bg);
-  border-radius: 5px;          /* matches options.html */
+  border-radius: 5px; /* matches options.html */
   padding: 1px 5px;
 }
 
@@ -227,17 +229,30 @@
     background var(--dur-fast) var(--ease-out),
     transform var(--dur-fast) var(--ease-out);
 }
-.sw-btn:active { transform: scale(0.98); }
+.sw-btn:active {
+  transform: scale(0.98);
+}
 .sw-btn:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-.sw-btn--primary { background: var(--ink-900); color: var(--paper); }
-.sw-btn--primary:hover { background: var(--ink-700); }
+.sw-btn--primary {
+  background: var(--ink-900);
+  color: var(--paper);
+}
+.sw-btn--primary:hover {
+  background: var(--ink-700);
+}
 
-.sw-btn--ghost { background: transparent; color: var(--fg-1); border: 1px solid var(--line-cool); }
-.sw-btn--ghost:hover { background: var(--paper-2); }
+.sw-btn--ghost {
+  background: transparent;
+  color: var(--fg-1);
+  border: 1px solid var(--line-cool);
+}
+.sw-btn--ghost:hover {
+  background: var(--paper-2);
+}
 
 .sw-btn--pill {
   border-radius: var(--radius-pill);
@@ -246,4 +261,6 @@
   color: var(--paper);
   box-shadow: var(--shadow-2);
 }
-.sw-btn--pill:hover { background: var(--ink-700); }
+.sw-btn--pill:hover {
+  background: var(--ink-700);
+}

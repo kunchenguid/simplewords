@@ -1,46 +1,83 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Radii</title>
-<link rel="stylesheet" href="_card.css">
-<style>
-  .stage { padding: 28px 32px; background: var(--paper); display: flex; align-items: center; gap: 36px; }
-  .demo { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .box {
-    width: 96px; height: 64px;
-    background: var(--paper-2);
-    border: 1px solid var(--line);
-  }
-  .pill {
-    width: 128px; height: 40px;
-    background: var(--ink-900);
-    color: var(--paper);
-    border-radius: 999px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 600;
-  }
-  .meta { display: flex; flex-direction: column; gap: 2px; align-items: center; }
-  .name { font-family: var(--font-mono); font-size: 11px; color: var(--ink-900); }
-  .px { font-family: var(--font-sans); font-size: 11px; color: var(--fg-3); }
-</style>
-</head>
-<body>
-<div class="stage">
-  <div class="demo">
-    <div class="box" style="border-radius: 8px"></div>
-    <div class="meta"><span class="name">--radius-sm</span><span class="px">8 · inputs, ghost btns</span></div>
-  </div>
-  <div class="demo">
-    <div class="box" style="border-radius: 14px"></div>
-    <div class="meta"><span class="name">--radius-md</span><span class="px">14 · cards, panels</span></div>
-  </div>
-  <div class="demo">
-    <div class="pill">Simple Words</div>
-    <div class="meta"><span class="name">--radius-pill</span><span class="px">999 · brand button</span></div>
-  </div>
-</div>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Radii</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .stage {
+        padding: 28px 32px;
+        background: var(--paper);
+        display: flex;
+        align-items: center;
+        gap: 36px;
+      }
+      .demo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      .box {
+        width: 96px;
+        height: 64px;
+        background: var(--paper-2);
+        border: 1px solid var(--line);
+      }
+      .pill {
+        width: 128px;
+        height: 40px;
+        background: var(--ink-900);
+        color: var(--paper);
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .meta {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        align-items: center;
+      }
+      .name {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--ink-900);
+      }
+      .px {
+        font-family: var(--font-sans);
+        font-size: 11px;
+        color: var(--fg-3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage">
+      <div class="demo">
+        <div class="box" style="border-radius: 8px"></div>
+        <div class="meta">
+          <span class="name">--radius-sm</span
+          ><span class="px">8 · inputs, ghost btns</span>
+        </div>
+      </div>
+      <div class="demo">
+        <div class="box" style="border-radius: 14px"></div>
+        <div class="meta">
+          <span class="name">--radius-md</span
+          ><span class="px">14 · cards, panels</span>
+        </div>
+      </div>
+      <div class="demo">
+        <div class="pill">Simple Words</div>
+        <div class="meta">
+          <span class="name">--radius-pill</span
+          ><span class="px">999 · brand button</span>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,73 +1,90 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Floating panel</title>
-<link rel="stylesheet" href="_card.css">
-<style>
-  .stage {
-    padding: 28px 32px;
-    background: linear-gradient(135deg, #f1eee8 0%, #faf8f5 100%);
-    display: flex; align-items: center; justify-content: center;
-    min-height: 240px;
-  }
-  .panel {
-    background: rgba(255, 252, 247, 0.96);
-    backdrop-filter: blur(12px) saturate(1.2);
-    border: 1px solid rgba(229, 224, 214, 0.7);
-    border-radius: 14px;
-    box-shadow: 0 18px 48px rgba(14, 21, 37, 0.22);
-    padding: 16px;
-    width: 360px;
-    font-family: var(--font-sans);
-    color: #0E1525;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  .panel .reply { white-space: pre-wrap; margin-bottom: 14px; }
-  .panel .actions { display: flex; gap: 8px; }
-  .btn {
-    font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 600;
-    border: 0;
-    cursor: pointer;
-    border-radius: 8px;
-    padding: 8px 12px;
-  }
-  .btn--primary { background: #0E1525; color: #FAF8F5; }
-  .btn--ghost { background: transparent; color: #0E1525; border: 1px solid #C9D2E3; }
-  .pill {
-    position: absolute;
-    bottom: 28px; right: 60px;
-    border-radius: 999px;
-    padding: 8px 12px;
-    background: #0E1525;
-    color: #FAF8F5;
-    font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 600;
-    box-shadow: 0 8px 24px rgba(14,21,37,0.22);
-    border: 0;
-  }
-  .stage { position: relative; }
-</style>
-</head>
-<body>
-<div class="stage">
-  <div class="panel">
-    <div class="reply">Hi Sarah,
-
-Thanks for sending the brief - I'll have a first pass back to you by Thursday. A couple of small questions are coming in a separate note.
-
-Best,
-Kun</div>
-    <div class="actions">
-      <button class="btn btn--primary">Replace draft</button>
-      <button class="btn btn--ghost">Dismiss</button>
+  <head>
+    <meta charset="utf-8" />
+    <title>Floating panel</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .stage {
+        padding: 28px 32px;
+        background: linear-gradient(135deg, #f1eee8 0%, #faf8f5 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 240px;
+      }
+      .panel {
+        background: rgba(255, 252, 247, 0.96);
+        backdrop-filter: blur(12px) saturate(1.2);
+        border: 1px solid rgba(229, 224, 214, 0.7);
+        border-radius: 14px;
+        box-shadow: 0 18px 48px rgba(14, 21, 37, 0.22);
+        padding: 16px;
+        width: 360px;
+        font-family: var(--font-sans);
+        color: #0e1525;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .panel .reply {
+        white-space: pre-wrap;
+        margin-bottom: 14px;
+      }
+      .panel .actions {
+        display: flex;
+        gap: 8px;
+      }
+      .btn {
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 600;
+        border: 0;
+        cursor: pointer;
+        border-radius: 8px;
+        padding: 8px 12px;
+      }
+      .btn--primary {
+        background: #0e1525;
+        color: #faf8f5;
+      }
+      .btn--ghost {
+        background: transparent;
+        color: #0e1525;
+        border: 1px solid #c9d2e3;
+      }
+      .pill {
+        position: absolute;
+        bottom: 28px;
+        right: 60px;
+        border-radius: 999px;
+        padding: 8px 12px;
+        background: #0e1525;
+        color: #faf8f5;
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 600;
+        box-shadow: 0 8px 24px rgba(14, 21, 37, 0.22);
+        border: 0;
+      }
+      .stage {
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage">
+      <div class="panel">
+        <div class="reply">
+          Hi Sarah, Thanks for sending the brief - I'll have a first pass back
+          to you by Thursday. A couple of small questions are coming in a
+          separate note. Best, Kun
+        </div>
+        <div class="actions">
+          <button class="btn btn--primary">Replace draft</button>
+          <button class="btn btn--ghost">Dismiss</button>
+        </div>
+      </div>
+      <button class="pill">Simple Words</button>
     </div>
-  </div>
-  <button class="pill">Simple Words</button>
-</div>
-</body>
+  </body>
 </html>

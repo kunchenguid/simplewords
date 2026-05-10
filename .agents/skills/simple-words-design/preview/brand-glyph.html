@@ -1,64 +1,76 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Brand glyph</title>
-<link rel="stylesheet" href="_card.css">
-<style>
-  .stage {
-    background: var(--paper);
-    padding: 28px 32px;
-    display: flex;
-    align-items: center;
-    gap: 36px;
-  }
-  .glyph {
-    width: 96px; height: 96px;
-    border-radius: 22px;
-    background: var(--ink-900);
-    color: var(--paper);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 60px;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-  .glyph--light {
-    background: var(--paper-2);
-    border: 1px solid var(--line);
-    color: var(--ink-900);
-  }
-  .glyph--small {
-    width: 48px; height: 48px;
-    border-radius: 11px;
-    font-size: 30px;
-  }
-  .glyph--xs {
-    width: 28px; height: 28px;
-    border-radius: 7px;
-    font-size: 18px;
-  }
-  .stack { display: flex; flex-direction: column; gap: 6px; }
-  .desc {
-    font-family: var(--font-sans);
-    font-size: 13px;
-    color: var(--fg-3);
-    max-width: 280px;
-    line-height: 1.5;
-  }
-</style>
-</head>
-<body>
-<div class="stage">
-  <div class="glyph">sw</div>
-  <div class="glyph glyph--light">sw</div>
-  <div class="glyph glyph--small">sw</div>
-  <div class="glyph glyph--xs">sw</div>
-  <div class="stack">
-    <span class="label">Glyph mark</span>
-    <span class="desc">Italic <em>sw</em> in a paper or ink square. Radius scales 14% of width.</span>
-  </div>
-</div>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Brand glyph</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .stage {
+        background: var(--paper);
+        padding: 28px 32px;
+        display: flex;
+        align-items: center;
+        gap: 36px;
+      }
+      .glyph {
+        width: 96px;
+        height: 96px;
+        border-radius: 22px;
+        background: var(--ink-900);
+        color: var(--paper);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-size: 60px;
+        line-height: 1;
+        flex-shrink: 0;
+      }
+      .glyph--light {
+        background: var(--paper-2);
+        border: 1px solid var(--line);
+        color: var(--ink-900);
+      }
+      .glyph--small {
+        width: 48px;
+        height: 48px;
+        border-radius: 11px;
+        font-size: 30px;
+      }
+      .glyph--xs {
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+        font-size: 18px;
+      }
+      .stack {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .desc {
+        font-family: var(--font-sans);
+        font-size: 13px;
+        color: var(--fg-3);
+        max-width: 280px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage">
+      <div class="glyph">sw</div>
+      <div class="glyph glyph--light">sw</div>
+      <div class="glyph glyph--small">sw</div>
+      <div class="glyph glyph--xs">sw</div>
+      <div class="stack">
+        <span class="label">Glyph mark</span>
+        <span class="desc"
+          >Italic <em>sw</em> in a paper or ink square. Radius scales 14% of
+          width.</span
+        >
+      </div>
+    </div>
+  </body>
 </html>

@@ -1,42 +1,47 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Display type</title>
-<link rel="stylesheet" href="_card.css">
-<style>
-  .stage {
-    padding: 36px 40px 32px;
-    background: var(--paper);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .specimen {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: 400;
-    font-size: 72px;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: var(--ink-900);
-  }
-  .meta {
-    display: flex; gap: 18px; align-items: baseline;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--fg-3);
-  }
-  .meta b { color: var(--fg-1); font-weight: 500; }
-</style>
-</head>
-<body>
-<div class="stage">
-  <span class="specimen">Simple words</span>
-  <div class="meta">
-    <span><b>Instrument Serif</b> · italic 400</span>
-    <span>72/72 · -0.02em</span>
-  </div>
-</div>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Display type</title>
+    <link rel="stylesheet" href="_card.css" />
+    <style>
+      .stage {
+        padding: 36px 40px 32px;
+        background: var(--paper);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .specimen {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-weight: 400;
+        font-size: 72px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+        color: var(--ink-900);
+      }
+      .meta {
+        display: flex;
+        gap: 18px;
+        align-items: baseline;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--fg-3);
+      }
+      .meta b {
+        color: var(--fg-1);
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage">
+      <span class="specimen">Simple words</span>
+      <div class="meta">
+        <span><b>Instrument Serif</b> · italic 400</span>
+        <span>72/72 · -0.02em</span>
+      </div>
+    </div>
+  </body>
 </html>

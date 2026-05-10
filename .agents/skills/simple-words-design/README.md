@@ -7,7 +7,7 @@ Simple Words is a **Chrome extension** that rewrites a rough draft in any editab
 1. **A floating pill button** anchored to the active editable field on any page (`content.js` injects it into the host page's DOM).
 2. **An options page** for picking an LLM provider (OpenAI-compatible / Codex / Ollama) and customizing the system prompt.
 
-This design system extends the bare functional shell into something that feels **elegant, futuristic, intelligent, and minimalist** — the brief from the project owner. It keeps the existing deep-ink palette as a backbone, grounds it in warm paper instead of cold white, and pairs a serif display voice with a technical grotesque body — so the product reads as both *literary* (it's about words) and *engineered* (it's an AI tool).
+This design system extends the bare functional shell into something that feels **elegant, futuristic, intelligent, and minimalist** — the brief from the project owner. It keeps the existing deep-ink palette as a backbone, grounds it in warm paper instead of cold white, and pairs a serif display voice with a technical grotesque body — so the product reads as both _literary_ (it's about words) and _engineered_ (it's an AI tool).
 
 ## Sources
 
@@ -16,19 +16,19 @@ This design system extends the bare functional shell into something that feels *
   - `extension/options.html` — current options-page DOM and inline CSS
   - `src/content.ts` — floating button + panel injected into page
   - `src/options.ts` / `src/settings.ts` — settings model and defaults
-- No Figma file or external brand assets were provided. There is **no logo, no icon set, no font files** in the source repo — the extension currently relies on `system-ui` and ships no graphics.
+- No Figma file or external brand assets were provided. The extension itself has **no logo, no icon set, no font files** and currently relies on `system-ui`; marketing-video-specific assets now live under `marketing-video/assets/`.
 
 ## Index
 
-| File / Folder | Purpose |
-|---|---|
-| `README.md` | This file. Brand context, content & visual foundations, iconography. |
-| `SKILL.md` | Agent-skill manifest — load this to design *as* Simple Words. |
-| `colors_and_type.css` | All color, type, spacing, radius, shadow, motion tokens. |
-| `fonts/` | Webfont files (Instrument Serif, Geist, Geist Mono — see Visual Foundations). |
-| `assets/` | Logo lockups, glyph mark, icon SVGs. |
-| `preview/` | Small HTML cards that populate the Design System tab. |
-| `ui_kits/extension/` | Pixel-faithful recreation of the floating button + panel + options page. |
+| File / Folder         | Purpose                                                                       |
+| --------------------- | ----------------------------------------------------------------------------- |
+| `README.md`           | This file. Brand context, content & visual foundations, iconography.          |
+| `SKILL.md`            | Agent-skill manifest — load this to design _as_ Simple Words.                 |
+| `colors_and_type.css` | All color, type, spacing, radius, shadow, motion tokens.                      |
+| `fonts/`              | Webfont files (Instrument Serif, Geist, Geist Mono — see Visual Foundations). |
+| `assets/`             | Logo lockups, glyph mark, icon SVGs.                                          |
+| `preview/`            | Small HTML cards that populate the Design System tab.                         |
+| `ui_kits/extension/`  | Pixel-faithful recreation of the floating button + panel + options page.      |
 
 ---
 
@@ -38,16 +38,16 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 
 ### Tone
 
-- **Plain, direct, considered.** No exclamation marks, no marketing puff. The product *itself* is about turning rough into polished, so the copy practices what it preaches.
+- **Plain, direct, considered.** No exclamation marks, no marketing puff. The product _itself_ is about turning rough into polished, so the copy practices what it preaches.
 - **Confidently quiet.** No "✨ AI-powered" flourishes. No emoji. The intelligence is in the result, not the chrome.
-- **Humble about LLMs.** From the existing options copy: *"Chrome extensions cannot silently read Codex CLI auth from disk."* — explains the limitation, then offers the workaround. No hand-waving.
+- **Humble about LLMs.** From the existing options copy: _"Chrome extensions cannot silently read Codex CLI auth from disk."_ — explains the limitation, then offers the workaround. No hand-waving.
 - **Lowercase except where required.** Sentence case for headings (`Writing Instructions`, not `Writing instructions` or `WRITING INSTRUCTIONS`). Buttons are sentence case (`Replace draft`, `Dismiss`, `Save`).
 
 ### Person & address
 
-- **Second-person ("you"), never first-person plural ("we").** *"Choose an LLM provider."* / *"Leave blank to restore the default system prompt."* — the user is the agent.
+- **Second-person ("you"), never first-person plural ("we").** _"Choose an LLM provider."_ / _"Leave blank to restore the default system prompt."_ — the user is the agent.
 - The product refers to itself as **"Simple Words"** (proper noun, two words, both capitalized). Never "the extension," never "SW."
-- The model addresses the *writer*, not the recipient — the system prompt instructs it to *"rewrite a rough text draft into professional, respectful, friendly content draft that expresses the same intent."*
+- The model addresses the _writer_, not the recipient — the system prompt instructs it to _"rewrite a rough text draft into professional, respectful, friendly content draft that expresses the same intent."_
 
 ### Casing
 
@@ -58,17 +58,17 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 
 ### Microcopy examples (lifted verbatim from the source)
 
-- Tagline / extension description: *"Turn rough replies into friendly drafts using surrounding page context."*
-- Options-page intro: *"Choose an LLM provider. The extension calls the selected provider directly after you click the Simple Words button."*
-- Empty-state error: *"Write a rough reply first."*
-- Loading: *"Refining…"*
-- System-prompt hint: *"Leave blank to restore the default system prompt."*
-- Save confirmation: *"Saved."* (single word, with period.)
+- Tagline / extension description: _"Turn rough replies into friendly drafts using surrounding page context."_
+- Options-page intro: _"Choose an LLM provider. The extension calls the selected provider directly after you click the Simple Words button."_
+- Empty-state error: _"Write a rough reply first."_
+- Loading: _"Refining…"_
+- System-prompt hint: _"Leave blank to restore the default system prompt."_
+- Save confirmation: _"Saved."_ (single word, with period.)
 
 ### Things to avoid
 
 - **No emoji.** Anywhere. Not in copy, not in errors, not in marketing.
-- **No em-dashes inside generated drafts.** The default system prompt explicitly forbids them: *"Do not use em dashes. Use regular dash '-' when needed."* (Em-dashes *are* fine in our brand/marketing copy — only the model output bans them.)
+- **No em-dashes inside generated drafts.** The default system prompt explicitly forbids them: _"Do not use em dashes. Use regular dash '-' when needed."_ (Em-dashes _are_ fine in our brand/marketing copy — only the model output bans them.)
 - **No exclamation marks.** Tools that whisper feel more confident than tools that shout.
 - **No "magic" / "AI-powered" / "supercharged"** language. The product is matter-of-fact.
 
@@ -76,25 +76,25 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 
 ## Visual Foundations
 
-The current extension is functional but unstyled — `system-ui`, off-the-shelf slate. The design system pushes it toward *quiet sophistication*:
+The current extension is functional but unstyled — `system-ui`, off-the-shelf slate. The design system pushes it toward _quiet sophistication_:
 
 ### The core idea: paper × ink × intelligence
 
 Three forces in tension:
 
-1. **Paper** — warm off-white (`#FAF8F5`), the base. Suggests *writing* — a clean sheet, a letter being drafted.
-2. **Ink** — deep blue-black (`#0E1525`), the foreground. Suggests *finished words*, the result.
-3. **Intelligence** — a single restrained electric-ink accent (`#2747D6`) used *only* for AI moments (loading, the active button, focus rings). Suggests the model's hand on the page.
+1. **Paper** — warm off-white (`#FAF8F5`), the base. Suggests _writing_ — a clean sheet, a letter being drafted.
+2. **Ink** — deep blue-black (`#0E1525`), the foreground. Suggests _finished words_, the result.
+3. **Intelligence** — a single restrained electric-ink accent (`#2747D6`) used _only_ for AI moments (loading, the active button, focus rings). Suggests the model's hand on the page.
 
 The product literally turns ink-rough into ink-clean, so the visual language is monochrome plus one accent. Never multi-hue, never gradients-as-decoration.
 
 ### Typography
 
-| Role | Family | Use |
-|---|---|---|
+| Role                  | Family                                                | Use                                                                                            |
+| --------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | Display / serif voice | **Instrument Serif** (italic preferred for headlines) | Brand wordmark, large quotes, hero numbers, pull-quotes in marketing. The "literary" register. |
-| UI / body | **Geist** (400, 500, 600) | Everything else — labels, buttons, body, nav. Technical, neutral, modern. |
-| Mono | **Geist Mono** | Model names, API keys, code, settings values. |
+| UI / body             | **Geist** (400, 500, 600)                             | Everything else — labels, buttons, body, nav. Technical, neutral, modern.                      |
+| Mono                  | **Geist Mono**                                        | Model names, API keys, code, settings values.                                                  |
 
 System fallbacks: `ui-serif, Georgia, serif` for the display; `system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif` for the body — preserves the original's `system-ui` heritage if webfonts fail.
 
@@ -111,6 +111,7 @@ A 4px base scale: `4 / 8 / 12 / 16 / 20 / 24 / 32 / 48 / 64`. The extension curr
 ### Radii
 
 Three sizes, matching the source's existing usage:
+
 - **`--radius-sm` = 8px** — inputs, secondary buttons
 - **`--radius-md` = 14px** — cards, panels, sections
 - **`--radius-pill` = 999px** — the floating brand button (only)
@@ -140,6 +141,7 @@ Always 1px, always one of two colors: `--line` (`#E5E0D6` — warm) for layout, 
 ### Animation & motion
 
 Motion is **slow, calm, and purposeful**. No bounces, no springs. Easing is always:
+
 - **`--ease-out`** — `cubic-bezier(0.2, 0.8, 0.2, 1)` for entries
 - **`--ease-in-out`** — `cubic-bezier(0.4, 0, 0.2, 1)` for state changes
 
@@ -163,11 +165,12 @@ Used **once**: the floating panel can sit on top of host-page content. We use `b
 
 - **Floating button** is `position: fixed`, `z-index: 2147483647` (max), anchored 8px below the active editable field's bottom-right corner. This is non-negotiable — it must clear every host page, including ones with their own floating UI.
 - **Options page** is a single column, `max-width: 680px`, generous 32px outer margins. Never multi-column. Reading width is sacred.
-- **Floating panel** sits *above* the button (`panelPositionAboveButton` in source) when there's room, else flips to below. Max-width 420px, min-width 260px.
+- **Floating panel** sits _above_ the button (`panelPositionAboveButton` in source) when there's room, else flips to below. Max-width 420px, min-width 260px.
 
 ### Imagery & color vibe
 
 There is essentially **no decorative imagery** in this product. If imagery is ever added (marketing site, blog), it should be:
+
 - **Black & white**, or duotone in `--ink-900` × `--paper`.
 - **Grainy and warm** — film grain, never digital noise.
 - **Documentary** — hands writing, paper, ink, typewriters. Not stock-photo handshakes, never abstract gradients.
@@ -180,7 +183,7 @@ Cards are **defined by tone, not by chrome.** A card is a `--paper-2` rectangle 
 
 ## Caveats / substitutions flagged for review
 
-The source repo ships **no fonts, no logo, no icons** — the extension currently relies on `system-ui` and ships zero graphics. Everything visual in this design system is therefore a *proposal* extending the existing color/spacing/copy heritage. Specifically flagged:
+The extension ships **no fonts, no logo, no icons** and currently relies on `system-ui`. Everything visual in this design system is therefore a _proposal_ extending the existing color/spacing/copy heritage; the marketing video uses those proposed assets from `marketing-video/assets/`. Specifically flagged:
 
 - **Fonts: substituted from Google Fonts.** Instrument Serif + Geist + Geist Mono are loaded via Google Fonts CDN in `colors_and_type.css`. If the project has license-procured TTFs of these (or different) families, drop them in `fonts/` and update the `@import` line.
 - **Wordmark and glyph: design-system-introduced.** Live in `assets/wordmark.svg` and `assets/glyph.svg`. Replace if a real mark exists.
@@ -189,7 +192,7 @@ The source repo ships **no fonts, no logo, no icons** — the extension currentl
 
 ## Iconography
 
-The Simple Words source repo ships **zero icons or images**. The current options page is text-only; the floating button is a text pill (`"Simple Words"`).
+The Simple Words extension ships **zero icons or images**. The current options page is text-only; the floating button is a text pill (`"Simple Words"`). Marketing-video-specific icons and marks live under `marketing-video/assets/`.
 
 Because there is no existing icon system, this design system establishes one:
 
@@ -203,4 +206,4 @@ Because there is no existing icon system, this design system establishes one:
 
 **Unicode glyphs:** sparingly. The em-dash (—) is fine in marketing copy. The middle-dot (·) is used as a list separator. The ellipsis (…) is preferred over three periods. The right-arrow (→) is preferred over `->` in body copy.
 
-**Brand mark:** Simple Words has no existing logo. This system introduces a simple wordmark in Instrument Serif italic (`Simple Words`) and a glyph mark — a lowercase italic *sw* in a paper square. Both live in `assets/`. Flagged as design-system-introduced (not from the source) so the project owner can replace if a real mark exists.
+**Brand mark:** Simple Words has no existing logo. This system introduces a simple wordmark in Instrument Serif italic (`Simple Words`) and a glyph mark — a lowercase italic _sw_ in a paper square. Both live in `assets/`. Flagged as design-system-introduced (not from the source) so the project owner can replace if a real mark exists.

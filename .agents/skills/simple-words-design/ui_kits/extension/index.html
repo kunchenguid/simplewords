@@ -1,40 +1,62 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Simple Words — Extension UI Kit</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<div id="root"></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simple Words — Extension UI Kit</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="root"></div>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+    <script
+      src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+      integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+      integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+      integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y"
+      crossorigin="anonymous"
+    ></script>
 
-<script type="text/babel" src="FloatingButton.jsx"></script>
-<script type="text/babel" src="HostPage.jsx"></script>
-<script type="text/babel" src="OptionsPage.jsx"></script>
+    <script type="text/babel" src="FloatingButton.jsx"></script>
+    <script type="text/babel" src="HostPage.jsx"></script>
+    <script type="text/babel" src="OptionsPage.jsx"></script>
 
-<script type="text/babel">
-const { useState } = React;
+    <script type="text/babel">
+      const { useState } = React
 
-function App() {
-  const [tab, setTab] = useState('host');
-  return (
-    <>
-      <div className="kit-tabs">
-        <span className="kit-tabs__brand">Simple Words</span>
-        <button className={`kit-tabs__tab ${tab === 'host' ? 'kit-tabs__tab--active' : ''}`} onClick={() => setTab('host')}>Floating button + panel</button>
-        <button className={`kit-tabs__tab ${tab === 'options' ? 'kit-tabs__tab--active' : ''}`} onClick={() => setTab('options')}>Options page</button>
-      </div>
-      {tab === 'host' ? <HostPage/> : <OptionsPage/>}
-    </>
-  );
-}
+      function App() {
+        const [tab, setTab] = useState('host')
+        return (
+          <>
+            <div className="kit-tabs">
+              <span className="kit-tabs__brand">Simple Words</span>
+              <button
+                className={`kit-tabs__tab ${tab === 'host' ? 'kit-tabs__tab--active' : ''}`}
+                onClick={() => setTab('host')}
+              >
+                Floating button + panel
+              </button>
+              <button
+                className={`kit-tabs__tab ${tab === 'options' ? 'kit-tabs__tab--active' : ''}`}
+                onClick={() => setTab('options')}
+              >
+                Options page
+              </button>
+            </div>
+            {tab === 'host' ? <HostPage /> : <OptionsPage />}
+          </>
+        )
+      }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
-</script>
-</body>
+      ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+    </script>
+  </body>
 </html>
