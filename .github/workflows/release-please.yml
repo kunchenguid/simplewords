@@ -1,0 +1,62 @@
+name: release-please
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/checkout@v4
+        if: ${{ steps.release.outputs.release_created }}
+
+      - uses: actions/setup-node@v4
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+        if: ${{ steps.release.outputs.release_created }}
+
+      - run: npm run build
+        if: ${{ steps.release.outputs.release_created }}
+
+      - name: Package extension
+        if: ${{ steps.release.outputs.release_created }}
+        run: cd extension && zip -r ../simplewords.zip .
+
+      - name: Attach zip to GitHub release
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${{ steps.release.outputs.tag_name }}" simplewords.zip
+
+      - name: Check for Chrome Web Store keys
+        id: check_keys
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          SUBMIT_KEYS: ${{ secrets.SUBMIT_KEYS }}
+        run: |
+          if [ -n "$SUBMIT_KEYS" ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::SUBMIT_KEYS secret not set - skipping Chrome Web Store upload. Add the secret to enable auto-publish."
+          fi
+
+      - uses: PlasmoHQ/bpp@v3
+        if: ${{ steps.release.outputs.release_created && steps.check_keys.outputs.present == 'true' }}
+        with:
+          keys: ${{ secrets.SUBMIT_KEYS }}
+          chrome-file: simplewords.zip

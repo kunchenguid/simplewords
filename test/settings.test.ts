@@ -1,5 +1,10 @@
+// @vitest-environment node
+
 import { describe, expect, test } from 'vitest'
-import { readFileSync } from 'node:fs'
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import { build } from 'esbuild'
 import { DEFAULT_SYSTEM_PROMPT } from '../src/settings'
 
 describe('DEFAULT_SYSTEM_PROMPT', () => {
@@ -19,18 +24,40 @@ describe('DEFAULT_SYSTEM_PROMPT', () => {
     )
   })
 
-  test('keeps tracked extension bundles in sync with the default prompt', () => {
+  test('keeps generated extension bundles in sync with the default prompt', async () => {
     const promptLines = DEFAULT_SYSTEM_PROMPT.split('\n').filter(Boolean)
+    const outdir = mkdtempSync(join(tmpdir(), 'simplewords-extension-'))
 
-    for (const bundlePath of [
-      'extension/background.js',
-      'extension/options.js'
-    ]) {
-      const bundle = readFileSync(bundlePath, 'utf8')
+    try {
+      await build({
+        entryPoints: ['src/background.ts'],
+        bundle: true,
+        outdir,
+        format: 'esm',
+        splitting: true,
+        chunkNames: 'chunks/[name]-[hash]',
+        target: 'chrome120'
+      })
+      await build({
+        entryPoints: ['src/content.ts', 'src/options.ts'],
+        bundle: true,
+        outdir,
+        format: 'iife',
+        target: 'chrome120'
+      })
 
-      for (const line of promptLines) {
-        expect(bundle).toContain(line)
+      for (const bundlePath of [
+        join(outdir, 'background.js'),
+        join(outdir, 'options.js')
+      ]) {
+        const bundle = readFileSync(bundlePath, 'utf8')
+
+        for (const line of promptLines) {
+          expect(bundle).toContain(line)
+        }
       }
+    } finally {
+      rmSync(outdir, { recursive: true, force: true })
     }
   })
 })

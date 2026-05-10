@@ -1,1 +1,6 @@
 node_modules/
+extension/background.js
+extension/content.js
+extension/options.js
+extension/chunks/
+simplewords.zip
