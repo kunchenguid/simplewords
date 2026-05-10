@@ -15,7 +15,7 @@ If the user invokes this skill without any other guidance, ask them what they wa
 - `README.md` — brand context, content fundamentals, visual foundations, iconography
 - `colors_and_type.css` — drop-in tokens (color, type, spacing, radius, shadow, motion)
 - `assets/` — wordmark, glyph, Lucide icon set
-- `ui_kits/extension/` — pixel-faithful React recreation of the floating button + refine panel + options page
+- `ui_kits/extension/` — production-derived React prototypes for the floating button, refine panel, and options page; check production files before treating them as pixel-faithful
 - `preview/` — small reference cards showing every token in use
 
 ## House rules in one paragraph
