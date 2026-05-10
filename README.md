@@ -14,7 +14,7 @@ The built files `extension/background.js`, `extension/content.js`, `extension/op
 
 The `marketing-video/` directory is a standalone HyperFrames project for the Simple Words marketing video.
 
-From that directory, run `npm run dev` to preview, `npm run check` to lint and validate, and `npm run render` to generate the MP4.
+From that directory, run `npm run dev` to preview, `npm run check` to lint, validate, and inspect, and `npm run render` to generate the MP4.
 
 The committed render is `marketing-video/simplewords-marketing.mp4`.
 
