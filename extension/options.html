@@ -24,7 +24,8 @@
       }
 
       input,
-      select {
+      select,
+      textarea {
         border: 1px solid #c9d2e3;
         border-radius: 8px;
         box-sizing: border-box;
@@ -32,6 +33,11 @@
         margin-bottom: 14px;
         padding: 10px 12px;
         width: 100%;
+      }
+
+      textarea {
+        min-height: 150px;
+        resize: vertical;
       }
 
       section {
@@ -72,6 +78,16 @@
         color: #176b3a;
         min-height: 20px;
       }
+
+      .save-row {
+        align-items: center;
+        display: flex;
+        gap: 12px;
+      }
+
+      .save-row #status {
+        margin: 12px 0 0;
+      }
     </style>
   </head>
   <body>
@@ -80,6 +96,28 @@
       Choose an LLM provider. The extension calls the selected provider directly
       after you click the Simple Words button.
     </p>
+
+    <section>
+      <h2>Writing Instructions</h2>
+      <p>
+        This system prompt is sent with every rewrite request. Keep the page
+        text and email content treated as context, not instructions.
+      </p>
+      <label for="myName">My name</label>
+      <input
+        id="myName"
+        type="text"
+        autocomplete="name"
+        placeholder="Optional"
+      />
+      <p>
+        Optional. When set, this is included in the rewrite instructions so the
+        model can use it for signatures when appropriate.
+      </p>
+      <label for="systemPrompt">System prompt</label>
+      <textarea id="systemPrompt" spellcheck="true"></textarea>
+      <p>Leave blank to restore the default system prompt.</p>
+    </section>
 
     <label for="provider">Provider</label>
     <select id="provider">
@@ -164,8 +202,10 @@
       <input id="ollamaModel" type="text" placeholder="llama3.2" />
     </section>
 
-    <button id="save" type="button">Save</button>
-    <p id="status" role="status"></p>
+    <div class="save-row">
+      <button id="save" type="button">Save</button>
+      <span id="status" role="status"></span>
+    </div>
     <script src="options.js"></script>
   </body>
 </html>

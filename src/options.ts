@@ -8,6 +8,10 @@ import { parseCodexAuthJson } from './codexAuth'
 
 const fields = {
   provider: document.getElementById('provider') as HTMLSelectElement | null,
+  myName: document.getElementById('myName') as HTMLInputElement | null,
+  systemPrompt: document.getElementById(
+    'systemPrompt'
+  ) as HTMLTextAreaElement | null,
   openaiApiKey: document.getElementById(
     'openaiApiKey'
   ) as HTMLInputElement | null,
@@ -67,6 +71,8 @@ async function restoreOptions(): Promise<void> {
   )) as SimpleWordsSettings
 
   setValue(fields.provider, settings.provider)
+  setValue(fields.myName, settings.myName)
+  setValue(fields.systemPrompt, settings.systemPrompt)
   setValue(fields.openaiApiKey, settings.openaiApiKey)
   setValue(fields.openaiBaseURL, settings.openaiBaseURL)
   setValue(fields.openaiModel, settings.openaiModel)
@@ -89,6 +95,9 @@ async function saveOptions(): Promise<void> {
 
   await chrome.storage.local.set({
     provider: getValue(fields.provider) as Provider,
+    myName: getValue(fields.myName),
+    systemPrompt:
+      getValue(fields.systemPrompt) || DEFAULT_SETTINGS.systemPrompt,
     openaiApiKey: getValue(fields.openaiApiKey),
     openaiBaseURL:
       getValue(fields.openaiBaseURL) || DEFAULT_SETTINGS.openaiBaseURL,
@@ -148,12 +157,14 @@ async function importCodexAuthFile(): Promise<void> {
   }
 }
 
-function getValue(field: HTMLInputElement | HTMLSelectElement | null): string {
+function getValue(
+  field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null
+): string {
   return field?.value.trim() ?? ''
 }
 
 function setValue(
-  field: HTMLInputElement | HTMLSelectElement | null,
+  field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null,
   value: string
 ): void {
   if (field) {
