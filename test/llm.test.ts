@@ -63,7 +63,7 @@ describe('refineWithProvider', () => {
     }
     expect(body.model).toBe('gpt-5.5')
     expect(body.stream).toBe(true)
-    expect(body.instructions).toContain('You rewrite rough email replies')
+    expect(body.instructions).toBe(DEFAULT_SETTINGS.systemPrompt)
     expect(body.store).toBe(false)
     expect(body.service_tier).toBe('priority')
     expect(body.reasoning.effort).toBe('low')

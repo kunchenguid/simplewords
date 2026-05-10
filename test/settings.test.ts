@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest'
+import { readFileSync } from 'node:fs'
 import { DEFAULT_SYSTEM_PROMPT } from '../src/settings'
 
 describe('DEFAULT_SYSTEM_PROMPT', () => {
@@ -16,5 +17,20 @@ describe('DEFAULT_SYSTEM_PROMPT', () => {
         '- Return only the rewritten draft - your response will be used directly to replace the original'
       ].join('\n')
     )
+  })
+
+  test('keeps tracked extension bundles in sync with the default prompt', () => {
+    const promptLines = DEFAULT_SYSTEM_PROMPT.split('\n').filter(Boolean)
+
+    for (const bundlePath of [
+      'extension/background.js',
+      'extension/options.js'
+    ]) {
+      const bundle = readFileSync(bundlePath, 'utf8')
+
+      for (const line of promptLines) {
+        expect(bundle).toContain(line)
+      }
+    }
   })
 })
