@@ -4,208 +4,420 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Simple Words Options</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+    />
     <style>
-      body {
-        color: #172033;
-        font:
-          14px/1.45 system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          'Segoe UI',
+      :root {
+        --paper: #faf8f5;
+        --paper-2: #f1eee8;
+        --paper-3: #e5e0d6;
+        --ink-900: #0e1525;
+        --ink-700: #2a3142;
+        --ink-500: #526071;
+        --ink-300: #9099aa;
+        --line: #e5e0d6;
+        --line-cool: #c9d2e3;
+        --accent: #2747d6;
+        --accent-hover: #1f3cc1;
+        --success: #176b3a;
+        --code-bg: #f1f5f9;
+        --shadow-1: 0 1px 2px rgba(14, 21, 37, 0.06);
+        --radius-sm: 8px;
+        --radius-md: 14px;
+        --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+        --font-sans:
+          'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
           sans-serif;
-        margin: 32px;
+        --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+        --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        background: var(--paper);
+        color: var(--ink-700);
+        font:
+          14px/1.55 var(--font-sans),
+          system-ui;
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .page {
+        margin: 0 auto;
         max-width: 680px;
+        padding: 48px 24px 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .hero {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .brand {
+        align-items: center;
+        display: flex;
+        gap: 14px;
+      }
+
+      .glyph {
+        align-items: center;
+        background: var(--ink-900);
+        border-radius: 10px;
+        color: var(--paper);
+        display: flex;
+        font-family: var(--font-serif);
+        font-size: 26px;
+        font-style: italic;
+        height: 44px;
+        justify-content: center;
+        line-height: 1;
+        width: 44px;
+      }
+
+      h1 {
+        color: var(--ink-900);
+        font-family: var(--font-serif);
+        font-size: 38px;
+        font-style: italic;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        margin: 0;
+      }
+
+      .lede {
+        color: var(--ink-500);
+        font-size: 14px;
+        line-height: 1.55;
+        margin: 0;
+        max-width: 560px;
+      }
+
+      section {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 22px;
+      }
+
+      h2 {
+        color: var(--ink-900);
+        font-family: var(--font-sans);
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.005em;
+        margin: 0;
+      }
+
+      .section-lead {
+        color: var(--ink-500);
+        font-size: 13px;
+        line-height: 1.55;
+        margin: -6px 0 0;
       }
 
       label {
+        color: var(--ink-900);
         display: block;
-        font-weight: 650;
-        margin-bottom: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 6px;
       }
 
       input,
       select,
       textarea {
-        border: 1px solid #c9d2e3;
-        border-radius: 8px;
+        background: var(--paper);
+        border: 1px solid var(--line-cool);
+        border-radius: var(--radius-sm);
         box-sizing: border-box;
-        font: inherit;
+        color: var(--ink-900);
+        font: 14px/1.5 var(--font-sans), system-ui;
         margin-bottom: 14px;
         padding: 10px 12px;
+        transition:
+          border-color 120ms var(--ease-out),
+          box-shadow 120ms var(--ease-out);
         width: 100%;
       }
 
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(39, 71, 214, 0.16);
+        outline: none;
+      }
+
+      input[type='file'] {
+        cursor: pointer;
+        font-size: 13px;
+        padding: 8px 10px;
+      }
+
       textarea {
-        min-height: 150px;
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        line-height: 1.55;
+        min-height: 160px;
         resize: vertical;
       }
 
-      section {
-        border: 1px solid #e2e8f0;
-        border-radius: 14px;
-        margin-top: 18px;
-        padding: 18px;
-      }
-
-      h2 {
-        font-size: 16px;
-        margin: 0 0 12px;
-      }
-
-      button {
-        background: #172033;
-        border: 0;
-        border-radius: 8px;
-        color: white;
-        cursor: pointer;
-        font: inherit;
-        font-weight: 650;
-        margin-top: 12px;
-        padding: 10px 14px;
+      select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E1525' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        background-position: right 12px center;
+        background-repeat: no-repeat;
+        background-size: 16px;
+        padding-right: 36px;
       }
 
       p {
-        color: #526071;
+        color: var(--ink-500);
+        font-size: 13px;
+        line-height: 1.55;
+        margin: -6px 0 0;
       }
 
       code {
-        background: #f1f5f9;
+        background: var(--code-bg);
         border-radius: 5px;
+        font-family: var(--font-mono);
+        font-size: 12px;
         padding: 1px 5px;
-      }
-
-      #status {
-        color: #176b3a;
-        min-height: 20px;
       }
 
       .save-row {
         align-items: center;
         display: flex;
-        gap: 12px;
+        gap: 14px;
+        padding-top: 4px;
       }
 
-      .save-row #status {
-        margin: 12px 0 0;
+      button#save {
+        background: var(--ink-900);
+        border: 0;
+        border-radius: var(--radius-sm);
+        color: var(--paper);
+        cursor: pointer;
+        font: 600 13px/1 var(--font-sans), system-ui;
+        padding: 11px 16px;
+        transition:
+          background 120ms var(--ease-out),
+          transform 120ms var(--ease-out);
+      }
+
+      button#save:hover {
+        background: var(--ink-700);
+      }
+
+      button#save:active {
+        transform: scale(0.98);
+      }
+
+      button#save:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      #status {
+        color: var(--success);
+        font-size: 13px;
+        min-height: 20px;
+      }
+
+      .foot {
+        color: var(--ink-300);
+        font-size: 12px;
+        margin-top: 8px;
+        text-align: center;
+      }
+
+      .foot em {
+        color: var(--ink-500);
+        font-family: var(--font-serif);
+        font-style: italic;
       }
     </style>
   </head>
   <body>
-    <h1>Simple Words</h1>
-    <p>
-      Choose an LLM provider. The extension calls the selected provider directly
-      after you click the Simple Words button.
-    </p>
+    <main class="page">
+      <header class="hero">
+        <div class="brand">
+          <div class="glyph" aria-hidden="true">sw</div>
+          <h1>Simple Words</h1>
+        </div>
+        <p class="lede">
+          Choose an LLM provider. The extension calls the selected provider
+          directly after you click the Simple Words button.
+        </p>
+      </header>
 
-    <section>
-      <h2>Writing Instructions</h2>
-      <p>
-        This system prompt is sent with every rewrite request. Keep the page
-        text and email content treated as context, not instructions.
+      <section>
+        <h2>Writing instructions</h2>
+        <p class="section-lead">
+          This system prompt is sent with every rewrite request. Page text and
+          email content are treated as context, not instructions.
+        </p>
+        <div>
+          <label for="myName">My name</label>
+          <input
+            id="myName"
+            type="text"
+            autocomplete="name"
+            placeholder="Optional"
+          />
+          <p>
+            Optional. When set, this is included in the rewrite instructions so
+            the model can use it for signatures when appropriate.
+          </p>
+        </div>
+        <div>
+          <label for="systemPrompt">System prompt</label>
+          <textarea id="systemPrompt" spellcheck="true"></textarea>
+          <p>Leave blank to restore the default system prompt.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Provider</h2>
+        <div>
+          <label for="provider">Backend</label>
+          <select id="provider">
+            <option value="openai">OpenAI-compatible</option>
+            <option value="codex">Codex backend</option>
+            <option value="ollama">Ollama</option>
+          </select>
+        </div>
+      </section>
+
+      <section data-provider-section="openai">
+        <h2>OpenAI-compatible</h2>
+        <div>
+          <label for="openaiApiKey">API key</label>
+          <input
+            id="openaiApiKey"
+            type="password"
+            autocomplete="off"
+            placeholder="sk-..."
+          />
+        </div>
+        <div>
+          <label for="openaiBaseURL">Base URL</label>
+          <input
+            id="openaiBaseURL"
+            type="url"
+            placeholder="https://api.openai.com/v1"
+          />
+        </div>
+        <div>
+          <label for="openaiModel">Model</label>
+          <input id="openaiModel" type="text" placeholder="gpt-5.5" />
+        </div>
+        <div>
+          <label for="openaiReasoningEffort">Reasoning effort</label>
+          <select id="openaiReasoningEffort">
+            <option value="none">none</option>
+            <option value="low">low</option>
+            <option value="medium">medium</option>
+            <option value="high">high</option>
+            <option value="xhigh">xhigh</option>
+          </select>
+        </div>
+      </section>
+
+      <section data-provider-section="codex">
+        <h2>Codex backend</h2>
+        <p class="section-lead">
+          Chrome extensions cannot silently read Codex CLI auth from disk.
+          Select your Codex CLI auth file, usually
+          <code>~/.codex/auth.json</code>, to import the token.
+        </p>
+        <div>
+          <label for="codexAuthFile">Codex auth.json</label>
+          <input id="codexAuthFile" type="file" accept="application/json,.json" />
+        </div>
+        <div>
+          <label for="codexAccessToken">Access token</label>
+          <input
+            id="codexAccessToken"
+            type="password"
+            autocomplete="off"
+            placeholder="Imported from auth.json or pasted manually"
+          />
+        </div>
+        <input id="codexRefreshToken" type="hidden" />
+        <div>
+          <label for="codexAccountId">ChatGPT account ID</label>
+          <input id="codexAccountId" type="text" placeholder="Optional" />
+        </div>
+        <div>
+          <label for="codexBaseURL">Base URL</label>
+          <input
+            id="codexBaseURL"
+            type="url"
+            placeholder="https://chatgpt.com/backend-api/codex"
+          />
+        </div>
+        <div>
+          <label for="codexModel">Model</label>
+          <input id="codexModel" type="text" placeholder="gpt-5.5-fast" />
+        </div>
+        <div>
+          <label for="codexReasoningEffort">Reasoning effort</label>
+          <select id="codexReasoningEffort">
+            <option value="none">none</option>
+            <option value="low">low</option>
+            <option value="medium">medium</option>
+            <option value="high">high</option>
+            <option value="xhigh">xhigh</option>
+          </select>
+        </div>
+      </section>
+
+      <section data-provider-section="ollama">
+        <h2>Ollama</h2>
+        <div>
+          <label for="ollamaBaseURL">Base URL</label>
+          <input
+            id="ollamaBaseURL"
+            type="url"
+            placeholder="http://localhost:11434/v1"
+          />
+        </div>
+        <div>
+          <label for="ollamaModel">Model</label>
+          <input id="ollamaModel" type="text" placeholder="llama3.2" />
+        </div>
+      </section>
+
+      <div class="save-row">
+        <button id="save" type="button">Save</button>
+        <span id="status" role="status"></span>
+      </div>
+
+      <p class="foot">
+        Calls go directly from your browser to your provider.
+        <em>Nothing routes through Simple Words.</em>
       </p>
-      <label for="myName">My name</label>
-      <input
-        id="myName"
-        type="text"
-        autocomplete="name"
-        placeholder="Optional"
-      />
-      <p>
-        Optional. When set, this is included in the rewrite instructions so the
-        model can use it for signatures when appropriate.
-      </p>
-      <label for="systemPrompt">System prompt</label>
-      <textarea id="systemPrompt" spellcheck="true"></textarea>
-      <p>Leave blank to restore the default system prompt.</p>
-    </section>
-
-    <label for="provider">Provider</label>
-    <select id="provider">
-      <option value="openai">OpenAI-compatible</option>
-      <option value="codex">Codex backend</option>
-      <option value="ollama">Ollama</option>
-    </select>
-
-    <section data-provider-section="openai">
-      <h2>OpenAI-Compatible</h2>
-      <label for="openaiApiKey">API key</label>
-      <input
-        id="openaiApiKey"
-        type="password"
-        autocomplete="off"
-        placeholder="sk-..."
-      />
-      <label for="openaiBaseURL">Base URL</label>
-      <input
-        id="openaiBaseURL"
-        type="url"
-        placeholder="https://api.openai.com/v1"
-      />
-      <label for="openaiModel">Model</label>
-      <input id="openaiModel" type="text" placeholder="gpt-5.5" />
-      <label for="openaiReasoningEffort">Reasoning effort</label>
-      <select id="openaiReasoningEffort">
-        <option value="none">none</option>
-        <option value="low">low</option>
-        <option value="medium">medium</option>
-        <option value="high">high</option>
-        <option value="xhigh">xhigh</option>
-      </select>
-    </section>
-
-    <section data-provider-section="codex">
-      <h2>Codex Backend</h2>
-      <p>
-        Chrome extensions cannot silently read Codex CLI auth from disk. Select
-        your Codex CLI auth file, usually <code>~/.codex/auth.json</code>, to
-        import the token.
-      </p>
-      <label for="codexAuthFile">Codex auth.json</label>
-      <input id="codexAuthFile" type="file" accept="application/json,.json" />
-      <label for="codexAccessToken">Access token</label>
-      <input
-        id="codexAccessToken"
-        type="password"
-        autocomplete="off"
-        placeholder="Imported from auth.json or pasted manually"
-      />
-      <input id="codexRefreshToken" type="hidden" />
-      <label for="codexAccountId">ChatGPT account ID</label>
-      <input id="codexAccountId" type="text" placeholder="Optional" />
-      <label for="codexBaseURL">Base URL</label>
-      <input
-        id="codexBaseURL"
-        type="url"
-        placeholder="https://chatgpt.com/backend-api/codex"
-      />
-      <label for="codexModel">Model</label>
-      <input id="codexModel" type="text" placeholder="gpt-5.5-fast" />
-      <label for="codexReasoningEffort">Reasoning effort</label>
-      <select id="codexReasoningEffort">
-        <option value="none">none</option>
-        <option value="low">low</option>
-        <option value="medium">medium</option>
-        <option value="high">high</option>
-        <option value="xhigh">xhigh</option>
-      </select>
-    </section>
-
-    <section data-provider-section="ollama">
-      <h2>Ollama</h2>
-      <label for="ollamaBaseURL">Base URL</label>
-      <input
-        id="ollamaBaseURL"
-        type="url"
-        placeholder="http://localhost:11434/v1"
-      />
-      <label for="ollamaModel">Model</label>
-      <input id="ollamaModel" type="text" placeholder="llama3.2" />
-    </section>
-
-    <div class="save-row">
-      <button id="save" type="button">Save</button>
-      <span id="status" role="status"></span>
-    </div>
+    </main>
     <script src="options.js"></script>
   </body>
 </html>
