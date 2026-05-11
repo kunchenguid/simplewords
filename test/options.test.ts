@@ -128,10 +128,47 @@ describe('options page', () => {
     ).toBeNull()
 
     expect(
-      Array.from(document.querySelectorAll<HTMLElement>('[data-step]'))
-        .map((section) => section.dataset.step)
-        .sort()
+      Array.from(document.querySelectorAll<HTMLElement>('[data-step]')).map(
+        (section) => section.dataset.step
+      )
     ).toEqual(['1', '2', '3'])
+
+    expect(document.querySelector('style')?.textContent).not.toMatch(
+      /#(?:model-provider|where-it-appears|writing-style)\s*{[^}]*\border\s*:/
+    )
+  })
+
+  test('localizes visible step labels', async () => {
+    document.body.innerHTML = await readFile(
+      `${process.cwd()}/extension/options.html`,
+      'utf8'
+    )
+
+    vi.stubGlobal('chrome', {
+      i18n: {
+        getMessage: vi.fn((key: string) => `translated ${key}`),
+        getUILanguage: vi.fn(() => 'en')
+      },
+      storage: {
+        local: {
+          get: vi.fn(async () => DEFAULT_SETTINGS),
+          set: vi.fn(async () => undefined)
+        }
+      }
+    })
+
+    await import('../src/options')
+    await Promise.resolve()
+
+    expect(
+      Array.from(document.querySelectorAll<HTMLElement>('.step-kicker')).map(
+        (label) => label.textContent
+      )
+    ).toEqual([
+      'translated stepOneLabel',
+      'translated stepTwoLabel',
+      'translated stepThreeLabel'
+    ])
   })
 
   test('only shows the default provider settings before options restore', async () => {

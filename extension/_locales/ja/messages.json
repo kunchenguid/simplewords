@@ -7,6 +7,9 @@
   "optionsLede": {
     "message": "LLM プロバイダーを選択します。Simple Words ボタンをクリックすると、選択したプロバイダーを直接呼び出します。"
   },
+  "stepOneLabel": { "message": "ステップ 1" },
+  "stepTwoLabel": { "message": "ステップ 2" },
+  "stepThreeLabel": { "message": "ステップ 3" },
   "writingInstructionsHeading": { "message": "文章スタイル" },
   "writingInstructionsLead": {
     "message": "返信が自然に感じられるように、Simple Words にあなたの情報を少し伝えます。細かく制御したい場合は完全なシステムプロンプトを調整できます。"

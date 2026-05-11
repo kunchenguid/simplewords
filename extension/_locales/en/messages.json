@@ -7,6 +7,9 @@
   "optionsLede": {
     "message": "Choose an LLM provider. The extension calls the selected provider directly after you click the Simple Words button."
   },
+  "stepOneLabel": { "message": "Step 1" },
+  "stepTwoLabel": { "message": "Step 2" },
+  "stepThreeLabel": { "message": "Step 3" },
   "writingInstructionsHeading": { "message": "Writing style" },
   "writingInstructionsLead": {
     "message": "Teach Simple Words enough about you to make replies feel natural. The full system prompt is there when you need precise control."

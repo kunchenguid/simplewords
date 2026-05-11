@@ -7,6 +7,9 @@
   "optionsLede": {
     "message": "LLM प्रदाता चुनें। Simple Words बटन क्लिक करने के बाद एक्सटेंशन सीधे चुने गए प्रदाता को कॉल करता है।"
   },
+  "stepOneLabel": { "message": "चरण 1" },
+  "stepTwoLabel": { "message": "चरण 2" },
+  "stepThreeLabel": { "message": "चरण 3" },
   "writingInstructionsHeading": { "message": "लेखन शैली" },
   "writingInstructionsLead": {
     "message": "Simple Words को अपने बारे में इतना संदर्भ दें कि जवाब स्वाभाविक लगें। जब सटीक नियंत्रण चाहिए, पूरा system prompt उपलब्ध है।"

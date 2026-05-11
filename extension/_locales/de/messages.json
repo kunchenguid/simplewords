@@ -7,6 +7,9 @@
   "optionsLede": {
     "message": "Wähle einen LLM-Anbieter. Die Erweiterung ruft den ausgewählten Anbieter direkt auf, nachdem du Simple Words klickst."
   },
+  "stepOneLabel": { "message": "Schritt 1" },
+  "stepTwoLabel": { "message": "Schritt 2" },
+  "stepThreeLabel": { "message": "Schritt 3" },
   "writingInstructionsHeading": { "message": "Schreibstil" },
   "writingInstructionsLead": {
     "message": "Gib Simple Words genug Kontext über dich, damit Antworten natürlich klingen. Der vollständige System-Prompt ist verfügbar, wenn du genaue Kontrolle brauchst."

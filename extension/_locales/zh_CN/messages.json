@@ -7,6 +7,9 @@
   "optionsLede": {
     "message": "选择一个 LLM 提供方。点击 Simple Words 按钮后，扩展会直接调用所选提供方。"
   },
+  "stepOneLabel": { "message": "第 1 步" },
+  "stepTwoLabel": { "message": "第 2 步" },
+  "stepThreeLabel": { "message": "第 3 步" },
   "writingInstructionsHeading": { "message": "写作风格" },
   "writingInstructionsLead": {
     "message": "让 Simple Words 了解足够的个人信息，使回复更自然。需要精细控制时，可以调整完整系统提示。"

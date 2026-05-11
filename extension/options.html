@@ -135,23 +135,6 @@
         display: none;
       }
 
-      #model-provider {
-        order: 1;
-      }
-
-      #where-it-appears {
-        order: 2;
-      }
-
-      #writing-style {
-        order: 3;
-      }
-
-      .save-row,
-      .foot {
-        order: 4;
-      }
-
       .section-head {
         display: flex;
         flex-direction: column;
@@ -365,76 +348,9 @@
         </p>
       </header>
 
-      <section id="where-it-appears" class="step-card" data-step="2">
-        <div class="section-head">
-          <span class="step-kicker">Step 2</span>
-          <h2 data-i18n="enabledDomainsHeading">Where it appears</h2>
-          <p class="section-lead" data-i18n="enabledDomainsLead">
-            Simple Words only appears on these hostnames. Add one domain per
-            line.
-          </p>
-        </div>
-        <div class="field">
-          <label for="enabledDomains" data-i18n="enabledDomainsLabel">
-            Domains
-          </label>
-          <textarea
-            id="enabledDomains"
-            autocomplete="off"
-            autocapitalize="none"
-            spellcheck="false"
-          ></textarea>
-          <p data-i18n="enabledDomainsHelp">
-            Defaults include Gmail, Outlook, Yahoo Mail, iCloud Mail, and Proton
-            Mail.
-          </p>
-        </div>
-      </section>
-
-      <section id="writing-style" class="step-card" data-step="3">
-        <div class="section-head">
-          <span class="step-kicker">Step 3</span>
-          <h2 data-i18n="writingInstructionsHeading">Writing style</h2>
-          <p class="section-lead" data-i18n="writingInstructionsLead">
-            Teach Simple Words enough about you to make replies feel natural.
-            The full system prompt is there when you need precise control.
-          </p>
-        </div>
-        <div class="field">
-          <label for="myName" data-i18n="myNameLabel">My name</label>
-          <input
-            id="myName"
-            type="text"
-            autocomplete="name"
-            data-i18n-placeholder="optionalPlaceholder"
-            placeholder="Optional"
-          />
-          <p data-i18n="myNameHelp">
-            Optional. When set, this is included in the rewrite instructions so
-            the model can use it for signatures when appropriate.
-          </p>
-        </div>
-        <details open>
-          <summary data-i18n="advancedWritingInstructionsSummary">
-            Advanced writing instructions
-          </summary>
-          <div class="disclosure-body">
-            <div class="field">
-              <label for="systemPrompt" data-i18n="systemPromptLabel">
-                System prompt
-              </label>
-              <textarea id="systemPrompt" spellcheck="true"></textarea>
-              <p data-i18n="systemPromptHelp">
-                Leave blank to restore the default system prompt.
-              </p>
-            </div>
-          </div>
-        </details>
-      </section>
-
       <section id="model-provider" class="step-card" data-step="1">
         <div class="section-head">
-          <span class="step-kicker">Step 1</span>
+          <span class="step-kicker" data-i18n="stepOneLabel">Step 1</span>
           <h2 data-i18n="providerHeading">Model provider</h2>
           <p class="section-lead" data-i18n="providerLead">
             Choose the service Simple Words calls from your browser. Only the
@@ -590,6 +506,73 @@
             <input id="ollamaModel" type="text" placeholder="llama3.2" />
           </div>
         </section>
+      </section>
+
+      <section id="where-it-appears" class="step-card" data-step="2">
+        <div class="section-head">
+          <span class="step-kicker" data-i18n="stepTwoLabel">Step 2</span>
+          <h2 data-i18n="enabledDomainsHeading">Where it appears</h2>
+          <p class="section-lead" data-i18n="enabledDomainsLead">
+            Simple Words only appears on these hostnames. Add one domain per
+            line.
+          </p>
+        </div>
+        <div class="field">
+          <label for="enabledDomains" data-i18n="enabledDomainsLabel">
+            Domains
+          </label>
+          <textarea
+            id="enabledDomains"
+            autocomplete="off"
+            autocapitalize="none"
+            spellcheck="false"
+          ></textarea>
+          <p data-i18n="enabledDomainsHelp">
+            Defaults include Gmail, Outlook, Yahoo Mail, iCloud Mail, and Proton
+            Mail.
+          </p>
+        </div>
+      </section>
+
+      <section id="writing-style" class="step-card" data-step="3">
+        <div class="section-head">
+          <span class="step-kicker" data-i18n="stepThreeLabel">Step 3</span>
+          <h2 data-i18n="writingInstructionsHeading">Writing style</h2>
+          <p class="section-lead" data-i18n="writingInstructionsLead">
+            Teach Simple Words enough about you to make replies feel natural.
+            The full system prompt is there when you need precise control.
+          </p>
+        </div>
+        <div class="field">
+          <label for="myName" data-i18n="myNameLabel">My name</label>
+          <input
+            id="myName"
+            type="text"
+            autocomplete="name"
+            data-i18n-placeholder="optionalPlaceholder"
+            placeholder="Optional"
+          />
+          <p data-i18n="myNameHelp">
+            Optional. When set, this is included in the rewrite instructions so
+            the model can use it for signatures when appropriate.
+          </p>
+        </div>
+        <details open>
+          <summary data-i18n="advancedWritingInstructionsSummary">
+            Advanced writing instructions
+          </summary>
+          <div class="disclosure-body">
+            <div class="field">
+              <label for="systemPrompt" data-i18n="systemPromptLabel">
+                System prompt
+              </label>
+              <textarea id="systemPrompt" spellcheck="true"></textarea>
+              <p data-i18n="systemPromptHelp">
+                Leave blank to restore the default system prompt.
+              </p>
+            </div>
+          </div>
+        </details>
       </section>
 
       <div class="save-row">

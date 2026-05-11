@@ -7,6 +7,9 @@
   "optionsLede": {
     "message": "Escolha um provedor de LLM. A extensão chama o provedor selecionado diretamente depois que você clica no botão Simple Words."
   },
+  "stepOneLabel": { "message": "Etapa 1" },
+  "stepTwoLabel": { "message": "Etapa 2" },
+  "stepThreeLabel": { "message": "Etapa 3" },
   "writingInstructionsHeading": { "message": "Estilo de escrita" },
   "writingInstructionsLead": {
     "message": "Dê ao Simple Words contexto suficiente sobre você para que as respostas soem naturais. O prompt completo fica disponível quando você precisar de controle preciso."

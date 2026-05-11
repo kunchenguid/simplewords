@@ -7,6 +7,9 @@
   "optionsLede": {
     "message": "Выберите поставщика LLM. Расширение обращается к выбранному поставщику напрямую после нажатия Simple Words."
   },
+  "stepOneLabel": { "message": "Шаг 1" },
+  "stepTwoLabel": { "message": "Шаг 2" },
+  "stepThreeLabel": { "message": "Шаг 3" },
   "writingInstructionsHeading": { "message": "Стиль письма" },
   "writingInstructionsLead": {
     "message": "Дайте Simple Words достаточно контекста о себе, чтобы ответы звучали естественно. Полный системный промпт доступен, когда нужен точный контроль."

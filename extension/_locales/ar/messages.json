@@ -7,6 +7,9 @@
   "optionsLede": {
     "message": "اختر مزود LLM. يستدعي الامتداد المزود المحدد مباشرة بعد النقر على زر Simple Words."
   },
+  "stepOneLabel": { "message": "الخطوة 1" },
+  "stepTwoLabel": { "message": "الخطوة 2" },
+  "stepThreeLabel": { "message": "الخطوة 3" },
   "writingInstructionsHeading": { "message": "أسلوب الكتابة" },
   "writingInstructionsLead": {
     "message": "امنح Simple Words سياقا كافيا عنك حتى تبدو الردود طبيعية. يتوفر موجه النظام الكامل عندما تحتاج إلى تحكم دقيق."
