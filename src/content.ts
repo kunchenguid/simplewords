@@ -122,9 +122,7 @@ const STYLE_CSS = `
 
 let activeEditor: HTMLElement | null = null
 let activeRefinementId = 0
-let siteEnabled =
-  !hasChromeStorage() ||
-  isSimpleWordsEnabledForUrl(DEFAULT_SETTINGS, location.href)
+let siteEnabled = !hasChromeStorage()
 
 void loadSiteEnablement()
 
