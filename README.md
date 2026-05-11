@@ -1,6 +1,7 @@
 # Simple Words
 
-Simple Words is a Chrome extension that turns rough replies into friendly drafts using surrounding page context.
+Simple Words is a Chrome extension for people who never want to waste time wordsmithing replies.
+Just say what you mean, and let AI help turn it into a respectful draft before you send.
 
 ## Development
 
