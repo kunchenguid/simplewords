@@ -7,10 +7,10 @@ Check the production extension files before treating this kit as pixel-faithful.
 
 1. **Floating button** (`FloatingButton.jsx`) - the pill button that pins itself to the bottom-right of any active editable field.
 2. **Refine panel** (`RefinePanel.jsx`) - the floating panel that shows the loading state, the rewritten draft, and the Replace/Dismiss actions.
-3. **Options page** (`OptionsPage.jsx`) - the settings page prototype with system prompt, name field, and per-provider config.
+3. **Options page** (`OptionsPage.jsx`) - the settings page prototype with provider config, enabled domains, name field, and advanced system prompt.
 4. **Host page** (`HostPage.jsx`) - a faked Gmail-like compose window, just so the floating button has something to attach to in `index.html`.
 
-The production floating button and panel show only when the active editor is connected, visible, and contains non-whitespace text.
+The production floating button and panel show only when the current domain is enabled and the active editor is connected, visible, and contains non-whitespace text.
 They hide when the active editor is disconnected, cleared, whitespace-only, or hidden, including `hidden`, `aria-hidden="true"`, CSS-hidden ancestors, closed `dialog` elements, and closed `details` content outside the summary.
 They also suppress stale refinement results after focus moves, the editor becomes hidden or empty, or a newer refinement starts for the same editor.
 Preserve that visibility contract in production-facing work.
@@ -22,7 +22,8 @@ Preserve that visibility contract in production-facing work.
 - `RefinePanel` - paper-tinted blur panel with `--shadow-3`.
   Two states: `loading` ("Refining..." with the loader spin) and `ready` (rewritten reply + actions).
 - `OptionsPage` - single column 680px max width.
-  Production keeps a native provider `select` inside a Provider section and preserves the existing provider-section show/hide contract.
+  Production uses three step cards: `Model provider`, `Where it appears`, and `Writing style`.
+  The native provider `select` lives in `Model provider`, and the selected provider still controls the provider-section show/hide contract.
   This prototype may use a tabbed `ProviderSelect`; do not copy that pattern into production without checking `extension/options.html`.
 - `Field` / `Section` / `Button` - small primitives.
 
