@@ -489,7 +489,27 @@ function getEditorText(element: HTMLElement): string {
     return element.value.trim()
   }
 
+  if (element.isContentEditable) {
+    return getContentEditableText(element).trim()
+  }
+
   return (element.textContent ?? '').trim()
+}
+
+function getContentEditableText(element: HTMLElement): string {
+  let text = ''
+
+  element.childNodes.forEach((node) => {
+    if (node instanceof HTMLBRElement) {
+      text += '\n'
+    } else if (node instanceof Text) {
+      text += node.data
+    } else if (node instanceof HTMLElement) {
+      text += getContentEditableText(node)
+    }
+  })
+
+  return text
 }
 
 function setEditorText(element: HTMLElement, value: string): void {
