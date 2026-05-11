@@ -107,6 +107,45 @@ describe('content script button visibility', () => {
     expect(panel.hidden).toBe(true)
   })
 
+  test('keeps the panel hidden when the active editor is cleared before refinement completes', async () => {
+    document.body.innerHTML = '<textarea>rough reply</textarea>'
+
+    let resolveRefinement: (response: { reply: string }) => void = () => {}
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage: vi.fn(
+          () =>
+            new Promise<{ reply: string }>((resolve) => {
+              resolveRefinement = resolve
+            })
+        )
+      }
+    })
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+
+    const panel = document.getElementById('simplewords-panel') as HTMLDivElement
+    expect(panel.hidden).toBe(false)
+
+    editor.value = ''
+    editor.dispatchEvent(new InputEvent('input', { bubbles: true }))
+
+    expect(button.hidden).toBe(true)
+    expect(panel.hidden).toBe(true)
+
+    resolveRefinement({ reply: 'polished reply' })
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    expect(button.hidden).toBe(true)
+    expect(panel.hidden).toBe(true)
+  })
+
   test('resets the button when a refinement completes after focus moves to another editor', async () => {
     document.body.innerHTML =
       '<textarea>first draft</textarea><textarea>second draft</textarea>'

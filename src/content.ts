@@ -184,6 +184,10 @@ function ensureStyles(): void {
 
 function showButton(editor: HTMLElement): void {
   if (!isActiveEditorVisible(editor) || !getEditorText(editor)) {
+    if (editor === activeEditor) {
+      activeEditor = null
+      activeRefinementId += 1
+    }
     hideInjectedUI()
     return
   }
@@ -200,6 +204,7 @@ function refreshActiveEditorUI(): void {
 
   if (!isActiveEditorVisible(activeEditor) || !getEditorText(activeEditor)) {
     activeEditor = null
+    activeRefinementId += 1
     hideInjectedUI()
     return
   }
