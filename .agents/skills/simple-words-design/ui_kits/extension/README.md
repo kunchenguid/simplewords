@@ -10,8 +10,9 @@ Check the production extension files before treating this kit as pixel-faithful.
 3. **Options page** (`OptionsPage.jsx`) - the settings page prototype with system prompt, name field, and per-provider config.
 4. **Host page** (`HostPage.jsx`) - a faked Gmail-like compose window, just so the floating button has something to attach to in `index.html`.
 
-The production floating button and panel hide when the active editor is disconnected or hidden, including `hidden`, `aria-hidden="true"`, CSS-hidden ancestors, closed `dialog` elements, and closed `details` content outside the summary.
-They also suppress stale refinement results after focus moves, the editor becomes hidden, or a newer refinement starts for the same editor.
+The production floating button and panel show only when the active editor is connected, visible, and contains non-whitespace text.
+They hide when the active editor is disconnected, cleared, whitespace-only, or hidden, including `hidden`, `aria-hidden="true"`, CSS-hidden ancestors, closed `dialog` elements, and closed `details` content outside the summary.
+They also suppress stale refinement results after focus moves, the editor becomes hidden or empty, or a newer refinement starts for the same editor.
 Preserve that visibility contract in production-facing work.
 
 ## Component breakdown
