@@ -236,6 +236,6 @@ Because there is no packaged icon system, this design system establishes one:
 
 **Emoji:** never used. Anywhere. Not in product, not in marketing, not in error states.
 
-**Unicode glyphs:** sparingly. The em-dash (—) is fine in marketing copy. The middle-dot (·) is used as a list separator. The ellipsis (…) is preferred over three periods. The right-arrow (→) is preferred over `->` in body copy.
+**Unicode glyphs:** sparingly. The em-dash character is fine in marketing copy. The middle-dot (`·`) is used as a list separator. The ellipsis character is preferred in brand and marketing copy, but extension UI copy follows localized message sources, including three-dot ellipses where shipped. The right-arrow (`→`) is preferred over `->` in body copy.
 
 **Brand mark:** Simple Words has no existing logo. This system introduces a simple wordmark in Instrument Serif italic (`Simple Words`) and a glyph mark — a lowercase italic _sw_ in a paper square. Both live in `assets/`. Flagged as design-system-introduced (not from the source) so the project owner can replace if a real mark exists.
