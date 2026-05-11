@@ -498,18 +498,38 @@ function getEditorText(element: HTMLElement): string {
 
 function getContentEditableText(element: HTMLElement): string {
   let text = ''
+  const childNodes = Array.from(element.childNodes)
 
-  element.childNodes.forEach((node) => {
+  childNodes.forEach((node, index) => {
     if (node instanceof HTMLBRElement) {
       text += '\n'
     } else if (node instanceof Text) {
       text += node.data
     } else if (node instanceof HTMLElement) {
+      const startsNewLine =
+        isContentEditableBlock(node) && text && !text.endsWith('\n')
+
+      if (startsNewLine) {
+        text += '\n'
+      }
+
       text += getContentEditableText(node)
+
+      if (
+        isContentEditableBlock(node) &&
+        index < childNodes.length - 1 &&
+        !text.endsWith('\n')
+      ) {
+        text += '\n'
+      }
     }
   })
 
   return text
+}
+
+function isContentEditableBlock(element: HTMLElement): boolean {
+  return ['DIV', 'P', 'LI'].includes(element.tagName)
 }
 
 function setEditorText(element: HTMLElement, value: string): void {

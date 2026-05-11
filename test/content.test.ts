@@ -227,4 +227,34 @@ describe('content script button visibility', () => {
       })
     )
   })
+
+  test('reads contenteditable block boundaries as line breaks', async () => {
+    document.body.innerHTML =
+      '<div contenteditable="true"><div>Hello Kun,</div><div>Thanks for sharing this.</div><p>Best,</p></div>'
+
+    const sendMessage = vi.fn().mockResolvedValue({ reply: 'polished reply' })
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage
+      }
+    })
+
+    const editor = document.querySelector(
+      '[contenteditable="true"]'
+    ) as HTMLDivElement
+    Object.defineProperty(editor, 'isContentEditable', { value: true })
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+
+    expect(sendMessage).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        draft: 'Hello Kun,\nThanks for sharing this.\nBest,',
+        type: 'simplewords.refine'
+      })
+    )
+  })
 })
