@@ -65,7 +65,7 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 - Tagline / extension description: _"Never waste time wordsmithing your replies. Just say what you mean, and let AI help turn it into a respectful draft before you send."_
 - Options-page intro: _"Choose an LLM provider. The extension calls the selected provider directly after you click the Simple Words button."_
 - Empty-state error: _"Write a rough reply first."_
-- Loading: button _"Refining"_, panel heading _"Refining draft"_, panel body _"Refining…"_
+- Loading: button _"Refining"_, panel heading _"Refining draft"_, panel body _"Refining..."_
 - System-prompt hint: _"Leave blank to restore the default system prompt."_
 - Save confirmation: _"Saved."_ (single word, with period.)
 
