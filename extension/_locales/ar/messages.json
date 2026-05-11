@@ -1,0 +1,84 @@
+{
+  "extensionName": { "message": "Simple Words" },
+  "extensionDescription": {
+    "message": "اكتب ما تريد قوله، ودع الذكاء الاصطناعي يحوله إلى رد محترم قبل الإرسال."
+  },
+  "optionsTitle": { "message": "خيارات Simple Words" },
+  "optionsLede": {
+    "message": "اختر مزود LLM. يستدعي الامتداد المزود المحدد مباشرة بعد النقر على زر Simple Words."
+  },
+  "writingInstructionsHeading": { "message": "تعليمات الكتابة" },
+  "writingInstructionsLead": {
+    "message": "يتم إرسال موجه النظام هذا مع كل طلب إعادة صياغة. يتم التعامل مع نص الصفحة والبريد كسياق، لا كتعليمات."
+  },
+  "myNameLabel": { "message": "اسمي" },
+  "optionalPlaceholder": { "message": "اختياري" },
+  "myNameHelp": {
+    "message": "اختياري. عند ضبطه، يضاف إلى تعليمات إعادة الصياغة ليستخدمه النموذج في التوقيعات عند الحاجة."
+  },
+  "systemPromptLabel": { "message": "موجه النظام" },
+  "systemPromptHelp": {
+    "message": "اتركه فارغا لاستعادة موجه النظام الافتراضي."
+  },
+  "providerHeading": { "message": "المزود" },
+  "providerBackendLabel": { "message": "الخلفية" },
+  "providerOpenAICompatible": { "message": "متوافق مع OpenAI" },
+  "providerCodexBackend": { "message": "خلفية Codex" },
+  "providerOllama": { "message": "Ollama" },
+  "openAIHeading": { "message": "متوافق مع OpenAI" },
+  "apiKeyLabel": { "message": "مفتاح API" },
+  "openAIBaseURLLabel": { "message": "عنوان URL الأساسي" },
+  "openAIModelLabel": { "message": "النموذج" },
+  "reasoningEffortLabel": { "message": "جهد الاستدلال" },
+  "codexHeading": { "message": "خلفية Codex" },
+  "codexLeadBeforePath": {
+    "message": "لا تستطيع إضافات Chrome قراءة مصادقة Codex CLI من القرص بصمت. اختر ملف مصادقة Codex CLI، عادة "
+  },
+  "codexLeadAfterPath": { "message": "، لاستيراد الرمز." },
+  "codexAuthFileLabel": { "message": "Codex auth.json" },
+  "codexAccessTokenLabel": { "message": "رمز الوصول" },
+  "codexAccessTokenPlaceholder": {
+    "message": "مستورد من auth.json أو ملصق يدويا"
+  },
+  "codexAccountIdLabel": { "message": "معرف حساب ChatGPT" },
+  "codexAccountIdPlaceholder": { "message": "اختياري" },
+  "codexBaseURLLabel": { "message": "عنوان URL الأساسي" },
+  "codexModelLabel": { "message": "النموذج" },
+  "ollamaHeading": { "message": "Ollama" },
+  "ollamaBaseURLLabel": { "message": "عنوان URL الأساسي" },
+  "ollamaModelLabel": { "message": "النموذج" },
+  "saveButton": { "message": "حفظ" },
+  "privacyFootBefore": {
+    "message": "تذهب الطلبات مباشرة من متصفحك إلى مزودك."
+  },
+  "privacyFootEmphasis": { "message": "لا يمر أي شيء عبر Simple Words." },
+  "savedStatus": { "message": "تم الحفظ." },
+  "codexAuthImportedStatus": {
+    "message": "تم استيراد مصادقة Codex. انقر حفظ للاحتفاظ بهذه الإعدادات."
+  },
+  "codexAuthInvalidFile": { "message": "اختر ملف JSON صالحا لمصادقة Codex" },
+  "codexAuthMissingTokens": {
+    "message": "ملف JSON لمصادقة Codex لا يحتوي على رموز"
+  },
+  "codexAuthMissingAccessToken": {
+    "message": "ملف JSON لمصادقة Codex لا يحتوي على رمز وصول"
+  },
+  "codexRefreshTokenMissing": { "message": "رمز تحديث Codex غير مهيأ" },
+  "codexTokenRefreshHttpFailure": {
+    "message": "فشل تحديث رمز Codex مع HTTP $1. اختر auth.json مرة أخرى أو سجل الدخول باستخدام Codex CLI."
+  },
+  "codexTokenRefreshMissingAccessToken": {
+    "message": "استجابة تحديث رمز Codex لا تحتوي على access_token"
+  },
+  "buttonLabel": { "message": "Simple Words" },
+  "buttonWorkingLabel": { "message": "جار التحسين" },
+  "emptyDraftMessage": { "message": "اكتب مسودة رد أولا." },
+  "noReplyMessage": { "message": "لم يتم إرجاع أي رد." },
+  "loadingPanelTitle": { "message": "جار تحسين المسودة" },
+  "resultPanelTitle": { "message": "المسودة المحسنة" },
+  "loadingPanelMessage": { "message": "جار التحسين..." },
+  "replaceDraftButton": { "message": "استبدال المسودة" },
+  "dismissButton": { "message": "إغلاق" },
+  "panelAriaLabel": { "message": "تحسين Simple Words" },
+  "unableToRefineReply": { "message": "تعذر تحسين الرد" }
+}

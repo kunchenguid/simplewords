@@ -4,6 +4,7 @@ import {
   type SimpleWordsSettings
 } from './settings'
 import { codexAccessTokenIsExpiring, refreshCodexTokens } from './codexAuth'
+import { t } from './i18n'
 import { refineWithProvider } from './llm'
 
 type RefineRequest = {
@@ -34,7 +35,7 @@ chrome.runtime.onMessage.addListener(
       .catch((error: unknown) => {
         sendResponse({
           error:
-            error instanceof Error ? error.message : 'Unable to refine reply'
+            error instanceof Error ? error.message : t('unableToRefineReply')
         })
       })
 

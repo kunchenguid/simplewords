@@ -1,0 +1,90 @@
+{
+  "extensionName": { "message": "Simple Words" },
+  "extensionDescription": {
+    "message": "Напишите, что хотите сказать, а ИИ поможет сделать ответ уважительным перед отправкой."
+  },
+  "optionsTitle": { "message": "Параметры Simple Words" },
+  "optionsLede": {
+    "message": "Выберите поставщика LLM. Расширение обращается к выбранному поставщику напрямую после нажатия Simple Words."
+  },
+  "writingInstructionsHeading": { "message": "Инструкции для письма" },
+  "writingInstructionsLead": {
+    "message": "Этот системный промпт отправляется с каждым запросом на переписывание. Текст страницы и письма считается контекстом, а не инструкцией."
+  },
+  "myNameLabel": { "message": "Мое имя" },
+  "optionalPlaceholder": { "message": "Необязательно" },
+  "myNameHelp": {
+    "message": "Необязательно. Если задано, имя включается в инструкции, чтобы модель могла использовать его в подписи."
+  },
+  "systemPromptLabel": { "message": "Системный промпт" },
+  "systemPromptHelp": {
+    "message": "Оставьте пустым, чтобы восстановить системный промпт по умолчанию."
+  },
+  "providerHeading": { "message": "Поставщик" },
+  "providerBackendLabel": { "message": "Бэкенд" },
+  "providerOpenAICompatible": { "message": "Совместимый с OpenAI" },
+  "providerCodexBackend": { "message": "Бэкенд Codex" },
+  "providerOllama": { "message": "Ollama" },
+  "openAIHeading": { "message": "Совместимый с OpenAI" },
+  "apiKeyLabel": { "message": "Ключ API" },
+  "openAIBaseURLLabel": { "message": "Базовый URL" },
+  "openAIModelLabel": { "message": "Модель" },
+  "reasoningEffortLabel": { "message": "Усилие рассуждения" },
+  "codexHeading": { "message": "Бэкенд Codex" },
+  "codexLeadBeforePath": {
+    "message": "Расширения Chrome не могут незаметно читать авторизацию Codex CLI с диска. Выберите файл авторизации Codex CLI, обычно "
+  },
+  "codexLeadAfterPath": { "message": ", чтобы импортировать токен." },
+  "codexAuthFileLabel": { "message": "Codex auth.json" },
+  "codexAccessTokenLabel": { "message": "Токен доступа" },
+  "codexAccessTokenPlaceholder": {
+    "message": "Импортирован из auth.json или вставлен вручную"
+  },
+  "codexAccountIdLabel": { "message": "ID аккаунта ChatGPT" },
+  "codexAccountIdPlaceholder": { "message": "Необязательно" },
+  "codexBaseURLLabel": { "message": "Базовый URL" },
+  "codexModelLabel": { "message": "Модель" },
+  "ollamaHeading": { "message": "Ollama" },
+  "ollamaBaseURLLabel": { "message": "Базовый URL" },
+  "ollamaModelLabel": { "message": "Модель" },
+  "saveButton": { "message": "Сохранить" },
+  "privacyFootBefore": {
+    "message": "Запросы идут напрямую из браузера к вашему поставщику."
+  },
+  "privacyFootEmphasis": {
+    "message": "Ничего не проходит через Simple Words."
+  },
+  "savedStatus": { "message": "Сохранено." },
+  "codexAuthImportedStatus": {
+    "message": "Авторизация Codex импортирована. Нажмите Сохранить, чтобы оставить эти настройки."
+  },
+  "codexAuthInvalidFile": {
+    "message": "Выберите допустимый JSON-файл авторизации Codex"
+  },
+  "codexAuthMissingTokens": {
+    "message": "В JSON авторизации Codex отсутствуют токены"
+  },
+  "codexAuthMissingAccessToken": {
+    "message": "В JSON авторизации Codex отсутствует токен доступа"
+  },
+  "codexRefreshTokenMissing": {
+    "message": "Токен обновления Codex не настроен"
+  },
+  "codexTokenRefreshHttpFailure": {
+    "message": "Обновление токена Codex завершилось ошибкой HTTP $1. Выберите auth.json снова или войдите через Codex CLI."
+  },
+  "codexTokenRefreshMissingAccessToken": {
+    "message": "В ответе обновления токена Codex отсутствовал access_token"
+  },
+  "buttonLabel": { "message": "Simple Words" },
+  "buttonWorkingLabel": { "message": "Улучшение" },
+  "emptyDraftMessage": { "message": "Сначала напишите черновик ответа." },
+  "noReplyMessage": { "message": "Ответ не получен." },
+  "loadingPanelTitle": { "message": "Улучшение черновика" },
+  "resultPanelTitle": { "message": "Улучшенный черновик" },
+  "loadingPanelMessage": { "message": "Улучшение..." },
+  "replaceDraftButton": { "message": "Заменить черновик" },
+  "dismissButton": { "message": "Закрыть" },
+  "panelAriaLabel": { "message": "Улучшение Simple Words" },
+  "unableToRefineReply": { "message": "Не удалось улучшить ответ" }
+}

@@ -5,6 +5,7 @@ import {
   type SimpleWordsSettings
 } from './settings'
 import { parseCodexAuthJson } from './codexAuth'
+import { localizeDocument, t } from './i18n'
 
 const fields = {
   provider: document.getElementById('provider') as HTMLSelectElement | null,
@@ -51,6 +52,7 @@ const fields = {
 const save = document.getElementById('save') as HTMLButtonElement | null
 const statusElement = document.getElementById('status')
 
+localizeDocument()
 void restoreOptions()
 
 save?.addEventListener('click', () => {
@@ -116,7 +118,7 @@ async function saveOptions(): Promise<void> {
       getValue(fields.ollamaBaseURL) || DEFAULT_SETTINGS.ollamaBaseURL,
     ollamaModel: getValue(fields.ollamaModel) || DEFAULT_SETTINGS.ollamaModel
   } satisfies SimpleWordsSettings)
-  statusElement.textContent = 'Saved.'
+  statusElement.textContent = t('savedStatus')
   window.setTimeout(() => {
     statusElement.textContent = ''
   }, 1800)
@@ -144,15 +146,12 @@ async function importCodexAuthFile(): Promise<void> {
     setValue(fields.codexAccountId, auth.accountId)
     updateVisibleProviderFields('codex')
     if (statusElement) {
-      statusElement.textContent =
-        'Imported Codex auth. Click Save to keep these settings.'
+      statusElement.textContent = t('codexAuthImportedStatus')
     }
   } catch (error) {
     if (statusElement) {
       statusElement.textContent =
-        error instanceof Error
-          ? error.message
-          : 'Could not import Codex auth file.'
+        error instanceof Error ? error.message : t('codexAuthInvalidFile')
     }
   }
 }

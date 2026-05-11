@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Simple Words",
+  "name": "__MSG_extensionName__",
   "version": "0.1.0",
-  "description": "Never waste time wordsmithing your replies. Just say what you mean, and let AI help turn it into a respectful draft before you send.",
+  "default_locale": "en",
+  "description": "__MSG_extensionDescription__",
   "permissions": ["storage"],
   "host_permissions": ["<all_urls>"],
   "background": {

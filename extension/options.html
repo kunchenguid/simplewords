@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Simple Words Options</title>
+    <title data-i18n="optionsTitle">Simple Words Options</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -266,56 +266,65 @@
       <header class="hero">
         <div class="brand">
           <div class="glyph" aria-hidden="true">sw</div>
-          <h1>Simple Words</h1>
+          <h1 data-i18n="extensionName">Simple Words</h1>
         </div>
-        <p class="lede">
+        <p class="lede" data-i18n="optionsLede">
           Choose an LLM provider. The extension calls the selected provider
           directly after you click the Simple Words button.
         </p>
       </header>
 
       <section>
-        <h2>Writing instructions</h2>
-        <p class="section-lead">
+        <h2 data-i18n="writingInstructionsHeading">Writing instructions</h2>
+        <p class="section-lead" data-i18n="writingInstructionsLead">
           This system prompt is sent with every rewrite request. Page text and
           email content are treated as context, not instructions.
         </p>
         <div>
-          <label for="myName">My name</label>
+          <label for="myName" data-i18n="myNameLabel">My name</label>
           <input
             id="myName"
             type="text"
             autocomplete="name"
+            data-i18n-placeholder="optionalPlaceholder"
             placeholder="Optional"
           />
-          <p>
+          <p data-i18n="myNameHelp">
             Optional. When set, this is included in the rewrite instructions so
             the model can use it for signatures when appropriate.
           </p>
         </div>
         <div>
-          <label for="systemPrompt">System prompt</label>
+          <label for="systemPrompt" data-i18n="systemPromptLabel">
+            System prompt
+          </label>
           <textarea id="systemPrompt" spellcheck="true"></textarea>
-          <p>Leave blank to restore the default system prompt.</p>
+          <p data-i18n="systemPromptHelp">
+            Leave blank to restore the default system prompt.
+          </p>
         </div>
       </section>
 
       <section>
-        <h2>Provider</h2>
+        <h2 data-i18n="providerHeading">Provider</h2>
         <div>
-          <label for="provider">Backend</label>
+          <label for="provider" data-i18n="providerBackendLabel">Backend</label>
           <select id="provider">
-            <option value="openai">OpenAI-compatible</option>
-            <option value="codex">Codex backend</option>
-            <option value="ollama">Ollama</option>
+            <option value="openai" data-i18n="providerOpenAICompatible">
+              OpenAI-compatible
+            </option>
+            <option value="codex" data-i18n="providerCodexBackend">
+              Codex backend
+            </option>
+            <option value="ollama" data-i18n="providerOllama">Ollama</option>
           </select>
         </div>
       </section>
 
       <section data-provider-section="openai">
-        <h2>OpenAI-compatible</h2>
+        <h2 data-i18n="openAIHeading">OpenAI-compatible</h2>
         <div>
-          <label for="openaiApiKey">API key</label>
+          <label for="openaiApiKey" data-i18n="apiKeyLabel">API key</label>
           <input
             id="openaiApiKey"
             type="password"
@@ -324,7 +333,9 @@
           />
         </div>
         <div>
-          <label for="openaiBaseURL">Base URL</label>
+          <label for="openaiBaseURL" data-i18n="openAIBaseURLLabel">
+            Base URL
+          </label>
           <input
             id="openaiBaseURL"
             type="url"
@@ -332,11 +343,13 @@
           />
         </div>
         <div>
-          <label for="openaiModel">Model</label>
+          <label for="openaiModel" data-i18n="openAIModelLabel">Model</label>
           <input id="openaiModel" type="text" placeholder="gpt-5.5" />
         </div>
         <div>
-          <label for="openaiReasoningEffort">Reasoning effort</label>
+          <label for="openaiReasoningEffort" data-i18n="reasoningEffortLabel">
+            Reasoning effort
+          </label>
           <select id="openaiReasoningEffort">
             <option value="none">none</option>
             <option value="low">low</option>
@@ -348,14 +361,19 @@
       </section>
 
       <section data-provider-section="codex">
-        <h2>Codex backend</h2>
+        <h2 data-i18n="codexHeading">Codex backend</h2>
         <p class="section-lead">
-          Chrome extensions cannot silently read Codex CLI auth from disk.
-          Select your Codex CLI auth file, usually
-          <code>~/.codex/auth.json</code>, to import the token.
+          <span data-i18n="codexLeadBeforePath">
+            Chrome extensions cannot silently read Codex CLI auth from disk.
+            Select your Codex CLI auth file, usually
+          </span>
+          <code>~/.codex/auth.json</code
+          ><span data-i18n="codexLeadAfterPath">, to import the token.</span>
         </p>
         <div>
-          <label for="codexAuthFile">Codex auth.json</label>
+          <label for="codexAuthFile" data-i18n="codexAuthFileLabel">
+            Codex auth.json
+          </label>
           <input
             id="codexAuthFile"
             type="file"
@@ -363,21 +381,33 @@
           />
         </div>
         <div>
-          <label for="codexAccessToken">Access token</label>
+          <label for="codexAccessToken" data-i18n="codexAccessTokenLabel">
+            Access token
+          </label>
           <input
             id="codexAccessToken"
             type="password"
             autocomplete="off"
+            data-i18n-placeholder="codexAccessTokenPlaceholder"
             placeholder="Imported from auth.json or pasted manually"
           />
         </div>
         <input id="codexRefreshToken" type="hidden" />
         <div>
-          <label for="codexAccountId">ChatGPT account ID</label>
-          <input id="codexAccountId" type="text" placeholder="Optional" />
+          <label for="codexAccountId" data-i18n="codexAccountIdLabel">
+            ChatGPT account ID
+          </label>
+          <input
+            id="codexAccountId"
+            type="text"
+            data-i18n-placeholder="codexAccountIdPlaceholder"
+            placeholder="Optional"
+          />
         </div>
         <div>
-          <label for="codexBaseURL">Base URL</label>
+          <label for="codexBaseURL" data-i18n="codexBaseURLLabel">
+            Base URL
+          </label>
           <input
             id="codexBaseURL"
             type="url"
@@ -385,11 +415,13 @@
           />
         </div>
         <div>
-          <label for="codexModel">Model</label>
+          <label for="codexModel" data-i18n="codexModelLabel">Model</label>
           <input id="codexModel" type="text" placeholder="gpt-5.5-fast" />
         </div>
         <div>
-          <label for="codexReasoningEffort">Reasoning effort</label>
+          <label for="codexReasoningEffort" data-i18n="reasoningEffortLabel">
+            Reasoning effort
+          </label>
           <select id="codexReasoningEffort">
             <option value="none">none</option>
             <option value="low">low</option>
@@ -401,9 +433,11 @@
       </section>
 
       <section data-provider-section="ollama">
-        <h2>Ollama</h2>
+        <h2 data-i18n="ollamaHeading">Ollama</h2>
         <div>
-          <label for="ollamaBaseURL">Base URL</label>
+          <label for="ollamaBaseURL" data-i18n="ollamaBaseURLLabel">
+            Base URL
+          </label>
           <input
             id="ollamaBaseURL"
             type="url"
@@ -411,19 +445,23 @@
           />
         </div>
         <div>
-          <label for="ollamaModel">Model</label>
+          <label for="ollamaModel" data-i18n="ollamaModelLabel">Model</label>
           <input id="ollamaModel" type="text" placeholder="llama3.2" />
         </div>
       </section>
 
       <div class="save-row">
-        <button id="save" type="button">Save</button>
+        <button id="save" type="button" data-i18n="saveButton">Save</button>
         <span id="status" role="status"></span>
       </div>
 
       <p class="foot">
-        Calls go directly from your browser to your provider.
-        <em>Nothing routes through Simple Words.</em>
+        <span data-i18n="privacyFootBefore">
+          Calls go directly from your browser to your provider.
+        </span>
+        <em data-i18n="privacyFootEmphasis">
+          Nothing routes through Simple Words.
+        </em>
       </p>
     </main>
     <script src="options.js"></script>

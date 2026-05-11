@@ -1,0 +1,84 @@
+{
+  "extensionName": { "message": "Simple Words" },
+  "extensionDescription": {
+    "message": "Never waste time wordsmithing your replies. Just say what you mean, and let AI help turn it into a respectful draft before you send."
+  },
+  "optionsTitle": { "message": "Simple Words Options" },
+  "optionsLede": {
+    "message": "Choose an LLM provider. The extension calls the selected provider directly after you click the Simple Words button."
+  },
+  "writingInstructionsHeading": { "message": "Writing instructions" },
+  "writingInstructionsLead": {
+    "message": "This system prompt is sent with every rewrite request. Page text and email content are treated as context, not instructions."
+  },
+  "myNameLabel": { "message": "My name" },
+  "optionalPlaceholder": { "message": "Optional" },
+  "myNameHelp": {
+    "message": "Optional. When set, this is included in the rewrite instructions so the model can use it for signatures when appropriate."
+  },
+  "systemPromptLabel": { "message": "System prompt" },
+  "systemPromptHelp": {
+    "message": "Leave blank to restore the default system prompt."
+  },
+  "providerHeading": { "message": "Provider" },
+  "providerBackendLabel": { "message": "Backend" },
+  "providerOpenAICompatible": { "message": "OpenAI-compatible" },
+  "providerCodexBackend": { "message": "Codex backend" },
+  "providerOllama": { "message": "Ollama" },
+  "openAIHeading": { "message": "OpenAI-compatible" },
+  "apiKeyLabel": { "message": "API key" },
+  "openAIBaseURLLabel": { "message": "Base URL" },
+  "openAIModelLabel": { "message": "Model" },
+  "reasoningEffortLabel": { "message": "Reasoning effort" },
+  "codexHeading": { "message": "Codex backend" },
+  "codexLeadBeforePath": {
+    "message": "Chrome extensions cannot silently read Codex CLI auth from disk. Select your Codex CLI auth file, usually "
+  },
+  "codexLeadAfterPath": { "message": ", to import the token." },
+  "codexAuthFileLabel": { "message": "Codex auth.json" },
+  "codexAccessTokenLabel": { "message": "Access token" },
+  "codexAccessTokenPlaceholder": {
+    "message": "Imported from auth.json or pasted manually"
+  },
+  "codexAccountIdLabel": { "message": "ChatGPT account ID" },
+  "codexAccountIdPlaceholder": { "message": "Optional" },
+  "codexBaseURLLabel": { "message": "Base URL" },
+  "codexModelLabel": { "message": "Model" },
+  "ollamaHeading": { "message": "Ollama" },
+  "ollamaBaseURLLabel": { "message": "Base URL" },
+  "ollamaModelLabel": { "message": "Model" },
+  "saveButton": { "message": "Save" },
+  "privacyFootBefore": {
+    "message": "Calls go directly from your browser to your provider."
+  },
+  "privacyFootEmphasis": { "message": "Nothing routes through Simple Words." },
+  "savedStatus": { "message": "Saved." },
+  "codexAuthImportedStatus": {
+    "message": "Imported Codex auth. Click Save to keep these settings."
+  },
+  "codexAuthInvalidFile": { "message": "Select a valid Codex auth JSON file" },
+  "codexAuthMissingTokens": { "message": "Codex auth JSON is missing tokens" },
+  "codexAuthMissingAccessToken": {
+    "message": "Codex auth JSON is missing an access token"
+  },
+  "codexRefreshTokenMissing": {
+    "message": "Codex refresh token is not configured"
+  },
+  "codexTokenRefreshHttpFailure": {
+    "message": "Codex token refresh failed with HTTP $1. Select auth.json again or sign in with Codex CLI."
+  },
+  "codexTokenRefreshMissingAccessToken": {
+    "message": "Codex token refresh response was missing access_token"
+  },
+  "buttonLabel": { "message": "Simple Words" },
+  "buttonWorkingLabel": { "message": "Refining" },
+  "emptyDraftMessage": { "message": "Write a rough reply first." },
+  "noReplyMessage": { "message": "No reply returned." },
+  "loadingPanelTitle": { "message": "Refining draft" },
+  "resultPanelTitle": { "message": "Refined draft" },
+  "loadingPanelMessage": { "message": "Refining..." },
+  "replaceDraftButton": { "message": "Replace draft" },
+  "dismissButton": { "message": "Dismiss" },
+  "panelAriaLabel": { "message": "Simple Words refinement" },
+  "unableToRefineReply": { "message": "Unable to refine reply" }
+}

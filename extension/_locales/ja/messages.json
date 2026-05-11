@@ -1,0 +1,88 @@
+{
+  "extensionName": { "message": "Simple Words" },
+  "extensionDescription": {
+    "message": "言いたいことを書くだけで、送信前に AI が礼儀正しい返信案に整えます。"
+  },
+  "optionsTitle": { "message": "Simple Words のオプション" },
+  "optionsLede": {
+    "message": "LLM プロバイダーを選択します。Simple Words ボタンをクリックすると、選択したプロバイダーを直接呼び出します。"
+  },
+  "writingInstructionsHeading": { "message": "文章作成の指示" },
+  "writingInstructionsLead": {
+    "message": "このシステムプロンプトは各リライト要求で送信されます。ページ本文とメール本文は指示ではなくコンテキストとして扱われます。"
+  },
+  "myNameLabel": { "message": "自分の名前" },
+  "optionalPlaceholder": { "message": "任意" },
+  "myNameHelp": {
+    "message": "任意。設定すると、必要に応じて署名に使えるようリライト指示に含めます。"
+  },
+  "systemPromptLabel": { "message": "システムプロンプト" },
+  "systemPromptHelp": {
+    "message": "空欄にすると既定のシステムプロンプトに戻ります。"
+  },
+  "providerHeading": { "message": "プロバイダー" },
+  "providerBackendLabel": { "message": "バックエンド" },
+  "providerOpenAICompatible": { "message": "OpenAI 互換" },
+  "providerCodexBackend": { "message": "Codex バックエンド" },
+  "providerOllama": { "message": "Ollama" },
+  "openAIHeading": { "message": "OpenAI 互換" },
+  "apiKeyLabel": { "message": "API キー" },
+  "openAIBaseURLLabel": { "message": "ベース URL" },
+  "openAIModelLabel": { "message": "モデル" },
+  "reasoningEffortLabel": { "message": "推論の強さ" },
+  "codexHeading": { "message": "Codex バックエンド" },
+  "codexLeadBeforePath": {
+    "message": "Chrome 拡張機能は Codex CLI の認証情報をディスクから密かに読み取れません。通常は次の Codex CLI 認証ファイルを選択します: "
+  },
+  "codexLeadAfterPath": { "message": "。トークンをインポートします。" },
+  "codexAuthFileLabel": { "message": "Codex auth.json" },
+  "codexAccessTokenLabel": { "message": "アクセストークン" },
+  "codexAccessTokenPlaceholder": {
+    "message": "auth.json からインポート、または手動で貼り付け"
+  },
+  "codexAccountIdLabel": { "message": "ChatGPT アカウント ID" },
+  "codexAccountIdPlaceholder": { "message": "任意" },
+  "codexBaseURLLabel": { "message": "ベース URL" },
+  "codexModelLabel": { "message": "モデル" },
+  "ollamaHeading": { "message": "Ollama" },
+  "ollamaBaseURLLabel": { "message": "ベース URL" },
+  "ollamaModelLabel": { "message": "モデル" },
+  "saveButton": { "message": "保存" },
+  "privacyFootBefore": {
+    "message": "リクエストはブラウザからプロバイダーへ直接送信されます。"
+  },
+  "privacyFootEmphasis": { "message": "Simple Words を経由しません。" },
+  "savedStatus": { "message": "保存しました。" },
+  "codexAuthImportedStatus": {
+    "message": "Codex 認証をインポートしました。保存をクリックして設定を保持してください。"
+  },
+  "codexAuthInvalidFile": {
+    "message": "有効な Codex 認証 JSON ファイルを選択してください"
+  },
+  "codexAuthMissingTokens": {
+    "message": "Codex 認証 JSON にトークンがありません"
+  },
+  "codexAuthMissingAccessToken": {
+    "message": "Codex 認証 JSON にアクセストークンがありません"
+  },
+  "codexRefreshTokenMissing": {
+    "message": "Codex 更新トークンが設定されていません"
+  },
+  "codexTokenRefreshHttpFailure": {
+    "message": "Codex トークンの更新が HTTP $1 で失敗しました。auth.json を再選択するか、Codex CLI でサインインしてください。"
+  },
+  "codexTokenRefreshMissingAccessToken": {
+    "message": "Codex トークン更新レスポンスに access_token がありません"
+  },
+  "buttonLabel": { "message": "Simple Words" },
+  "buttonWorkingLabel": { "message": "調整中" },
+  "emptyDraftMessage": { "message": "先にラフな返信を書いてください。" },
+  "noReplyMessage": { "message": "返信が返されませんでした。" },
+  "loadingPanelTitle": { "message": "下書きを調整中" },
+  "resultPanelTitle": { "message": "調整済みの下書き" },
+  "loadingPanelMessage": { "message": "調整中..." },
+  "replaceDraftButton": { "message": "下書きを置き換え" },
+  "dismissButton": { "message": "閉じる" },
+  "panelAriaLabel": { "message": "Simple Words の調整" },
+  "unableToRefineReply": { "message": "返信を調整できませんでした" }
+}

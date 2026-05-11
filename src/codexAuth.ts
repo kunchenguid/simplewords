@@ -1,3 +1,5 @@
+import { t } from './i18n'
+
 export type CodexAuth = {
   accessToken: string
   refreshToken: string
@@ -13,23 +15,23 @@ export function parseCodexAuthJson(raw: string): CodexAuth {
   try {
     payload = JSON.parse(raw)
   } catch {
-    throw new Error('Select a valid Codex auth JSON file')
+    throw new Error(t('codexAuthInvalidFile'))
   }
 
   if (!payload || typeof payload !== 'object') {
-    throw new Error('Select a valid Codex auth JSON file')
+    throw new Error(t('codexAuthInvalidFile'))
   }
 
   const tokens = (payload as { tokens?: unknown }).tokens
   if (!tokens || typeof tokens !== 'object') {
-    throw new Error('Codex auth JSON is missing tokens')
+    throw new Error(t('codexAuthMissingTokens'))
   }
 
   const accessToken = cleanString(
     (tokens as { access_token?: unknown }).access_token
   )
   if (!accessToken) {
-    throw new Error('Codex auth JSON is missing an access token')
+    throw new Error(t('codexAuthMissingAccessToken'))
   }
 
   const refreshToken = cleanString(
@@ -64,7 +66,7 @@ export async function refreshCodexTokens(
 ): Promise<{ accessToken: string; refreshToken: string }> {
   const cleanRefreshToken = cleanString(refreshToken)
   if (!cleanRefreshToken) {
-    throw new Error('Codex refresh token is not configured')
+    throw new Error(t('codexRefreshTokenMissing'))
   }
 
   const response = await fetchFn(CODEX_OAUTH_TOKEN_URL, {
@@ -81,9 +83,7 @@ export async function refreshCodexTokens(
   })
 
   if (!response.ok) {
-    throw new Error(
-      `Codex token refresh failed with HTTP ${response.status}. Select auth.json again or sign in with Codex CLI.`
-    )
+    throw new Error(t('codexTokenRefreshHttpFailure', String(response.status)))
   }
 
   const payload = (await response.json()) as {
@@ -92,7 +92,7 @@ export async function refreshCodexTokens(
   }
   const accessToken = cleanString(payload.access_token)
   if (!accessToken) {
-    throw new Error('Codex token refresh response was missing access_token')
+    throw new Error(t('codexTokenRefreshMissingAccessToken'))
   }
 
   return {

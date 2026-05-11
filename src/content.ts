@@ -1,4 +1,5 @@
 import { serializeVisibleTextTree } from './domTree'
+import { t } from './i18n'
 import { panelPositionAboveButton } from './uiPosition'
 
 const BUTTON_ID = 'simplewords-button'
@@ -219,7 +220,7 @@ function getOrCreateButton(): HTMLButtonElement {
   const button = document.createElement('button')
   button.id = BUTTON_ID
   button.type = 'button'
-  button.setAttribute('aria-label', 'Simple Words')
+  button.setAttribute('aria-label', t('buttonLabel'))
   setButtonState(button, 'idle')
   button.addEventListener('mousedown', (event) => event.preventDefault())
   button.addEventListener('click', () => {
@@ -235,8 +236,12 @@ function setButtonState(
 ): void {
   button.dataset.state = state
   const icon = state === 'working' ? LOADER_SVG : SPARKLES_SVG
-  const label = state === 'working' ? 'Refining' : 'Simple Words'
-  button.innerHTML = `${icon}<span>${label}</span>`
+  const label = state === 'working' ? t('buttonWorkingLabel') : t('buttonLabel')
+  button.innerHTML = `${icon}<span></span>`
+  const labelElement = button.querySelector('span')
+  if (labelElement) {
+    labelElement.textContent = label
+  }
 }
 
 function positionButton(editor: HTMLElement): void {
@@ -261,7 +266,7 @@ async function refineActiveEditor(): Promise<void> {
   if (!draft) {
     showPanel(editor, {
       kind: 'message',
-      message: 'Write a rough reply first.'
+      message: t('emptyDraftMessage')
     })
     return
   }
@@ -297,7 +302,7 @@ async function refineActiveEditor(): Promise<void> {
   if (response.error || !response.reply) {
     showPanel(editor, {
       kind: 'message',
-      message: response.error ?? 'No reply returned.'
+      message: response.error ?? t('noReplyMessage')
     })
     return
   }
@@ -316,15 +321,20 @@ function showPanel(editor: HTMLElement, content: PanelContent): void {
 
   const head = document.createElement('div')
   head.className = 'sw-head'
-  head.innerHTML = `${SPARKLES_SVG}<span>${
-    content.kind === 'loading' ? 'Refining draft' : 'Refined draft'
-  }</span>`
+  head.innerHTML = SPARKLES_SVG
+  const heading = document.createElement('span')
+  heading.textContent =
+    content.kind === 'loading' ? t('loadingPanelTitle') : t('resultPanelTitle')
+  head.append(heading)
   panel.append(head)
 
   if (content.kind === 'loading') {
     const loading = document.createElement('div')
     loading.className = 'sw-loading'
-    loading.innerHTML = `${LOADER_SVG}<span>Refining…</span>`
+    loading.innerHTML = LOADER_SVG
+    const loadingLabel = document.createElement('span')
+    loadingLabel.textContent = t('loadingPanelMessage')
+    loading.append(loadingLabel)
     panel.append(loading)
   } else {
     const body = document.createElement('div')
@@ -340,7 +350,7 @@ function showPanel(editor: HTMLElement, content: PanelContent): void {
       const replace = document.createElement('button')
       replace.type = 'button'
       replace.className = 'sw-btn sw-btn--primary'
-      replace.textContent = 'Replace draft'
+      replace.textContent = t('replaceDraftButton')
       replace.addEventListener('click', () => {
         setEditorText(editor, content.reply)
         panel.hidden = true
@@ -350,7 +360,7 @@ function showPanel(editor: HTMLElement, content: PanelContent): void {
       const dismiss = document.createElement('button')
       dismiss.type = 'button'
       dismiss.className = 'sw-btn sw-btn--ghost'
-      dismiss.textContent = 'Dismiss'
+      dismiss.textContent = t('dismissButton')
       dismiss.addEventListener('click', () => {
         panel.hidden = true
         editor.focus()
@@ -383,7 +393,7 @@ function getOrCreatePanel(): HTMLDivElement {
   const panel = document.createElement('div')
   panel.id = PANEL_ID
   panel.setAttribute('role', 'dialog')
-  panel.setAttribute('aria-label', 'Simple Words refinement')
+  panel.setAttribute('aria-label', t('panelAriaLabel'))
   document.documentElement.append(panel)
   return panel
 }

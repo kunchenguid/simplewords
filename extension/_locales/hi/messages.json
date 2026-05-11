@@ -1,0 +1,86 @@
+{
+  "extensionName": { "message": "Simple Words" },
+  "extensionDescription": {
+    "message": "जो कहना है वह लिखें, और AI उसे भेजने से पहले एक सम्मानजनक जवाब में बदलने में मदद करे।"
+  },
+  "optionsTitle": { "message": "Simple Words विकल्प" },
+  "optionsLede": {
+    "message": "LLM प्रदाता चुनें। Simple Words बटन क्लिक करने के बाद एक्सटेंशन सीधे चुने गए प्रदाता को कॉल करता है।"
+  },
+  "writingInstructionsHeading": { "message": "लेखन निर्देश" },
+  "writingInstructionsLead": {
+    "message": "यह सिस्टम प्रॉम्प्ट हर rewrite अनुरोध के साथ भेजा जाता है। पेज और ईमेल टेक्स्ट को संदर्भ माना जाता है, निर्देश नहीं।"
+  },
+  "myNameLabel": { "message": "मेरा नाम" },
+  "optionalPlaceholder": { "message": "वैकल्पिक" },
+  "myNameHelp": {
+    "message": "वैकल्पिक। सेट होने पर यह rewrite निर्देशों में शामिल होता है ताकि मॉडल उचित होने पर हस्ताक्षर में इसका उपयोग कर सके।"
+  },
+  "systemPromptLabel": { "message": "सिस्टम प्रॉम्प्ट" },
+  "systemPromptHelp": {
+    "message": "डिफ़ॉल्ट सिस्टम प्रॉम्प्ट वापस लाने के लिए खाली छोड़ें।"
+  },
+  "providerHeading": { "message": "प्रदाता" },
+  "providerBackendLabel": { "message": "बैकएंड" },
+  "providerOpenAICompatible": { "message": "OpenAI-संगत" },
+  "providerCodexBackend": { "message": "Codex बैकएंड" },
+  "providerOllama": { "message": "Ollama" },
+  "openAIHeading": { "message": "OpenAI-संगत" },
+  "apiKeyLabel": { "message": "API कुंजी" },
+  "openAIBaseURLLabel": { "message": "बेस URL" },
+  "openAIModelLabel": { "message": "मॉडल" },
+  "reasoningEffortLabel": { "message": "तर्क प्रयास" },
+  "codexHeading": { "message": "Codex बैकएंड" },
+  "codexLeadBeforePath": {
+    "message": "Chrome एक्सटेंशन डिस्क से Codex CLI auth चुपचाप नहीं पढ़ सकते। अपना Codex CLI auth फ़ाइल चुनें, आम तौर पर "
+  },
+  "codexLeadAfterPath": { "message": ", ताकि token import हो सके।" },
+  "codexAuthFileLabel": { "message": "Codex auth.json" },
+  "codexAccessTokenLabel": { "message": "Access token" },
+  "codexAccessTokenPlaceholder": {
+    "message": "auth.json से import किया गया या manually paste किया गया"
+  },
+  "codexAccountIdLabel": { "message": "ChatGPT account ID" },
+  "codexAccountIdPlaceholder": { "message": "वैकल्पिक" },
+  "codexBaseURLLabel": { "message": "बेस URL" },
+  "codexModelLabel": { "message": "मॉडल" },
+  "ollamaHeading": { "message": "Ollama" },
+  "ollamaBaseURLLabel": { "message": "बेस URL" },
+  "ollamaModelLabel": { "message": "मॉडल" },
+  "saveButton": { "message": "सहेजें" },
+  "privacyFootBefore": {
+    "message": "कॉल सीधे आपके ब्राउज़र से आपके प्रदाता तक जाते हैं।"
+  },
+  "privacyFootEmphasis": { "message": "Simple Words से कुछ भी नहीं गुजरता।" },
+  "savedStatus": { "message": "सहेजा गया।" },
+  "codexAuthImportedStatus": {
+    "message": "Codex auth import हो गया। इन सेटिंग्स को रखने के लिए Save क्लिक करें।"
+  },
+  "codexAuthInvalidFile": { "message": "एक मान्य Codex auth JSON फ़ाइल चुनें" },
+  "codexAuthMissingTokens": {
+    "message": "Codex auth JSON में tokens नहीं हैं"
+  },
+  "codexAuthMissingAccessToken": {
+    "message": "Codex auth JSON में access token नहीं है"
+  },
+  "codexRefreshTokenMissing": {
+    "message": "Codex refresh token configured नहीं है"
+  },
+  "codexTokenRefreshHttpFailure": {
+    "message": "Codex token refresh HTTP $1 के साथ विफल हुआ। auth.json फिर चुनें या Codex CLI से sign in करें।"
+  },
+  "codexTokenRefreshMissingAccessToken": {
+    "message": "Codex token refresh response में access_token नहीं था"
+  },
+  "buttonLabel": { "message": "Simple Words" },
+  "buttonWorkingLabel": { "message": "सुधार रहा है" },
+  "emptyDraftMessage": { "message": "पहले एक rough reply लिखें।" },
+  "noReplyMessage": { "message": "कोई reply वापस नहीं आया।" },
+  "loadingPanelTitle": { "message": "Draft सुधार रहा है" },
+  "resultPanelTitle": { "message": "सुधरा हुआ draft" },
+  "loadingPanelMessage": { "message": "सुधार रहा है..." },
+  "replaceDraftButton": { "message": "Draft बदलें" },
+  "dismissButton": { "message": "बंद करें" },
+  "panelAriaLabel": { "message": "Simple Words refinement" },
+  "unableToRefineReply": { "message": "Reply सुधार नहीं सका" }
+}
