@@ -156,4 +156,105 @@ describe('content script button visibility', () => {
     expect(panel.textContent).toContain('newer polished reply')
     expect(panel.textContent).not.toContain('older polished reply')
   })
+
+  test('preserves line breaks when replacing a contenteditable draft', async () => {
+    document.body.innerHTML = '<div contenteditable="true">rough reply</div>'
+
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage: vi.fn(() => ({
+          reply: 'Hello Kun,\n\nThanks for sharing this.\nBest,'
+        }))
+      }
+    })
+
+    const editor = document.querySelector('div') as HTMLDivElement
+    Object.defineProperty(editor, 'isContentEditable', { value: true })
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    const replace = Array.from(document.querySelectorAll('button')).find(
+      (candidate) => candidate.textContent === 'Replace draft'
+    ) as HTMLButtonElement
+    replace.click()
+
+    expect(editor.innerHTML).toBe(
+      'Hello Kun,<br><br>Thanks for sharing this.<br>Best,'
+    )
+  })
+
+  test('reads inserted contenteditable line breaks on the next refinement', async () => {
+    document.body.innerHTML = '<div contenteditable="true">rough reply</div>'
+
+    const sendMessage = vi
+      .fn()
+      .mockResolvedValueOnce({
+        reply: 'Hello Kun,\n\nThanks for sharing this.\nBest,'
+      })
+      .mockResolvedValueOnce({ reply: 'second polished reply' })
+
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage
+      }
+    })
+
+    const editor = document.querySelector('div') as HTMLDivElement
+    Object.defineProperty(editor, 'isContentEditable', { value: true })
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    const replace = Array.from(document.querySelectorAll('button')).find(
+      (candidate) => candidate.textContent === 'Replace draft'
+    ) as HTMLButtonElement
+    replace.click()
+    button.click()
+
+    expect(sendMessage).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        draft: 'Hello Kun,\n\nThanks for sharing this.\nBest,',
+        type: 'simplewords.refine'
+      })
+    )
+  })
+
+  test('reads contenteditable block boundaries as line breaks', async () => {
+    document.body.innerHTML =
+      '<div contenteditable="true"><div>Hello Kun,</div><div>Thanks for sharing this.</div><p>Best,</p></div>'
+
+    const sendMessage = vi.fn().mockResolvedValue({ reply: 'polished reply' })
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage
+      }
+    })
+
+    const editor = document.querySelector(
+      '[contenteditable="true"]'
+    ) as HTMLDivElement
+    Object.defineProperty(editor, 'isContentEditable', { value: true })
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+
+    expect(sendMessage).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        draft: 'Hello Kun,\nThanks for sharing this.\nBest,',
+        type: 'simplewords.refine'
+      })
+    )
+  })
 })

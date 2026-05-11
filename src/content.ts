@@ -489,7 +489,47 @@ function getEditorText(element: HTMLElement): string {
     return element.value.trim()
   }
 
+  if (element.isContentEditable) {
+    return getContentEditableText(element).trim()
+  }
+
   return (element.textContent ?? '').trim()
+}
+
+function getContentEditableText(element: HTMLElement): string {
+  let text = ''
+  const childNodes = Array.from(element.childNodes)
+
+  childNodes.forEach((node, index) => {
+    if (node instanceof HTMLBRElement) {
+      text += '\n'
+    } else if (node instanceof Text) {
+      text += node.data
+    } else if (node instanceof HTMLElement) {
+      const startsNewLine =
+        isContentEditableBlock(node) && text && !text.endsWith('\n')
+
+      if (startsNewLine) {
+        text += '\n'
+      }
+
+      text += getContentEditableText(node)
+
+      if (
+        isContentEditableBlock(node) &&
+        index < childNodes.length - 1 &&
+        !text.endsWith('\n')
+      ) {
+        text += '\n'
+      }
+    }
+  })
+
+  return text
+}
+
+function isContentEditableBlock(element: HTMLElement): boolean {
+  return ['DIV', 'P', 'LI'].includes(element.tagName)
 }
 
 function setEditorText(element: HTMLElement, value: string): void {
@@ -498,6 +538,17 @@ function setEditorText(element: HTMLElement, value: string): void {
     element instanceof HTMLInputElement
   ) {
     element.value = value
+  } else if (element.isContentEditable) {
+    element.replaceChildren()
+    value.split(/\r\n|\r|\n/).forEach((line, index) => {
+      if (index > 0) {
+        element.append(document.createElement('br'))
+      }
+
+      if (line) {
+        element.append(document.createTextNode(line))
+      }
+    })
   } else {
     element.textContent = value
   }
