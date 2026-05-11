@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=1280, height=800" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       html,
       body {
-        width: 1280px;
-        height: 800px;
+        width: 100vw;
+        height: 100vh;
         margin: 0;
         overflow: hidden;
         background: #faf8f5;
@@ -16,8 +16,8 @@
       iframe {
         border: 0;
         display: block;
-        width: 1280px;
-        height: 800px;
+        width: 100vw;
+        height: 100vh;
       }
     </style>
   </head>
@@ -25,7 +25,44 @@
     <iframe id="asset" title="asset renderer"></iframe>
     <script>
       const file = new URLSearchParams(window.location.search).get('file')
-      document.getElementById('asset').src = file + '.svg'
+      const asset = document.getElementById('asset')
+      const svgPath = file + '.svg'
+      const viewport = document.querySelector('meta[name="viewport"]')
+
+      const parseDimension = (value) => Number.parseFloat(value || '')
+      const applySize = (width, height) => {
+        const pixelWidth = width + 'px'
+        const pixelHeight = height + 'px'
+
+        viewport.content = 'width=' + width + ', height=' + height
+        document.documentElement.style.width = pixelWidth
+        document.documentElement.style.height = pixelHeight
+        document.body.style.width = pixelWidth
+        document.body.style.height = pixelHeight
+        asset.style.width = pixelWidth
+        asset.style.height = pixelHeight
+      }
+
+      fetch(svgPath)
+        .then((response) => response.text())
+        .then((source) => {
+          const svg = new DOMParser().parseFromString(
+            source,
+            'image/svg+xml'
+          ).documentElement
+          const viewBox = (svg.getAttribute('viewBox') || '')
+            .split(/\s+/)
+            .map(Number)
+          const width = parseDimension(svg.getAttribute('width')) || viewBox[2]
+          const height =
+            parseDimension(svg.getAttribute('height')) || viewBox[3]
+
+          if (width && height) {
+            applySize(width, height)
+          }
+        })
+
+      asset.src = svgPath
     </script>
   </body>
 </html>
