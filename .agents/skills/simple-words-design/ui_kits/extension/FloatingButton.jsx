@@ -1,6 +1,3 @@
-/* global React */
-const { useState, useEffect, useRef } = React
-
 // ====== ICONS ======
 
 const IconSparkles = (props) => (

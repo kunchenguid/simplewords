@@ -31,5 +31,16 @@ export default tseslint.config(
         ...globals.node
       }
     }
+  },
+  {
+    files: ['.agents/**/*.jsx'],
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true
+        }
+      },
+      globals: globals.browser
+    }
   }
 )
