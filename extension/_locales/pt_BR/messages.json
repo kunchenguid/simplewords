@@ -1,0 +1,88 @@
+{
+  "extensionName": { "message": "Simple Words" },
+  "extensionDescription": {
+    "message": "Escreva o que quer dizer e deixe a IA transformar isso em uma resposta respeitosa antes de enviar."
+  },
+  "optionsTitle": { "message": "Opções do Simple Words" },
+  "optionsLede": {
+    "message": "Escolha um provedor de LLM. A extensão chama o provedor selecionado diretamente depois que você clica no botão Simple Words."
+  },
+  "writingInstructionsHeading": { "message": "Instruções de escrita" },
+  "writingInstructionsLead": {
+    "message": "Este prompt do sistema é enviado com cada solicitação de reescrita. Texto da página e email são tratados como contexto, não instruções."
+  },
+  "myNameLabel": { "message": "Meu nome" },
+  "optionalPlaceholder": { "message": "Opcional" },
+  "myNameHelp": {
+    "message": "Opcional. Quando definido, é incluído nas instruções para que o modelo use em assinaturas quando apropriado."
+  },
+  "systemPromptLabel": { "message": "Prompt do sistema" },
+  "systemPromptHelp": {
+    "message": "Deixe em branco para restaurar o prompt padrão do sistema."
+  },
+  "providerHeading": { "message": "Provedor" },
+  "providerBackendLabel": { "message": "Backend" },
+  "providerOpenAICompatible": { "message": "Compatível com OpenAI" },
+  "providerCodexBackend": { "message": "Backend Codex" },
+  "providerOllama": { "message": "Ollama" },
+  "openAIHeading": { "message": "Compatível com OpenAI" },
+  "apiKeyLabel": { "message": "Chave de API" },
+  "openAIBaseURLLabel": { "message": "URL base" },
+  "openAIModelLabel": { "message": "Modelo" },
+  "reasoningEffortLabel": { "message": "Esforço de raciocínio" },
+  "codexHeading": { "message": "Backend Codex" },
+  "codexLeadBeforePath": {
+    "message": "Extensões do Chrome não podem ler a autenticação do Codex CLI do disco em silêncio. Selecione seu arquivo de autenticação, geralmente "
+  },
+  "codexLeadAfterPath": { "message": ", para importar o token." },
+  "codexAuthFileLabel": { "message": "Codex auth.json" },
+  "codexAccessTokenLabel": { "message": "Token de acesso" },
+  "codexAccessTokenPlaceholder": {
+    "message": "Importado de auth.json ou colado manualmente"
+  },
+  "codexAccountIdLabel": { "message": "ID da conta ChatGPT" },
+  "codexAccountIdPlaceholder": { "message": "Opcional" },
+  "codexBaseURLLabel": { "message": "URL base" },
+  "codexModelLabel": { "message": "Modelo" },
+  "ollamaHeading": { "message": "Ollama" },
+  "ollamaBaseURLLabel": { "message": "URL base" },
+  "ollamaModelLabel": { "message": "Modelo" },
+  "saveButton": { "message": "Salvar" },
+  "privacyFootBefore": {
+    "message": "As chamadas vão diretamente do seu navegador para seu provedor."
+  },
+  "privacyFootEmphasis": { "message": "Nada passa pelo Simple Words." },
+  "savedStatus": { "message": "Salvo." },
+  "codexAuthImportedStatus": {
+    "message": "Autenticação do Codex importada. Clique em Salvar para manter estas configurações."
+  },
+  "codexAuthInvalidFile": {
+    "message": "Selecione um arquivo JSON válido de autenticação do Codex"
+  },
+  "codexAuthMissingTokens": {
+    "message": "O JSON de autenticação do Codex não contém tokens"
+  },
+  "codexAuthMissingAccessToken": {
+    "message": "O JSON de autenticação do Codex não contém token de acesso"
+  },
+  "codexRefreshTokenMissing": {
+    "message": "O token de atualização do Codex não está configurado"
+  },
+  "codexTokenRefreshHttpFailure": {
+    "message": "A atualização do token do Codex falhou com HTTP $1. Selecione auth.json novamente ou entre com o Codex CLI."
+  },
+  "codexTokenRefreshMissingAccessToken": {
+    "message": "A resposta de atualização do token do Codex não tinha access_token"
+  },
+  "buttonLabel": { "message": "Simple Words" },
+  "buttonWorkingLabel": { "message": "Refinando" },
+  "emptyDraftMessage": { "message": "Escreva primeiro um rascunho." },
+  "noReplyMessage": { "message": "Nenhuma resposta retornada." },
+  "loadingPanelTitle": { "message": "Refinando rascunho" },
+  "resultPanelTitle": { "message": "Rascunho refinado" },
+  "loadingPanelMessage": { "message": "Refinando..." },
+  "replaceDraftButton": { "message": "Substituir rascunho" },
+  "dismissButton": { "message": "Fechar" },
+  "panelAriaLabel": { "message": "Refinamento do Simple Words" },
+  "unableToRefineReply": { "message": "Não foi possível refinar a resposta" }
+}

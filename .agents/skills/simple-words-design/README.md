@@ -13,7 +13,8 @@ This design system extends the bare functional shell into something that feels *
 ## Sources
 
 - **GitHub repo** — [`kunchenguid/simplewords`](https://github.com/kunchenguid/simplewords) (`fix/content-editor-visibility`). Manifest V3 Chrome extension, TypeScript + esbuild. Key files inspected:
-  - `extension/manifest.json` — name, description, permissions
+  - `extension/manifest.json` — permissions and localized metadata placeholders
+  - `src/i18n.ts` / `extension/_locales/*/messages.json` — source copy for the extension name, description, and UI strings
   - `extension/options.html` — current options-page DOM and inline CSS
   - `src/content.ts` — floating button + panel injected into page
   - `src/options.ts` / `src/settings.ts` — settings model and defaults
@@ -65,7 +66,7 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 - Tagline / extension description: _"Never waste time wordsmithing your replies. Just say what you mean, and let AI help turn it into a respectful draft before you send."_
 - Options-page intro: _"Choose an LLM provider. The extension calls the selected provider directly after you click the Simple Words button."_
 - Empty-state error: _"Write a rough reply first."_
-- Loading: button _"Refining"_, panel heading _"Refining draft"_, panel body _"Refining…"_
+- Loading: button _"Refining"_, panel heading _"Refining draft"_, panel body _"Refining..."_
 - System-prompt hint: _"Leave blank to restore the default system prompt."_
 - Save confirmation: _"Saved."_ (single word, with period.)
 
@@ -235,6 +236,6 @@ Because there is no packaged icon system, this design system establishes one:
 
 **Emoji:** never used. Anywhere. Not in product, not in marketing, not in error states.
 
-**Unicode glyphs:** sparingly. The em-dash (—) is fine in marketing copy. The middle-dot (·) is used as a list separator. The ellipsis (…) is preferred over three periods. The right-arrow (→) is preferred over `->` in body copy.
+**Unicode glyphs:** sparingly. The em-dash character is fine in marketing copy. The middle-dot (`·`) is used as a list separator. The ellipsis character is preferred in brand and marketing copy, but extension UI copy follows localized message sources, including three-dot ellipses where shipped. The right-arrow (`→`) is preferred over `->` in body copy.
 
 **Brand mark:** Simple Words has no existing logo. This system introduces a simple wordmark in Instrument Serif italic (`Simple Words`) and a glyph mark — a lowercase italic _sw_ in a paper square. Both live in `assets/`. Flagged as design-system-introduced (not from the source) so the project owner can replace if a real mark exists.

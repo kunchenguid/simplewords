@@ -11,7 +11,41 @@ describe('options page', () => {
   afterEach(() => {
     vi.restoreAllMocks()
     vi.unstubAllGlobals()
+    vi.resetModules()
     document.body.innerHTML = ''
+  })
+
+  test('localizes static options page text with Chrome i18n messages', async () => {
+    document.body.innerHTML = await readFile(
+      `${process.cwd()}/extension/options.html`,
+      'utf8'
+    )
+
+    vi.stubGlobal('chrome', {
+      i18n: {
+        getMessage: vi.fn((key: string) => `translated ${key}`),
+        getUILanguage: vi.fn(() => 'es')
+      },
+      storage: {
+        local: {
+          get: vi.fn(async () => DEFAULT_SETTINGS),
+          set: vi.fn(async () => undefined)
+        }
+      }
+    })
+
+    await import('../src/options')
+    await Promise.resolve()
+
+    expect(document.documentElement.lang).toBe('es')
+    expect(
+      document.querySelector('[data-i18n="saveButton"]')?.textContent
+    ).toBe('translated saveButton')
+    expect(
+      document
+        .querySelector('[data-i18n-placeholder="optionalPlaceholder"]')
+        ?.getAttribute('placeholder')
+    ).toBe('translated optionalPlaceholder')
   })
 
   test('restores and saves the configured system prompt', async () => {

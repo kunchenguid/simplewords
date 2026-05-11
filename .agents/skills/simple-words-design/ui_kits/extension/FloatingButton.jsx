@@ -1,6 +1,3 @@
-/* global React */
-const { useState, useEffect, useRef } = React
-
 // ====== ICONS ======
 
 const IconSparkles = (props) => (
@@ -104,7 +101,7 @@ function RefinePanel({
       {state === 'loading' ? (
         <div className="sw-panel__loading">
           <IconLoader />
-          <span>{message ?? 'Refining…'}</span>
+          <span>{message ?? 'Refining...'}</span>
         </div>
       ) : (
         <>

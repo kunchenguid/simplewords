@@ -1,0 +1,76 @@
+{
+  "extensionName": { "message": "Simple Words" },
+  "extensionDescription": {
+    "message": "直接写出你的意思，让 AI 在发送前帮你改成礼貌、清晰的回复。"
+  },
+  "optionsTitle": { "message": "Simple Words 选项" },
+  "optionsLede": {
+    "message": "选择一个 LLM 提供方。点击 Simple Words 按钮后，扩展会直接调用所选提供方。"
+  },
+  "writingInstructionsHeading": { "message": "写作指令" },
+  "writingInstructionsLead": {
+    "message": "每次改写请求都会发送这个系统提示。页面文字和邮件内容只作为上下文，而不是指令。"
+  },
+  "myNameLabel": { "message": "我的名字" },
+  "optionalPlaceholder": { "message": "可选" },
+  "myNameHelp": {
+    "message": "可选。设置后会加入改写指令，模型可在合适时用于署名。"
+  },
+  "systemPromptLabel": { "message": "系统提示" },
+  "systemPromptHelp": { "message": "留空可恢复默认系统提示。" },
+  "providerHeading": { "message": "提供方" },
+  "providerBackendLabel": { "message": "后端" },
+  "providerOpenAICompatible": { "message": "兼容 OpenAI" },
+  "providerCodexBackend": { "message": "Codex 后端" },
+  "providerOllama": { "message": "Ollama" },
+  "openAIHeading": { "message": "兼容 OpenAI" },
+  "apiKeyLabel": { "message": "API 密钥" },
+  "openAIBaseURLLabel": { "message": "基础 URL" },
+  "openAIModelLabel": { "message": "模型" },
+  "reasoningEffortLabel": { "message": "推理强度" },
+  "codexHeading": { "message": "Codex 后端" },
+  "codexLeadBeforePath": {
+    "message": "Chrome 扩展无法静默读取磁盘上的 Codex CLI 认证。请选择你的 Codex CLI 认证文件，通常是 "
+  },
+  "codexLeadAfterPath": { "message": "，以导入令牌。" },
+  "codexAuthFileLabel": { "message": "Codex auth.json" },
+  "codexAccessTokenLabel": { "message": "访问令牌" },
+  "codexAccessTokenPlaceholder": { "message": "从 auth.json 导入或手动粘贴" },
+  "codexAccountIdLabel": { "message": "ChatGPT 账户 ID" },
+  "codexAccountIdPlaceholder": { "message": "可选" },
+  "codexBaseURLLabel": { "message": "基础 URL" },
+  "codexModelLabel": { "message": "模型" },
+  "ollamaHeading": { "message": "Ollama" },
+  "ollamaBaseURLLabel": { "message": "基础 URL" },
+  "ollamaModelLabel": { "message": "模型" },
+  "saveButton": { "message": "保存" },
+  "privacyFootBefore": {
+    "message": "请求会直接从你的浏览器发送到你的提供方。"
+  },
+  "privacyFootEmphasis": { "message": "不会经过 Simple Words。" },
+  "savedStatus": { "message": "已保存。" },
+  "codexAuthImportedStatus": {
+    "message": "已导入 Codex 认证。点击保存以保留这些设置。"
+  },
+  "codexAuthInvalidFile": { "message": "请选择有效的 Codex 认证 JSON 文件" },
+  "codexAuthMissingTokens": { "message": "Codex 认证 JSON 缺少令牌" },
+  "codexAuthMissingAccessToken": { "message": "Codex 认证 JSON 缺少访问令牌" },
+  "codexRefreshTokenMissing": { "message": "未配置 Codex 刷新令牌" },
+  "codexTokenRefreshHttpFailure": {
+    "message": "Codex 令牌刷新失败，HTTP $1。请重新选择 auth.json 或使用 Codex CLI 登录。"
+  },
+  "codexTokenRefreshMissingAccessToken": {
+    "message": "Codex 令牌刷新响应缺少 access_token"
+  },
+  "buttonLabel": { "message": "Simple Words" },
+  "buttonWorkingLabel": { "message": "正在润色" },
+  "emptyDraftMessage": { "message": "请先写一个粗略回复。" },
+  "noReplyMessage": { "message": "没有返回回复。" },
+  "loadingPanelTitle": { "message": "正在润色草稿" },
+  "resultPanelTitle": { "message": "已润色草稿" },
+  "loadingPanelMessage": { "message": "正在润色..." },
+  "replaceDraftButton": { "message": "替换草稿" },
+  "dismissButton": { "message": "关闭" },
+  "panelAriaLabel": { "message": "Simple Words 润色" },
+  "unableToRefineReply": { "message": "无法润色回复" }
+}

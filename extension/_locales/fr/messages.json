@@ -1,0 +1,88 @@
+{
+  "extensionName": { "message": "Simple Words" },
+  "extensionDescription": {
+    "message": "Écrivez ce que vous voulez dire, et laissez l'IA en faire une réponse respectueuse avant l'envoi."
+  },
+  "optionsTitle": { "message": "Options de Simple Words" },
+  "optionsLede": {
+    "message": "Choisissez un fournisseur LLM. L'extension appelle directement le fournisseur sélectionné après un clic sur Simple Words."
+  },
+  "writingInstructionsHeading": { "message": "Instructions d'écriture" },
+  "writingInstructionsLead": {
+    "message": "Ce prompt système est envoyé avec chaque demande de réécriture. Le texte de la page et des emails est traité comme contexte, pas comme instruction."
+  },
+  "myNameLabel": { "message": "Mon nom" },
+  "optionalPlaceholder": { "message": "Facultatif" },
+  "myNameHelp": {
+    "message": "Facultatif. S'il est défini, il est inclus dans les instructions afin que le modèle puisse l'utiliser pour les signatures si besoin."
+  },
+  "systemPromptLabel": { "message": "Prompt système" },
+  "systemPromptHelp": {
+    "message": "Laissez vide pour restaurer le prompt système par défaut."
+  },
+  "providerHeading": { "message": "Fournisseur" },
+  "providerBackendLabel": { "message": "Backend" },
+  "providerOpenAICompatible": { "message": "Compatible OpenAI" },
+  "providerCodexBackend": { "message": "Backend Codex" },
+  "providerOllama": { "message": "Ollama" },
+  "openAIHeading": { "message": "Compatible OpenAI" },
+  "apiKeyLabel": { "message": "Clé API" },
+  "openAIBaseURLLabel": { "message": "URL de base" },
+  "openAIModelLabel": { "message": "Modèle" },
+  "reasoningEffortLabel": { "message": "Effort de raisonnement" },
+  "codexHeading": { "message": "Backend Codex" },
+  "codexLeadBeforePath": {
+    "message": "Les extensions Chrome ne peuvent pas lire silencieusement l'authentification Codex CLI sur le disque. Sélectionnez votre fichier d'authentification, généralement "
+  },
+  "codexLeadAfterPath": { "message": ", pour importer le jeton." },
+  "codexAuthFileLabel": { "message": "Codex auth.json" },
+  "codexAccessTokenLabel": { "message": "Jeton d'accès" },
+  "codexAccessTokenPlaceholder": {
+    "message": "Importé depuis auth.json ou collé manuellement"
+  },
+  "codexAccountIdLabel": { "message": "ID du compte ChatGPT" },
+  "codexAccountIdPlaceholder": { "message": "Facultatif" },
+  "codexBaseURLLabel": { "message": "URL de base" },
+  "codexModelLabel": { "message": "Modèle" },
+  "ollamaHeading": { "message": "Ollama" },
+  "ollamaBaseURLLabel": { "message": "URL de base" },
+  "ollamaModelLabel": { "message": "Modèle" },
+  "saveButton": { "message": "Enregistrer" },
+  "privacyFootBefore": {
+    "message": "Les appels vont directement de votre navigateur à votre fournisseur."
+  },
+  "privacyFootEmphasis": { "message": "Rien ne passe par Simple Words." },
+  "savedStatus": { "message": "Enregistré." },
+  "codexAuthImportedStatus": {
+    "message": "Authentification Codex importée. Cliquez sur Enregistrer pour conserver ces réglages."
+  },
+  "codexAuthInvalidFile": {
+    "message": "Sélectionnez un fichier JSON d'authentification Codex valide"
+  },
+  "codexAuthMissingTokens": {
+    "message": "Le JSON d'authentification Codex ne contient pas de jetons"
+  },
+  "codexAuthMissingAccessToken": {
+    "message": "Le JSON d'authentification Codex ne contient pas de jeton d'accès"
+  },
+  "codexRefreshTokenMissing": {
+    "message": "Le jeton d'actualisation Codex n'est pas configuré"
+  },
+  "codexTokenRefreshHttpFailure": {
+    "message": "L'actualisation du jeton Codex a échoué avec HTTP $1. Sélectionnez de nouveau auth.json ou connectez-vous avec Codex CLI."
+  },
+  "codexTokenRefreshMissingAccessToken": {
+    "message": "La réponse d'actualisation Codex ne contenait pas access_token"
+  },
+  "buttonLabel": { "message": "Simple Words" },
+  "buttonWorkingLabel": { "message": "Amélioration" },
+  "emptyDraftMessage": { "message": "Écrivez d'abord un brouillon." },
+  "noReplyMessage": { "message": "Aucune réponse renvoyée." },
+  "loadingPanelTitle": { "message": "Amélioration du brouillon" },
+  "resultPanelTitle": { "message": "Brouillon amélioré" },
+  "loadingPanelMessage": { "message": "Amélioration..." },
+  "replaceDraftButton": { "message": "Remplacer le brouillon" },
+  "dismissButton": { "message": "Fermer" },
+  "panelAriaLabel": { "message": "Amélioration Simple Words" },
+  "unableToRefineReply": { "message": "Impossible d'améliorer la réponse" }
+}

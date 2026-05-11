@@ -11,7 +11,7 @@ Output guidelines:
 - If this is replying to someone else, the draft should start with addressing the recipient, a body, and a signature (if the author's name is confidently visible)
 - Return only the rewritten draft - your response will be used directly to replace the original`
 
-function Field({ label, hint, children, mono = false }) {
+function Field({ label, hint, children }) {
   return (
     <div className="opt__field">
       {label && <label>{label}</label>}
