@@ -13,6 +13,7 @@ Run `npm run build` before loading the extension locally or packaging it.
 The built files `extension/background.js`, `extension/content.js`, `extension/options.js`, and `extension/chunks/` are generated artifacts and are not tracked in Git.
 
 When changing static extension copy, update `src/i18n.ts` and every `extension/_locales/*/messages.json` file with matching keys and preserved substitutions such as `$1`.
+For `extensionDescription`, also keep `package.json` aligned with the English locale message.
 
 ## Marketing Video
 
