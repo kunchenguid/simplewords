@@ -219,6 +219,7 @@ function refreshActiveEditorUI(): void {
 function hideInjectedUI(): void {
   const button = document.getElementById(BUTTON_ID)
   if (button instanceof HTMLButtonElement) {
+    setButtonState(button, 'idle')
     button.hidden = true
   }
 
