@@ -5,8 +5,8 @@
 
 Simple Words is a **Chrome extension** that rewrites a rough draft in any editable field (textarea, contenteditable, input) into something professional, respectful, and friendly — using the surrounding page as context. It surfaces in two places:
 
-1. **A floating pill button** anchored to the active editable field on any page (`content.js` injects it into the host page's DOM).
-2. **An options page** for picking an LLM provider (OpenAI-compatible / Codex / Ollama) and customizing the system prompt.
+1. **A floating pill button** anchored to the active editable field on enabled domains (`content.js` injects it into the host page's DOM).
+2. **An options page** for picking an LLM provider (OpenAI-compatible / Codex / Ollama), choosing where Simple Words appears, and tuning the writing style.
 
 This design system extends the bare functional shell into something that feels **elegant, futuristic, intelligent, and minimalist** — the brief from the project owner. It keeps the existing deep-ink palette as a backbone, grounds it in warm paper instead of cold white, and pairs a serif display voice with a technical grotesque body — so the product reads as both _literary_ (it's about words) and _engineered_ (it's an AI tool).
 
@@ -45,7 +45,7 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 - **Plain, direct, considered.** No exclamation marks, no marketing puff. The product _itself_ is about turning rough into polished, so the copy practices what it preaches.
 - **Confidently quiet.** No "✨ AI-powered" flourishes. No emoji. The intelligence is in the result, not the chrome.
 - **Humble about LLMs.** From the existing options copy: _"Chrome extensions cannot silently read Codex CLI auth from disk."_ — explains the limitation, then offers the workaround. No hand-waving.
-- **Lowercase except where required.** Sentence case for headings (`Writing instructions`, not `Writing Instructions` or `WRITING INSTRUCTIONS`).
+- **Lowercase except where required.** Sentence case for headings (`Writing style`, not `Writing Style` or `WRITING STYLE`).
   Buttons are sentence case (`Replace draft`, `Dismiss`, `Save`).
 
 ### Person & address
@@ -56,7 +56,7 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 
 ### Casing
 
-- **Headings:** sentence case. `Writing instructions`, `OpenAI-compatible`, `Codex backend`.
+- **Headings:** sentence case. `Writing style`, `Advanced writing instructions`, `OpenAI-compatible`, `Codex backend`.
 - **Buttons:** sentence case verb-first when an action (`Save`, `Replace draft`, `Dismiss`). Title case for the brand button itself: `Simple Words`.
 - **Labels:** sentence case (`My name`, `System prompt`, `Reasoning effort`).
 - **Provider/option values:** lowercase (`none`, `low`, `medium`, `high`, `xhigh`).
@@ -179,13 +179,14 @@ The options page is fully opaque.
 
 - **Floating button** is `position: fixed`, `z-index: 2147483647` (max), anchored 8px below the active editable field's bottom-right corner.
   This is non-negotiable — it must clear every host page, including ones with their own floating UI.
-  The injected button and panel are visible only while the active editor is connected, visible, and contains non-whitespace text.
+  The injected button and panel are visible only while the current domain is enabled and the active editor is connected, visible, and contains non-whitespace text.
   Hide them when the editor or any ancestor is `hidden`, `aria-hidden="true"`, `display: none`, `visibility: hidden`, `visibility: collapse`, inside a closed `dialog`, or inside closed `details` content.
   Hide them when the active editor is cleared or becomes whitespace-only.
   Stale refinement results must stay suppressed after focus moves, the editor becomes hidden or empty, or a newer refinement starts for the same editor.
 - **Options page** is a single column, `max-width: 680px`, with `48px 24px 80px` page padding.
   Never multi-column.
   Reading width is sacred.
+  Production is organized as three step cards: `Model provider`, `Where it appears`, and `Writing style`.
 - **Floating panel** sits _above_ the button (`panelPositionAboveButton` in source) when there's room, else flips to below.
   Max-width 420px, min-width 280px.
 

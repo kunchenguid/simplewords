@@ -5,16 +5,28 @@ export const EN_MESSAGES = {
   optionsTitle: 'Simple Words Options',
   optionsLede:
     'Choose an LLM provider. The extension calls the selected provider directly after you click the Simple Words button.',
-  writingInstructionsHeading: 'Writing instructions',
+  stepOneLabel: 'Step 1',
+  stepTwoLabel: 'Step 2',
+  stepThreeLabel: 'Step 3',
+  writingInstructionsHeading: 'Writing style',
   writingInstructionsLead:
-    'This system prompt is sent with every rewrite request. Page text and email content are treated as context, not instructions.',
+    'Teach Simple Words enough about you to make replies feel natural. The full system prompt is there when you need precise control.',
   myNameLabel: 'My name',
   optionalPlaceholder: 'Optional',
   myNameHelp:
     'Optional. When set, this is included in the rewrite instructions so the model can use it for signatures when appropriate.',
   systemPromptLabel: 'System prompt',
   systemPromptHelp: 'Leave blank to restore the default system prompt.',
-  providerHeading: 'Provider',
+  enabledDomainsHeading: 'Where it appears',
+  enabledDomainsLead:
+    'Simple Words only appears on these hostnames. Add one domain per line.',
+  enabledDomainsLabel: 'Domains',
+  enabledDomainsHelp:
+    'Defaults include Gmail, Outlook, Yahoo Mail, iCloud Mail, and Proton Mail.',
+  advancedWritingInstructionsSummary: 'Advanced writing instructions',
+  providerHeading: 'Model provider',
+  providerLead:
+    'Choose the service Simple Words calls from your browser. Only the selected provider settings are shown.',
   providerBackendLabel: 'Backend',
   providerOpenAICompatible: 'OpenAI-compatible',
   providerCodexBackend: 'Codex backend',

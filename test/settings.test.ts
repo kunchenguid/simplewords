@@ -5,7 +5,68 @@ import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { build } from 'esbuild'
-import { DEFAULT_SYSTEM_PROMPT } from '../src/settings'
+import * as settings from '../src/settings'
+import {
+  DEFAULT_SETTINGS,
+  DEFAULT_SYSTEM_PROMPT,
+  normalizeSettings
+} from '../src/settings'
+
+const DEFAULT_EMAIL_DOMAINS = [
+  'mail.google.com',
+  'outlook.live.com',
+  'outlook.office.com',
+  'mail.yahoo.com',
+  'icloud.com',
+  'mail.proton.me'
+]
+
+describe('domain enablement settings', () => {
+  test('enables Simple Words by default only on popular email services', () => {
+    expect(DEFAULT_SETTINGS.enabledDomains).toEqual(DEFAULT_EMAIL_DOMAINS)
+  })
+
+  test('normalizes configured domains to lowercase unique entries', () => {
+    const normalized = normalizeSettings({
+      enabledDomains: [
+        ' mail.google.com ',
+        'CUSTOM.Example.com',
+        '',
+        'mail.google.com'
+      ]
+    } as Partial<typeof DEFAULT_SETTINGS>)
+
+    expect(normalized.enabledDomains).toEqual([
+      'mail.google.com',
+      'custom.example.com'
+    ])
+  })
+
+  test('matches enabled domains by exact host or subdomain only', () => {
+    const isSimpleWordsEnabledForUrl = (
+      settings as unknown as {
+        isSimpleWordsEnabledForUrl?: (
+          appSettings: typeof DEFAULT_SETTINGS,
+          url: string
+        ) => boolean
+      }
+    ).isSimpleWordsEnabledForUrl
+
+    expect(typeof isSimpleWordsEnabledForUrl).toBe('function')
+    expect(
+      isSimpleWordsEnabledForUrl?.(
+        DEFAULT_SETTINGS,
+        'https://mail.google.com/mail/u/0/'
+      )
+    ).toBe(true)
+    expect(
+      isSimpleWordsEnabledForUrl?.(DEFAULT_SETTINGS, 'https://www.icloud.com/')
+    ).toBe(true)
+    expect(
+      isSimpleWordsEnabledForUrl?.(DEFAULT_SETTINGS, 'https://docs.google.com/')
+    ).toBe(false)
+  })
+})
 
 describe('DEFAULT_SYSTEM_PROMPT', () => {
   test('uses the configured default writing instructions', () => {

@@ -7,9 +7,12 @@
   "optionsLede": {
     "message": "Escolha um provedor de LLM. A extensão chama o provedor selecionado diretamente depois que você clica no botão Simple Words."
   },
-  "writingInstructionsHeading": { "message": "Instruções de escrita" },
+  "stepOneLabel": { "message": "Etapa 1" },
+  "stepTwoLabel": { "message": "Etapa 2" },
+  "stepThreeLabel": { "message": "Etapa 3" },
+  "writingInstructionsHeading": { "message": "Estilo de escrita" },
   "writingInstructionsLead": {
-    "message": "Este prompt do sistema é enviado com cada solicitação de reescrita. Texto da página e email são tratados como contexto, não instruções."
+    "message": "Dê ao Simple Words contexto suficiente sobre você para que as respostas soem naturais. O prompt completo fica disponível quando você precisar de controle preciso."
   },
   "myNameLabel": { "message": "Meu nome" },
   "optionalPlaceholder": { "message": "Opcional" },
@@ -20,7 +23,21 @@
   "systemPromptHelp": {
     "message": "Deixe em branco para restaurar o prompt padrão do sistema."
   },
-  "providerHeading": { "message": "Provedor" },
+  "enabledDomainsHeading": { "message": "Onde aparece" },
+  "enabledDomainsLead": {
+    "message": "Simple Words só aparece nestes hostnames. Adicione um domínio por linha."
+  },
+  "enabledDomainsLabel": { "message": "Domínios" },
+  "enabledDomainsHelp": {
+    "message": "Os padrões incluem Gmail, Outlook, Yahoo Mail, iCloud Mail e Proton Mail."
+  },
+  "advancedWritingInstructionsSummary": {
+    "message": "Instruções de escrita avançadas"
+  },
+  "providerHeading": { "message": "Provedor do modelo" },
+  "providerLead": {
+    "message": "Escolha o serviço que o Simple Words chama do seu navegador. Apenas as configurações do provedor selecionado aparecem."
+  },
   "providerBackendLabel": { "message": "Backend" },
   "providerOpenAICompatible": { "message": "Compatível com OpenAI" },
   "providerCodexBackend": { "message": "Backend Codex" },

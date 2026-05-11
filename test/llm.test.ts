@@ -27,6 +27,7 @@ describe('refineWithProvider', () => {
           provider: 'codex',
           myName: '',
           systemPrompt: DEFAULT_SETTINGS.systemPrompt,
+          enabledDomains: DEFAULT_SETTINGS.enabledDomains,
           openaiApiKey: '',
           openaiBaseURL: '',
           openaiModel: '',
@@ -84,6 +85,7 @@ describe('refineWithProvider', () => {
         {
           provider: 'codex',
           myName: '',
+          enabledDomains: DEFAULT_SETTINGS.enabledDomains,
           openaiApiKey: '',
           openaiBaseURL: '',
           openaiModel: '',
@@ -124,6 +126,7 @@ describe('refineWithProvider', () => {
         {
           provider: 'codex',
           myName: 'Kun Chen',
+          enabledDomains: DEFAULT_SETTINGS.enabledDomains,
           openaiApiKey: '',
           openaiBaseURL: '',
           openaiModel: '',
@@ -166,6 +169,7 @@ describe('refineWithProvider', () => {
           provider: 'openai',
           myName: 'Kun Chen',
           systemPrompt: 'Rewrite like a concise support teammate.',
+          enabledDomains: DEFAULT_SETTINGS.enabledDomains,
           openaiApiKey: 'openai-token',
           openaiBaseURL: 'https://api.openai.example.test/v1/',
           openaiModel: 'gpt-test',

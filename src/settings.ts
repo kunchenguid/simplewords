@@ -5,6 +5,7 @@ export type SimpleWordsSettings = {
   provider: Provider
   myName: string
   systemPrompt: string
+  enabledDomains: string[]
   openaiApiKey: string
   openaiBaseURL: string
   openaiModel: string
@@ -31,10 +32,20 @@ export const DEFAULT_SYSTEM_PROMPT = [
   '- Return only the rewritten draft - your response will be used directly to replace the original'
 ].join('\n')
 
+export const DEFAULT_ENABLED_DOMAINS = [
+  'mail.google.com',
+  'outlook.live.com',
+  'outlook.office.com',
+  'mail.yahoo.com',
+  'icloud.com',
+  'mail.proton.me'
+]
+
 export const DEFAULT_SETTINGS: SimpleWordsSettings = {
   provider: 'openai',
   myName: '',
   systemPrompt: DEFAULT_SYSTEM_PROMPT,
+  enabledDomains: DEFAULT_ENABLED_DOMAINS,
   openaiApiKey: '',
   openaiBaseURL: 'https://api.openai.com/v1',
   openaiModel: 'gpt-5.5',
@@ -62,6 +73,9 @@ export function normalizeSettings(
       typeof raw.systemPrompt === 'string' && raw.systemPrompt.trim()
         ? raw.systemPrompt
         : DEFAULT_SETTINGS.systemPrompt,
+    enabledDomains: Array.isArray(raw.enabledDomains)
+      ? normalizeEnabledDomains(raw.enabledDomains, [])
+      : DEFAULT_SETTINGS.enabledDomains,
     openaiReasoningEffort: isReasoningEffort(raw.openaiReasoningEffort)
       ? raw.openaiReasoningEffort
       : DEFAULT_SETTINGS.openaiReasoningEffort,
@@ -69,6 +83,46 @@ export function normalizeSettings(
       ? raw.codexReasoningEffort
       : DEFAULT_SETTINGS.codexReasoningEffort
   }
+}
+
+export function normalizeEnabledDomains(
+  rawDomains: unknown,
+  fallback: string[] = DEFAULT_ENABLED_DOMAINS
+): string[] {
+  if (!Array.isArray(rawDomains)) {
+    return fallback
+  }
+
+  return Array.from(
+    new Set(
+      rawDomains
+        .filter((domain): domain is string => typeof domain === 'string')
+        .map((domain) => normalizeDomain(domain))
+        .filter((domain) => domain.length > 0)
+    )
+  )
+}
+
+export function isSimpleWordsEnabledForUrl(
+  settings: Pick<SimpleWordsSettings, 'enabledDomains'>,
+  url: string
+): boolean {
+  let parsedUrl: URL
+  try {
+    parsedUrl = new URL(url)
+  } catch {
+    return false
+  }
+
+  const normalizedHostname = normalizeDomain(parsedUrl.hostname)
+  return normalizeEnabledDomains(settings.enabledDomains, []).some(
+    (domain) =>
+      normalizedHostname === domain || normalizedHostname.endsWith(`.${domain}`)
+  )
+}
+
+function normalizeDomain(domain: string): string {
+  return domain.trim().toLowerCase().replace(/\.$/, '')
 }
 
 function isProvider(value: unknown): value is Provider {

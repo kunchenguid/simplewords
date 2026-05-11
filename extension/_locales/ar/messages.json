@@ -7,9 +7,12 @@
   "optionsLede": {
     "message": "اختر مزود LLM. يستدعي الامتداد المزود المحدد مباشرة بعد النقر على زر Simple Words."
   },
-  "writingInstructionsHeading": { "message": "تعليمات الكتابة" },
+  "stepOneLabel": { "message": "الخطوة 1" },
+  "stepTwoLabel": { "message": "الخطوة 2" },
+  "stepThreeLabel": { "message": "الخطوة 3" },
+  "writingInstructionsHeading": { "message": "أسلوب الكتابة" },
   "writingInstructionsLead": {
-    "message": "يتم إرسال موجه النظام هذا مع كل طلب إعادة صياغة. يتم التعامل مع نص الصفحة والبريد كسياق، لا كتعليمات."
+    "message": "امنح Simple Words سياقا كافيا عنك حتى تبدو الردود طبيعية. يتوفر موجه النظام الكامل عندما تحتاج إلى تحكم دقيق."
   },
   "myNameLabel": { "message": "اسمي" },
   "optionalPlaceholder": { "message": "اختياري" },
@@ -20,7 +23,21 @@
   "systemPromptHelp": {
     "message": "اتركه فارغا لاستعادة موجه النظام الافتراضي."
   },
-  "providerHeading": { "message": "المزود" },
+  "enabledDomainsHeading": { "message": "أين يظهر" },
+  "enabledDomainsLead": {
+    "message": "يظهر Simple Words فقط على أسماء المضيفين هذه. أضف نطاقا واحدا في كل سطر."
+  },
+  "enabledDomainsLabel": { "message": "النطاقات" },
+  "enabledDomainsHelp": {
+    "message": "تتضمن الإعدادات الافتراضية Gmail وOutlook وYahoo Mail وiCloud Mail وProton Mail."
+  },
+  "advancedWritingInstructionsSummary": {
+    "message": "تعليمات كتابة متقدمة"
+  },
+  "providerHeading": { "message": "مزود النموذج" },
+  "providerLead": {
+    "message": "اختر الخدمة التي يستدعيها Simple Words من متصفحك. تظهر فقط إعدادات المزود المحدد."
+  },
   "providerBackendLabel": { "message": "الخلفية" },
   "providerOpenAICompatible": { "message": "متوافق مع OpenAI" },
   "providerCodexBackend": { "message": "خلفية Codex" },

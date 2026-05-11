@@ -1,5 +1,6 @@
 import {
   DEFAULT_SETTINGS,
+  normalizeEnabledDomains,
   type Provider,
   type ReasoningEffort,
   type SimpleWordsSettings
@@ -12,6 +13,9 @@ const fields = {
   myName: document.getElementById('myName') as HTMLInputElement | null,
   systemPrompt: document.getElementById(
     'systemPrompt'
+  ) as HTMLTextAreaElement | null,
+  enabledDomains: document.getElementById(
+    'enabledDomains'
   ) as HTMLTextAreaElement | null,
   openaiApiKey: document.getElementById(
     'openaiApiKey'
@@ -75,6 +79,7 @@ async function restoreOptions(): Promise<void> {
   setValue(fields.provider, settings.provider)
   setValue(fields.myName, settings.myName)
   setValue(fields.systemPrompt, settings.systemPrompt)
+  setValue(fields.enabledDomains, settings.enabledDomains.join('\n'))
   setValue(fields.openaiApiKey, settings.openaiApiKey)
   setValue(fields.openaiBaseURL, settings.openaiBaseURL)
   setValue(fields.openaiModel, settings.openaiModel)
@@ -100,6 +105,10 @@ async function saveOptions(): Promise<void> {
     myName: getValue(fields.myName),
     systemPrompt:
       getValue(fields.systemPrompt) || DEFAULT_SETTINGS.systemPrompt,
+    enabledDomains: normalizeEnabledDomains(
+      getValue(fields.enabledDomains).split(/[\r\n,]+/),
+      []
+    ),
     openaiApiKey: getValue(fields.openaiApiKey),
     openaiBaseURL:
       getValue(fields.openaiBaseURL) || DEFAULT_SETTINGS.openaiBaseURL,

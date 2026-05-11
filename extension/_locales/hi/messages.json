@@ -7,9 +7,12 @@
   "optionsLede": {
     "message": "LLM प्रदाता चुनें। Simple Words बटन क्लिक करने के बाद एक्सटेंशन सीधे चुने गए प्रदाता को कॉल करता है।"
   },
-  "writingInstructionsHeading": { "message": "लेखन निर्देश" },
+  "stepOneLabel": { "message": "चरण 1" },
+  "stepTwoLabel": { "message": "चरण 2" },
+  "stepThreeLabel": { "message": "चरण 3" },
+  "writingInstructionsHeading": { "message": "लेखन शैली" },
   "writingInstructionsLead": {
-    "message": "यह सिस्टम प्रॉम्प्ट हर rewrite अनुरोध के साथ भेजा जाता है। पेज और ईमेल टेक्स्ट को संदर्भ माना जाता है, निर्देश नहीं।"
+    "message": "Simple Words को अपने बारे में इतना संदर्भ दें कि जवाब स्वाभाविक लगें। जब सटीक नियंत्रण चाहिए, पूरा system prompt उपलब्ध है।"
   },
   "myNameLabel": { "message": "मेरा नाम" },
   "optionalPlaceholder": { "message": "वैकल्पिक" },
@@ -20,7 +23,21 @@
   "systemPromptHelp": {
     "message": "डिफ़ॉल्ट सिस्टम प्रॉम्प्ट वापस लाने के लिए खाली छोड़ें।"
   },
-  "providerHeading": { "message": "प्रदाता" },
+  "enabledDomainsHeading": { "message": "यह कहां दिखाई देता है" },
+  "enabledDomainsLead": {
+    "message": "Simple Words केवल इन hostnames पर दिखाई देता है। हर पंक्ति में एक domain जोड़ें।"
+  },
+  "enabledDomainsLabel": { "message": "डोमेन" },
+  "enabledDomainsHelp": {
+    "message": "डिफ़ॉल्ट में Gmail, Outlook, Yahoo Mail, iCloud Mail और Proton Mail शामिल हैं।"
+  },
+  "advancedWritingInstructionsSummary": {
+    "message": "उन्नत लेखन निर्देश"
+  },
+  "providerHeading": { "message": "मॉडल प्रदाता" },
+  "providerLead": {
+    "message": "वह सेवा चुनें जिसे Simple Words आपके ब्राउज़र से कॉल करता है। केवल चुने गए प्रदाता की सेटिंग्स दिखाई जाती हैं।"
+  },
   "providerBackendLabel": { "message": "बैकएंड" },
   "providerOpenAICompatible": { "message": "OpenAI-संगत" },
   "providerCodexBackend": { "message": "Codex बैकएंड" },

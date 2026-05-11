@@ -7,9 +7,12 @@
   "optionsLede": {
     "message": "Выберите поставщика LLM. Расширение обращается к выбранному поставщику напрямую после нажатия Simple Words."
   },
-  "writingInstructionsHeading": { "message": "Инструкции для письма" },
+  "stepOneLabel": { "message": "Шаг 1" },
+  "stepTwoLabel": { "message": "Шаг 2" },
+  "stepThreeLabel": { "message": "Шаг 3" },
+  "writingInstructionsHeading": { "message": "Стиль письма" },
   "writingInstructionsLead": {
-    "message": "Этот системный промпт отправляется с каждым запросом на переписывание. Текст страницы и письма считается контекстом, а не инструкцией."
+    "message": "Дайте Simple Words достаточно контекста о себе, чтобы ответы звучали естественно. Полный системный промпт доступен, когда нужен точный контроль."
   },
   "myNameLabel": { "message": "Мое имя" },
   "optionalPlaceholder": { "message": "Необязательно" },
@@ -20,7 +23,21 @@
   "systemPromptHelp": {
     "message": "Оставьте пустым, чтобы восстановить системный промпт по умолчанию."
   },
-  "providerHeading": { "message": "Поставщик" },
+  "enabledDomainsHeading": { "message": "Где появляется" },
+  "enabledDomainsLead": {
+    "message": "Simple Words появляется только на этих именах хостов. Добавьте по одному домену в строке."
+  },
+  "enabledDomainsLabel": { "message": "Домены" },
+  "enabledDomainsHelp": {
+    "message": "По умолчанию включены Gmail, Outlook, Yahoo Mail, iCloud Mail и Proton Mail."
+  },
+  "advancedWritingInstructionsSummary": {
+    "message": "Расширенные инструкции для письма"
+  },
+  "providerHeading": { "message": "Поставщик модели" },
+  "providerLead": {
+    "message": "Выберите сервис, который Simple Words вызывает из вашего браузера. Показываются только настройки выбранного поставщика."
+  },
   "providerBackendLabel": { "message": "Бэкенд" },
   "providerOpenAICompatible": { "message": "Совместимый с OpenAI" },
   "providerCodexBackend": { "message": "Бэкенд Codex" },
