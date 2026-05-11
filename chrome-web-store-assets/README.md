@@ -21,3 +21,12 @@ They reuse the Simple Words design system and key frames from `marketing-video/s
 - `frames/*.jpg` contains the stills extracted from the marketing video.
 
 The PNG exports are written as RGB images without an alpha channel.
+
+## Regenerating exports
+
+Re-extract any changed stills from `../marketing-video/simplewords-marketing.mp4` into `frames/*.jpg` before exporting PNGs.
+
+From `chrome-web-store-assets/sources`, serve the files and open `render.html?file=<source-name>` with headless Chrome.
+For example, `render.html?file=screenshot-01-reply-faster` renders `screenshot-01-reply-faster.svg`.
+
+Export each upload PNG at its listed size with Chrome's `--screenshot` and `--window-size` flags, then run `npm test` to verify the dimensions and RGB color type.
