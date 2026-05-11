@@ -43,7 +43,7 @@ function HostPage() {
       return
     }
     setPhase('working')
-    setPanelMessage('Refining…')
+    setPanelMessage('Refining...')
     setReplacement(null)
     setTimeout(() => {
       setPanelMessage(REFINED)

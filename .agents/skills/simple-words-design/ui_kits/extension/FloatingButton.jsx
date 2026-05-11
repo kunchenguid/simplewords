@@ -104,7 +104,7 @@ function RefinePanel({
       {state === 'loading' ? (
         <div className="sw-panel__loading">
           <IconLoader />
-          <span>{message ?? 'Refining…'}</span>
+          <span>{message ?? 'Refining...'}</span>
         </div>
       ) : (
         <>
