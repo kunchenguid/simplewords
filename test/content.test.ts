@@ -156,4 +156,35 @@ describe('content script button visibility', () => {
     expect(panel.textContent).toContain('newer polished reply')
     expect(panel.textContent).not.toContain('older polished reply')
   })
+
+  test('preserves line breaks when replacing a contenteditable draft', async () => {
+    document.body.innerHTML = '<div contenteditable="true">rough reply</div>'
+
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage: vi.fn(() => ({
+          reply: 'Hello Kun,\n\nThanks for sharing this.\nBest,'
+        }))
+      }
+    })
+
+    const editor = document.querySelector('div') as HTMLDivElement
+    Object.defineProperty(editor, 'isContentEditable', { value: true })
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    const replace = Array.from(document.querySelectorAll('button')).find(
+      (candidate) => candidate.textContent === 'Replace draft'
+    ) as HTMLButtonElement
+    replace.click()
+
+    expect(editor.innerHTML).toBe(
+      'Hello Kun,<br><br>Thanks for sharing this.<br>Best,'
+    )
+  })
 })

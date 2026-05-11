@@ -498,6 +498,17 @@ function setEditorText(element: HTMLElement, value: string): void {
     element instanceof HTMLInputElement
   ) {
     element.value = value
+  } else if (element.isContentEditable) {
+    element.replaceChildren()
+    value.split(/\r\n|\r|\n/).forEach((line, index) => {
+      if (index > 0) {
+        element.append(document.createElement('br'))
+      }
+
+      if (line) {
+        element.append(document.createTextNode(line))
+      }
+    })
   } else {
     element.textContent = value
   }
