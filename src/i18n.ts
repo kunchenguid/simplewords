@@ -94,7 +94,9 @@ function applySubstitutions(
 
 export function localizeDocument(root: ParentNode = document): void {
   if (typeof document !== 'undefined') {
-    document.documentElement.lang = getUILanguage()
+    const language = getUILanguage()
+    document.documentElement.lang = language
+    document.documentElement.dir = isRightToLeftLanguage(language) ? 'rtl' : 'ltr'
   }
 
   localizeText(root, 'data-i18n', (element, message) => {
@@ -115,6 +117,10 @@ function getUILanguage(): string {
       : 'en'
 
   return language.replace('_', '-')
+}
+
+function isRightToLeftLanguage(language: string): boolean {
+  return ['ar', 'fa', 'he', 'ur'].includes(language.split('-')[0])
 }
 
 function localizeText(

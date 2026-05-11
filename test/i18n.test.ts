@@ -2,7 +2,7 @@
 
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { describe, expect, test, vi } from 'vitest'
+import { afterEach, describe, expect, test, vi } from 'vitest'
 
 const SUPPORTED_LOCALES = [
   'en',
@@ -20,6 +20,11 @@ const SUPPORTED_LOCALES = [
 const readJson = (path: string) => JSON.parse(readFileSync(path, 'utf8'))
 
 describe('extension i18n', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals()
+    vi.resetModules()
+  })
+
   test('configures the manifest for Chrome locale messages', () => {
     const manifest = readJson(join('extension', 'manifest.json'))
 
@@ -82,5 +87,25 @@ describe('extension i18n', () => {
     const { t } = await import('../src/i18n')
 
     expect(t('saveButton')).toBe('Save')
+  })
+
+  test('sets right-to-left direction for Arabic UI language', async () => {
+    const documentElement = { dir: '', lang: '' }
+    vi.stubGlobal('document', {
+      documentElement,
+      querySelectorAll: vi.fn(() => [])
+    })
+    vi.stubGlobal('chrome', {
+      i18n: {
+        getMessage: vi.fn(() => ''),
+        getUILanguage: vi.fn(() => 'ar')
+      }
+    })
+
+    const { localizeDocument } = await import('../src/i18n')
+
+    localizeDocument()
+
+    expect(documentElement).toMatchObject({ dir: 'rtl', lang: 'ar' })
   })
 })
