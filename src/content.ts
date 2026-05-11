@@ -143,7 +143,11 @@ document.addEventListener('focusin', (event) => {
 
 document.addEventListener('input', (event) => {
   const target = event.target
-  if (!(target instanceof HTMLElement) || !isEditableElement(target)) {
+  if (
+    !(target instanceof HTMLElement) ||
+    !isEditableElement(target) ||
+    target !== document.activeElement
+  ) {
     return
   }
 

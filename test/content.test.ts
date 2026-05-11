@@ -14,7 +14,7 @@ describe('content script button visibility', () => {
     document.body.innerHTML = '<input type="text">'
 
     const editor = document.querySelector('input') as HTMLInputElement
-    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+    editor.focus()
 
     expect(document.getElementById('simplewords-button')).toBeNull()
 
@@ -30,6 +30,36 @@ describe('content script button visibility', () => {
     editor.dispatchEvent(new InputEvent('input', { bubbles: true }))
 
     expect(button.hidden).toBe(true)
+  })
+
+  test('ignores input events from editable elements that are not focused', async () => {
+    document.body.innerHTML =
+      '<textarea>focused draft</textarea><textarea>programmatic draft</textarea>'
+
+    const sendMessage = vi.fn(() => ({ reply: 'polished reply' }))
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage
+      }
+    })
+
+    const editors = Array.from(document.querySelectorAll('textarea'))
+    const focusedEditor = editors[0] as HTMLTextAreaElement
+    const programmaticEditor = editors[1] as HTMLTextAreaElement
+    focusedEditor.focus()
+
+    programmaticEditor.value = 'programmatic draft updated'
+    programmaticEditor.dispatchEvent(new InputEvent('input', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    expect(sendMessage).toHaveBeenCalledWith(
+      expect.objectContaining({ draft: 'focused draft' })
+    )
   })
 
   test('hides the Simple Words button when the active editor is hidden', async () => {
@@ -84,7 +114,7 @@ describe('content script button visibility', () => {
     })
 
     const editor = document.querySelector('textarea') as HTMLTextAreaElement
-    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+    editor.focus()
 
     const button = document.getElementById(
       'simplewords-button'
@@ -123,7 +153,7 @@ describe('content script button visibility', () => {
     })
 
     const editor = document.querySelector('textarea') as HTMLTextAreaElement
-    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+    editor.focus()
 
     const button = document.getElementById(
       'simplewords-button'
