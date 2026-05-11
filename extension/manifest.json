@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Simple Words",
   "version": "0.1.0",
-  "description": "Turn rough replies into friendly drafts using surrounding page context.",
+  "description": "Never waste time wordsmithing your replies. Just say what you mean, and let AI help turn it into a respectful draft before you send.",
   "permissions": ["storage"],
   "host_permissions": ["<all_urls>"],
   "background": {
