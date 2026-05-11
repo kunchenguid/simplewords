@@ -1,6 +1,7 @@
 # Simple Words — Design System
 
-> Turn rough replies into friendly drafts using surrounding page context.
+> Never waste time wordsmithing your replies.
+> Just say what you mean, and let AI help turn it into a respectful draft before you send.
 
 Simple Words is a **Chrome extension** that rewrites a rough draft in any editable field (textarea, contenteditable, input) into something professional, respectful, and friendly — using the surrounding page as context. It surfaces in two places:
 
@@ -61,7 +62,7 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 
 ### Microcopy examples (lifted verbatim from the source)
 
-- Tagline / extension description: _"Turn rough replies into friendly drafts using surrounding page context."_
+- Tagline / extension description: _"Never waste time wordsmithing your replies. Just say what you mean, and let AI help turn it into a respectful draft before you send."_
 - Options-page intro: _"Choose an LLM provider. The extension calls the selected provider directly after you click the Simple Words button."_
 - Empty-state error: _"Write a rough reply first."_
 - Loading: button _"Refining"_, panel heading _"Refining draft"_, panel body _"Refining…"_
