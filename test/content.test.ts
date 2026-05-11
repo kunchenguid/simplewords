@@ -10,6 +10,28 @@ describe('content script button visibility', () => {
     Reflect.deleteProperty(globalThis, 'chrome')
   })
 
+  test('shows the Simple Words button for a text input only after content is typed', () => {
+    document.body.innerHTML = '<input type="text">'
+
+    const editor = document.querySelector('input') as HTMLInputElement
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    expect(document.getElementById('simplewords-button')).toBeNull()
+
+    editor.value = 'rough reply'
+    editor.dispatchEvent(new InputEvent('input', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.hidden).toBe(false)
+
+    editor.value = '   '
+    editor.dispatchEvent(new InputEvent('input', { bubbles: true }))
+
+    expect(button.hidden).toBe(true)
+  })
+
   test('hides the Simple Words button when the active editor is hidden', async () => {
     document.body.innerHTML = '<textarea>rough reply</textarea>'
 

@@ -141,6 +141,16 @@ document.addEventListener('focusin', (event) => {
   showButton(target)
 })
 
+document.addEventListener('input', (event) => {
+  const target = event.target
+  if (!(target instanceof HTMLElement) || !isEditableElement(target)) {
+    return
+  }
+
+  activeEditor = target
+  showButton(target)
+})
+
 document.addEventListener('selectionchange', () => {
   const element = document.activeElement
   if (element instanceof HTMLElement && isEditableElement(element)) {
@@ -173,7 +183,7 @@ function ensureStyles(): void {
 }
 
 function showButton(editor: HTMLElement): void {
-  if (!isActiveEditorVisible(editor)) {
+  if (!isActiveEditorVisible(editor) || !getEditorText(editor)) {
     hideInjectedUI()
     return
   }
@@ -188,7 +198,7 @@ function refreshActiveEditorUI(): void {
     return
   }
 
-  if (!isActiveEditorVisible(activeEditor)) {
+  if (!isActiveEditorVisible(activeEditor) || !getEditorText(activeEditor)) {
     activeEditor = null
     hideInjectedUI()
     return
