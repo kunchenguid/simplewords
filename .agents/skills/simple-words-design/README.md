@@ -179,9 +179,10 @@ The options page is fully opaque.
 
 - **Floating button** is `position: fixed`, `z-index: 2147483647` (max), anchored 8px below the active editable field's bottom-right corner.
   This is non-negotiable — it must clear every host page, including ones with their own floating UI.
-  The injected button and panel are visible only while the active editor is connected and visible.
+  The injected button and panel are visible only while the active editor is connected, visible, and contains non-whitespace text.
   Hide them when the editor or any ancestor is `hidden`, `aria-hidden="true"`, `display: none`, `visibility: hidden`, `visibility: collapse`, inside a closed `dialog`, or inside closed `details` content.
-  Stale refinement results must stay suppressed after focus moves, the editor becomes hidden, or a newer refinement starts for the same editor.
+  Hide them when the active editor is cleared or becomes whitespace-only.
+  Stale refinement results must stay suppressed after focus moves, the editor becomes hidden or empty, or a newer refinement starts for the same editor.
 - **Options page** is a single column, `max-width: 680px`, with `48px 24px 80px` page padding.
   Never multi-column.
   Reading width is sacred.
