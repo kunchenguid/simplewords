@@ -96,7 +96,9 @@ export function localizeDocument(root: ParentNode = document): void {
   if (typeof document !== 'undefined') {
     const language = getUILanguage()
     document.documentElement.lang = language
-    document.documentElement.dir = isRightToLeftLanguage(language) ? 'rtl' : 'ltr'
+    document.documentElement.dir = isRightToLeftLanguage(language)
+      ? 'rtl'
+      : 'ltr'
   }
 
   localizeText(root, 'data-i18n', (element, message) => {
