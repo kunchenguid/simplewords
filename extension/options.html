@@ -53,12 +53,12 @@
       }
 
       .page {
-        margin: 0 auto;
-        max-width: 680px;
-        padding: 48px 24px 80px;
         display: flex;
         flex-direction: column;
         gap: 24px;
+        margin: 0 auto;
+        max-width: 680px;
+        padding: 48px 24px 80px;
       }
 
       .hero {
@@ -107,14 +107,90 @@
         max-width: 560px;
       }
 
-      section {
-        background: var(--paper);
+      .step-kicker {
+        color: var(--accent);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .step-card,
+      .provider-card {
+        background: var(--paper-2);
         border: 1px solid var(--line);
         border-radius: var(--radius-md);
         display: flex;
         flex-direction: column;
-        gap: 14px;
-        padding: 22px;
+        gap: 18px;
+        padding: 24px;
+      }
+
+      .provider-card {
+        background: var(--paper);
+      }
+
+      [data-provider-section][hidden] {
+        display: none;
+      }
+
+      #model-provider {
+        order: 1;
+      }
+
+      #where-it-appears {
+        order: 2;
+      }
+
+      #writing-style {
+        order: 3;
+      }
+
+      .save-row,
+      .foot {
+        order: 4;
+      }
+
+      .section-head {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .provider-choice {
+        margin-bottom: -4px;
+      }
+
+      details {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 0;
+      }
+
+      summary {
+        color: var(--ink-900);
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        list-style-position: inside;
+        padding: 14px 16px;
+      }
+
+      summary:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .disclosure-body {
+        border-top: 1px solid var(--line);
+        padding: 16px;
       }
 
       h2 {
@@ -152,7 +228,7 @@
         font:
           14px/1.5 var(--font-sans),
           system-ui;
-        margin-bottom: 14px;
+        margin-bottom: 8px;
         padding: 10px 12px;
         transition:
           border-color 120ms var(--ease-out),
@@ -178,8 +254,16 @@
         font-family: var(--font-mono);
         font-size: 12.5px;
         line-height: 1.55;
-        min-height: 160px;
+        min-height: 132px;
         resize: vertical;
+      }
+
+      #enabledDomains {
+        min-height: 118px;
+      }
+
+      #systemPrompt {
+        min-height: 220px;
       }
 
       select {
@@ -208,9 +292,16 @@
 
       .save-row {
         align-items: center;
+        align-self: stretch;
+        background: var(--paper-2);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        bottom: 16px;
         display: flex;
         gap: 14px;
-        padding-top: 4px;
+        padding: 12px;
+        position: sticky;
+        z-index: 2;
       }
 
       button#save {
@@ -274,13 +365,42 @@
         </p>
       </header>
 
-      <section>
-        <h2 data-i18n="writingInstructionsHeading">Writing instructions</h2>
-        <p class="section-lead" data-i18n="writingInstructionsLead">
-          This system prompt is sent with every rewrite request. Page text and
-          email content are treated as context, not instructions.
-        </p>
-        <div>
+      <section id="where-it-appears" class="step-card" data-step="2">
+        <div class="section-head">
+          <span class="step-kicker">Step 2</span>
+          <h2 data-i18n="enabledDomainsHeading">Where it appears</h2>
+          <p class="section-lead" data-i18n="enabledDomainsLead">
+            Simple Words only appears on these hostnames. Add one domain per
+            line.
+          </p>
+        </div>
+        <div class="field">
+          <label for="enabledDomains" data-i18n="enabledDomainsLabel">
+            Domains
+          </label>
+          <textarea
+            id="enabledDomains"
+            autocomplete="off"
+            autocapitalize="none"
+            spellcheck="false"
+          ></textarea>
+          <p data-i18n="enabledDomainsHelp">
+            Defaults include Gmail, Outlook, Yahoo Mail, iCloud Mail, and Proton
+            Mail.
+          </p>
+        </div>
+      </section>
+
+      <section id="writing-style" class="step-card" data-step="3">
+        <div class="section-head">
+          <span class="step-kicker">Step 3</span>
+          <h2 data-i18n="writingInstructionsHeading">Writing style</h2>
+          <p class="section-lead" data-i18n="writingInstructionsLead">
+            Teach Simple Words enough about you to make replies feel natural.
+            The full system prompt is there when you need precise control.
+          </p>
+        </div>
+        <div class="field">
           <label for="myName" data-i18n="myNameLabel">My name</label>
           <input
             id="myName"
@@ -294,20 +414,34 @@
             the model can use it for signatures when appropriate.
           </p>
         </div>
-        <div>
-          <label for="systemPrompt" data-i18n="systemPromptLabel">
-            System prompt
-          </label>
-          <textarea id="systemPrompt" spellcheck="true"></textarea>
-          <p data-i18n="systemPromptHelp">
-            Leave blank to restore the default system prompt.
-          </p>
-        </div>
+        <details open>
+          <summary data-i18n="advancedWritingInstructionsSummary">
+            Advanced writing instructions
+          </summary>
+          <div class="disclosure-body">
+            <div class="field">
+              <label for="systemPrompt" data-i18n="systemPromptLabel">
+                System prompt
+              </label>
+              <textarea id="systemPrompt" spellcheck="true"></textarea>
+              <p data-i18n="systemPromptHelp">
+                Leave blank to restore the default system prompt.
+              </p>
+            </div>
+          </div>
+        </details>
       </section>
 
-      <section>
-        <h2 data-i18n="providerHeading">Provider</h2>
-        <div>
+      <section id="model-provider" class="step-card" data-step="1">
+        <div class="section-head">
+          <span class="step-kicker">Step 1</span>
+          <h2 data-i18n="providerHeading">Model provider</h2>
+          <p class="section-lead" data-i18n="providerLead">
+            Choose the service Simple Words calls from your browser. Only the
+            selected provider settings are shown.
+          </p>
+        </div>
+        <div class="field provider-choice">
           <label for="provider" data-i18n="providerBackendLabel">Backend</label>
           <select id="provider">
             <option value="openai" data-i18n="providerOpenAICompatible">
@@ -319,135 +453,143 @@
             <option value="ollama" data-i18n="providerOllama">Ollama</option>
           </select>
         </div>
-      </section>
 
-      <section data-provider-section="openai">
-        <h2 data-i18n="openAIHeading">OpenAI-compatible</h2>
-        <div>
-          <label for="openaiApiKey" data-i18n="apiKeyLabel">API key</label>
-          <input
-            id="openaiApiKey"
-            type="password"
-            autocomplete="off"
-            placeholder="sk-..."
-          />
-        </div>
-        <div>
-          <label for="openaiBaseURL" data-i18n="openAIBaseURLLabel">
-            Base URL
-          </label>
-          <input
-            id="openaiBaseURL"
-            type="url"
-            placeholder="https://api.openai.com/v1"
-          />
-        </div>
-        <div>
-          <label for="openaiModel" data-i18n="openAIModelLabel">Model</label>
-          <input id="openaiModel" type="text" placeholder="gpt-5.5" />
-        </div>
-        <div>
-          <label for="openaiReasoningEffort" data-i18n="reasoningEffortLabel">
-            Reasoning effort
-          </label>
-          <select id="openaiReasoningEffort">
-            <option value="none">none</option>
-            <option value="low">low</option>
-            <option value="medium">medium</option>
-            <option value="high">high</option>
-            <option value="xhigh">xhigh</option>
-          </select>
-        </div>
-      </section>
+        <section class="provider-card" data-provider-section="openai">
+          <div class="section-head">
+            <h2 data-i18n="openAIHeading">OpenAI-compatible</h2>
+          </div>
+          <div class="field">
+            <label for="openaiApiKey" data-i18n="apiKeyLabel">API key</label>
+            <input
+              id="openaiApiKey"
+              type="password"
+              autocomplete="off"
+              placeholder="sk-..."
+            />
+          </div>
+          <div class="field">
+            <label for="openaiBaseURL" data-i18n="openAIBaseURLLabel">
+              Base URL
+            </label>
+            <input
+              id="openaiBaseURL"
+              type="url"
+              placeholder="https://api.openai.com/v1"
+            />
+          </div>
+          <div class="field">
+            <label for="openaiModel" data-i18n="openAIModelLabel">Model</label>
+            <input id="openaiModel" type="text" placeholder="gpt-5.5" />
+          </div>
+          <div class="field">
+            <label for="openaiReasoningEffort" data-i18n="reasoningEffortLabel">
+              Reasoning effort
+            </label>
+            <select id="openaiReasoningEffort">
+              <option value="none">none</option>
+              <option value="low">low</option>
+              <option value="medium">medium</option>
+              <option value="high">high</option>
+              <option value="xhigh">xhigh</option>
+            </select>
+          </div>
+        </section>
 
-      <section data-provider-section="codex">
-        <h2 data-i18n="codexHeading">Codex backend</h2>
-        <p class="section-lead">
-          <span data-i18n="codexLeadBeforePath">
-            Chrome extensions cannot silently read Codex CLI auth from disk.
-            Select your Codex CLI auth file, usually
-          </span>
-          <code>~/.codex/auth.json</code
-          ><span data-i18n="codexLeadAfterPath">, to import the token.</span>
-        </p>
-        <div>
-          <label for="codexAuthFile" data-i18n="codexAuthFileLabel">
-            Codex auth.json
-          </label>
-          <input
-            id="codexAuthFile"
-            type="file"
-            accept="application/json,.json"
-          />
-        </div>
-        <div>
-          <label for="codexAccessToken" data-i18n="codexAccessTokenLabel">
-            Access token
-          </label>
-          <input
-            id="codexAccessToken"
-            type="password"
-            autocomplete="off"
-            data-i18n-placeholder="codexAccessTokenPlaceholder"
-            placeholder="Imported from auth.json or pasted manually"
-          />
-        </div>
-        <input id="codexRefreshToken" type="hidden" />
-        <div>
-          <label for="codexAccountId" data-i18n="codexAccountIdLabel">
-            ChatGPT account ID
-          </label>
-          <input
-            id="codexAccountId"
-            type="text"
-            data-i18n-placeholder="codexAccountIdPlaceholder"
-            placeholder="Optional"
-          />
-        </div>
-        <div>
-          <label for="codexBaseURL" data-i18n="codexBaseURLLabel">
-            Base URL
-          </label>
-          <input
-            id="codexBaseURL"
-            type="url"
-            placeholder="https://chatgpt.com/backend-api/codex"
-          />
-        </div>
-        <div>
-          <label for="codexModel" data-i18n="codexModelLabel">Model</label>
-          <input id="codexModel" type="text" placeholder="gpt-5.5-fast" />
-        </div>
-        <div>
-          <label for="codexReasoningEffort" data-i18n="reasoningEffortLabel">
-            Reasoning effort
-          </label>
-          <select id="codexReasoningEffort">
-            <option value="none">none</option>
-            <option value="low">low</option>
-            <option value="medium">medium</option>
-            <option value="high">high</option>
-            <option value="xhigh">xhigh</option>
-          </select>
-        </div>
-      </section>
+        <section class="provider-card" data-provider-section="codex" hidden>
+          <div class="section-head">
+            <h2 data-i18n="codexHeading">Codex backend</h2>
+            <p class="section-lead">
+              <span data-i18n="codexLeadBeforePath">
+                Chrome extensions cannot silently read Codex CLI auth from disk.
+                Select your Codex CLI auth file, usually
+              </span>
+              <code>~/.codex/auth.json</code
+              ><span data-i18n="codexLeadAfterPath"
+                >, to import the token.</span
+              >
+            </p>
+          </div>
+          <div class="field">
+            <label for="codexAuthFile" data-i18n="codexAuthFileLabel">
+              Codex auth.json
+            </label>
+            <input
+              id="codexAuthFile"
+              type="file"
+              accept="application/json,.json"
+            />
+          </div>
+          <div class="field">
+            <label for="codexAccessToken" data-i18n="codexAccessTokenLabel">
+              Access token
+            </label>
+            <input
+              id="codexAccessToken"
+              type="password"
+              autocomplete="off"
+              data-i18n-placeholder="codexAccessTokenPlaceholder"
+              placeholder="Imported from auth.json or pasted manually"
+            />
+          </div>
+          <input id="codexRefreshToken" type="hidden" />
+          <div class="field">
+            <label for="codexAccountId" data-i18n="codexAccountIdLabel">
+              ChatGPT account ID
+            </label>
+            <input
+              id="codexAccountId"
+              type="text"
+              data-i18n-placeholder="codexAccountIdPlaceholder"
+              placeholder="Optional"
+            />
+          </div>
+          <div class="field">
+            <label for="codexBaseURL" data-i18n="codexBaseURLLabel">
+              Base URL
+            </label>
+            <input
+              id="codexBaseURL"
+              type="url"
+              placeholder="https://chatgpt.com/backend-api/codex"
+            />
+          </div>
+          <div class="field">
+            <label for="codexModel" data-i18n="codexModelLabel">Model</label>
+            <input id="codexModel" type="text" placeholder="gpt-5.5-fast" />
+          </div>
+          <div class="field">
+            <label for="codexReasoningEffort" data-i18n="reasoningEffortLabel">
+              Reasoning effort
+            </label>
+            <select id="codexReasoningEffort">
+              <option value="none">none</option>
+              <option value="low">low</option>
+              <option value="medium">medium</option>
+              <option value="high">high</option>
+              <option value="xhigh">xhigh</option>
+            </select>
+          </div>
+        </section>
 
-      <section data-provider-section="ollama">
-        <h2 data-i18n="ollamaHeading">Ollama</h2>
-        <div>
-          <label for="ollamaBaseURL" data-i18n="ollamaBaseURLLabel">
-            Base URL
-          </label>
-          <input
-            id="ollamaBaseURL"
-            type="url"
-            placeholder="http://localhost:11434/v1"
-          />
-        </div>
-        <div>
-          <label for="ollamaModel" data-i18n="ollamaModelLabel">Model</label>
-          <input id="ollamaModel" type="text" placeholder="llama3.2" />
-        </div>
+        <section class="provider-card" data-provider-section="ollama" hidden>
+          <div class="section-head">
+            <h2 data-i18n="ollamaHeading">Ollama</h2>
+          </div>
+          <div class="field">
+            <label for="ollamaBaseURL" data-i18n="ollamaBaseURLLabel">
+              Base URL
+            </label>
+            <input
+              id="ollamaBaseURL"
+              type="url"
+              placeholder="http://localhost:11434/v1"
+            />
+          </div>
+          <div class="field">
+            <label for="ollamaModel" data-i18n="ollamaModelLabel">Model</label>
+            <input id="ollamaModel" type="text" placeholder="llama3.2" />
+          </div>
+        </section>
       </section>
 
       <div class="save-row">

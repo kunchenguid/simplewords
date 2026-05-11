@@ -7,9 +7,9 @@
   "optionsLede": {
     "message": "Wähle einen LLM-Anbieter. Die Erweiterung ruft den ausgewählten Anbieter direkt auf, nachdem du Simple Words klickst."
   },
-  "writingInstructionsHeading": { "message": "Schreibanweisungen" },
+  "writingInstructionsHeading": { "message": "Schreibstil" },
   "writingInstructionsLead": {
-    "message": "Dieser System-Prompt wird mit jeder Umschreibanfrage gesendet. Seiten- und E-Mail-Text gelten als Kontext, nicht als Anweisung."
+    "message": "Gib Simple Words genug Kontext über dich, damit Antworten natürlich klingen. Der vollständige System-Prompt ist verfügbar, wenn du genaue Kontrolle brauchst."
   },
   "myNameLabel": { "message": "Mein Name" },
   "optionalPlaceholder": { "message": "Optional" },
@@ -20,7 +20,21 @@
   "systemPromptHelp": {
     "message": "Leer lassen, um den Standard-System-Prompt wiederherzustellen."
   },
-  "providerHeading": { "message": "Anbieter" },
+  "enabledDomainsHeading": { "message": "Wo es erscheint" },
+  "enabledDomainsLead": {
+    "message": "Simple Words erscheint nur auf diesen Hostnamen. Füge eine Domain pro Zeile hinzu."
+  },
+  "enabledDomainsLabel": { "message": "Domains" },
+  "enabledDomainsHelp": {
+    "message": "Die Standardwerte enthalten Gmail, Outlook, Yahoo Mail, iCloud Mail und Proton Mail."
+  },
+  "advancedWritingInstructionsSummary": {
+    "message": "Erweiterte Schreibanweisungen"
+  },
+  "providerHeading": { "message": "Modellanbieter" },
+  "providerLead": {
+    "message": "Wähle den Dienst, den Simple Words aus deinem Browser aufruft. Es werden nur die Einstellungen des ausgewählten Anbieters angezeigt."
+  },
   "providerBackendLabel": { "message": "Backend" },
   "providerOpenAICompatible": { "message": "OpenAI-kompatibel" },
   "providerCodexBackend": { "message": "Codex-Backend" },

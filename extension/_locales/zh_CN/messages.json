@@ -7,9 +7,9 @@
   "optionsLede": {
     "message": "选择一个 LLM 提供方。点击 Simple Words 按钮后，扩展会直接调用所选提供方。"
   },
-  "writingInstructionsHeading": { "message": "写作指令" },
+  "writingInstructionsHeading": { "message": "写作风格" },
   "writingInstructionsLead": {
-    "message": "每次改写请求都会发送这个系统提示。页面文字和邮件内容只作为上下文，而不是指令。"
+    "message": "让 Simple Words 了解足够的个人信息，使回复更自然。需要精细控制时，可以调整完整系统提示。"
   },
   "myNameLabel": { "message": "我的名字" },
   "optionalPlaceholder": { "message": "可选" },
@@ -18,7 +18,19 @@
   },
   "systemPromptLabel": { "message": "系统提示" },
   "systemPromptHelp": { "message": "留空可恢复默认系统提示。" },
-  "providerHeading": { "message": "提供方" },
+  "enabledDomainsHeading": { "message": "显示位置" },
+  "enabledDomainsLead": {
+    "message": "Simple Words 只会在这些主机名上显示。每行添加一个域名。"
+  },
+  "enabledDomainsLabel": { "message": "域名" },
+  "enabledDomainsHelp": {
+    "message": "默认包含 Gmail、Outlook、Yahoo Mail、iCloud Mail 和 Proton Mail。"
+  },
+  "advancedWritingInstructionsSummary": { "message": "高级写作指令" },
+  "providerHeading": { "message": "模型提供方" },
+  "providerLead": {
+    "message": "选择 Simple Words 从你的浏览器调用的服务。只显示所选提供方的设置。"
+  },
   "providerBackendLabel": { "message": "后端" },
   "providerOpenAICompatible": { "message": "兼容 OpenAI" },
   "providerCodexBackend": { "message": "Codex 后端" },

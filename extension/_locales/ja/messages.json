@@ -7,9 +7,9 @@
   "optionsLede": {
     "message": "LLM プロバイダーを選択します。Simple Words ボタンをクリックすると、選択したプロバイダーを直接呼び出します。"
   },
-  "writingInstructionsHeading": { "message": "文章作成の指示" },
+  "writingInstructionsHeading": { "message": "文章スタイル" },
   "writingInstructionsLead": {
-    "message": "このシステムプロンプトは各リライト要求で送信されます。ページ本文とメール本文は指示ではなくコンテキストとして扱われます。"
+    "message": "返信が自然に感じられるように、Simple Words にあなたの情報を少し伝えます。細かく制御したい場合は完全なシステムプロンプトを調整できます。"
   },
   "myNameLabel": { "message": "自分の名前" },
   "optionalPlaceholder": { "message": "任意" },
@@ -20,7 +20,19 @@
   "systemPromptHelp": {
     "message": "空欄にすると既定のシステムプロンプトに戻ります。"
   },
-  "providerHeading": { "message": "プロバイダー" },
+  "enabledDomainsHeading": { "message": "表示する場所" },
+  "enabledDomainsLead": {
+    "message": "Simple Words はこれらのホスト名でのみ表示されます。1 行に 1 つのドメインを追加してください。"
+  },
+  "enabledDomainsLabel": { "message": "ドメイン" },
+  "enabledDomainsHelp": {
+    "message": "既定では Gmail、Outlook、Yahoo Mail、iCloud Mail、Proton Mail が含まれます。"
+  },
+  "advancedWritingInstructionsSummary": { "message": "高度な文章作成指示" },
+  "providerHeading": { "message": "モデルプロバイダー" },
+  "providerLead": {
+    "message": "Simple Words がブラウザから呼び出すサービスを選びます。選択したプロバイダーの設定だけが表示されます。"
+  },
   "providerBackendLabel": { "message": "バックエンド" },
   "providerOpenAICompatible": { "message": "OpenAI 互換" },
   "providerCodexBackend": { "message": "Codex バックエンド" },

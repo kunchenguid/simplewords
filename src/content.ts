@@ -1,5 +1,12 @@
 import { serializeVisibleTextTree } from './domTree'
 import { t } from './i18n'
+import {
+  DEFAULT_SETTINGS,
+  normalizeEnabledDomains,
+  isSimpleWordsEnabledForUrl,
+  normalizeSettings,
+  type SimpleWordsSettings
+} from './settings'
 import { panelPositionAboveButton } from './uiPosition'
 
 const BUTTON_ID = 'simplewords-button'
@@ -115,6 +122,31 @@ const STYLE_CSS = `
 
 let activeEditor: HTMLElement | null = null
 let activeRefinementId = 0
+let siteEnabled =
+  !hasChromeStorage() ||
+  isSimpleWordsEnabledForUrl(DEFAULT_SETTINGS, location.href)
+
+void loadSiteEnablement()
+
+if (hasChromeStorage()) {
+  chrome.storage.onChanged?.addListener?.((changes, areaName) => {
+    if (areaName !== 'local' || !changes.enabledDomains) {
+      return
+    }
+
+    setSiteEnabled(
+      isSimpleWordsEnabledForUrl(
+        {
+          enabledDomains: normalizeEnabledDomains(
+            changes.enabledDomains.newValue,
+            []
+          )
+        },
+        location.href
+      )
+    )
+  })
+}
 
 const editorVisibilityObserver = new MutationObserver((mutations) => {
   if (!activeEditor || !mutations.some(mutationAffectsActiveEditor)) {
@@ -132,6 +164,10 @@ editorVisibilityObserver.observe(document.documentElement, {
 })
 
 document.addEventListener('focusin', (event) => {
+  if (!siteEnabled) {
+    return
+  }
+
   const target = event.target
   if (!(target instanceof HTMLElement) || !isEditableElement(target)) {
     return
@@ -142,6 +178,10 @@ document.addEventListener('focusin', (event) => {
 })
 
 document.addEventListener('input', (event) => {
+  if (!siteEnabled) {
+    return
+  }
+
   const target = event.target
   if (
     !(target instanceof HTMLElement) ||
@@ -156,6 +196,10 @@ document.addEventListener('input', (event) => {
 })
 
 document.addEventListener('selectionchange', () => {
+  if (!siteEnabled) {
+    return
+  }
+
   const element = document.activeElement
   if (element instanceof HTMLElement && isEditableElement(element)) {
     activeEditor = element
@@ -202,6 +246,10 @@ function showButton(editor: HTMLElement): void {
 }
 
 function refreshActiveEditorUI(): void {
+  if (!siteEnabled) {
+    return
+  }
+
   if (!activeEditor) {
     return
   }
@@ -214,6 +262,43 @@ function refreshActiveEditorUI(): void {
   }
 
   positionButton(activeEditor)
+}
+
+async function loadSiteEnablement(): Promise<void> {
+  if (!hasChromeStorage()) {
+    return
+  }
+
+  const settings = normalizeSettings(
+    (await chrome.storage.local.get(
+      DEFAULT_SETTINGS
+    )) as Partial<SimpleWordsSettings>
+  )
+  setSiteEnabled(isSimpleWordsEnabledForUrl(settings, location.href))
+}
+
+function setSiteEnabled(enabled: boolean): void {
+  if (enabled === siteEnabled) {
+    return
+  }
+
+  siteEnabled = enabled
+  if (!siteEnabled) {
+    activeEditor = null
+    activeRefinementId += 1
+    hideInjectedUI()
+    return
+  }
+
+  const element = document.activeElement
+  if (element instanceof HTMLElement && isEditableElement(element)) {
+    activeEditor = element
+    showButton(element)
+  }
+}
+
+function hasChromeStorage(): boolean {
+  return typeof chrome !== 'undefined' && Boolean(chrome.storage?.local)
 }
 
 function hideInjectedUI(): void {
