@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="800" viewBox="0 0 1280 800" role="img" aria-label="Simple Words screenshot showing a rough reply">
+  <rect width="1280" height="800" fill="#FAF8F5" />
+  <image xlink:href="../frames/02-rough-reply.jpg" x="0" y="0" width="800" height="800" preserveAspectRatio="xMidYMid slice" />
+  <rect x="800" y="0" width="1" height="800" fill="#E5E0D6" />
+  <circle cx="866" cy="126" r="5" fill="#2747D6" />
+  <text x="886" y="134" font-family="Helvetica Neue, Arial, sans-serif" font-size="22" font-weight="500" letter-spacing="3" fill="#526071">SIMPLE WORDS</text>
+  <text x="860" y="280" font-family="Georgia, serif" font-style="italic" font-size="64" fill="#0E1525">Write it rough.</text>
+  <text x="860" y="406" font-family="Helvetica Neue, Arial, sans-serif" font-size="28" fill="#526071">Start with what you mean,</text>
+  <text x="860" y="445" font-family="Helvetica Neue, Arial, sans-serif" font-size="28" fill="#526071">even if it is terse.</text>
+  <rect x="860" y="624" width="230" height="52" rx="26" fill="#0E1525" />
+  <text x="890" y="659" font-family="Helvetica Neue, Arial, sans-serif" font-size="20" font-weight="600" fill="#FAF8F5">No wordsmithing</text>
+</svg>
