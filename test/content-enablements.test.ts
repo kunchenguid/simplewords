@@ -14,7 +14,9 @@ describe('content script site enablement', () => {
   })
 
   test('does not show the button before saved enabled domains load', async () => {
-    let resolveSettings: (settings: { enabledDomains: string[] }) => void = () => {}
+    let resolveSettings: (settings: {
+      enabledDomains: string[]
+    }) => void = () => {}
     Reflect.set(globalThis, 'chrome', {
       storage: {
         local: {
