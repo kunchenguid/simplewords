@@ -17,6 +17,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/chrome": "^0.1.42",
+    "@types/jsdom": "^28.0.1",
     "@types/node": "^25.6.2",
     "@vitest/browser": "latest",
     "esbuild": "^0.28.0",

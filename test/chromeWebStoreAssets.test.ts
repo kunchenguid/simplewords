@@ -1,7 +1,7 @@
 // @vitest-environment node
 
 import { readFileSync } from 'node:fs'
-import { JSDOM } from 'jsdom'
+import { JSDOM, type DOMWindow } from 'jsdom'
 import { describe, expect, test } from 'vitest'
 
 const readPngMetadata = (path: string) => {
@@ -26,7 +26,7 @@ describe('Chrome Web Store assets', () => {
     )
 
     const dom = new JSDOM(renderHtml, {
-      beforeParse(window) {
+      beforeParse(window: DOMWindow) {
         window.fetch = async () => new Response(marqueeSvg)
       },
       runScripts: 'dangerously',
