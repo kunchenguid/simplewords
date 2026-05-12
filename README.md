@@ -38,7 +38,7 @@ If `SUBMIT_KEYS` is missing, the workflow skips publishing and still creates the
 Before enabling `SUBMIT_KEYS`, the Chrome Web Store developer account must have access to the target extension item, and required dashboard settings such as public trader and contact information must be complete.
 
 The publisher expects `simplewords.zip` by default, uploads it, waits for async upload status to succeed, and then publishes the item.
-For manual reruns, use `npm run publish:chrome-web-store`; the underlying script also accepts `--zip <path>`.
+For manual reruns, set `SUBMIT_KEYS` in the environment and use `npm run publish:chrome-web-store`; the underlying script also accepts `--zip <path>`.
 
 `SUBMIT_KEYS` should be JSON with the Chrome Web Store OAuth credentials and publisher metadata:
 
