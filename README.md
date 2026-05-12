@@ -1,14 +1,150 @@
-# Simple Words
+<h1 align="center">Simple Words</h1>
+<p align="center">
+  <a href="https://github.com/kunchenguid/simplewords/actions/workflows/ci.yml"
+    ><img
+      alt="CI"
+      src="https://img.shields.io/github/actions/workflow/status/kunchenguid/simplewords/ci.yml?style=flat-square&label=ci"
+  /></a>
+  <a href="https://github.com/kunchenguid/simplewords/actions/workflows/release-please.yml"
+    ><img
+      alt="Release"
+      src="https://img.shields.io/github/actions/workflow/status/kunchenguid/simplewords/release-please.yml?style=flat-square&label=release"
+  /></a>
+  <a
+    href="https://chromewebstore.google.com/detail/simple-words/kmlhfcjpmhcoclpcghckibfkgpfbjfbb"
+    ><img
+      alt="Chrome Web Store"
+      src="https://img.shields.io/badge/chrome%20web%20store-install-blue?style=flat-square"
+  /></a>
+  <a href="https://x.com/kunchenguid"
+    ><img
+      alt="X"
+      src="https://img.shields.io/badge/X-@kunchenguid-black?style=flat-square"
+  /></a>
+  <a href="https://discord.gg/Wsy2NpnZDu"
+    ><img
+      alt="Discord"
+      src="https://img.shields.io/discord/1439901831038763092?style=flat-square&label=discord"
+  /></a>
+</p>
 
-Simple Words is a Chrome extension for people who never want to waste time wordsmithing replies.
-Just say what you mean, and let AI help turn it into a respectful draft before you send.
-The extension UI supports English, Spanish, Chinese (Simplified), Hindi, Arabic, Portuguese (Brazil), French, German, Japanese, and Russian.
+<h3 align="center">Reply faster. Sound better.</h3>
+
+Turn a rough reply into a respectful draft before you send.
+Say what you mean, click Simple Words, and keep the version that sounds like you meant it to sound.
+
+Simple Words is a Chrome extension for the moments when your first pass is honest, but not quite ready to send.
+It keeps the workflow inside the editor you are already using and calls the model provider you choose directly from your browser.
+
+- **Rough reply in, respectful draft out** - Start with the messy version and refine it in place.
+- **Reply where you already are** - Use Simple Words from the active editor on enabled mail domains.
+- **Your provider, your settings** - Use OpenAI-compatible APIs, a Codex backend token, or a local Ollama server.
+
+## Quick Start
+
+1. Install Simple Words from the [Chrome Web Store](https://chromewebstore.google.com/detail/simple-words/kmlhfcjpmhcoclpcghckibfkgpfbjfbb).
+2. Open the extension options page and choose a model provider.
+3. Write a rough reply in Gmail, Outlook, Yahoo Mail, iCloud Mail, Proton Mail, or another enabled domain.
+4. Click **Simple Words**, review the refined draft, then click **Replace draft**.
+
+## Install
+
+**Chrome Web Store**
+
+Install the published extension here:
+
+```text
+https://chromewebstore.google.com/detail/simple-words/kmlhfcjpmhcoclpcghckibfkgpfbjfbb
+```
+
+**From Source**
+
+```sh
+git clone https://github.com/kunchenguid/simplewords.git
+cd simplewords
+npm ci
+npm run build
+```
+
+Then open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select the `extension/` directory.
+
+## How It Works
+
+```
+┌──────────────────────┐
+│ You write a rough     │
+│ draft in an editor    │
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐
+│ Simple Words detects  │
+│ a visible editable    │
+│ field on an enabled   │
+│ domain                │
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐
+│ The floating button   │
+│ sends your draft and  │
+│ page context to your  │
+│ selected provider     │
+└──────────┬───────────┘
+           ▼
+┌──────────────────────┐
+│ You review the        │
+│ refined reply and     │
+│ decide whether to     │
+│ replace the draft     │
+└──────────────────────┘
+```
+
+- **Direct calls** - Requests go from your browser to your selected provider.
+- **Scoped appearance** - The button only appears on hostnames in the enabled domain list.
+- **Context-aware rewrites** - The extension includes visible page text near the editor so the model can understand the reply context.
+- **Localized UI** - The extension UI supports English, Spanish, Chinese Simplified, Hindi, Arabic, Portuguese Brazil, French, German, Japanese, and Russian.
+
+## Extension Reference
+
+| Surface         | Description                                                                                        |
+| --------------- | -------------------------------------------------------------------------------------------------- |
+| Floating button | Appears next to active editable fields on enabled domains when there is draft text to refine.      |
+| Result panel    | Shows the refined draft with **Replace draft** and **Dismiss** actions.                            |
+| Options page    | Stores provider settings, writing instructions, name, and enabled domains in Chrome local storage. |
+
+### Provider Settings
+
+| Provider          | Settings                                                                |
+| ----------------- | ----------------------------------------------------------------------- |
+| OpenAI-compatible | API key, base URL, model, and reasoning effort.                         |
+| Codex backend     | Imported `auth.json` token data, base URL, model, and reasoning effort. |
+| Ollama            | Local base URL and model.                                               |
+
+## Configuration
+
+Simple Words stores configuration in `chrome.storage.local`.
+There is no hosted Simple Words backend in the request path.
+
+| Setting         | Default                                                                                                       |
+| --------------- | ------------------------------------------------------------------------------------------------------------- |
+| Provider        | `openai`                                                                                                      |
+| OpenAI base URL | `https://api.openai.com/v1`                                                                                   |
+| OpenAI model    | `gpt-5.5`                                                                                                     |
+| Codex base URL  | `https://chatgpt.com/backend-api/codex`                                                                       |
+| Codex model     | `gpt-5.5-fast`                                                                                                |
+| Ollama base URL | `http://localhost:11434/v1`                                                                                   |
+| Ollama model    | `llama3.2`                                                                                                    |
+| Enabled domains | `mail.google.com`, `outlook.live.com`, `outlook.office.com`, `mail.yahoo.com`, `icloud.com`, `mail.proton.me` |
 
 ## Development
 
-Install dependencies with `npm ci`.
-
-Run `npm run build` before loading the extension locally or packaging it.
+```sh
+npm ci # Install dependencies
+npm run build # Type-check and bundle the extension files
+npm test # Run Vitest
+npm run lint # Run ESLint
+npm run format:check # Check formatting
+npm run check # Run format, lint, tests, and build
+```
 
 The built files `extension/background.js`, `extension/content.js`, `extension/options.js`, and `extension/chunks/` are generated artifacts and are not tracked in Git.
 
