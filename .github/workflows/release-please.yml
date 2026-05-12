@@ -52,11 +52,11 @@ jobs:
             echo "present=true" >> "$GITHUB_OUTPUT"
           else
             echo "present=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::SUBMIT_KEYS secret not set - skipping Chrome Web Store upload. Add the secret to enable auto-publish."
+            echo "::notice::SUBMIT_KEYS secret not set - skipping Chrome Web Store publish. Add the secret to enable auto-publish."
           fi
 
-      - uses: PlasmoHQ/bpp@v3
+      - name: Publish to Chrome Web Store
         if: ${{ steps.release.outputs.release_created && steps.check_keys.outputs.present == 'true' }}
-        with:
-          keys: ${{ secrets.SUBMIT_KEYS }}
-          chrome-file: simplewords.zip
+        env:
+          SUBMIT_KEYS: ${{ secrets.SUBMIT_KEYS }}
+        run: npm run publish:chrome-web-store

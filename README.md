@@ -31,6 +31,20 @@ Release PRs update `package.json`, `package-lock.json`, and `extension/manifest.
 
 When a release is created, GitHub Actions builds the extension, packages `extension/` as `simplewords.zip`, and attaches the zip to the GitHub Release.
 
-Chrome Web Store publishing runs only when the `SUBMIT_KEYS` GitHub secret is configured.
+Chrome Web Store publishing runs through `scripts/chrome-web-store-publish.mjs` only when the `SUBMIT_KEYS` GitHub secret is configured.
 
 If `SUBMIT_KEYS` is missing, the workflow skips publishing and still creates the GitHub Release artifact.
+
+`SUBMIT_KEYS` should be JSON with the Chrome Web Store OAuth credentials and publisher metadata:
+
+```json
+{
+  "chrome": {
+    "clientId": "...",
+    "clientSecret": "...",
+    "refreshToken": "...",
+    "publisherId": "...",
+    "extId": "kmlhfcjpmhcoclpcghckibfkgpfbjfbb"
+  }
+}
+```

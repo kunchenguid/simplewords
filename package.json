@@ -12,7 +12,8 @@
     "test": "vitest run",
     "build": "tsc --noEmit && npm run build:background && npm run build:pages",
     "build:background": "esbuild src/background.ts --bundle --outdir=extension --format=esm --splitting --chunk-names=chunks/[name]-[hash] --target=chrome120",
-    "build:pages": "esbuild src/content.ts src/options.ts --bundle --outdir=extension --format=iife --target=chrome120"
+    "build:pages": "esbuild src/content.ts src/options.ts --bundle --outdir=extension --format=iife --target=chrome120",
+    "publish:chrome-web-store": "node scripts/chrome-web-store-publish.mjs --zip simplewords.zip"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
