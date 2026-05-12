@@ -31,6 +31,29 @@ Release PRs update `package.json`, `package-lock.json`, and `extension/manifest.
 
 When a release is created, GitHub Actions builds the extension, packages `extension/` as `simplewords.zip`, and attaches the zip to the GitHub Release.
 
-Chrome Web Store publishing runs only when the `SUBMIT_KEYS` GitHub secret is configured.
+Chrome Web Store publishing runs through `scripts/chrome-web-store-publish.mjs` only when the `SUBMIT_KEYS` GitHub secret is configured.
 
 If `SUBMIT_KEYS` is missing, the workflow skips publishing and still creates the GitHub Release artifact.
+
+Before enabling `SUBMIT_KEYS`, the Chrome Web Store developer account must have access to the target extension item, and required dashboard settings such as public trader and contact information must be complete.
+
+The publisher expects `simplewords.zip` by default, uploads it, waits for async upload status to succeed, and then publishes the item.
+For manual reruns, set `SUBMIT_KEYS` in the environment and use `npm run publish:chrome-web-store`; the underlying script also accepts `--zip <path>`.
+
+`SUBMIT_KEYS` should be JSON with the Chrome Web Store OAuth credentials and publisher metadata:
+
+```json
+{
+  "chrome": {
+    "clientId": "...",
+    "clientSecret": "...",
+    "refreshToken": "...",
+    "publisherId": "...",
+    "extId": "kmlhfcjpmhcoclpcghckibfkgpfbjfbb"
+  }
+}
+```
+
+Create the OAuth credentials in Google Cloud as a Web application client, not a Chrome Extension client.
+Use OAuth Playground with the Chrome Web Store API scope `https://www.googleapis.com/auth/chromewebstore` and the OAuth Playground redirect URI to exchange for the refresh token.
+Find `publisherId` and `extId` in the Chrome Web Store developer dashboard for the publisher and extension item that should be published.
