@@ -142,6 +142,7 @@ export const publishChromeWebStore = async ({
   )
 
   let uploadState = upload.uploadState
+  let uploadStatus = upload
 
   for (let attempt = 0; uploadState === 'IN_PROGRESS'; attempt += 1) {
     if (attempt >= maxUploadStatusChecks) {
@@ -160,12 +161,13 @@ export const publishChromeWebStore = async ({
       },
       'Chrome Web Store upload status check'
     )
+    uploadStatus = status
     uploadState = status.lastAsyncUploadState
   }
 
   if (uploadState !== 'SUCCEEDED') {
     throw new Error(
-      `Chrome Web Store upload did not succeed: ${JSON.stringify(upload)}`
+      `Chrome Web Store upload did not succeed: ${JSON.stringify(uploadStatus)}`
     )
   }
 

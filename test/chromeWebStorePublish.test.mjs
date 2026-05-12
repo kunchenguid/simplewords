@@ -134,4 +134,43 @@ describe('Chrome Web Store publishing', () => {
       'https://chromewebstore.googleapis.com/v2/publishers/publisher-id/items/kmlhfcjpmhcoclpcghckibfkgpfbjfbb:publish'
     ])
   })
+
+  test('reports async upload failure status details', async () => {
+    const fetchImpl = async (url) => {
+      if (url === 'https://oauth2.googleapis.com/token') {
+        return createResponse(200, { access_token: 'access-token' })
+      }
+
+      if (url.endsWith(':upload')) {
+        return createResponse(200, { uploadState: 'IN_PROGRESS' })
+      }
+
+      if (url.endsWith(':fetchStatus')) {
+        return createResponse(200, {
+          lastAsyncUploadState: 'FAILED',
+          itemError: [{ errorCode: 'INVALID_ZIP' }]
+        })
+      }
+
+      throw new Error(`unexpected request: ${url}`)
+    }
+
+    await expect(
+      publishChromeWebStore({
+        keys: {
+          clientId: 'client-id',
+          clientSecret: 'client-secret',
+          refreshToken: 'refresh-token',
+          publisherId: 'publisher-id',
+          extId: 'kmlhfcjpmhcoclpcghckibfkgpfbjfbb'
+        },
+        zipPath: 'simplewords.zip',
+        fetchImpl,
+        readFileImpl: async () => Buffer.from('zip-bytes'),
+        sleepImpl: async () => {}
+      })
+    ).rejects.toThrow(
+      'Chrome Web Store upload did not succeed: {"lastAsyncUploadState":"FAILED","itemError":[{"errorCode":"INVALID_ZIP"}]}'
+    )
+  })
 })
