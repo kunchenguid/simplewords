@@ -4,3 +4,4 @@ extension/content.js
 extension/options.js
 extension/chunks/
 package-lock.json
+CHANGELOG.md
