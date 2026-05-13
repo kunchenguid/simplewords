@@ -181,7 +181,8 @@ The options page is fully opaque.
   This is non-negotiable — it must clear every host page, including ones with their own floating UI.
   Use a compact 24px `sw` glyph button for normal editors and a 20px version for short inputs.
   The injected button and panel are visible only while the current domain is enabled and the active editor is connected, focused, and visible, including empty editors.
-  Hide them when the editor or any ancestor is `hidden`, `aria-hidden="true"`, `display: none`, `visibility: hidden`, `visibility: collapse`, inside a closed `dialog`, or inside closed `details` content.
+  Hide them when the editor or any ancestor is `hidden`, `aria-hidden="true"`, or `display: none`, when the editor itself is `visibility: hidden` or `visibility: collapse`, inside a closed `dialog`, or inside closed `details` content.
+  A focused editor with explicit visible styling can remain active inside a `visibility: hidden` ancestor.
   Hide them when focus moves away, the user dismisses the editor by clicking outside, the editor becomes hidden, or the extension context is invalidated.
   Reposition the button and panel on window, visual viewport, and nested scroll changes.
   Stale refinement results must stay suppressed after focus moves, the editor becomes hidden, or a newer refinement starts for the same editor.
@@ -235,8 +236,8 @@ Because there is no packaged icon system, this design system establishes one:
 - **Linking:** production UI inlines the required SVGs.
   The broader design system may use CDN-backed Lucide references only for prototypes.
 - **Stroke weight:** always `1.5px`, never `2px`. Always `currentColor`.
-- **Sizing:** `16px` inline with body and loaders, `14px` in the injected floating button and panel heading, `24px` for section heads. Never larger than `24px` in product UI.
-- **Fill style:** outlined only. Never filled. Never two-tone.
+- **Sizing:** `16px` inline with body and loaders, `18px` for the normal injected `sw` button glyph, `15px` for the small injected `sw` button glyph, `14px` in the panel heading and normal working button, `12px` in the small working button, `24px` for section heads. Never larger than `24px` in product UI.
+- **Fill style:** outlined only, except for the filled italic `sw` glyph in the injected floating button. Never two-tone.
 
 **Emoji:** never used. Anywhere. Not in product, not in marketing, not in error states.
 

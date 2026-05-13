@@ -12,7 +12,8 @@ Check the production extension files before treating this kit as pixel-faithful.
 
 The production floating button and panel show only when the current domain is enabled and the active editor is connected, focused, and visible, including empty editors.
 They hide when focus moves away, the user clicks outside the editor and injected UI, the active editor is disconnected or hidden, or the extension context is invalidated.
-Hidden states include `hidden`, `aria-hidden="true"`, CSS-hidden ancestors, closed `dialog` elements, and closed `details` content outside the summary.
+Hidden states include `hidden`, `aria-hidden="true"`, `display: none` ancestors, the editor's own hidden or collapsed visibility, closed `dialog` elements, and closed `details` content outside the summary.
+A focused editor with explicit visible styling can remain active inside a `visibility: hidden` ancestor.
 They also reposition on window, visual viewport, and nested scroll changes, and suppress stale refinement results after focus moves, the editor becomes hidden, or a newer refinement starts for the same editor.
 Preserve that visibility contract in production-facing work.
 
