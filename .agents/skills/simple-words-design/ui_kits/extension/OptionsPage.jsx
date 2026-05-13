@@ -232,9 +232,7 @@ function OptionsPage() {
           title="Writing style"
           lead="Teach Simple Words enough about you to make replies feel natural. The full system prompt is there when you need precise control."
         >
-          <Field
-            label="My name"
-          >
+          <Field label="My name">
             <input
               type="text"
               autoComplete="name"
