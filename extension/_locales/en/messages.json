@@ -15,9 +15,8 @@
     "message": "Teach Simple Words enough about you to make replies feel natural. The full system prompt is there when you need precise control."
   },
   "myNameLabel": { "message": "My name" },
-  "optionalPlaceholder": { "message": "Optional" },
-  "myNameHelp": {
-    "message": "Optional. When set, this is included in the rewrite instructions so the model can use it for signatures when appropriate."
+  "optionalPlaceholder": {
+    "message": "Optional. When set, this is used to generate your signature."
   },
   "systemPromptLabel": { "message": "System prompt" },
   "systemPromptHelp": {
@@ -25,7 +24,7 @@
   },
   "enabledDomainsHeading": { "message": "Where it appears" },
   "enabledDomainsLead": {
-    "message": "Simple Words only appears on these hostnames. Add one domain per line."
+    "message": "Simple Words only appears on these websites. Add one domain per line."
   },
   "enabledDomainsLabel": { "message": "Domains" },
   "enabledDomainsHelp": {
@@ -34,24 +33,29 @@
   "advancedWritingInstructionsSummary": {
     "message": "Advanced writing instructions"
   },
-  "providerHeading": { "message": "Model provider" },
+  "providerHeading": { "message": "AI model provider" },
   "providerLead": {
-    "message": "Choose the service Simple Words calls from your browser. Only the selected provider settings are shown."
+    "message": "Choose which AI model provider Simple Words should use to generate refined content."
   },
-  "providerBackendLabel": { "message": "Backend" },
-  "providerOpenAICompatible": { "message": "OpenAI-compatible" },
-  "providerCodexBackend": { "message": "Codex backend" },
+  "providerBackendLabel": { "message": "Provider" },
+  "providerOpenAICompatible": {
+    "message": "OpenAI (or a compatible endpoint) with API Key"
+  },
+  "providerCodexBackend": { "message": "Codex subscription" },
   "providerOllama": { "message": "Ollama" },
-  "openAIHeading": { "message": "OpenAI-compatible" },
+  "openAIHeading": {
+    "message": "OpenAI (or a compatible endpoint) with API Key"
+  },
   "apiKeyLabel": { "message": "API key" },
   "openAIBaseURLLabel": { "message": "Base URL" },
   "openAIModelLabel": { "message": "Model" },
   "reasoningEffortLabel": { "message": "Reasoning effort" },
-  "codexHeading": { "message": "Codex backend" },
-  "codexLeadBeforePath": {
-    "message": "Chrome extensions cannot silently read Codex CLI auth from disk. Select your Codex CLI auth file, usually "
+  "codexHeading": { "message": "Codex subscription" },
+  "codexLeadBeforePath": { "message": "Setup Codex (" },
+  "codexLeadAfterDocsLink": {
+    "message": "), and select your Codex auth file, usually at "
   },
-  "codexLeadAfterPath": { "message": ", to import the token." },
+  "codexLeadAfterPath": { "message": "." },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "Access token" },
   "codexAccessTokenPlaceholder": {
@@ -65,10 +69,6 @@
   "ollamaBaseURLLabel": { "message": "Base URL" },
   "ollamaModelLabel": { "message": "Model" },
   "saveButton": { "message": "Save" },
-  "privacyFootBefore": {
-    "message": "Calls go directly from your browser to your provider."
-  },
-  "privacyFootEmphasis": { "message": "Nothing routes through Simple Words." },
   "savedStatus": { "message": "Saved." },
   "codexAuthImportedStatus": {
     "message": "Imported Codex auth. Click Save to keep these settings."

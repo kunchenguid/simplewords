@@ -84,6 +84,13 @@ body {
 /* ==========================================================
      CHROME WINDOW (DEMO STAGE)
      ========================================================== */
+.demo-camera {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  transform-origin: 0 0;
+  will-change: transform;
+}
 .chrome {
   position: absolute;
   top: 60px;
@@ -273,15 +280,12 @@ body {
      FLOATING SW BUTTON (Simple Words)
      ========================================================== */
 .fab {
-  position: absolute;
-  bottom: 208px;
-  right: 140px;
-  z-index: 50;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
   border: 0;
   border-radius: 999px;
   padding: 0;
@@ -295,8 +299,8 @@ body {
   line-height: 1;
 }
 .fab svg {
-  width: 18px;
-  height: 18px;
+  width: 36px;
+  height: 36px;
 }
 .fab__icon-wrap {
   display: inline-flex;
@@ -486,6 +490,9 @@ body {
   font-size: 84px;
   line-height: 1;
   margin-bottom: 40px;
+}
+.outro__glyph::before {
+  content: 'sw';
 }
 .outro__wordmark {
   font-family: 'Instrument Serif', Georgia, serif;

@@ -15,39 +15,37 @@
     "message": "让 Simple Words 了解足够的个人信息，使回复更自然。需要精细控制时，可以调整完整系统提示。"
   },
   "myNameLabel": { "message": "我的名字" },
-  "optionalPlaceholder": { "message": "可选" },
-  "myNameHelp": {
-    "message": "可选。设置后会加入改写指令，模型可在合适时用于署名。"
-  },
+  "optionalPlaceholder": { "message": "可选。设置后会用于生成你的署名。" },
   "systemPromptLabel": { "message": "系统提示" },
   "systemPromptHelp": { "message": "留空可恢复默认系统提示。" },
   "enabledDomainsHeading": { "message": "显示位置" },
   "enabledDomainsLead": {
-    "message": "Simple Words 只会在这些主机名上显示。每行添加一个域名。"
+    "message": "Simple Words 只会在这些网站上显示。每行添加一个域名。"
   },
   "enabledDomainsLabel": { "message": "域名" },
   "enabledDomainsHelp": {
     "message": "默认包含 Gmail、Outlook、Yahoo Mail、iCloud Mail 和 Proton Mail。"
   },
   "advancedWritingInstructionsSummary": { "message": "高级写作指令" },
-  "providerHeading": { "message": "模型提供方" },
+  "providerHeading": { "message": "AI 模型提供方" },
   "providerLead": {
-    "message": "选择 Simple Words 从你的浏览器调用的服务。只显示所选提供方的设置。"
+    "message": "选择 Simple Words 应使用哪个 AI 模型提供方来生成润色后的内容。"
   },
-  "providerBackendLabel": { "message": "后端" },
-  "providerOpenAICompatible": { "message": "兼容 OpenAI" },
-  "providerCodexBackend": { "message": "Codex 后端" },
+  "providerBackendLabel": { "message": "提供方" },
+  "providerOpenAICompatible": { "message": "OpenAI（或兼容端点）及 API 密钥" },
+  "providerCodexBackend": { "message": "Codex 订阅" },
   "providerOllama": { "message": "Ollama" },
-  "openAIHeading": { "message": "兼容 OpenAI" },
+  "openAIHeading": { "message": "OpenAI（或兼容端点）及 API 密钥" },
   "apiKeyLabel": { "message": "API 密钥" },
   "openAIBaseURLLabel": { "message": "基础 URL" },
   "openAIModelLabel": { "message": "模型" },
   "reasoningEffortLabel": { "message": "推理强度" },
-  "codexHeading": { "message": "Codex 后端" },
-  "codexLeadBeforePath": {
-    "message": "Chrome 扩展无法静默读取磁盘上的 Codex CLI 认证。请选择你的 Codex CLI 认证文件，通常是 "
+  "codexHeading": { "message": "Codex 订阅" },
+  "codexLeadBeforePath": { "message": "设置 Codex (" },
+  "codexLeadAfterDocsLink": {
+    "message": ")，并选择你的 Codex 认证文件，通常位于 "
   },
-  "codexLeadAfterPath": { "message": "，以导入令牌。" },
+  "codexLeadAfterPath": { "message": "。" },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "访问令牌" },
   "codexAccessTokenPlaceholder": { "message": "从 auth.json 导入或手动粘贴" },
@@ -59,10 +57,6 @@
   "ollamaBaseURLLabel": { "message": "基础 URL" },
   "ollamaModelLabel": { "message": "模型" },
   "saveButton": { "message": "保存" },
-  "privacyFootBefore": {
-    "message": "请求会直接从你的浏览器发送到你的提供方。"
-  },
-  "privacyFootEmphasis": { "message": "不会经过 Simple Words。" },
   "savedStatus": { "message": "已保存。" },
   "codexAuthImportedStatus": {
     "message": "已导入 Codex 认证。点击保存以保留这些设置。"

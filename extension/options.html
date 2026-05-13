@@ -351,20 +351,22 @@
       <section id="model-provider" class="step-card" data-step="1">
         <div class="section-head">
           <span class="step-kicker" data-i18n="stepOneLabel">Step 1</span>
-          <h2 data-i18n="providerHeading">Model provider</h2>
+          <h2 data-i18n="providerHeading">AI model provider</h2>
           <p class="section-lead" data-i18n="providerLead">
-            Choose the service Simple Words calls from your browser. Only the
-            selected provider settings are shown.
+            Choose which AI model provider Simple Words should use to generate
+            refined content.
           </p>
         </div>
         <div class="field provider-choice">
-          <label for="provider" data-i18n="providerBackendLabel">Backend</label>
+          <label for="provider" data-i18n="providerBackendLabel">
+            Provider
+          </label>
           <select id="provider">
             <option value="openai" data-i18n="providerOpenAICompatible">
-              OpenAI-compatible
+              OpenAI (or a compatible endpoint) with API Key
             </option>
             <option value="codex" data-i18n="providerCodexBackend">
-              Codex backend
+              Codex subscription
             </option>
             <option value="ollama" data-i18n="providerOllama">Ollama</option>
           </select>
@@ -372,7 +374,9 @@
 
         <section class="provider-card" data-provider-section="openai">
           <div class="section-head">
-            <h2 data-i18n="openAIHeading">OpenAI-compatible</h2>
+            <h2 data-i18n="openAIHeading">
+              OpenAI (or a compatible endpoint) with API Key
+            </h2>
           </div>
           <div class="field">
             <label for="openaiApiKey" data-i18n="apiKeyLabel">API key</label>
@@ -413,16 +417,19 @@
 
         <section class="provider-card" data-provider-section="codex" hidden>
           <div class="section-head">
-            <h2 data-i18n="codexHeading">Codex backend</h2>
+            <h2 data-i18n="codexHeading">Codex subscription</h2>
             <p class="section-lead">
-              <span data-i18n="codexLeadBeforePath">
-                Chrome extensions cannot silently read Codex CLI auth from disk.
-                Select your Codex CLI auth file, usually
-              </span>
-              <code>~/.codex/auth.json</code
-              ><span data-i18n="codexLeadAfterPath"
-                >, to import the token.</span
+              <span data-i18n="codexLeadBeforePath">Setup Codex (</span
+              ><a
+                href="https://developers.openai.com/codex"
+                target="_blank"
+                rel="noopener noreferrer"
+                >https://developers.openai.com/codex</a
+              ><span data-i18n="codexLeadAfterDocsLink"
+                >), and select your Codex auth file, usually at</span
               >
+              <code>~/.codex/auth.json</code
+              ><span data-i18n="codexLeadAfterPath">.</span>
             </p>
           </div>
           <div class="field">
@@ -513,7 +520,7 @@
           <span class="step-kicker" data-i18n="stepTwoLabel">Step 2</span>
           <h2 data-i18n="enabledDomainsHeading">Where it appears</h2>
           <p class="section-lead" data-i18n="enabledDomainsLead">
-            Simple Words only appears on these hostnames. Add one domain per
+            Simple Words only appears on these websites. Add one domain per
             line.
           </p>
         </div>
@@ -550,12 +557,8 @@
             type="text"
             autocomplete="name"
             data-i18n-placeholder="optionalPlaceholder"
-            placeholder="Optional"
+            placeholder="Optional. When set, this is used to generate your signature."
           />
-          <p data-i18n="myNameHelp">
-            Optional. When set, this is included in the rewrite instructions so
-            the model can use it for signatures when appropriate.
-          </p>
         </div>
         <details open>
           <summary data-i18n="advancedWritingInstructionsSummary">
@@ -579,15 +582,6 @@
         <button id="save" type="button" data-i18n="saveButton">Save</button>
         <span id="status" role="status"></span>
       </div>
-
-      <p class="foot">
-        <span data-i18n="privacyFootBefore">
-          Calls go directly from your browser to your provider.
-        </span>
-        <em data-i18n="privacyFootEmphasis">
-          Nothing routes through Simple Words.
-        </em>
-      </p>
     </main>
     <script src="options.js"></script>
   </body>

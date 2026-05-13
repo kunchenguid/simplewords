@@ -15,9 +15,8 @@
     "message": "Дайте Simple Words достаточно контекста о себе, чтобы ответы звучали естественно. Полный системный промпт доступен, когда нужен точный контроль."
   },
   "myNameLabel": { "message": "Мое имя" },
-  "optionalPlaceholder": { "message": "Необязательно" },
-  "myNameHelp": {
-    "message": "Необязательно. Если задано, имя включается в инструкции, чтобы модель могла использовать его в подписи."
+  "optionalPlaceholder": {
+    "message": "Необязательно. Если указано, используется для создания вашей подписи."
   },
   "systemPromptLabel": { "message": "Системный промпт" },
   "systemPromptHelp": {
@@ -25,7 +24,7 @@
   },
   "enabledDomainsHeading": { "message": "Где появляется" },
   "enabledDomainsLead": {
-    "message": "Simple Words появляется только на этих именах хостов. Добавьте по одному домену в строке."
+    "message": "Simple Words появляется только на этих сайтах. Добавьте по одному домену в строке."
   },
   "enabledDomainsLabel": { "message": "Домены" },
   "enabledDomainsHelp": {
@@ -34,24 +33,29 @@
   "advancedWritingInstructionsSummary": {
     "message": "Расширенные инструкции для письма"
   },
-  "providerHeading": { "message": "Поставщик модели" },
+  "providerHeading": { "message": "Поставщик AI-модели" },
   "providerLead": {
-    "message": "Выберите сервис, который Simple Words вызывает из вашего браузера. Показываются только настройки выбранного поставщика."
+    "message": "Выберите, какого поставщика AI-модели Simple Words должен использовать для создания улучшенного текста."
   },
-  "providerBackendLabel": { "message": "Бэкенд" },
-  "providerOpenAICompatible": { "message": "Совместимый с OpenAI" },
-  "providerCodexBackend": { "message": "Бэкенд Codex" },
+  "providerBackendLabel": { "message": "Поставщик" },
+  "providerOpenAICompatible": {
+    "message": "OpenAI (или совместимый endpoint) с API-ключом"
+  },
+  "providerCodexBackend": { "message": "Подписка Codex" },
   "providerOllama": { "message": "Ollama" },
-  "openAIHeading": { "message": "Совместимый с OpenAI" },
+  "openAIHeading": {
+    "message": "OpenAI (или совместимый endpoint) с API-ключом"
+  },
   "apiKeyLabel": { "message": "Ключ API" },
   "openAIBaseURLLabel": { "message": "Базовый URL" },
   "openAIModelLabel": { "message": "Модель" },
   "reasoningEffortLabel": { "message": "Усилие рассуждения" },
-  "codexHeading": { "message": "Бэкенд Codex" },
-  "codexLeadBeforePath": {
-    "message": "Расширения Chrome не могут незаметно читать авторизацию Codex CLI с диска. Выберите файл авторизации Codex CLI, обычно "
+  "codexHeading": { "message": "Подписка Codex" },
+  "codexLeadBeforePath": { "message": "Настройте Codex (" },
+  "codexLeadAfterDocsLink": {
+    "message": ") и выберите файл авторизации Codex, обычно по пути "
   },
-  "codexLeadAfterPath": { "message": ", чтобы импортировать токен." },
+  "codexLeadAfterPath": { "message": "." },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "Токен доступа" },
   "codexAccessTokenPlaceholder": {
@@ -65,12 +69,6 @@
   "ollamaBaseURLLabel": { "message": "Базовый URL" },
   "ollamaModelLabel": { "message": "Модель" },
   "saveButton": { "message": "Сохранить" },
-  "privacyFootBefore": {
-    "message": "Запросы идут напрямую из браузера к вашему поставщику."
-  },
-  "privacyFootEmphasis": {
-    "message": "Ничего не проходит через Simple Words."
-  },
   "savedStatus": { "message": "Сохранено." },
   "codexAuthImportedStatus": {
     "message": "Авторизация Codex импортирована. Нажмите Сохранить, чтобы оставить эти настройки."

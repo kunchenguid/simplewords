@@ -15,9 +15,8 @@
     "message": "返信が自然に感じられるように、Simple Words にあなたの情報を少し伝えます。細かく制御したい場合は完全なシステムプロンプトを調整できます。"
   },
   "myNameLabel": { "message": "自分の名前" },
-  "optionalPlaceholder": { "message": "任意" },
-  "myNameHelp": {
-    "message": "任意。設定すると、必要に応じて署名に使えるようリライト指示に含めます。"
+  "optionalPlaceholder": {
+    "message": "任意。設定すると、署名の生成に使用されます。"
   },
   "systemPromptLabel": { "message": "システムプロンプト" },
   "systemPromptHelp": {
@@ -25,31 +24,36 @@
   },
   "enabledDomainsHeading": { "message": "表示する場所" },
   "enabledDomainsLead": {
-    "message": "Simple Words はこれらのホスト名でのみ表示されます。1 行に 1 つのドメインを追加してください。"
+    "message": "Simple Words はこれらのウェブサイトでのみ表示されます。1 行に 1 つのドメインを追加してください。"
   },
   "enabledDomainsLabel": { "message": "ドメイン" },
   "enabledDomainsHelp": {
     "message": "既定では Gmail、Outlook、Yahoo Mail、iCloud Mail、Proton Mail が含まれます。"
   },
   "advancedWritingInstructionsSummary": { "message": "高度な文章作成指示" },
-  "providerHeading": { "message": "モデルプロバイダー" },
+  "providerHeading": { "message": "AI モデルプロバイダー" },
   "providerLead": {
-    "message": "Simple Words がブラウザから呼び出すサービスを選びます。選択したプロバイダーの設定だけが表示されます。"
+    "message": "Simple Words が推敲済みコンテンツを生成するために使用する AI モデルプロバイダーを選択します。"
   },
-  "providerBackendLabel": { "message": "バックエンド" },
-  "providerOpenAICompatible": { "message": "OpenAI 互換" },
-  "providerCodexBackend": { "message": "Codex バックエンド" },
+  "providerBackendLabel": { "message": "プロバイダー" },
+  "providerOpenAICompatible": {
+    "message": "API キー付きの OpenAI（または互換エンドポイント）"
+  },
+  "providerCodexBackend": { "message": "Codex サブスクリプション" },
   "providerOllama": { "message": "Ollama" },
-  "openAIHeading": { "message": "OpenAI 互換" },
+  "openAIHeading": {
+    "message": "API キー付きの OpenAI（または互換エンドポイント）"
+  },
   "apiKeyLabel": { "message": "API キー" },
   "openAIBaseURLLabel": { "message": "ベース URL" },
   "openAIModelLabel": { "message": "モデル" },
   "reasoningEffortLabel": { "message": "推論の強さ" },
-  "codexHeading": { "message": "Codex バックエンド" },
-  "codexLeadBeforePath": {
-    "message": "Chrome 拡張機能は Codex CLI の認証情報をディスクから密かに読み取れません。通常は次の Codex CLI 認証ファイルを選択します: "
+  "codexHeading": { "message": "Codex サブスクリプション" },
+  "codexLeadBeforePath": { "message": "Codex (" },
+  "codexLeadAfterDocsLink": {
+    "message": ") をセットアップし、Codex 認証ファイルを選択してください。通常は "
   },
-  "codexLeadAfterPath": { "message": "。トークンをインポートします。" },
+  "codexLeadAfterPath": { "message": " です。" },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "アクセストークン" },
   "codexAccessTokenPlaceholder": {
@@ -63,10 +67,6 @@
   "ollamaBaseURLLabel": { "message": "ベース URL" },
   "ollamaModelLabel": { "message": "モデル" },
   "saveButton": { "message": "保存" },
-  "privacyFootBefore": {
-    "message": "リクエストはブラウザからプロバイダーへ直接送信されます。"
-  },
-  "privacyFootEmphasis": { "message": "Simple Words を経由しません。" },
   "savedStatus": { "message": "保存しました。" },
   "codexAuthImportedStatus": {
     "message": "Codex 認証をインポートしました。保存をクリックして設定を保持してください。"

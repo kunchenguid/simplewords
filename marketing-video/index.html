@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div
-      id="root"
-      data-composition-id="main"
-      data-start="0"
-      data-duration="27"
-      data-width="1080"
-      data-height="1080"
-    >
+      <div
+        id="root"
+        data-composition-id="main"
+        data-start="0"
+        data-duration="31"
+        data-width="1080"
+        data-height="1080"
+      >
       <!-- ============== INTRO ============== -->
       <div class="intro" id="intro">
         <div class="intro__eyebrow" id="intro-eyebrow">
@@ -26,81 +26,73 @@
       </div>
 
       <!-- ============== CHROME / GMAIL ============== -->
+      <div class="demo-camera" id="demo-camera">
       <div class="chrome" id="chrome">
         <div class="chrome__bar">
           <span class="chrome__dot chrome__dot--r"></span>
           <span class="chrome__dot chrome__dot--y"></span>
           <span class="chrome__dot chrome__dot--g"></span>
-          <span class="chrome__title">friday night</span>
+          <span class="chrome__title">saturday team building</span>
           <span class="chrome__url">mail.app</span>
         </div>
 
         <div class="mail-content" id="mail-content">
           <div class="mail__head">
-            <div class="mail__subject" id="mail-subject">friday night</div>
+            <div class="mail__subject" id="mail-subject">Saturday team building</div>
             <div class="mail__from" id="mail-from">
-              <div class="mail__avatar">S</div>
+              <div class="mail__avatar">M</div>
               <div>
-                <div class="mail__from-name">Sarah Park</div>
+                <div class="mail__from-name">Morgan Lee</div>
                 <div class="mail__from-meta">to me &middot; Wed 4:12 PM</div>
               </div>
             </div>
           </div>
 
           <div class="mail__quote" id="mail-quote">
-            Hey Alex - it's been ages, I keep meaning to reach out. Anyway,
-            throwing a small thing at mine on Friday night, 8pm. Drinks,
-            dumplings, a few people from the old crew. Would really love to see
-            you, it feels like forever since we properly caught up.
+            Hi Alex - we're planning a team building event this Saturday from
+            10 to 3. There will be lunch, a few group activities, and possibly
+            one trust fall too many. Would you like to join us?
           </div>
 
           <div class="reply" id="reply">
             <div class="reply__editor-wrap">
               <div class="reply__editor" id="reply-rough">
-                <span class="char">i</span><span class="char">&nbsp;</span
-                ><span class="char">h</span><span class="char">a</span
-                ><span class="char">v</span><span class="char">e</span
-                ><span class="char">&nbsp;</span><span class="char">p</span
-                ><span class="char">l</span><span class="char">a</span
-                ><span class="char">n</span><span class="char">s</span>
+                <span class="char">n</span><span class="char">o</span
+                ><span class="char">p</span><span class="char">e</span>
               </div>
               <div class="reply__editor is-multiline" id="reply-refined">
-                <span class="line">Hi Sarah,</span
+                <span class="line">Hi Morgan,</span
                 ><span class="line"
-                  >It's so good to hear from you - it really has been too long.
-                  I'd love to be there, but I already have plans locked in for
-                  Friday night. Could we get coffee next week and properly catch
-                  up? I want to hear everything.</span
-                ><span class="line">Take care,</span
-                ><span class="line">Alex</span>
+                  >Thanks for the invite. I'm not able to join this Saturday, but I appreciate the effort to bring everyone together.</span
+                ><span class="line"
+                  >I hope everyone has a great time!</span
+                ><span class="line">Best, Alex</span>
               </div>
               <div class="reply__caret" id="reply-caret"></div>
             </div>
             <div class="reply__actions">
               <button class="reply__send" id="reply-send">Send</button>
+              <button class="fab" id="fab" aria-label="Simple Words">
+                <span class="fab__icon-wrap" id="fab-icon">
+                  <svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+                    <text
+                      x="32"
+                      y="47"
+                      text-anchor="middle"
+                      font-family="Georgia, serif"
+                      font-style="italic"
+                      font-weight="700"
+                      font-size="44"
+                    >
+                      sw
+                    </text>
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- ============== FLOATING SW BUTTON ============== -->
-      <button class="fab" id="fab" aria-label="Simple Words">
-        <span class="fab__icon-wrap" id="fab-icon">
-          <svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
-            <text
-              x="32"
-              y="47"
-              text-anchor="middle"
-              font-family="Georgia, serif"
-              font-style="italic"
-              font-weight="700"
-              font-size="48"
-            >
-              sw
-            </text>
-          </svg>
-        </span>
-      </button>
 
       <!-- ============== PANEL ============== -->
       <div class="panel" id="panel">
@@ -138,14 +130,12 @@
           <span>Refining</span>
         </div>
         <div class="panel__body" id="panel-body">
-          <span class="line" id="panel-line-1">Hi Sarah,</span
+          <span class="line" id="panel-line-1">Hi Morgan,</span
           ><span class="line" id="panel-line-2"
-            >It's so good to hear from you - it really has been too long. I'd
-            love to be there, but I already have plans locked in for Friday
-            night. Could we get coffee next week and properly catch up? I want
-            to hear everything.</span
-          ><span class="line" id="panel-line-3">Take care,</span
-          ><span class="line" id="panel-line-4">Alex</span>
+            >Thanks for the invite. I'm not able to join this Saturday, but I appreciate the effort to bring everyone together.</span
+          ><span class="line" id="panel-line-3"
+            >I hope everyone has a great time!</span
+          ><span class="line" id="panel-line-4">Best, Alex</span>
         </div>
         <div class="panel__actions" id="panel-actions">
           <button class="btn btn--primary" id="btn-replace">
@@ -235,10 +225,11 @@
       <div class="send-trail" id="st-3"></div>
       <div class="send-trail" id="st-4"></div>
       <div class="send-trail" id="st-5"></div>
+      </div>
 
       <!-- ============== OUTRO ============== -->
       <div class="outro" id="outro">
-        <div class="outro__glyph" id="outro-glyph">sw</div>
+        <div class="outro__glyph" id="outro-glyph" aria-label="sw"></div>
         <div class="outro__wordmark" id="outro-wordmark">Simple Words</div>
         <div class="outro__tag" id="outro-tag">
           Say what you mean.<br />Send what you want.
