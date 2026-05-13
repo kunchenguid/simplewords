@@ -80,6 +80,30 @@ describe('content script button visibility', () => {
     expect(panel.textContent).toContain('Unable to refine reply')
   })
 
+  test('shows an error and resets the button when extension messaging throws', async () => {
+    document.body.innerHTML = '<textarea>rough reply</textarea>'
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage: vi.fn(() => {
+          throw new Error('Extension context invalidated')
+        })
+      }
+    })
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    editor.focus()
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    const panel = document.getElementById('simplewords-panel') as HTMLDivElement
+    expect(button.textContent).toContain('Simple Words')
+    expect(panel.textContent).toContain('Extension context invalidated')
+  })
+
   test('hides the Simple Words button when the active editor is hidden', async () => {
     document.body.innerHTML = '<textarea>rough reply</textarea>'
 

@@ -111,6 +111,9 @@ Then open `chrome://extensions`, enable **Developer mode**, click **Load unpacke
 | Result panel    | Shows the refined draft with **Replace draft** and **Dismiss** actions.                            |
 | Options page    | Stores provider settings, writing instructions, name, and enabled domains in Chrome local storage. |
 
+If the result panel shows `Unable to refine reply`, refresh the active mail tab and try again.
+This can happen after the extension reloads or updates while a mail tab is still open.
+
 ### Provider Settings
 
 | Provider          | Settings                                                                |
