@@ -57,7 +57,11 @@ tl.set('#panel-actions', { autoAlpha: 0, y: 8 }, 0)
 
 tl.set('#cursor', { opacity: 0, x: 1080, y: 1080 }, 0)
 tl.set('#click-ring', { opacity: 0, scale: 0, x: 0, y: 0 }, 0)
-tl.set('.sparkle', { opacity: 0, scale: 0, x: SW_BUTTON_CX, y: SW_BUTTON_CY }, 0)
+tl.set(
+  '.sparkle',
+  { opacity: 0, scale: 0, x: SW_BUTTON_CX, y: SW_BUTTON_CY },
+  0
+)
 tl.set('.send-trail', { opacity: 0, scale: 0, x: SEND_CX, y: SEND_CY }, 0)
 
 tl.set('#outro', { opacity: 0 }, 0)
@@ -187,7 +191,11 @@ tl.to('#fab', { scale: 1.0, duration: 0.18, ease: 'power2.out' }, 12.7)
 tl.to('#cursor', { scale: 0.92, duration: 0.1, ease: 'power2.out' }, 12.6)
 tl.to('#cursor', { scale: 1.0, duration: 0.18, ease: 'power2.out' }, 12.7)
 
-tl.set('#click-ring', { x: SW_BUTTON_CX, y: SW_BUTTON_CY, scale: 0, opacity: 1 }, 12.63)
+tl.set(
+  '#click-ring',
+  { x: SW_BUTTON_CX, y: SW_BUTTON_CY, scale: 0, opacity: 1 },
+  12.63
+)
 tl.to(
   '#click-ring',
   { scale: 2.4, opacity: 0, duration: 0.55, ease: 'power2.out' },
