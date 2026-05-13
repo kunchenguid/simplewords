@@ -177,12 +177,14 @@ The options page is fully opaque.
 
 ### Layout rules
 
-- **Floating button** is `position: fixed`, `z-index: 2147483647` (max), anchored 8px below the active editable field's bottom-right corner.
+- **Floating button** is `position: fixed`, `z-index: 2147483647` (max), and positioned near the active editable field's lower-right edge.
   This is non-negotiable — it must clear every host page, including ones with their own floating UI.
-  The injected button and panel are visible only while the current domain is enabled and the active editor is connected, visible, and contains non-whitespace text.
+  Use a compact 24px `sw` glyph button for normal editors and a 20px version for short inputs.
+  The injected button and panel are visible only while the current domain is enabled and the active editor is connected, focused, and visible, including empty editors.
   Hide them when the editor or any ancestor is `hidden`, `aria-hidden="true"`, `display: none`, `visibility: hidden`, `visibility: collapse`, inside a closed `dialog`, or inside closed `details` content.
-  Hide them when the active editor is cleared or becomes whitespace-only.
-  Stale refinement results must stay suppressed after focus moves, the editor becomes hidden or empty, or a newer refinement starts for the same editor.
+  Hide them when focus moves away, the user dismisses the editor by clicking outside, the editor becomes hidden, or the extension context is invalidated.
+  Reposition the button and panel on window, visual viewport, and nested scroll changes.
+  Stale refinement results must stay suppressed after focus moves, the editor becomes hidden, or a newer refinement starts for the same editor.
 - **Options page** is a single column, `max-width: 680px`, with `48px 24px 80px` page padding.
   Never multi-column.
   Reading width is sacred.
@@ -215,7 +217,7 @@ Specifically flagged:
   If the project has license-procured TTFs of these (or different) families, drop them in `fonts/` and update the imports.
 - **Wordmark and glyph: design-system-introduced.** The options page renders an inline `sw` glyph; design-system asset files live in `assets/wordmark.svg` and `assets/glyph.svg`.
   Replace if a real mark exists.
-- **Icon set: inline SVGs.** The production floating button and panel use inline sparkles and loader SVGs at 1.5px stroke.
+- **Icon set: inline SVGs.** The production floating button uses an inline filled italic `sw` glyph, while the panel uses inline sparkles and the working state uses a loader SVG at 1.5px stroke.
   A handful of design-system icons are inlined under `assets/icon-*.svg`.
   Swap if there's a preferred set.
 - **Accent color (`#2747D6`): introduced.** Used only for the AI loading moment and focus rings.
@@ -223,7 +225,7 @@ Specifically flagged:
 ## Iconography
 
 The Simple Words extension ships no packaged icon font or image set.
-The options page uses an inline `sw` glyph, and the floating button/panel use inline sparkles and loader SVGs.
+The options page and floating button use inline `sw` glyphs, while the panel uses inline sparkles and the working state uses a loader SVG.
 Marketing-video-specific icons and marks live under `marketing-video/assets/`.
 
 Because there is no packaged icon system, this design system establishes one:

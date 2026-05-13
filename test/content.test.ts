@@ -56,6 +56,7 @@ describe('content script button visibility', () => {
     expect(button.hidden).toBe(true)
     expect(style.textContent).toContain('#simplewords-button[hidden]')
     expect(style.textContent).toContain('display: none !important')
+    expect(getComputedStyle(button).display).toBe('none')
   })
 
   test('uses a smaller centered button for short single-line inputs', () => {
