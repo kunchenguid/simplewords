@@ -5,7 +5,8 @@ Check the production extension files before treating this kit as pixel-faithful.
 
 ## Surfaces
 
-1. **Floating button** (`FloatingButton.jsx`) - the compact `sw` glyph button that positions itself near the lower-right edge of any focused editable field.
+1. **Floating button** (`FloatingButton.jsx`) - a prototype pill button with the older sparkles icon and label.
+   Production now uses a compact `sw` glyph button near the lower-right edge of focused editable fields, so check the extension files before treating this component as pixel-faithful.
 2. **Refine panel** (`RefinePanel.jsx`) - the floating panel that shows the loading state, the rewritten draft, and the Replace/Dismiss actions.
 3. **Options page** (`OptionsPage.jsx`) - the settings page prototype with provider config, enabled domains, name field, and advanced system prompt.
 4. **Host page** (`HostPage.jsx`) - a faked Gmail-like compose window, just so the floating button has something to attach to in `index.html`.
@@ -19,7 +20,7 @@ Preserve that visibility contract in production-facing work.
 
 ## Component breakdown
 
-- `FloatingButton` - the compact brand glyph, `border-radius: 999px`, ink-900 background.
+- `FloatingButton` - the prototype brand pill, `border-radius: 999px`, ink-900 background.
   Inherits from `colors_and_type.css`.
 - `RefinePanel` - paper-tinted blur panel with `--shadow-3`.
   Two states: `loading` ("Refining..." with the loader spin) and `ready` (rewritten reply + actions).
