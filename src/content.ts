@@ -383,13 +383,13 @@ async function refineActiveEditor(): Promise<void> {
     0,
     MAX_CONTEXT_CHARS
   )
-  const response = (await chrome.runtime.sendMessage({
+  const response = await requestRefinement({
     type: 'simplewords.refine',
     draft,
     contextTree,
     title: document.title,
     url: location.href
-  })) as { reply?: string; error?: string }
+  })
 
   if (refinementId !== activeRefinementId) {
     return
@@ -411,6 +411,31 @@ async function refineActiveEditor(): Promise<void> {
   }
 
   showPanel(editor, { kind: 'result', reply: response.reply })
+}
+
+type RefinementResponse = {
+  reply?: string
+  error?: string
+}
+
+async function requestRefinement(request: {
+  type: 'simplewords.refine'
+  draft: string
+  contextTree: string
+  title: string
+  url: string
+}): Promise<RefinementResponse> {
+  if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) {
+    return { error: t('unableToRefineReply') }
+  }
+
+  try {
+    return (await chrome.runtime.sendMessage(request)) as RefinementResponse
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : t('unableToRefineReply')
+    }
+  }
 }
 
 type PanelContent =
