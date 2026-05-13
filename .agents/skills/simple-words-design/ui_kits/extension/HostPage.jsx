@@ -18,7 +18,7 @@ function HostPage() {
   const editorRef = useRef(null)
   const [anchor, setAnchor] = useState({ top: 0, left: 0 })
 
-  // Position the FAB just below the editor's bottom-right.
+  // Legacy prototype positioning; production uses buttonPositionNearEditor.
   useEffect(() => {
     function reposition() {
       const el = editorRef.current

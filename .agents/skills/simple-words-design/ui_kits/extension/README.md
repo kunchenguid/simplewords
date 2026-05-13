@@ -33,7 +33,8 @@ Preserve that visibility contract in production-facing work.
 ## Demo
 
 `index.html` boots a fake Gmail compose window with a draft typed in.
-The Simple Words button sits near the textarea's lower-right edge; clicking it opens the refine panel with a 1-second simulated "Refining..." state, then a rewritten draft.
+The prototype still positions its legacy pill below the textarea; production positions the compact `sw` button near the editor's lower-right edge.
+Clicking the button opens the refine panel with a 1-second simulated "Refining..." state, then a rewritten draft.
 Click "Replace draft" to swap the textarea content; click "Dismiss" to close.
 There's also a tab switch at the top to jump to the **Options page** view.
 
