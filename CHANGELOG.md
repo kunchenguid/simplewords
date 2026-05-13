@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.3](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.2...simplewords-v0.1.3) (2026-05-13)
+
+
+### Bug Fixes
+
+* trigger release-please ([61a5124](https://github.com/kunchenguid/simplewords/commit/61a5124ae6461843467fcf02ea43bfd267f3c817))
+* update settings page text content ([58b4114](https://github.com/kunchenguid/simplewords/commit/58b4114cd2b9ad0d41a61e2cdc53d4a5e2adb1ed))
+
 ## [0.1.2](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.1...simplewords-v0.1.2) (2026-05-13)
 
 
