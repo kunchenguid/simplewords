@@ -62,6 +62,24 @@ describe('content script button visibility', () => {
     )
   })
 
+  test('shows an error and resets the button when extension messaging is unavailable', async () => {
+    document.body.innerHTML = '<textarea>rough reply</textarea>'
+    Reflect.set(globalThis, 'chrome', {})
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    editor.focus()
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    const panel = document.getElementById('simplewords-panel') as HTMLDivElement
+    expect(button.textContent).toContain('Simple Words')
+    expect(panel.textContent).toContain('Unable to refine reply')
+  })
+
   test('hides the Simple Words button when the active editor is hidden', async () => {
     document.body.innerHTML = '<textarea>rough reply</textarea>'
 
