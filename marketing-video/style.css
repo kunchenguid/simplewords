@@ -270,31 +270,33 @@ body {
 }
 
 /* ==========================================================
-     FLOATING ACTION BUTTON (Simple Words)
+     FLOATING SW BUTTON (Simple Words)
      ========================================================== */
 .fab {
   position: absolute;
-  bottom: 124px;
-  right: 110px;
+  bottom: 208px;
+  right: 140px;
   z-index: 50;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
   border: 0;
   border-radius: 999px;
-  padding: 18px 30px;
-  background: #e5e0d6;
-  color: #0e1525;
-  box-shadow: 0 12px 32px rgba(14, 21, 37, 0.32);
+  padding: 0;
+  background: #0e1525;
+  color: #faf8f5;
+  box-shadow: 0 8px 24px rgba(14, 21, 37, 0.22);
   font-family: 'Geist', system-ui, sans-serif;
-  font-size: 26px;
+  font-size: 0;
   font-weight: 600;
   cursor: pointer;
   line-height: 1;
 }
 .fab svg {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
 }
 .fab__icon-wrap {
   display: inline-flex;

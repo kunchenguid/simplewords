@@ -4,12 +4,12 @@ window.__timelines = window.__timelines || {}
 const tl = gsap.timeline({ paused: true })
 
 // ===== Anchor positions on the 1080x1080 canvas =====
-// Send and FAB share the same Y axis (centered on the reply actions row).
-// Reply layout: chrome.top(60) + reply.top(432) + padding(28) + editor-wrap(360) + margin(18) + send.height/2(27) = 925
+// The compact sw button sits near the reply editor's lower-right edge.
+// Reply editor bottom-right: x 948, y 880; button center after 8px inset is 928,860.
 const ACTIONS_CY = 925
 
-const FAB_CX = 1080 - 110 - 135 // ~835
-const FAB_CY = ACTIONS_CY
+const SW_BUTTON_CX = 928
+const SW_BUTTON_CY = 860
 
 const REPLY_CX = 540
 const REPLY_CY = 700
@@ -57,7 +57,7 @@ tl.set('#panel-actions', { autoAlpha: 0, y: 8 }, 0)
 
 tl.set('#cursor', { opacity: 0, x: 1080, y: 1080 }, 0)
 tl.set('#click-ring', { opacity: 0, scale: 0, x: 0, y: 0 }, 0)
-tl.set('.sparkle', { opacity: 0, scale: 0, x: FAB_CX, y: FAB_CY }, 0)
+tl.set('.sparkle', { opacity: 0, scale: 0, x: SW_BUTTON_CX, y: SW_BUTTON_CY }, 0)
 tl.set('.send-trail', { opacity: 0, scale: 0, x: SEND_CX, y: SEND_CY }, 0)
 
 tl.set('#outro', { opacity: 0 }, 0)
@@ -161,7 +161,7 @@ tl.to(
 )
 
 // ====================================================================
-// SCENE 4 — HOLD on bare reply, then FAB APPEARS + CURSOR MOVES
+// SCENE 4 — HOLD on bare reply, then SW BUTTON APPEARS + CURSOR MOVES
 // ====================================================================
 tl.to(
   '#fab',
@@ -171,8 +171,8 @@ tl.to(
 tl.to(
   '#cursor',
   {
-    x: FAB_CX - 16,
-    y: FAB_CY - 18,
+    x: SW_BUTTON_CX - 16,
+    y: SW_BUTTON_CY - 18,
     duration: 0.95,
     ease: 'power2.inOut'
   },
@@ -187,7 +187,7 @@ tl.to('#fab', { scale: 1.0, duration: 0.18, ease: 'power2.out' }, 12.7)
 tl.to('#cursor', { scale: 0.92, duration: 0.1, ease: 'power2.out' }, 12.6)
 tl.to('#cursor', { scale: 1.0, duration: 0.18, ease: 'power2.out' }, 12.7)
 
-tl.set('#click-ring', { x: FAB_CX, y: FAB_CY, scale: 0, opacity: 1 }, 12.63)
+tl.set('#click-ring', { x: SW_BUTTON_CX, y: SW_BUTTON_CY, scale: 0, opacity: 1 }, 12.63)
 tl.to(
   '#click-ring',
   { scale: 2.4, opacity: 0, duration: 0.55, ease: 'power2.out' },
@@ -197,12 +197,12 @@ tl.to(
 for (let i = 0; i < 8; i++) {
   const off = SPARKLE_OFFS[i]
   const id = '#sp-' + (i + 1)
-  tl.set(id, { x: FAB_CX, y: FAB_CY, scale: 0, opacity: 0 }, 12.63)
+  tl.set(id, { x: SW_BUTTON_CX, y: SW_BUTTON_CY, scale: 0, opacity: 0 }, 12.63)
   tl.to(
     id,
     {
-      x: FAB_CX + off.x,
-      y: FAB_CY + off.y,
+      x: SW_BUTTON_CX + off.x,
+      y: SW_BUTTON_CY + off.y,
       scale: 1,
       opacity: 1,
       duration: 0.22,
@@ -213,8 +213,8 @@ for (let i = 0; i < 8; i++) {
   tl.to(
     id,
     {
-      x: FAB_CX + off.x * 1.45,
-      y: FAB_CY + off.y * 1.45,
+      x: SW_BUTTON_CX + off.x * 1.45,
+      y: SW_BUTTON_CY + off.y * 1.45,
       scale: 0,
       opacity: 0,
       duration: 0.5,
