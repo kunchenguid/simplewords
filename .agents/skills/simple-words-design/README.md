@@ -6,7 +6,7 @@
 Simple Words is a **Chrome extension** that rewrites a rough draft in any editable field (textarea, contenteditable, input) into something professional, respectful, and friendly — using the surrounding page as context. It surfaces in two places:
 
 1. **A compact floating `sw` button** positioned near the active editable field on enabled domains (`content.js` injects it into the host page's DOM).
-2. **An options page** for picking an LLM provider (OpenAI-compatible / Codex / Ollama), choosing where Simple Words appears, and tuning the writing style.
+2. **An options page** for picking an AI model provider (OpenAI or a compatible endpoint / Codex subscription / Ollama), choosing where Simple Words appears, and tuning the writing style.
 
 This design system extends the bare functional shell into something that feels **elegant, futuristic, intelligent, and minimalist** — the brief from the project owner. It keeps the existing deep-ink palette as a backbone, grounds it in warm paper instead of cold white, and pairs a serif display voice with a technical grotesque body — so the product reads as both _literary_ (it's about words) and _engineered_ (it's an AI tool).
 
@@ -44,19 +44,19 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 
 - **Plain, direct, considered.** No exclamation marks, no marketing puff. The product _itself_ is about turning rough into polished, so the copy practices what it preaches.
 - **Confidently quiet.** No "✨ AI-powered" flourishes. No emoji. The intelligence is in the result, not the chrome.
-- **Humble about LLMs.** From the existing options copy: _"Chrome extensions cannot silently read Codex CLI auth from disk."_ — explains the limitation, then offers the workaround. No hand-waving.
+- **Humble about LLMs.** From the existing options copy: _"Setup Codex (https://developers.openai.com/codex), and select your Codex auth file, usually at ~/.codex/auth.json."_ No hand-waving.
 - **Lowercase except where required.** Sentence case for headings (`Writing style`, not `Writing Style` or `WRITING STYLE`).
   Buttons are sentence case (`Replace draft`, `Dismiss`, `Save`).
 
 ### Person & address
 
-- **Second-person ("you"), never first-person plural ("we").** _"Choose an LLM provider."_ / _"Leave blank to restore the default system prompt."_ — the user is the agent.
+- **Second-person ("you"), never first-person plural ("we").** _"Choose which AI model provider Simple Words should use to generate refined content."_ / _"Leave blank to restore the default system prompt."_ - the user is the agent.
 - The product refers to itself as **"Simple Words"** (proper noun, two words, both capitalized). Never "the extension," never "SW."
 - The model addresses the _writer_, not the recipient — the system prompt instructs it to _"rewrite a rough text draft into professional, respectful, friendly content draft that expresses the same intent."_
 
 ### Casing
 
-- **Headings:** sentence case. `Writing style`, `Advanced writing instructions`, `OpenAI-compatible`, `Codex backend`.
+- **Headings:** sentence case. `Writing style`, `Advanced writing instructions`, `AI model provider`, `Codex subscription`.
 - **Buttons:** sentence case verb-first when an action (`Save`, `Replace draft`, `Dismiss`). Title case for the brand button itself: `Simple Words`.
 - **Labels:** sentence case (`My name`, `System prompt`, `Reasoning effort`).
 - **Provider/option values:** lowercase (`none`, `low`, `medium`, `high`, `xhigh`).
@@ -65,6 +65,7 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 
 - Tagline / extension description: _"Never waste time wordsmithing your replies. Just say what you mean, and let AI help turn it into a respectful draft before you send."_
 - Options-page intro: _"Choose an LLM provider. The extension calls the selected provider directly after you click the Simple Words button."_
+- Provider step lead: _"Choose which AI model provider Simple Words should use to generate refined content."_
 - Empty-state error: _"Write a rough reply first."_
 - Loading: button _"Refining"_, panel heading _"Refining draft"_, panel body _"Refining..."_
 - System-prompt hint: _"Leave blank to restore the default system prompt."_
@@ -189,7 +190,7 @@ The options page is fully opaque.
 - **Options page** is a single column, `max-width: 680px`, with `48px 24px 80px` page padding.
   Never multi-column.
   Reading width is sacred.
-  Production is organized as three step cards: `Model provider`, `Where it appears`, and `Writing style`.
+  Production is organized as three step cards: `AI model provider`, `Where it appears`, and `Writing style`.
 - **Floating panel** sits _above_ the button (`panelPositionAboveButton` in source) when there's room, else flips to below.
   Max-width 420px, min-width 280px.
 

@@ -38,7 +38,7 @@ It keeps the workflow inside the editor you are already using and calls the mode
 
 - **Rough reply in, respectful draft out** - Start with the messy version and refine it in place.
 - **Reply where you already are** - Use Simple Words from the active editor on enabled mail domains.
-- **Your provider, your settings** - Use OpenAI-compatible APIs, a Codex backend token, or a local Ollama server.
+- **Your provider, your settings** - Use OpenAI or a compatible endpoint, a Codex subscription, or a local Ollama server.
 
 ## Quick Start
 
@@ -99,7 +99,7 @@ Then open `chrome://extensions`, enable **Developer mode**, click **Load unpacke
 ```
 
 - **Direct calls** - Requests go from your browser to your selected provider.
-- **Scoped appearance** - The button only appears on hostnames in the enabled domain list.
+- **Scoped appearance** - The button only appears on websites in the enabled domain list.
 - **Context-aware rewrites** - The extension includes visible page text near the editor so the model can understand the reply context.
 - **Localized UI** - The extension UI supports English, Spanish, Chinese Simplified, Hindi, Arabic, Portuguese Brazil, French, German, Japanese, and Russian.
 
@@ -115,11 +115,11 @@ If the button or panel disappears after the extension reloads or updates while a
 
 ### Provider Settings
 
-| Provider          | Settings                                                                |
-| ----------------- | ----------------------------------------------------------------------- |
-| OpenAI-compatible | API key, base URL, model, and reasoning effort.                         |
-| Codex backend     | Imported `auth.json` token data, base URL, model, and reasoning effort. |
-| Ollama            | Local base URL and model.                                               |
+| Provider                                             | Settings                                                                |
+| ---------------------------------------------------- | ----------------------------------------------------------------------- |
+| OpenAI (or a compatible endpoint) with API Key       | API key, base URL, model, and reasoning effort.                         |
+| Codex subscription                                   | Imported `auth.json` token data, base URL, model, and reasoning effort. |
+| Ollama                                               | Local base URL and model.                                               |
 
 ## Configuration
 

@@ -29,7 +29,7 @@ The extension does not use user data for creditworthiness or lending purposes.
 ## Model Providers
 
 Simple Words sends the draft, selected visible page context, page title, and page URL to the model provider you configure in the extension settings.
-Supported providers may include OpenAI-compatible APIs, Codex, and a local Ollama endpoint.
+Supported providers may include OpenAI or compatible endpoints, Codex subscriptions, and a local Ollama endpoint.
 The provider you choose may process the request according to that provider's own terms and privacy policy.
 
 If you use a local provider such as Ollama, requests may stay on your own machine depending on your local setup.
