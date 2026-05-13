@@ -107,12 +107,11 @@ Then open `chrome://extensions`, enable **Developer mode**, click **Load unpacke
 
 | Surface         | Description                                                                                        |
 | --------------- | -------------------------------------------------------------------------------------------------- |
-| Floating button | Appears next to active editable fields on enabled domains when there is draft text to refine.      |
+| Floating button | Appears near focused editable fields on enabled domains, including empty drafts.                   |
 | Result panel    | Shows the refined draft with **Replace draft** and **Dismiss** actions.                            |
 | Options page    | Stores provider settings, writing instructions, name, and enabled domains in Chrome local storage. |
 
-If the result panel shows `Unable to refine reply` or a Chrome runtime error such as `Extension context invalidated`, refresh the active mail tab and try again.
-This can happen after the extension reloads or updates while a mail tab is still open.
+If the button or panel disappears after the extension reloads or updates while a mail tab is still open, refresh the active mail tab and try again.
 
 ### Provider Settings
 

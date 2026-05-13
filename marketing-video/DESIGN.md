@@ -34,7 +34,7 @@ For 1080×1080 video, scale up: headlines 64–96px, body 36–44px, UI labels 2
 
 ## Delight (allowed)
 
-- Tiny accent-colored sparkle particles around the Simple Words pill at the moment of activation
+- Tiny accent-colored sparkle particles around the compact `sw` button at the moment of activation
 - A soft accent ring pulse when the refined panel appears
 - A gentle "send" liftoff: the email card translates up + fades, paper-textured
 - A satisfying check-mark beat after replace
@@ -44,10 +44,10 @@ For 1080×1080 video, scale up: headlines 64–96px, body 36–44px, UI labels 2
 - No emoji. Anywhere.
 - No exclamation marks in any copy.
 - No gradients as decoration. Solid paper or solid ink only.
-- No drop shadows on cards — shadows are reserved for floating elements (the FAB and the panel).
+- No drop shadows on cards — shadows are reserved for floating elements (the compact `sw` button and the panel).
 - No bouncy easing. No `back.out`, no springs, no overshoot.
 - No multi-hue color. Monochrome plus the single accent.
 - No em dashes inside generated drafts (the model output bans them; brand copy may use them).
-- No filled icons. 1.5px stroke, outlined only.
+- No filled icons, except the branded italic `sw` floating-button glyph. Other icons use 1.5px stroke, outlined only.
 - No "magic" / "AI-powered" / "supercharged" language.
 - No font weight above 600.

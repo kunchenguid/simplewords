@@ -166,7 +166,7 @@ body {
   cursor: pointer;
 }
 
-/* Floating button prototype derived from src/content.ts */
+/* Legacy floating button prototype; production uses src/content.ts for the compact sw glyph button. */
 .sw-fab {
   position: absolute;
   z-index: 50;

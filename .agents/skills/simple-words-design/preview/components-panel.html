@@ -73,25 +73,24 @@
       }
       .pill {
         align-items: center;
-        display: inline-flex;
-        gap: 7px;
+        display: flex;
         position: absolute;
         bottom: 28px;
         right: 60px;
         border-radius: 999px;
-        padding: 8px 14px;
         background: #0e1525;
         color: #faf8f5;
         font-family: var(--font-sans);
-        font-size: 13px;
-        font-weight: 600;
-        line-height: 1;
+        height: 24px;
+        justify-content: center;
+        padding: 0;
+        width: 24px;
         box-shadow: 0 8px 24px rgba(14, 21, 37, 0.22);
         border: 0;
       }
       .pill svg {
-        height: 14px;
-        width: 14px;
+        height: 18px;
+        width: 18px;
       }
       .stage {
         position: relative;
@@ -132,24 +131,19 @@
         </div>
       </div>
       <button class="pill">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path
-            d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
-          />
-          <path d="M20 3v4" />
-          <path d="M22 5h-4" />
-          <path d="M4 17v2" />
-          <path d="M5 18H3" />
+        <svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
+          <text
+            x="32"
+            y="47"
+            text-anchor="middle"
+            font-family="Georgia, serif"
+            font-style="italic"
+            font-weight="700"
+            font-size="48"
+          >
+            sw
+          </text>
         </svg>
-        Simple Words
       </button>
     </div>
   </body>
