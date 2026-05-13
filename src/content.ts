@@ -1,18 +1,32 @@
 import { serializeVisibleTextTree } from './domTree'
 import { t } from './i18n'
 import {
+  isExtensionContextValid,
+  onExtensionContextInvalidated,
+  safeChromeCall,
+  safeChromePromise
+} from './chromeApi'
+import {
   DEFAULT_SETTINGS,
   normalizeEnabledDomains,
   isSimpleWordsEnabledForUrl,
   normalizeSettings,
   type SimpleWordsSettings
 } from './settings'
-import { panelPositionAboveButton } from './uiPosition'
+import {
+  buttonPositionNearEditor,
+  panelPositionAboveButton
+} from './uiPosition'
 
 const BUTTON_ID = 'simplewords-button'
 const PANEL_ID = 'simplewords-panel'
 const STYLE_ID = 'simplewords-style'
 const MAX_CONTEXT_CHARS = 30_000
+const BUTTON_SIZE = 24
+const SMALL_BUTTON_SIZE = 20
+const SMALL_EDITOR_HEIGHT = 34
+
+const BRAND_GLYPH_SVG = `<svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><text x="32" y="47" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-weight="700" font-size="48">sw</text></svg>`
 
 const SPARKLES_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>`
 
@@ -27,19 +41,45 @@ const STYLE_CSS = `
   box-shadow: 0 8px 24px rgba(14, 21, 37, 0.22);
   color: #FAF8F5;
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
   font: 600 13px/1 'Geist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  gap: 7px;
+  height: 24px;
+  justify-content: center;
   letter-spacing: -0.005em;
-  padding: 8px 14px;
+  padding: 0;
   position: fixed;
   transition: background 120ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 120ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  width: 24px;
   z-index: 2147483647;
 }
 #${BUTTON_ID}:hover { background: #2a3142; }
 #${BUTTON_ID}:active { transform: scale(0.98); }
 #${BUTTON_ID}:focus-visible { outline: 2px solid #2747D6; outline-offset: 2px; }
-#${BUTTON_ID} svg { width: 14px; height: 14px; }
+#${BUTTON_ID}[hidden],
+#${PANEL_ID}[hidden] {
+  display: none !important;
+}
+#${BUTTON_ID}[data-size="normal"] {
+  height: 24px;
+  width: 24px;
+}
+#${BUTTON_ID}[data-size="normal"] svg { width: 18px; height: 18px; }
+#${BUTTON_ID}[data-size="small"] {
+  height: 20px;
+  width: 20px;
+}
+#${BUTTON_ID}[data-size="small"] svg { width: 15px; height: 15px; }
+#${BUTTON_ID}[data-state="working"] svg { width: 14px; height: 14px; }
+#${BUTTON_ID}[data-size="small"][data-state="working"] svg { width: 12px; height: 12px; }
+#${BUTTON_ID} span {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
 #${BUTTON_ID}[data-state="working"] { background: #2747D6; }
 #${BUTTON_ID}[data-state="working"]:hover { background: #1f3cc1; }
 #${BUTTON_ID}[data-state="working"] svg { animation: simplewords-spin 1s linear infinite; }
@@ -121,30 +161,15 @@ const STYLE_CSS = `
 `
 
 let activeEditor: HTMLElement | null = null
+let dismissedEditor: HTMLElement | null = null
 let activeRefinementId = 0
 let siteEnabled = !hasChromeStorage()
 
+onExtensionContextInvalidated(disableStaleContentScript)
+
 void loadSiteEnablement()
 
-if (hasChromeStorage()) {
-  chrome.storage.onChanged?.addListener?.((changes, areaName) => {
-    if (areaName !== 'local' || !changes.enabledDomains) {
-      return
-    }
-
-    setSiteEnabled(
-      isSimpleWordsEnabledForUrl(
-        {
-          enabledDomains: normalizeEnabledDomains(
-            changes.enabledDomains.newValue,
-            []
-          )
-        },
-        location.href
-      )
-    )
-  })
-}
+addStorageChangeListener()
 
 const editorVisibilityObserver = new MutationObserver((mutations) => {
   if (!activeEditor || !mutations.some(mutationAffectsActiveEditor)) {
@@ -162,46 +187,114 @@ editorVisibilityObserver.observe(document.documentElement, {
 })
 
 document.addEventListener('focusin', (event) => {
-  if (!siteEnabled) {
+  if (!canHandleEvents()) {
     return
   }
 
-  const target = event.target
-  if (!(target instanceof HTMLElement) || !isEditableElement(target)) {
+  const editor = findEditableRoot(event.target)
+  if (!editor) {
+    if (
+      activeEditor &&
+      event.target instanceof Node &&
+      !activeEditor.contains(event.target) &&
+      !isInjectedUITarget(event.target)
+    ) {
+      deactivateActiveEditor()
+    }
+
     return
   }
 
-  activeEditor = target
-  showButton(target)
+  if (editor === dismissedEditor) {
+    return
+  }
+
+  dismissedEditor = null
+  activeEditor = editor
+  showButton(editor)
 })
 
+document.addEventListener('focusout', (event) => {
+  const editor = activeEditor
+  if (!editor || !isEventFromEditor(event, editor)) {
+    return
+  }
+
+  window.setTimeout(() => {
+    if (activeEditor !== editor) {
+      return
+    }
+
+    const relatedTarget = event.relatedTarget
+    if (isInjectedUITarget(relatedTarget)) {
+      return
+    }
+
+    if (relatedTarget instanceof Node && editor.contains(relatedTarget)) {
+      return
+    }
+
+    const nextEditor = findEditableRoot(relatedTarget)
+    if (nextEditor) {
+      activeEditor = nextEditor
+      showButton(nextEditor)
+      return
+    }
+
+    if (!isEditorFocused(editor)) {
+      activeEditor = null
+      activeRefinementId += 1
+      hideInjectedUI()
+    }
+  }, 0)
+})
+
+document.addEventListener(
+  'mousedown',
+  (event) => {
+    handlePointerStart(event.target)
+  },
+  { capture: true }
+)
+
+document.addEventListener(
+  'pointerdown',
+  (event) => {
+    handlePointerStart(event.target)
+  },
+  { capture: true }
+)
+
 document.addEventListener('input', (event) => {
-  if (!siteEnabled) {
+  if (!canHandleEvents()) {
     return
   }
 
-  const target = event.target
-  if (
-    !(target instanceof HTMLElement) ||
-    !isEditableElement(target) ||
-    target !== document.activeElement
-  ) {
+  const editor = findEditableRoot(event.target)
+  if (!editor || editor === dismissedEditor || !isEditorFocused(editor)) {
     return
   }
 
-  activeEditor = target
-  showButton(target)
+  dismissedEditor = null
+  if (editor === activeEditor) {
+    activeRefinementId += 1
+    hideVisiblePanel()
+    setButtonIdle()
+  }
+
+  activeEditor = editor
+  showButton(editor)
 })
 
 document.addEventListener('selectionchange', () => {
-  if (!siteEnabled) {
+  if (!canHandleEvents()) {
     return
   }
 
-  const element = document.activeElement
-  if (element instanceof HTMLElement && isEditableElement(element)) {
-    activeEditor = element
-    showButton(element)
+  const editor = findEditableRoot(document.activeElement)
+  if (editor && editor !== dismissedEditor) {
+    activeEditor = editor
+    showButton(editor)
   }
 })
 
@@ -212,6 +305,26 @@ window.addEventListener(
   },
   { passive: true }
 )
+
+document.addEventListener(
+  'scroll',
+  () => {
+    refreshActiveEditorUI()
+  },
+  { capture: true, passive: true }
+)
+
+window.visualViewport?.addEventListener(
+  'scroll',
+  () => {
+    refreshActiveEditorUI()
+  },
+  { passive: true }
+)
+
+window.visualViewport?.addEventListener('resize', () => {
+  refreshActiveEditorUI()
+})
 
 window.addEventListener('resize', () => {
   refreshActiveEditorUI()
@@ -229,7 +342,7 @@ function ensureStyles(): void {
 }
 
 function showButton(editor: HTMLElement): void {
-  if (!isActiveEditorVisible(editor) || !getEditorText(editor)) {
+  if (!isActiveEditorVisible(editor)) {
     if (editor === activeEditor) {
       activeEditor = null
       activeRefinementId += 1
@@ -244,7 +357,7 @@ function showButton(editor: HTMLElement): void {
 }
 
 function refreshActiveEditorUI(): void {
-  if (!siteEnabled) {
+  if (!canHandleEvents()) {
     return
   }
 
@@ -252,14 +365,18 @@ function refreshActiveEditorUI(): void {
     return
   }
 
-  if (!isActiveEditorVisible(activeEditor) || !getEditorText(activeEditor)) {
-    activeEditor = null
-    activeRefinementId += 1
-    hideInjectedUI()
+  if (!isEditorFocused(activeEditor)) {
+    deactivateActiveEditor()
+    return
+  }
+
+  if (!isActiveEditorVisible(activeEditor)) {
+    deactivateActiveEditor()
     return
   }
 
   positionButton(activeEditor)
+  positionVisiblePanel()
 }
 
 async function loadSiteEnablement(): Promise<void> {
@@ -267,12 +384,64 @@ async function loadSiteEnablement(): Promise<void> {
     return
   }
 
-  const settings = normalizeSettings(
-    (await chrome.storage.local.get(
-      DEFAULT_SETTINGS
-    )) as Partial<SimpleWordsSettings>
+  const rawSettings = await safeChromePromise(
+    () =>
+      chrome.storage.local.get(DEFAULT_SETTINGS) as Promise<
+        Partial<SimpleWordsSettings>
+      >,
+    null
   )
-  setSiteEnabled(isSimpleWordsEnabledForUrl(settings, location.href))
+  if (!rawSettings) {
+    setSiteEnabled(false)
+    return
+  }
+
+  setSiteEnabled(
+    isSimpleWordsEnabledForUrl(normalizeSettings(rawSettings), location.href)
+  )
+}
+
+function addStorageChangeListener(): void {
+  if (!hasChromeStorage()) {
+    return
+  }
+
+  safeChromeCall(() => {
+    chrome.storage.onChanged?.addListener?.((changes, areaName) => {
+      if (areaName !== 'local' || !changes.enabledDomains) {
+        return
+      }
+
+      setSiteEnabled(
+        isSimpleWordsEnabledForUrl(
+          {
+            enabledDomains: normalizeEnabledDomains(
+              changes.enabledDomains.newValue,
+              []
+            )
+          },
+          location.href
+        )
+      )
+    })
+  }, undefined)
+}
+
+function disableStaleContentScript(): void {
+  activeEditor = null
+  dismissedEditor = null
+  activeRefinementId += 1
+  hideInjectedUI()
+}
+
+function deactivateActiveEditor(): void {
+  activeEditor = null
+  activeRefinementId += 1
+  hideInjectedUI()
+}
+
+function canHandleEvents(): boolean {
+  return siteEnabled && isExtensionContextValid()
 }
 
 function setSiteEnabled(enabled: boolean): void {
@@ -283,20 +452,24 @@ function setSiteEnabled(enabled: boolean): void {
   siteEnabled = enabled
   if (!siteEnabled) {
     activeEditor = null
+    dismissedEditor = null
     activeRefinementId += 1
     hideInjectedUI()
     return
   }
 
-  const element = document.activeElement
-  if (element instanceof HTMLElement && isEditableElement(element)) {
-    activeEditor = element
-    showButton(element)
+  const editor = findEditableRoot(document.activeElement)
+  if (editor) {
+    dismissedEditor = null
+    activeEditor = editor
+    showButton(editor)
   }
 }
 
 function hasChromeStorage(): boolean {
-  return typeof chrome !== 'undefined' && Boolean(chrome.storage?.local)
+  return safeChromeCall(() => {
+    return typeof chrome !== 'undefined' && Boolean(chrome.storage?.local)
+  }, false)
 }
 
 function hideInjectedUI(): void {
@@ -306,9 +479,20 @@ function hideInjectedUI(): void {
     button.hidden = true
   }
 
+  hideVisiblePanel()
+}
+
+function hideVisiblePanel(): void {
   const panel = document.getElementById(PANEL_ID)
   if (panel instanceof HTMLDivElement) {
     panel.hidden = true
+  }
+}
+
+function setButtonIdle(): void {
+  const button = document.getElementById(BUTTON_ID)
+  if (button instanceof HTMLButtonElement) {
+    setButtonState(button, 'idle')
   }
 }
 
@@ -338,7 +522,7 @@ function setButtonState(
   state: 'idle' | 'working'
 ): void {
   button.dataset.state = state
-  const icon = state === 'working' ? LOADER_SVG : SPARKLES_SVG
+  const icon = state === 'working' ? LOADER_SVG : BRAND_GLYPH_SVG
   const label = state === 'working' ? t('buttonWorkingLabel') : t('buttonLabel')
   button.innerHTML = `${icon}<span></span>`
   const labelElement = button.querySelector('span')
@@ -350,13 +534,19 @@ function setButtonState(
 function positionButton(editor: HTMLElement): void {
   const button = getOrCreateButton()
   const rect = editor.getBoundingClientRect()
-  const top = Math.max(8, rect.bottom + 8)
-  const left = Math.min(
-    window.innerWidth - button.offsetWidth - 8,
-    Math.max(8, rect.right - button.offsetWidth)
-  )
-  button.style.top = `${top}px`
-  button.style.left = `${left}px`
+  const size = buttonSizeForEditor(rect)
+  button.dataset.size = size === SMALL_BUTTON_SIZE ? 'small' : 'normal'
+  const position = buttonPositionNearEditor({
+    editorRect: rect,
+    buttonSize: { width: size, height: size },
+    viewportSize: { width: window.innerWidth, height: window.innerHeight }
+  })
+  button.style.top = `${position.top}px`
+  button.style.left = `${position.left}px`
+}
+
+function buttonSizeForEditor(rect: DOMRect): number {
+  return rect.height <= SMALL_EDITOR_HEIGHT ? SMALL_BUTTON_SIZE : BUTTON_SIZE
 }
 
 async function refineActiveEditor(): Promise<void> {
@@ -425,17 +615,22 @@ async function requestRefinement(request: {
   title: string
   url: string
 }): Promise<RefinementResponse> {
-  if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) {
+  if (!isExtensionContextValid()) {
     return { error: t('unableToRefineReply') }
   }
 
-  try {
-    return (await chrome.runtime.sendMessage(request)) as RefinementResponse
-  } catch (error) {
-    return {
-      error: error instanceof Error ? error.message : t('unableToRefineReply')
-    }
-  }
+  const response = await safeChromePromise<RefinementResponse | null>(
+    async () => {
+      if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) {
+        return { error: t('unableToRefineReply') }
+      }
+
+      return (await chrome.runtime.sendMessage(request)) as RefinementResponse
+    },
+    null
+  )
+
+  return response ?? { error: t('unableToRefineReply') }
 }
 
 type PanelContent =
@@ -500,6 +695,15 @@ function showPanel(editor: HTMLElement, content: PanelContent): void {
   }
 
   panel.hidden = false
+  positionVisiblePanel()
+}
+
+function positionVisiblePanel(): void {
+  const panel = document.getElementById(PANEL_ID)
+  if (!(panel instanceof HTMLDivElement) || panel.hidden) {
+    return
+  }
+
   const button = getOrCreateButton()
   const position = panelPositionAboveButton({
     buttonRect: button.getBoundingClientRect(),
@@ -526,20 +730,37 @@ function getOrCreatePanel(): HTMLDivElement {
   return panel
 }
 
-function isEditableElement(element: HTMLElement): boolean {
-  if (element.isContentEditable) {
-    return true
+function findEditableRoot(target: EventTarget | null): HTMLElement | null {
+  if (!(target instanceof HTMLElement)) {
+    return null
   }
 
-  if (element instanceof HTMLTextAreaElement) {
-    return true
+  if (target instanceof HTMLTextAreaElement || isSupportedTextInput(target)) {
+    return target
   }
 
-  if (!(element instanceof HTMLInputElement)) {
-    return false
+  const editableAncestor = target.closest<HTMLElement>(
+    '[contenteditable=""], [contenteditable="true"], [contenteditable="plaintext-only"]'
+  )
+
+  if (editableAncestor) {
+    return editableAncestor
   }
 
-  return ['email', 'search', 'text', 'url'].includes(element.type)
+  if (target.isContentEditable) {
+    return target
+  }
+
+  return null
+}
+
+function isSupportedTextInput(
+  element: HTMLElement
+): element is HTMLInputElement {
+  return (
+    element instanceof HTMLInputElement &&
+    ['email', 'search', 'text', 'url'].includes(element.type)
+  )
 }
 
 function isActiveEditorVisible(element: HTMLElement): boolean {
@@ -553,7 +774,7 @@ function isActiveEditorVisible(element: HTMLElement): boolean {
       current.hidden ||
       current.getAttribute('aria-hidden') === 'true' ||
       isClosedContainer(current, element) ||
-      isHiddenByStyle(current)
+      hasNoLayoutBox(current)
     ) {
       return false
     }
@@ -561,16 +782,27 @@ function isActiveEditorVisible(element: HTMLElement): boolean {
     current = current.parentElement
   }
 
-  return true
+  return isElementInsideViewport(element) && isVisibleByStyle(element)
 }
 
-function isHiddenByStyle(element: HTMLElement): boolean {
-  const style = getComputedStyle(element)
+function isElementInsideViewport(element: HTMLElement): boolean {
+  const rect = element.getBoundingClientRect()
   return (
-    style.display === 'none' ||
-    style.visibility === 'hidden' ||
-    style.visibility === 'collapse'
+    rect.bottom >= 0 &&
+    rect.right >= 0 &&
+    rect.top <= window.innerHeight &&
+    rect.left <= window.innerWidth
   )
+}
+
+function hasNoLayoutBox(element: HTMLElement): boolean {
+  const style = getComputedStyle(element)
+  return style.display === 'none'
+}
+
+function isVisibleByStyle(element: HTMLElement): boolean {
+  const style = getComputedStyle(element)
+  return style.visibility !== 'hidden' && style.visibility !== 'collapse'
 }
 
 function isClosedContainer(
@@ -617,6 +849,64 @@ function mutationAffectsActiveEditor(mutation: MutationRecord): boolean {
     (node) =>
       node === editor || (node instanceof Element && node.contains(editor))
   )
+}
+
+function isEventFromEditor(event: Event, editor: HTMLElement): boolean {
+  return (
+    event.target === editor ||
+    (event.target instanceof Node && editor.contains(event.target))
+  )
+}
+
+function isEditorFocused(editor: HTMLElement): boolean {
+  const activeElement = document.activeElement
+  return activeElement === editor || editor.contains(activeElement)
+}
+
+function isInjectedUITarget(target: EventTarget | null): boolean {
+  if (!(target instanceof Node)) {
+    return false
+  }
+
+  const button = document.getElementById(BUTTON_ID)
+  if (button?.contains(target)) {
+    return true
+  }
+
+  const panel = document.getElementById(PANEL_ID)
+  return panel?.contains(target) ?? false
+}
+
+function handlePointerStart(target: EventTarget | null): void {
+  const editor = activeEditor
+  if (!(target instanceof Node)) {
+    return
+  }
+
+  if (dismissedEditor?.contains(target)) {
+    dismissedEditor = null
+  }
+
+  const targetEditor = findEditableRoot(target)
+  if (targetEditor && targetEditor !== dismissedEditor) {
+    dismissedEditor = null
+    activeEditor = targetEditor
+    showButton(targetEditor)
+    return
+  }
+
+  if (!editor || editor.contains(target)) {
+    return
+  }
+
+  if (isInjectedUITarget(target)) {
+    return
+  }
+
+  dismissedEditor = editor
+  activeEditor = null
+  activeRefinementId += 1
+  hideInjectedUI()
 }
 
 function getEditorText(element: HTMLElement): string {

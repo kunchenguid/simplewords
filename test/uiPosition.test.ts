@@ -1,5 +1,8 @@
 import { describe, expect, test } from 'vitest'
-import { panelPositionAboveButton } from '../src/uiPosition'
+import {
+  buttonPositionNearEditor,
+  panelPositionAboveButton
+} from '../src/uiPosition'
 
 describe('panelPositionAboveButton', () => {
   test('places the panel centered above the Simple Words button', () => {
@@ -36,5 +39,43 @@ describe('panelPositionAboveButton', () => {
 
     expect(position.top).toBe(8)
     expect(position.left).toBe(8)
+  })
+})
+
+describe('buttonPositionNearEditor', () => {
+  test('places a compact button inside the lower-right of a tall editor', () => {
+    const position = buttonPositionNearEditor({
+      editorRect: {
+        top: 333,
+        left: 596,
+        right: 1123,
+        bottom: 658,
+        width: 527,
+        height: 325
+      },
+      buttonSize: { width: 24, height: 24 },
+      viewportSize: { width: 1200, height: 728 }
+    })
+
+    expect(position.top).toBe(626)
+    expect(position.left).toBe(1091)
+  })
+
+  test('centers a small button on short single-line editors', () => {
+    const position = buttonPositionNearEditor({
+      editorRect: {
+        top: 40,
+        left: 20,
+        right: 220,
+        bottom: 60,
+        width: 200,
+        height: 20
+      },
+      buttonSize: { width: 20, height: 20 },
+      viewportSize: { width: 390, height: 700 }
+    })
+
+    expect(position.top).toBe(40)
+    expect(position.left).toBe(192)
   })
 })

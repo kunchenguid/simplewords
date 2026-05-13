@@ -89,6 +89,34 @@ describe('extension i18n', () => {
     expect(t('saveButton')).toBe('Save')
   })
 
+  test('falls back to English when Chrome i18n is invalidated', async () => {
+    vi.stubGlobal('chrome', {
+      i18n: {
+        getMessage: vi.fn(() => {
+          throw new Error('Extension context invalidated.')
+        })
+      }
+    })
+
+    const { t } = await import('../src/i18n')
+
+    expect(t('buttonLabel')).toBe('Simple Words')
+  })
+
+  test('does not throw when Chrome i18n fails during substitution fallback', async () => {
+    vi.stubGlobal('chrome', {
+      i18n: {
+        getMessage: vi.fn(() => {
+          throw new Error('Extension context invalidated.')
+        })
+      }
+    })
+
+    const { t } = await import('../src/i18n')
+
+    expect(t('codexTokenRefreshHttpFailure', '401')).toContain('401')
+  })
+
   test('sets right-to-left direction for Arabic UI language', async () => {
     const documentElement = { dir: '', lang: '' }
     vi.stubGlobal('document', {

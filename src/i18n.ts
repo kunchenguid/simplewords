@@ -1,3 +1,5 @@
+import { safeChromeCall } from './chromeApi'
+
 export const EN_MESSAGES = {
   extensionName: 'Simple Words',
   extensionDescription:
@@ -80,12 +82,24 @@ export const EN_MESSAGES = {
 export type MessageKey = keyof typeof EN_MESSAGES
 
 export function t(key: MessageKey, substitutions?: string | string[]): string {
-  const message =
-    typeof chrome !== 'undefined' && chrome.i18n
+  try {
+    const message = getChromeMessage(key, substitutions)
+
+    return message || applySubstitutions(EN_MESSAGES[key], substitutions)
+  } catch {
+    return EN_MESSAGES[key]
+  }
+}
+
+function getChromeMessage(
+  key: MessageKey,
+  substitutions?: string | string[]
+): string {
+  return safeChromeCall(() => {
+    return typeof chrome !== 'undefined' && chrome.i18n
       ? chrome.i18n.getMessage(key, substitutions)
       : ''
-
-  return message || applySubstitutions(EN_MESSAGES[key], substitutions)
+  }, '')
 }
 
 function applySubstitutions(
@@ -125,12 +139,14 @@ export function localizeDocument(root: ParentNode = document): void {
 }
 
 function getUILanguage(): string {
-  const language =
-    typeof chrome !== 'undefined' && chrome.i18n?.getUILanguage
-      ? chrome.i18n.getUILanguage()
-      : 'en'
+  return safeChromeCall(() => {
+    const language =
+      typeof chrome !== 'undefined' && chrome.i18n?.getUILanguage
+        ? chrome.i18n.getUILanguage()
+        : 'en'
 
-  return language.replace('_', '-')
+    return language.replace('_', '-')
+  }, 'en')
 }
 
 function isRightToLeftLanguage(language: string): boolean {
