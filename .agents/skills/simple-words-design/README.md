@@ -5,7 +5,7 @@
 
 Simple Words is a **Chrome extension** that rewrites a rough draft in any editable field (textarea, contenteditable, input) into something professional, respectful, and friendly — using the surrounding page as context. It surfaces in two places:
 
-1. **A floating pill button** anchored to the active editable field on enabled domains (`content.js` injects it into the host page's DOM).
+1. **A compact floating `sw` button** positioned near the active editable field on enabled domains (`content.js` injects it into the host page's DOM).
 2. **An options page** for picking an LLM provider (OpenAI-compatible / Codex / Ollama), choosing where Simple Words appears, and tuning the writing style.
 
 This design system extends the bare functional shell into something that feels **elegant, futuristic, intelligent, and minimalist** — the brief from the project owner. It keeps the existing deep-ink palette as a backbone, grounds it in warm paper instead of cold white, and pairs a serif display voice with a technical grotesque body — so the product reads as both _literary_ (it's about words) and _engineered_ (it's an AI tool).
