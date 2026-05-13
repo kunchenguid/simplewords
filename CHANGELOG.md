@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.1...simplewords-v0.1.2) (2026-05-13)
+
+
+### Bug Fixes
+
+* handle unavailable refinement messaging ([#13](https://github.com/kunchenguid/simplewords/issues/13)) ([d9b3cbe](https://github.com/kunchenguid/simplewords/commit/d9b3cbe58864d8882506d3d01314420ff5dd1f6e))
+* stabilize extension floating button state ([#15](https://github.com/kunchenguid/simplewords/issues/15)) ([e4616a4](https://github.com/kunchenguid/simplewords/commit/e4616a4e3f0a371b1512cb4b06d769393c387584))
+
 ## [0.1.1](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.0...simplewords-v0.1.1) (2026-05-12)
 
 
