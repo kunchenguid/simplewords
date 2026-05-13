@@ -4,12 +4,11 @@ window.__timelines = window.__timelines || {}
 const tl = gsap.timeline({ paused: true })
 
 // ===== Anchor positions on the 1080x1080 canvas =====
-// The compact sw button sits near the reply editor's lower-right edge.
-// Reply editor bottom-right: x 948, y 880; button center after 8px inset is 928,860.
+// The sw button sits in the reply action row beside Send.
 const ACTIONS_CY = 925
 
-const SW_BUTTON_CX = 928
-const SW_BUTTON_CY = 860
+const SW_BUTTON_CX = 322
+const SW_BUTTON_CY = ACTIONS_CY
 
 const REPLY_CX = 540
 const REPLY_CY = 700
@@ -33,6 +32,11 @@ const SPARKLE_OFFS = [
 ]
 
 // ===== Initial state at t=0 =====
+tl.set(
+  '#demo-camera',
+  { autoAlpha: 0, x: 0, y: 0, scale: 1, transformOrigin: '0 0' },
+  0
+)
 tl.set('#chrome', { opacity: 0 }, 0)
 tl.set('#mail-subject', { opacity: 0, y: 16 }, 0)
 tl.set('#mail-from', { opacity: 0, y: 16 }, 0)
@@ -55,7 +59,7 @@ tl.set('#panel-line-3', { opacity: 0, y: 10 }, 0)
 tl.set('#panel-line-4', { opacity: 0, y: 10 }, 0)
 tl.set('#panel-actions', { autoAlpha: 0, y: 8 }, 0)
 
-tl.set('#cursor', { opacity: 0, x: 1080, y: 1080 }, 0)
+tl.set('#cursor', { opacity: 0, x: -80, y: -80 }, 0)
 tl.set('#click-ring', { opacity: 0, scale: 0, x: 0, y: 0 }, 0)
 tl.set(
   '.sparkle',
@@ -91,6 +95,7 @@ tl.from(
 // ====================================================================
 tl.to('#wipe', { y: '0%', duration: 0.32, ease: 'power3.in' }, 2.2)
 tl.set('#intro', { opacity: 0 }, 2.55)
+tl.set('#demo-camera', { autoAlpha: 1 }, 2.55)
 tl.set('#chrome', { opacity: 1 }, 2.55)
 tl.to('#wipe', { y: '-100%', duration: 0.32, ease: 'power3.out' }, 2.55)
 
@@ -115,9 +120,20 @@ tl.to(
 )
 
 // ====================================================================
-// SCENE 3 — HOLD reading email (longer now), then CURSOR + TYPEWRITER
+// SCENE 3 — HOLD reading email, then zoom into reply + TYPEWRITER
 // ====================================================================
-// Quote finishes at ~4.0; longer email needs ~3.5s reading time.
+// Quote finishes at ~4.0; give the boss email enough reading time.
+tl.to(
+  '#demo-camera',
+  {
+    x: 0,
+    y: -365,
+    scale: 2,
+    duration: 0.75,
+    ease: 'power2.inOut'
+  },
+  6.95
+)
 tl.to(
   '#cursor',
   {
@@ -132,7 +148,7 @@ tl.to(
 tl.set('#reply-caret', { x: 0, y: 0 }, 8.05)
 tl.to('#reply-caret', { opacity: 1, duration: 0.15, ease: 'power1.out' }, 8.05)
 
-const TYPED = 'i have plans'
+const TYPED = 'nope'
 let caretX = 0
 for (let i = 0; i < TYPED.length; i++) {
   const t = 8.25 + i * 0.085
@@ -151,7 +167,7 @@ for (let i = 0; i < TYPED.length; i++) {
   caretX += w
   tl.to('#reply-caret', { x: caretX, duration: 0.07, ease: 'none' }, t)
 }
-// Typing ends ~9.55. Caret blinks while we sit on the bare reply.
+// Caret blinks while we sit on the bare reply.
 tl.to(
   '#reply-caret',
   {
@@ -165,12 +181,23 @@ tl.to(
 )
 
 // ====================================================================
-// SCENE 4 — HOLD on bare reply, then SW BUTTON APPEARS + CURSOR MOVES
+// SCENE 4 — HOLD on bare reply, then SW BUTTON APPEARS + CAMERA PANS
 // ====================================================================
 tl.to(
   '#fab',
   { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'power3.out' },
   11.1
+)
+tl.to(
+  '#demo-camera',
+  {
+    x: 44,
+    y: -674,
+    scale: 1.55,
+    duration: 0.65,
+    ease: 'power2.inOut'
+  },
+  11.25
 )
 tl.to(
   '#cursor',
@@ -242,6 +269,17 @@ tl.set('#fab', { autoAlpha: 0 }, 12.9)
 // ====================================================================
 // SCENE 6 — PANEL APPEARS + LOADING
 // ====================================================================
+tl.to(
+  '#demo-camera',
+  {
+    x: 0,
+    y: 0,
+    scale: 1,
+    duration: 0.65,
+    ease: 'power2.inOut'
+  },
+  12.9
+)
 tl.fromTo(
   '#panel',
   { autoAlpha: 0, y: 24, scale: 0.98 },
@@ -443,6 +481,7 @@ for (let i = 0; i < trailOffsets.length; i++) {
 tl.set('#wipe', { y: '-100%' }, 24.2)
 tl.to('#wipe', { y: '0%', duration: 0.3, ease: 'power3.in' }, 24.2)
 tl.set('#chrome', { opacity: 0 }, 24.51)
+tl.set('#demo-camera', { autoAlpha: 0 }, 24.51)
 tl.set('#outro', { opacity: 1 }, 24.51)
 tl.to(
   '#wipe',

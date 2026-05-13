@@ -11,7 +11,7 @@
       id="root"
       data-composition-id="main"
       data-start="0"
-      data-duration="27"
+      data-duration="31"
       data-width="1080"
       data-height="1080"
     >
@@ -26,219 +26,218 @@
       </div>
 
       <!-- ============== CHROME / GMAIL ============== -->
-      <div class="chrome" id="chrome">
-        <div class="chrome__bar">
-          <span class="chrome__dot chrome__dot--r"></span>
-          <span class="chrome__dot chrome__dot--y"></span>
-          <span class="chrome__dot chrome__dot--g"></span>
-          <span class="chrome__title">friday night</span>
-          <span class="chrome__url">mail.app</span>
+      <div class="demo-camera" id="demo-camera" data-layout-allow-overflow>
+        <div class="chrome" id="chrome">
+          <div class="chrome__bar">
+            <span class="chrome__dot chrome__dot--r"></span>
+            <span class="chrome__dot chrome__dot--y"></span>
+            <span class="chrome__dot chrome__dot--g"></span>
+            <span class="chrome__title">saturday team building</span>
+            <span class="chrome__url">mail.app</span>
+          </div>
+
+          <div class="mail-content" id="mail-content">
+            <div class="mail__head">
+              <div class="mail__subject" id="mail-subject">
+                Saturday team building
+              </div>
+              <div class="mail__from" id="mail-from">
+                <div class="mail__avatar">M</div>
+                <div>
+                  <div class="mail__from-name">Morgan Lee</div>
+                  <div class="mail__from-meta">to me &middot; Wed 4:12 PM</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mail__quote" id="mail-quote">
+              Hi Alex - we're planning a team building event this Saturday from
+              10 to 3. There will be lunch, a few group activities, and possibly
+              one trust fall too many. Would you like to join us?
+            </div>
+
+            <div class="reply" id="reply">
+              <div class="reply__editor-wrap">
+                <div class="reply__editor" id="reply-rough">
+                  <span class="char">n</span><span class="char">o</span
+                  ><span class="char">p</span><span class="char">e</span>
+                </div>
+                <div class="reply__editor is-multiline" id="reply-refined">
+                  <span class="line">Hi Morgan,</span
+                  ><span class="line"
+                    >Thanks for the invite. I'm not able to join this Saturday,
+                    but I appreciate the effort to bring everyone
+                    together.</span
+                  ><span class="line">I hope everyone has a great time!</span
+                  ><span class="line">Best, Alex</span>
+                </div>
+                <div class="reply__caret" id="reply-caret"></div>
+              </div>
+              <div class="reply__actions">
+                <button class="reply__send" id="reply-send">Send</button>
+                <button class="fab" id="fab" aria-label="Simple Words">
+                  <span class="fab__icon-wrap" id="fab-icon">
+                    <svg
+                      viewBox="0 0 64 64"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <text
+                        x="32"
+                        y="47"
+                        text-anchor="middle"
+                        font-family="Georgia, serif"
+                        font-style="italic"
+                        font-weight="700"
+                        font-size="44"
+                      >
+                        sw
+                      </text>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="mail-content" id="mail-content">
-          <div class="mail__head">
-            <div class="mail__subject" id="mail-subject">friday night</div>
-            <div class="mail__from" id="mail-from">
-              <div class="mail__avatar">S</div>
-              <div>
-                <div class="mail__from-name">Sarah Park</div>
-                <div class="mail__from-meta">to me &middot; Wed 4:12 PM</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="mail__quote" id="mail-quote">
-            Hey Alex - it's been ages, I keep meaning to reach out. Anyway,
-            throwing a small thing at mine on Friday night, 8pm. Drinks,
-            dumplings, a few people from the old crew. Would really love to see
-            you, it feels like forever since we properly caught up.
-          </div>
-
-          <div class="reply" id="reply">
-            <div class="reply__editor-wrap">
-              <div class="reply__editor" id="reply-rough">
-                <span class="char">i</span><span class="char">&nbsp;</span
-                ><span class="char">h</span><span class="char">a</span
-                ><span class="char">v</span><span class="char">e</span
-                ><span class="char">&nbsp;</span><span class="char">p</span
-                ><span class="char">l</span><span class="char">a</span
-                ><span class="char">n</span><span class="char">s</span>
-              </div>
-              <div class="reply__editor is-multiline" id="reply-refined">
-                <span class="line">Hi Sarah,</span
-                ><span class="line"
-                  >It's so good to hear from you - it really has been too long.
-                  I'd love to be there, but I already have plans locked in for
-                  Friday night. Could we get coffee next week and properly catch
-                  up? I want to hear everything.</span
-                ><span class="line">Take care,</span
-                ><span class="line">Alex</span>
-              </div>
-              <div class="reply__caret" id="reply-caret"></div>
-            </div>
-            <div class="reply__actions">
-              <button class="reply__send" id="reply-send">Send</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============== FLOATING SW BUTTON ============== -->
-      <button class="fab" id="fab" aria-label="Simple Words">
-        <span class="fab__icon-wrap" id="fab-icon">
-          <svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true">
-            <text
-              x="32"
-              y="47"
-              text-anchor="middle"
-              font-family="Georgia, serif"
-              font-style="italic"
-              font-weight="700"
-              font-size="48"
+        <!-- ============== PANEL ============== -->
+        <div class="panel" id="panel">
+          <div class="panel__head">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             >
-              sw
-            </text>
-          </svg>
-        </span>
-      </button>
+              <path
+                d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+              ></path>
+              <path d="M20 3v4"></path>
+              <path d="M22 5h-4"></path>
+              <path d="M4 17v2"></path>
+              <path d="M5 18H3"></path>
+            </svg>
+            <span>Refined draft</span>
+          </div>
+          <div class="panel__loading" id="panel-loading">
+            <svg
+              id="panel-loading-svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+            </svg>
+            <span>Refining</span>
+          </div>
+          <div class="panel__body" id="panel-body">
+            <span class="line" id="panel-line-1">Hi Morgan,</span
+            ><span class="line" id="panel-line-2"
+              >Thanks for the invite. I'm not able to join this Saturday, but I
+              appreciate the effort to bring everyone together.</span
+            ><span class="line" id="panel-line-3"
+              >I hope everyone has a great time!</span
+            ><span class="line" id="panel-line-4">Best, Alex</span>
+          </div>
+          <div class="panel__actions" id="panel-actions">
+            <button class="btn btn--primary" id="btn-replace">
+              Replace draft
+            </button>
+            <button class="btn btn--ghost" id="btn-dismiss">Dismiss</button>
+          </div>
+        </div>
 
-      <!-- ============== PANEL ============== -->
-      <div class="panel" id="panel">
-        <div class="panel__head">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
+        <!-- ============== CURSOR ============== -->
+        <div class="cursor" id="cursor">
+          <svg viewBox="0 0 32 32">
             <path
-              d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
-            ></path>
-            <path d="M20 3v4"></path>
-            <path d="M22 5h-4"></path>
-            <path d="M4 17v2"></path>
-            <path d="M5 18H3"></path>
+              d="M5 3 L5 25 L11 19.5 L14.5 27 L18.5 25 L15 17.5 L23 17.5 Z"
+              fill="#0E1525"
+              stroke="#FAF8F5"
+              stroke-width="1.4"
+              stroke-linejoin="round"
+            />
           </svg>
-          <span>Refined draft</span>
         </div>
-        <div class="panel__loading" id="panel-loading">
-          <svg
-            id="panel-loading-svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+
+        <!-- ============== CLICK RING ============== -->
+        <div class="click-ring" id="click-ring"></div>
+
+        <!-- ============== SPARKLES (8) ============== -->
+        <div class="sparkle" id="sp-1">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+            />
           </svg>
-          <span>Refining</span>
         </div>
-        <div class="panel__body" id="panel-body">
-          <span class="line" id="panel-line-1">Hi Sarah,</span
-          ><span class="line" id="panel-line-2"
-            >It's so good to hear from you - it really has been too long. I'd
-            love to be there, but I already have plans locked in for Friday
-            night. Could we get coffee next week and properly catch up? I want
-            to hear everything.</span
-          ><span class="line" id="panel-line-3">Take care,</span
-          ><span class="line" id="panel-line-4">Alex</span>
+        <div class="sparkle" id="sp-2">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+            />
+          </svg>
         </div>
-        <div class="panel__actions" id="panel-actions">
-          <button class="btn btn--primary" id="btn-replace">
-            Replace draft
-          </button>
-          <button class="btn btn--ghost" id="btn-dismiss">Dismiss</button>
+        <div class="sparkle" id="sp-3">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+            />
+          </svg>
         </div>
-      </div>
+        <div class="sparkle" id="sp-4">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+            />
+          </svg>
+        </div>
+        <div class="sparkle" id="sp-5">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+            />
+          </svg>
+        </div>
+        <div class="sparkle" id="sp-6">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+            />
+          </svg>
+        </div>
+        <div class="sparkle" id="sp-7">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+            />
+          </svg>
+        </div>
+        <div class="sparkle" id="sp-8">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
+            />
+          </svg>
+        </div>
 
-      <!-- ============== CURSOR ============== -->
-      <div class="cursor" id="cursor">
-        <svg viewBox="0 0 32 32">
-          <path
-            d="M5 3 L5 25 L11 19.5 L14.5 27 L18.5 25 L15 17.5 L23 17.5 Z"
-            fill="#0E1525"
-            stroke="#FAF8F5"
-            stroke-width="1.4"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <!-- ============== SEND TRAIL DOTS ============== -->
+        <div class="send-trail" id="st-1"></div>
+        <div class="send-trail" id="st-2"></div>
+        <div class="send-trail" id="st-3"></div>
+        <div class="send-trail" id="st-4"></div>
+        <div class="send-trail" id="st-5"></div>
       </div>
-
-      <!-- ============== CLICK RING ============== -->
-      <div class="click-ring" id="click-ring"></div>
-
-      <!-- ============== SPARKLES (8) ============== -->
-      <div class="sparkle" id="sp-1">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
-          />
-        </svg>
-      </div>
-      <div class="sparkle" id="sp-2">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
-          />
-        </svg>
-      </div>
-      <div class="sparkle" id="sp-3">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
-          />
-        </svg>
-      </div>
-      <div class="sparkle" id="sp-4">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
-          />
-        </svg>
-      </div>
-      <div class="sparkle" id="sp-5">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
-          />
-        </svg>
-      </div>
-      <div class="sparkle" id="sp-6">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
-          />
-        </svg>
-      </div>
-      <div class="sparkle" id="sp-7">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
-          />
-        </svg>
-      </div>
-      <div class="sparkle" id="sp-8">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z"
-          />
-        </svg>
-      </div>
-
-      <!-- ============== SEND TRAIL DOTS ============== -->
-      <div class="send-trail" id="st-1"></div>
-      <div class="send-trail" id="st-2"></div>
-      <div class="send-trail" id="st-3"></div>
-      <div class="send-trail" id="st-4"></div>
-      <div class="send-trail" id="st-5"></div>
 
       <!-- ============== OUTRO ============== -->
       <div class="outro" id="outro">
-        <div class="outro__glyph" id="outro-glyph">sw</div>
+        <div class="outro__glyph" id="outro-glyph" aria-label="sw"></div>
         <div class="outro__wordmark" id="outro-wordmark">Simple Words</div>
         <div class="outro__tag" id="outro-tag">
           Say what you mean.<br />Send what you want.

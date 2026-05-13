@@ -29,10 +29,10 @@ Re-extract any changed stills from `../marketing-video/simplewords-marketing.mp4
 From `chrome-web-store-assets`, use these frame timestamps:
 
 ```sh
-ffmpeg -ss 7.100 -i ../marketing-video/simplewords-marketing.mp4 -frames:v 1 -vf scale=800:800 frames/01-email-reveal.jpg
+ffmpeg -ss 4.300 -i ../marketing-video/simplewords-marketing.mp4 -frames:v 1 -vf scale=800:800 frames/01-email-reveal.jpg
 ffmpeg -ss 10.367 -i ../marketing-video/simplewords-marketing.mp4 -frames:v 1 -vf scale=800:800 frames/02-rough-reply.jpg
-ffmpeg -ss 12.100 -i ../marketing-video/simplewords-marketing.mp4 -frames:v 1 -vf scale=800:800 frames/03-click-button.jpg
-ffmpeg -ss 16.200 -i ../marketing-video/simplewords-marketing.mp4 -frames:v 1 -vf scale=800:800 frames/04-refined-draft.jpg
+ffmpeg -ss 12.600 -i ../marketing-video/simplewords-marketing.mp4 -frames:v 1 -vf scale=800:800 frames/03-click-button.jpg
+ffmpeg -ss 15.200 -i ../marketing-video/simplewords-marketing.mp4 -frames:v 1 -vf scale=800:800 frames/04-refined-draft.jpg
 ffmpeg -ss 21.100 -i ../marketing-video/simplewords-marketing.mp4 -frames:v 1 -vf scale=800:800 frames/05-replace-send.jpg
 ```
 

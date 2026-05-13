@@ -25,8 +25,8 @@ Preserve that visibility contract in production-facing work.
 - `RefinePanel` - paper-tinted blur panel with `--shadow-3`.
   Two states: `loading` ("Refining..." with the loader spin) and `ready` (rewritten reply + actions).
 - `OptionsPage` - single column 680px max width.
-  Production uses three step cards: `Model provider`, `Where it appears`, and `Writing style`.
-  The native provider `select` lives in `Model provider`, and the selected provider still controls the provider-section show/hide contract.
+  Production uses three step cards: `AI model provider`, `Where it appears`, and `Writing style`.
+  The native provider `select` lives in `AI model provider`, and the selected provider still controls the provider-section show/hide contract.
   This prototype may use a tabbed `ProviderSelect`; do not copy that pattern into production without checking `extension/options.html`.
 - `Field` / `Section` / `Button` - small primitives.
 

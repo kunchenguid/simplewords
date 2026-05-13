@@ -15,9 +15,8 @@
     "message": "امنح Simple Words سياقا كافيا عنك حتى تبدو الردود طبيعية. يتوفر موجه النظام الكامل عندما تحتاج إلى تحكم دقيق."
   },
   "myNameLabel": { "message": "اسمي" },
-  "optionalPlaceholder": { "message": "اختياري" },
-  "myNameHelp": {
-    "message": "اختياري. عند ضبطه، يضاف إلى تعليمات إعادة الصياغة ليستخدمه النموذج في التوقيعات عند الحاجة."
+  "optionalPlaceholder": {
+    "message": "اختياري. عند ضبطه، يستخدم لإنشاء توقيعك."
   },
   "systemPromptLabel": { "message": "موجه النظام" },
   "systemPromptHelp": {
@@ -25,7 +24,7 @@
   },
   "enabledDomainsHeading": { "message": "أين يظهر" },
   "enabledDomainsLead": {
-    "message": "يظهر Simple Words فقط على أسماء المضيفين هذه. أضف نطاقا واحدا في كل سطر."
+    "message": "يظهر Simple Words فقط على هذه المواقع. أضف نطاقا واحدا في كل سطر."
   },
   "enabledDomainsLabel": { "message": "النطاقات" },
   "enabledDomainsHelp": {
@@ -34,24 +33,29 @@
   "advancedWritingInstructionsSummary": {
     "message": "تعليمات كتابة متقدمة"
   },
-  "providerHeading": { "message": "مزود النموذج" },
+  "providerHeading": { "message": "مزود نموذج الذكاء الاصطناعي" },
   "providerLead": {
-    "message": "اختر الخدمة التي يستدعيها Simple Words من متصفحك. تظهر فقط إعدادات المزود المحدد."
+    "message": "اختر مزود نموذج الذكاء الاصطناعي الذي يجب أن يستخدمه Simple Words لإنشاء محتوى محسّن."
   },
-  "providerBackendLabel": { "message": "الخلفية" },
-  "providerOpenAICompatible": { "message": "متوافق مع OpenAI" },
-  "providerCodexBackend": { "message": "خلفية Codex" },
+  "providerBackendLabel": { "message": "المزود" },
+  "providerOpenAICompatible": {
+    "message": "OpenAI (أو نقطة نهاية متوافقة) مع مفتاح API"
+  },
+  "providerCodexBackend": { "message": "اشتراك Codex" },
   "providerOllama": { "message": "Ollama" },
-  "openAIHeading": { "message": "متوافق مع OpenAI" },
+  "openAIHeading": {
+    "message": "OpenAI (أو نقطة نهاية متوافقة) مع مفتاح API"
+  },
   "apiKeyLabel": { "message": "مفتاح API" },
   "openAIBaseURLLabel": { "message": "عنوان URL الأساسي" },
   "openAIModelLabel": { "message": "النموذج" },
   "reasoningEffortLabel": { "message": "جهد الاستدلال" },
-  "codexHeading": { "message": "خلفية Codex" },
-  "codexLeadBeforePath": {
-    "message": "لا تستطيع إضافات Chrome قراءة مصادقة Codex CLI من القرص بصمت. اختر ملف مصادقة Codex CLI، عادة "
+  "codexHeading": { "message": "اشتراك Codex" },
+  "codexLeadBeforePath": { "message": "قم بإعداد Codex (" },
+  "codexLeadAfterDocsLink": {
+    "message": ")، واختر ملف مصادقة Codex، عادة في "
   },
-  "codexLeadAfterPath": { "message": "، لاستيراد الرمز." },
+  "codexLeadAfterPath": { "message": "." },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "رمز الوصول" },
   "codexAccessTokenPlaceholder": {
@@ -65,10 +69,6 @@
   "ollamaBaseURLLabel": { "message": "عنوان URL الأساسي" },
   "ollamaModelLabel": { "message": "النموذج" },
   "saveButton": { "message": "حفظ" },
-  "privacyFootBefore": {
-    "message": "تذهب الطلبات مباشرة من متصفحك إلى مزودك."
-  },
-  "privacyFootEmphasis": { "message": "لا يمر أي شيء عبر Simple Words." },
   "savedStatus": { "message": "تم الحفظ." },
   "codexAuthImportedStatus": {
     "message": "تم استيراد مصادقة Codex. انقر حفظ للاحتفاظ بهذه الإعدادات."

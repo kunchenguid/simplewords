@@ -33,8 +33,8 @@ function Section({ title, lead, children }) {
 
 function ProviderSegmented({ value, onChange }) {
   const opts = [
-    { id: 'openai', label: 'OpenAI-compatible' },
-    { id: 'codex', label: 'Codex backend' },
+    { id: 'openai', label: 'OpenAI (or a compatible endpoint) with API Key' },
+    { id: 'codex', label: 'Codex subscription' },
     { id: 'ollama', label: 'Ollama' }
   ]
   return (
@@ -57,7 +57,7 @@ function ProviderSegmented({ value, onChange }) {
 
 function OpenAIPanel({ s, set }) {
   return (
-    <Section title="OpenAI-compatible">
+    <Section title="OpenAI (or a compatible endpoint) with API Key">
       <Field label="API key">
         <input
           type="password"
@@ -100,12 +100,19 @@ function OpenAIPanel({ s, set }) {
 function CodexPanel({ s, set }) {
   return (
     <Section
-      title="Codex backend"
+      title="Codex subscription"
       lead={
         <>
-          Chrome extensions cannot silently read Codex CLI auth from disk.
-          Select your Codex CLI auth file, usually{' '}
-          <code>~/.codex/auth.json</code>, to import the token.
+          Setup Codex (
+          <a
+            href="https://developers.openai.com/codex"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            https://developers.openai.com/codex
+          </a>
+          ), and select your Codex auth file, usually at{' '}
+          <code>~/.codex/auth.json</code>.
         </>
       }
     >
@@ -222,17 +229,14 @@ function OptionsPage() {
         </div>
 
         <Section
-          title="Writing instructions"
-          lead="This system prompt is sent with every rewrite request. Keep the page text and email content treated as context, not instructions."
+          title="Writing style"
+          lead="Teach Simple Words enough about you to make replies feel natural. The full system prompt is there when you need precise control."
         >
-          <Field
-            label="My name"
-            hint="Optional. When set, this is included in the rewrite instructions so the model can use it for signatures when appropriate."
-          >
+          <Field label="My name">
             <input
               type="text"
               autoComplete="name"
-              placeholder="Optional"
+              placeholder="Optional. When set, this is used to generate your signature."
               value={settings.myName}
               onChange={(e) => set({ myName: e.target.value })}
             />
@@ -249,7 +253,10 @@ function OptionsPage() {
           </Field>
         </Section>
 
-        <Section title="Provider">
+        <Section
+          title="AI model provider"
+          lead="Choose which AI model provider Simple Words should use to generate refined content."
+        >
           <ProviderSegmented
             value={settings.provider}
             onChange={(p) => set({ provider: p })}
@@ -275,11 +282,6 @@ function OptionsPage() {
             <IconCheck /> Saved.
           </span>
         </div>
-
-        <p className="opt__foot">
-          Calls go directly from your browser to your provider.{' '}
-          <em>Nothing routes through Simple Words.</em>
-        </p>
       </div>
     </div>
   )

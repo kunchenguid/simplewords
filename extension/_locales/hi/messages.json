@@ -15,9 +15,8 @@
     "message": "Simple Words को अपने बारे में इतना संदर्भ दें कि जवाब स्वाभाविक लगें। जब सटीक नियंत्रण चाहिए, पूरा system prompt उपलब्ध है।"
   },
   "myNameLabel": { "message": "मेरा नाम" },
-  "optionalPlaceholder": { "message": "वैकल्पिक" },
-  "myNameHelp": {
-    "message": "वैकल्पिक। सेट होने पर यह rewrite निर्देशों में शामिल होता है ताकि मॉडल उचित होने पर हस्ताक्षर में इसका उपयोग कर सके।"
+  "optionalPlaceholder": {
+    "message": "वैकल्पिक। सेट होने पर इसका उपयोग आपका हस्ताक्षर बनाने के लिए किया जाता है।"
   },
   "systemPromptLabel": { "message": "सिस्टम प्रॉम्प्ट" },
   "systemPromptHelp": {
@@ -25,7 +24,7 @@
   },
   "enabledDomainsHeading": { "message": "यह कहां दिखाई देता है" },
   "enabledDomainsLead": {
-    "message": "Simple Words केवल इन hostnames पर दिखाई देता है। हर पंक्ति में एक domain जोड़ें।"
+    "message": "Simple Words केवल इन वेबसाइटों पर दिखाई देता है। हर पंक्ति में एक domain जोड़ें।"
   },
   "enabledDomainsLabel": { "message": "डोमेन" },
   "enabledDomainsHelp": {
@@ -34,24 +33,29 @@
   "advancedWritingInstructionsSummary": {
     "message": "उन्नत लेखन निर्देश"
   },
-  "providerHeading": { "message": "मॉडल प्रदाता" },
+  "providerHeading": { "message": "AI मॉडल प्रदाता" },
   "providerLead": {
-    "message": "वह सेवा चुनें जिसे Simple Words आपके ब्राउज़र से कॉल करता है। केवल चुने गए प्रदाता की सेटिंग्स दिखाई जाती हैं।"
+    "message": "चुनें कि परिष्कृत सामग्री बनाने के लिए Simple Words किस AI मॉडल प्रदाता का उपयोग करे।"
   },
-  "providerBackendLabel": { "message": "बैकएंड" },
-  "providerOpenAICompatible": { "message": "OpenAI-संगत" },
-  "providerCodexBackend": { "message": "Codex बैकएंड" },
+  "providerBackendLabel": { "message": "प्रदाता" },
+  "providerOpenAICompatible": {
+    "message": "API Key के साथ OpenAI (या संगत endpoint)"
+  },
+  "providerCodexBackend": { "message": "Codex सदस्यता" },
   "providerOllama": { "message": "Ollama" },
-  "openAIHeading": { "message": "OpenAI-संगत" },
+  "openAIHeading": {
+    "message": "API Key के साथ OpenAI (या संगत endpoint)"
+  },
   "apiKeyLabel": { "message": "API कुंजी" },
   "openAIBaseURLLabel": { "message": "बेस URL" },
   "openAIModelLabel": { "message": "मॉडल" },
   "reasoningEffortLabel": { "message": "तर्क प्रयास" },
-  "codexHeading": { "message": "Codex बैकएंड" },
-  "codexLeadBeforePath": {
-    "message": "Chrome एक्सटेंशन डिस्क से Codex CLI auth चुपचाप नहीं पढ़ सकते। अपना Codex CLI auth फ़ाइल चुनें, आम तौर पर "
+  "codexHeading": { "message": "Codex सदस्यता" },
+  "codexLeadBeforePath": { "message": "Codex (" },
+  "codexLeadAfterDocsLink": {
+    "message": ") सेट करें, और अपना Codex auth file चुनें, आम तौर पर "
   },
-  "codexLeadAfterPath": { "message": ", ताकि token import हो सके।" },
+  "codexLeadAfterPath": { "message": "." },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "Access token" },
   "codexAccessTokenPlaceholder": {
@@ -65,10 +69,6 @@
   "ollamaBaseURLLabel": { "message": "बेस URL" },
   "ollamaModelLabel": { "message": "मॉडल" },
   "saveButton": { "message": "सहेजें" },
-  "privacyFootBefore": {
-    "message": "कॉल सीधे आपके ब्राउज़र से आपके प्रदाता तक जाते हैं।"
-  },
-  "privacyFootEmphasis": { "message": "Simple Words से कुछ भी नहीं गुजरता।" },
   "savedStatus": { "message": "सहेजा गया।" },
   "codexAuthImportedStatus": {
     "message": "Codex auth import हो गया। इन सेटिंग्स को रखने के लिए Save क्लिक करें।"

@@ -138,6 +138,24 @@ describe('options page', () => {
     )
   })
 
+  test('links to Codex setup docs in a new tab', async () => {
+    document.body.innerHTML = await readFile(
+      `${process.cwd()}/extension/options.html`,
+      'utf8'
+    )
+
+    const link = document.querySelector<HTMLAnchorElement>(
+      'a[href="https://developers.openai.com/codex"]'
+    )
+
+    expect(link).not.toBeNull()
+    expect(link?.target).toBe('_blank')
+    expect(link?.rel).toContain('noopener')
+    expect(link?.textContent?.trim()).toBe(
+      'https://developers.openai.com/codex'
+    )
+  })
+
   test('localizes visible step labels', async () => {
     document.body.innerHTML = await readFile(
       `${process.cwd()}/extension/options.html`,
