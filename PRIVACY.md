@@ -34,6 +34,7 @@ The provider you choose may process the request according to that provider's own
 
 If you use a local provider such as Ollama, requests may stay on your own machine depending on your local setup.
 If you use a remote provider such as OpenAI or Codex, requests are sent to that provider over the network.
+If you sign in with Codex, Simple Words opens OpenAI's Codex sign-in page, observes the localhost callback URL in the sign-in tab, exchanges the authorization code with OpenAI, and saves the returned Codex tokens locally.
 
 ## Local Storage
 
@@ -44,7 +45,7 @@ This information is used only to run the extension with your chosen configuratio
 ## Data Sharing
 
 Simple Words does not share data with the developer's own servers.
-Simple Words only sends data to the model provider or endpoint that you configure.
+Simple Words only sends data to the model provider or endpoint that you configure, or to OpenAI during Codex sign-in and token refresh.
 
 ## Data Retention
 

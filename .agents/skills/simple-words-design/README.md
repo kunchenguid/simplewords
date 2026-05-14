@@ -44,7 +44,7 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 
 - **Plain, direct, considered.** No exclamation marks, no marketing puff. The product _itself_ is about turning rough into polished, so the copy practices what it preaches.
 - **Confidently quiet.** No "✨ AI-powered" flourishes. No emoji. The intelligence is in the result, not the chrome.
-- **Humble about LLMs.** From the existing options copy: _"Setup Codex (https://developers.openai.com/codex), and select your Codex auth file, usually at ~/.codex/auth.json."_ No hand-waving.
+- **Humble about LLMs.** From the existing options copy: _"Sign in with Codex is the recommended setup path. Simple Words opens Codex sign-in, stores the returned tokens, and refreshes them automatically."_ No hand-waving.
 - **Lowercase except where required.** Sentence case for headings (`Writing style`, not `Writing Style` or `WRITING STYLE`).
   Buttons are sentence case (`Replace draft`, `Dismiss`, `Save`).
 
