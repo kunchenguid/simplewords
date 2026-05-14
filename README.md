@@ -80,29 +80,29 @@ Then open `chrome://extensions`, enable **Developer mode**, click **Load unpacke
 
 ```
 ┌──────────────────────┐
-│ You write a rough     │
-│ draft in an editor    │
+│ You write a rough    │
+│ draft in an editor   │
 └──────────┬───────────┘
            ▼
 ┌──────────────────────┐
-│ Simple Words detects  │
-│ a visible editable    │
-│ field on an enabled   │
-│ domain                │
+│ Simple Words detects │
+│ a visible editable   │
+│ field on an enabled  │
+│ domain               │
 └──────────┬───────────┘
            ▼
 ┌──────────────────────┐
-│ The floating button   │
-│ sends your draft and  │
-│ page context to your  │
-│ selected provider     │
+│ The floating button  │
+│ sends your draft and │
+│ page context to your │
+│ selected provider    │
 └──────────┬───────────┘
            ▼
 ┌──────────────────────┐
-│ You review the        │
-│ refined reply and     │
-│ decide whether to     │
-│ replace the draft     │
+│ You review the       │
+│ refined reply and    │
+│ decide whether to    │
+│ replace the draft    │
 └──────────────────────┘
 ```
 
@@ -142,7 +142,7 @@ There is no hosted Simple Words backend in the request path.
 | Codex base URL  | `https://chatgpt.com/backend-api/codex`                                                                       |
 | Codex model     | `gpt-5.5-fast`                                                                                                |
 | Ollama base URL | `http://localhost:11434/v1`                                                                                   |
-| Ollama model    | `llama3.2`                                                                                                    |
+| Ollama model    | `gemma4`                                                                                                      |
 | Enabled domains | `mail.google.com`, `outlook.live.com`, `outlook.office.com`, `mail.yahoo.com`, `icloud.com`, `mail.proton.me` |
 
 ## Development
