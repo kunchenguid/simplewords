@@ -37,6 +37,9 @@ export function parseCodexAuthJson(raw: string): CodexAuth {
   const refreshToken = cleanString(
     (tokens as { refresh_token?: unknown }).refresh_token
   )
+  if (!refreshToken) {
+    throw new Error(t('codexRefreshTokenMissing'))
+  }
   const accountId =
     cleanString((payload as { account_id?: unknown }).account_id) ??
     extractAccountId(accessToken) ??
@@ -44,7 +47,7 @@ export function parseCodexAuthJson(raw: string): CodexAuth {
 
   return {
     accessToken,
-    refreshToken: refreshToken ?? '',
+    refreshToken,
     accountId
   }
 }

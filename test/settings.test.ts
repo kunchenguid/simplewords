@@ -9,6 +9,7 @@ import * as settings from '../src/settings'
 import {
   DEFAULT_SETTINGS,
   DEFAULT_SYSTEM_PROMPT,
+  isProviderConfigured,
   normalizeSettings
 } from '../src/settings'
 
@@ -65,6 +66,28 @@ describe('domain enablement settings', () => {
     expect(
       isSimpleWordsEnabledForUrl?.(DEFAULT_SETTINGS, 'https://docs.google.com/')
     ).toBe(false)
+  })
+})
+
+describe('provider configuration settings', () => {
+  test('requires both Codex access and refresh tokens', () => {
+    expect(
+      isProviderConfigured({
+        ...DEFAULT_SETTINGS,
+        provider: 'codex',
+        codexAccessToken: 'codex-access-token',
+        codexRefreshToken: ''
+      })
+    ).toBe(false)
+
+    expect(
+      isProviderConfigured({
+        ...DEFAULT_SETTINGS,
+        provider: 'codex',
+        codexAccessToken: 'codex-access-token',
+        codexRefreshToken: 'codex-refresh-token'
+      })
+    ).toBe(true)
   })
 })
 

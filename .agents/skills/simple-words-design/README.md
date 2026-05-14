@@ -57,7 +57,7 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 ### Casing
 
 - **Headings:** sentence case. `Writing style`, `Advanced writing instructions`, `AI model provider`, `Codex subscription`.
-- **Buttons:** sentence case verb-first when an action (`Save`, `Replace draft`, `Dismiss`). Title case for the brand button itself: `Simple Words`.
+- **Buttons:** sentence case verb-first when an action (`Save`, `Open settings`, `Replace draft`, `Dismiss`). Title case for the brand button itself: `Simple Words`.
 - **Labels:** sentence case (`My name`, `System prompt`, `Reasoning effort`).
 - **Provider/option values:** lowercase (`none`, `low`, `medium`, `high`, `xhigh`).
 
@@ -67,6 +67,8 @@ Simple Words is a **quiet, useful tool**. It does one thing — make your reply 
 - Options-page intro: _"Choose an LLM provider. The extension calls the selected provider directly after you click the Simple Words button."_
 - Provider step lead: _"Choose which AI model provider Simple Words should use to generate refined content."_
 - Empty-state error: _"Write a rough reply first."_
+- Setup guidance: _"Set up Simple Words first. Choose an AI model provider to start refining drafts."_
+- Provider error guidance: _"Something went wrong with your AI model provider. Double-check your settings, then try again."_
 - Loading: button _"Refining"_, panel heading _"Refining draft"_, panel body _"Refining..."_
 - System-prompt hint: _"Leave blank to restore the default system prompt."_
 - Save confirmation: _"Saved."_ (single word, with period.)

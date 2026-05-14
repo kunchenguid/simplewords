@@ -61,6 +61,8 @@
   "codexAccessTokenPlaceholder": {
     "message": "Aus auth.json importiert oder manuell eingefügt"
   },
+  "codexRefreshTokenLabel": { "message": "Refresh-Token" },
+  "codexRefreshTokenPlaceholder": { "message": "Aus auth.json importiert" },
   "codexAccountIdLabel": { "message": "ChatGPT-Konto-ID" },
   "codexAccountIdPlaceholder": { "message": "Optional" },
   "codexBaseURLLabel": { "message": "Basis-URL" },
@@ -97,9 +99,18 @@
   "noReplyMessage": { "message": "Keine Antwort zurückgegeben." },
   "loadingPanelTitle": { "message": "Entwurf wird verbessert" },
   "resultPanelTitle": { "message": "Verbesserter Entwurf" },
+  "messagePanelTitle": { "message": "Entwurf konnte nicht verbessert werden" },
   "loadingPanelMessage": { "message": "Verbessert..." },
   "replaceDraftButton": { "message": "Entwurf ersetzen" },
+  "openSettingsButton": { "message": "Einstellungen öffnen" },
   "dismissButton": { "message": "Schließen" },
   "panelAriaLabel": { "message": "Simple Words Verbesserung" },
+  "providerSetupRequired": {
+    "message": "Richte Simple Words zuerst ein. Wähle einen KI-Anbieter, um Entwürfe zu verbessern."
+  },
+  "providerRefineFailed": {
+    "message": "Bei deinem KI-Anbieter ist etwas schiefgelaufen. Prüfe deine Einstellungen und versuche es erneut."
+  },
+  "providerErrorDetailLabel": { "message": "Anbieterfehler:" },
   "unableToRefineReply": { "message": "Antwort konnte nicht verbessert werden" }
 }

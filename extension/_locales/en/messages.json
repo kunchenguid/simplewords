@@ -61,6 +61,8 @@
   "codexAccessTokenPlaceholder": {
     "message": "Imported from auth.json or pasted manually"
   },
+  "codexRefreshTokenLabel": { "message": "Refresh token" },
+  "codexRefreshTokenPlaceholder": { "message": "Imported from auth.json" },
   "codexAccountIdLabel": { "message": "ChatGPT account ID" },
   "codexAccountIdPlaceholder": { "message": "Optional" },
   "codexBaseURLLabel": { "message": "Base URL" },
@@ -93,9 +95,18 @@
   "noReplyMessage": { "message": "No reply returned." },
   "loadingPanelTitle": { "message": "Refining draft" },
   "resultPanelTitle": { "message": "Refined draft" },
+  "messagePanelTitle": { "message": "Couldn't refine draft" },
   "loadingPanelMessage": { "message": "Refining..." },
   "replaceDraftButton": { "message": "Replace draft" },
+  "openSettingsButton": { "message": "Open settings" },
   "dismissButton": { "message": "Dismiss" },
   "panelAriaLabel": { "message": "Simple Words refinement" },
+  "providerSetupRequired": {
+    "message": "Set up Simple Words first. Choose an AI model provider to start refining drafts."
+  },
+  "providerRefineFailed": {
+    "message": "Something went wrong with your AI model provider. Double-check your settings, then try again."
+  },
+  "providerErrorDetailLabel": { "message": "Provider error:" },
   "unableToRefineReply": { "message": "Unable to refine reply" }
 }

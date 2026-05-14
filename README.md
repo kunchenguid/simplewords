@@ -105,21 +105,21 @@ Then open `chrome://extensions`, enable **Developer mode**, click **Load unpacke
 
 ## Extension Reference
 
-| Surface         | Description                                                                                        |
-| --------------- | -------------------------------------------------------------------------------------------------- |
-| Floating button | Appears near focused editable fields on enabled domains, including empty drafts.                   |
-| Result panel    | Shows the refined draft with **Replace draft** and **Dismiss** actions.                            |
-| Options page    | Stores provider settings, writing instructions, name, and enabled domains in Chrome local storage. |
+| Surface         | Description                                                                                                                                                  |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Floating button | Appears near focused editable fields on enabled domains, including empty drafts.                                                                             |
+| Result panel    | Shows loading, setup or provider error guidance, and refined draft states with **Open settings**, **Replace draft**, and **Dismiss** actions as appropriate. |
+| Options page    | Stores provider settings, writing instructions, name, and enabled domains in Chrome local storage.                                                           |
 
 If the button or panel disappears after the extension reloads or updates while a mail tab is still open, refresh the active mail tab and try again.
 
 ### Provider Settings
 
-| Provider                                       | Settings                                                                |
-| ---------------------------------------------- | ----------------------------------------------------------------------- |
-| OpenAI (or a compatible endpoint) with API Key | API key, base URL, model, and reasoning effort.                         |
-| Codex subscription                             | Imported `auth.json` token data, base URL, model, and reasoning effort. |
-| Ollama                                         | Local base URL and model.                                               |
+| Provider                                       | Settings                                                            |
+| ---------------------------------------------- | ------------------------------------------------------------------- |
+| OpenAI (or a compatible endpoint) with API Key | API key, base URL, model, and reasoning effort.                     |
+| Codex subscription                             | Access token, refresh token, base URL, model, and reasoning effort. |
+| Ollama                                         | Local base URL and model.                                           |
 
 ## Configuration
 
@@ -149,6 +149,8 @@ npm run lint # Run ESLint
 npm run format:check # Check formatting
 npm run check # Run format, lint, Vitest, build, and browser tests
 ```
+
+`npm run test:e2e` launches the extension in headed Chromium, so it requires a graphical display.
 
 The built files `extension/background.js`, `extension/content.js`, `extension/options.js`, and `extension/chunks/` are generated artifacts and are not tracked in Git.
 

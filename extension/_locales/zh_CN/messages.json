@@ -49,6 +49,8 @@
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "访问令牌" },
   "codexAccessTokenPlaceholder": { "message": "从 auth.json 导入或手动粘贴" },
+  "codexRefreshTokenLabel": { "message": "刷新令牌" },
+  "codexRefreshTokenPlaceholder": { "message": "从 auth.json 导入" },
   "codexAccountIdLabel": { "message": "ChatGPT 账户 ID" },
   "codexAccountIdPlaceholder": { "message": "可选" },
   "codexBaseURLLabel": { "message": "基础 URL" },
@@ -77,9 +79,18 @@
   "noReplyMessage": { "message": "没有返回回复。" },
   "loadingPanelTitle": { "message": "正在润色草稿" },
   "resultPanelTitle": { "message": "已润色草稿" },
+  "messagePanelTitle": { "message": "无法润色草稿" },
   "loadingPanelMessage": { "message": "正在润色..." },
   "replaceDraftButton": { "message": "替换草稿" },
+  "openSettingsButton": { "message": "打开设置" },
   "dismissButton": { "message": "关闭" },
   "panelAriaLabel": { "message": "Simple Words 润色" },
+  "providerSetupRequired": {
+    "message": "请先设置 Simple Words。选择一个 AI 模型提供方后再开始润色草稿。"
+  },
+  "providerRefineFailed": {
+    "message": "你的 AI 模型提供方出了问题。请检查设置后重试。"
+  },
+  "providerErrorDetailLabel": { "message": "提供方错误：" },
   "unableToRefineReply": { "message": "无法润色回复" }
 }

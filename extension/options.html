@@ -454,7 +454,18 @@
               placeholder="Imported from auth.json or pasted manually"
             />
           </div>
-          <input id="codexRefreshToken" type="hidden" />
+          <div class="field">
+            <label for="codexRefreshToken" data-i18n="codexRefreshTokenLabel">
+              Refresh token
+            </label>
+            <input
+              id="codexRefreshToken"
+              type="password"
+              autocomplete="off"
+              data-i18n-placeholder="codexRefreshTokenPlaceholder"
+              placeholder="Imported from auth.json"
+            />
+          </div>
           <div class="field">
             <label for="codexAccountId" data-i18n="codexAccountIdLabel">
               ChatGPT account ID

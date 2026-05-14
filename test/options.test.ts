@@ -156,6 +156,20 @@ describe('options page', () => {
     )
   })
 
+  test('shows Codex refresh token as an editable field', async () => {
+    document.body.innerHTML = await readFile(
+      `${process.cwd()}/extension/options.html`,
+      'utf8'
+    )
+
+    const refreshToken = document.getElementById('codexRefreshToken')
+    const label = document.querySelector('label[for="codexRefreshToken"]')
+
+    expect(refreshToken).toBeInstanceOf(HTMLInputElement)
+    expect((refreshToken as HTMLInputElement).type).toBe('password')
+    expect(label?.getAttribute('data-i18n')).toBe('codexRefreshTokenLabel')
+  })
+
   test('localizes visible step labels', async () => {
     document.body.innerHTML = await readFile(
       `${process.cwd()}/extension/options.html`,

@@ -61,6 +61,8 @@
   "codexAccessTokenPlaceholder": {
     "message": "Importé depuis auth.json ou collé manuellement"
   },
+  "codexRefreshTokenLabel": { "message": "Jeton d'actualisation" },
+  "codexRefreshTokenPlaceholder": { "message": "Importé depuis auth.json" },
   "codexAccountIdLabel": { "message": "ID du compte ChatGPT" },
   "codexAccountIdPlaceholder": { "message": "Facultatif" },
   "codexBaseURLLabel": { "message": "URL de base" },
@@ -97,9 +99,18 @@
   "noReplyMessage": { "message": "Aucune réponse renvoyée." },
   "loadingPanelTitle": { "message": "Amélioration du brouillon" },
   "resultPanelTitle": { "message": "Brouillon amélioré" },
+  "messagePanelTitle": { "message": "Impossible d'améliorer le brouillon" },
   "loadingPanelMessage": { "message": "Amélioration..." },
   "replaceDraftButton": { "message": "Remplacer le brouillon" },
+  "openSettingsButton": { "message": "Ouvrir les réglages" },
   "dismissButton": { "message": "Fermer" },
   "panelAriaLabel": { "message": "Amélioration Simple Words" },
+  "providerSetupRequired": {
+    "message": "Configurez d'abord Simple Words. Choisissez un fournisseur d'IA pour commencer à améliorer vos brouillons."
+  },
+  "providerRefineFailed": {
+    "message": "Un problème est survenu avec votre fournisseur d'IA. Vérifiez vos réglages, puis réessayez."
+  },
+  "providerErrorDetailLabel": { "message": "Erreur du fournisseur :" },
   "unableToRefineReply": { "message": "Impossible d'améliorer la réponse" }
 }

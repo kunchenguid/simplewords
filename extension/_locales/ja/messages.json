@@ -59,6 +59,8 @@
   "codexAccessTokenPlaceholder": {
     "message": "auth.json からインポート、または手動で貼り付け"
   },
+  "codexRefreshTokenLabel": { "message": "リフレッシュトークン" },
+  "codexRefreshTokenPlaceholder": { "message": "auth.json からインポート" },
   "codexAccountIdLabel": { "message": "ChatGPT アカウント ID" },
   "codexAccountIdPlaceholder": { "message": "任意" },
   "codexBaseURLLabel": { "message": "ベース URL" },
@@ -95,9 +97,18 @@
   "noReplyMessage": { "message": "返信が返されませんでした。" },
   "loadingPanelTitle": { "message": "下書きを調整中" },
   "resultPanelTitle": { "message": "調整済みの下書き" },
+  "messagePanelTitle": { "message": "下書きを調整できませんでした" },
   "loadingPanelMessage": { "message": "調整中..." },
   "replaceDraftButton": { "message": "下書きを置き換え" },
+  "openSettingsButton": { "message": "設定を開く" },
   "dismissButton": { "message": "閉じる" },
   "panelAriaLabel": { "message": "Simple Words の調整" },
+  "providerSetupRequired": {
+    "message": "先に Simple Words を設定してください。下書きの調整を始めるには AI モデルプロバイダーを選んでください。"
+  },
+  "providerRefineFailed": {
+    "message": "AI モデルプロバイダーで問題が発生しました。設定を確認してから、もう一度お試しください。"
+  },
+  "providerErrorDetailLabel": { "message": "プロバイダーエラー:" },
   "unableToRefineReply": { "message": "返信を調整できませんでした" }
 }
