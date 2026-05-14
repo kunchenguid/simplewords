@@ -194,12 +194,16 @@ async function closeOptionsPages(
   extensionBaseURL: string
 ): Promise<void> {
   await waitForOptionsPage(context, extensionBaseURL, 1_000).catch(() => null)
-  await Promise.all(
-    context
-      .pages()
-      .filter((page) => page.url() === `${extensionBaseURL}options.html`)
-      .map((page) => page.close())
+  const pages = context.pages()
+  const optionsPages = pages.filter(
+    (page) => page.url() === `${extensionBaseURL}options.html`
   )
+
+  if (optionsPages.length === pages.length) {
+    await context.newPage()
+  }
+
+  await Promise.all(optionsPages.map((page) => page.close()))
 }
 
 async function waitForOptionsPage(
