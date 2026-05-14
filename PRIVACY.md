@@ -15,7 +15,7 @@ When you click the Simple Words button, the extension may process:
 - Visible page text near the active editable field, used as context for the rewrite.
 - The page title and page URL, used as context for the rewrite.
 - Your saved settings, such as model provider, API endpoint, model name, reasoning preference, custom writing instructions, and your name if you provide it.
-- Authentication information needed to call your selected model provider, such as an API key or Codex access and refresh tokens.
+- Authentication information needed to call your selected model provider, such as an API key, Codex access and refresh tokens, or ChatGPT account ID.
 
 Simple Words does not intentionally collect health information, financial information, precise location, browsing history, or user activity analytics.
 
