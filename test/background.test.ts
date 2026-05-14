@@ -38,7 +38,9 @@ describe('background service worker', () => {
     })
 
     await import('../src/background')
-    installedListener?.({ reason: 'install' } as chrome.runtime.InstalledDetails)
+    installedListener?.({
+      reason: 'install'
+    } as chrome.runtime.InstalledDetails)
 
     expect(openOptionsPage).toHaveBeenCalledTimes(1)
   })
