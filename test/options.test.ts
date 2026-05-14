@@ -48,6 +48,17 @@ describe('options page', () => {
     ).toBe('translated optionalPlaceholder')
   })
 
+  test('shows the default Ollama model as the placeholder', async () => {
+    document.body.innerHTML = await readFile(
+      `${process.cwd()}/extension/options.html`,
+      'utf8'
+    )
+
+    expect(
+      document.getElementById('ollamaModel')?.getAttribute('placeholder')
+    ).toBe(DEFAULT_SETTINGS.ollamaModel)
+  })
+
   test('restores and saves the configured system prompt', async () => {
     document.body.innerHTML = `
       <select id="provider"><option value="openai">OpenAI</option></select>
