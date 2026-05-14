@@ -355,6 +355,36 @@ describe('content script button visibility', () => {
     expect(panel.textContent).toContain('Unable to refine reply')
   })
 
+  test('shows Chrome messaging errors when the background receiver is unavailable', async () => {
+    document.body.innerHTML = '<textarea>rough reply</textarea>'
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage: vi
+          .fn()
+          .mockRejectedValue(
+            new Error(
+              'Could not establish connection. Receiving end does not exist.'
+            )
+          )
+      }
+    })
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    editor.focus()
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    const panel = document.getElementById('simplewords-panel') as HTMLDivElement
+    expect(button.textContent).toContain('Simple Words')
+    expect(panel.textContent).toContain(
+      'Could not establish connection. Receiving end does not exist.'
+    )
+  })
+
   test('disables the stale content script when extension messaging is invalidated', async () => {
     document.body.innerHTML = '<textarea>rough reply</textarea>'
     Reflect.set(globalThis, 'chrome', {
@@ -623,6 +653,179 @@ describe('content script button visibility', () => {
     expect(editor.innerHTML).toBe(
       'Hello Kun,<br><br>Thanks for sharing this.<br>Best,'
     )
+  })
+
+  test('uses native editing commands when replacing a contenteditable draft', async () => {
+    document.body.innerHTML = '<div contenteditable="true">rough reply</div>'
+
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage: vi.fn(() => ({ reply: 'polished reply' }))
+      }
+    })
+
+    const editor = document.querySelector('div') as HTMLDivElement
+    Object.defineProperty(editor, 'isContentEditable', { value: true })
+    vi.spyOn(document, 'activeElement', 'get').mockReturnValue(editor)
+    const inputEvents: string[] = []
+    editor.addEventListener('input', (event) => {
+      inputEvents.push((event as InputEvent).inputType)
+    })
+    const changeEvents: Event[] = []
+    editor.addEventListener('change', (event) => {
+      changeEvents.push(event)
+    })
+    const execCommand = vi.fn((command: string, _showUI: boolean, value) => {
+      if (command !== 'insertText') {
+        return false
+      }
+
+      editor.textContent = String(value)
+      return true
+    })
+    Object.defineProperty(document, 'execCommand', {
+      configurable: true,
+      value: execCommand
+    })
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    const replace = Array.from(document.querySelectorAll('button')).find(
+      (candidate) => candidate.textContent === 'Replace draft'
+    ) as HTMLButtonElement
+    replace.click()
+
+    expect(execCommand).toHaveBeenCalledWith(
+      'insertText',
+      false,
+      'polished reply'
+    )
+    expect(editor.textContent).toBe('polished reply')
+    expect(inputEvents).not.toContain('insertReplacementText')
+    expect(changeEvents).toHaveLength(1)
+  })
+
+  test('does not fall back after Gmail-style native replacement normalizes line breaks', async () => {
+    document.body.innerHTML = '<div contenteditable="true">rough reply</div>'
+
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage: vi.fn(() => ({
+          reply: 'Hello,\n\nThanks for your note.\n\nBest,'
+        }))
+      }
+    })
+
+    const editor = document.querySelector('div') as HTMLDivElement
+    Object.defineProperty(editor, 'isContentEditable', { value: true })
+    vi.spyOn(document, 'activeElement', 'get').mockReturnValue(editor)
+    const inputEvents: string[] = []
+    editor.addEventListener('input', (event) => {
+      inputEvents.push((event as InputEvent).inputType)
+    })
+    Object.defineProperty(document, 'execCommand', {
+      configurable: true,
+      value: vi.fn((command: string) => {
+        if (command !== 'insertText') {
+          return false
+        }
+
+        editor.innerHTML =
+          'Hello,<div><br></div><div>Thanks for your note.</div><div><br></div><div>Best,</div>'
+        return true
+      })
+    })
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    const replace = Array.from(document.querySelectorAll('button')).find(
+      (candidate) => candidate.textContent === 'Replace draft'
+    ) as HTMLButtonElement
+    replace.click()
+
+    expect(editor.innerHTML).toBe(
+      'Hello,<div><br></div><div>Thanks for your note.</div><div><br></div><div>Best,</div>'
+    )
+    expect(inputEvents).not.toContain('insertReplacementText')
+  })
+
+  test('keeps the result panel clickable when injected UI focusout has no related target', async () => {
+    document.body.innerHTML = '<div contenteditable="true">rough reply</div>'
+
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage: vi.fn(() => ({ reply: 'polished reply' }))
+      }
+    })
+
+    const editor = document.querySelector('div') as HTMLDivElement
+    Object.defineProperty(editor, 'isContentEditable', { value: true })
+    vi.spyOn(document, 'activeElement', 'get').mockReturnValue(editor)
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    const panel = document.getElementById('simplewords-panel') as HTMLDivElement
+    const replace = Array.from(panel.querySelectorAll('button')).find(
+      (candidate) => candidate.textContent === 'Replace draft'
+    ) as HTMLButtonElement
+
+    replace.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }))
+    vi.spyOn(document, 'activeElement', 'get').mockReturnValue(document.body)
+    editor.dispatchEvent(
+      new FocusEvent('focusout', { bubbles: true, relatedTarget: null })
+    )
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    expect(panel.hidden).toBe(false)
+  })
+
+  test('prevents injected UI mouse down from stealing editor focus', async () => {
+    document.body.innerHTML = '<div contenteditable="true">rough reply</div>'
+
+    Reflect.set(globalThis, 'chrome', {
+      runtime: {
+        sendMessage: vi.fn(() => ({ reply: 'polished reply' }))
+      }
+    })
+
+    const editor = document.querySelector('div') as HTMLDivElement
+    Object.defineProperty(editor, 'isContentEditable', { value: true })
+    vi.spyOn(document, 'activeElement', 'get').mockReturnValue(editor)
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    button.click()
+    await new Promise((resolve) => setTimeout(resolve, 0))
+
+    const panel = document.getElementById('simplewords-panel') as HTMLDivElement
+    const replace = Array.from(panel.querySelectorAll('button')).find(
+      (candidate) => candidate.textContent === 'Replace draft'
+    ) as HTMLButtonElement
+    const mouseDown = new MouseEvent('mousedown', {
+      bubbles: true,
+      cancelable: true
+    })
+
+    replace.dispatchEvent(mouseDown)
+
+    expect(mouseDown.defaultPrevented).toBe(true)
   })
 
   test('reads inserted contenteditable line breaks on the next refinement', async () => {

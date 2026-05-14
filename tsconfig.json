@@ -9,5 +9,5 @@
     "skipLibCheck": true,
     "types": ["vitest/globals", "chrome", "node"]
   },
-  "include": ["src", "test"]
+  "include": ["src", "test", "e2e", "playwright.config.ts"]
 }

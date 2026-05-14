@@ -4,4 +4,5 @@ extension/background.js
 extension/content.js
 extension/options.js
 extension/chunks/
+test-results/
 simplewords.zip

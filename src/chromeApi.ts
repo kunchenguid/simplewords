@@ -59,7 +59,7 @@ export function resetExtensionContextForTests(): void {
   extensionContextValid = true
 }
 
-function isExtensionContextInvalidatedError(error: unknown): boolean {
+export function isExtensionContextInvalidatedError(error: unknown): boolean {
   return (
     error instanceof Error &&
     error.message.toLowerCase().includes('extension context invalidated')

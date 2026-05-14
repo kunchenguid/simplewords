@@ -141,11 +141,13 @@ There is no hosted Simple Words backend in the request path.
 
 ```sh
 npm ci # Install dependencies
+npx playwright install --with-deps chromium # Install Playwright Chromium
 npm run build # Type-check and bundle the extension files
 npm test # Run Vitest
+npm run test:e2e # Run Playwright browser tests
 npm run lint # Run ESLint
 npm run format:check # Check formatting
-npm run check # Run format, lint, tests, and build
+npm run check # Run format, lint, Vitest, build, and browser tests
 ```
 
 The built files `extension/background.js`, `extension/content.js`, `extension/options.js`, and `extension/chunks/` are generated artifacts and are not tracked in Git.
