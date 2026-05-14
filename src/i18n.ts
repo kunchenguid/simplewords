@@ -73,6 +73,9 @@ export const EN_MESSAGES = {
   codexOAuthSigningInStatus: 'Opening Codex sign-in...',
   codexOAuthSignedInStatus: 'Signed in to Codex. These settings are saved.',
   codexOAuthLoginFailed: 'Codex sign-in failed',
+  codexOAuthHttpFailure: 'Codex sign-in failed with HTTP $1',
+  codexOAuthMissingAccessToken:
+    'Codex sign-in response was missing access_token',
   codexOAuthStateMismatch: 'Codex sign-in returned an unexpected state',
   codexOAuthMissingCode: 'Codex sign-in did not return an authorization code',
   codexAuthInvalidFile: 'Select a valid Codex auth JSON file',

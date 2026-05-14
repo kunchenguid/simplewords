@@ -372,9 +372,44 @@ describe('background service worker', () => {
     expect(chromeApi.tabRemovedRemoveListener).toHaveBeenCalledTimes(1)
     expect(chromeApi.tabsRemove.mock.calls[0][0]).toBe(123)
   })
+
+  test('cleans up Codex OAuth login when auth navigation fails', async () => {
+    vi.doMock('../src/codexAuth', async (importOriginal) => {
+      const actual = await importOriginal<typeof import('../src/codexAuth')>()
+      return {
+        ...actual,
+        createCodexPkce: vi.fn(async () => ({
+          codeVerifier: 'verifier-123',
+          codeChallenge: 'challenge-123'
+        })),
+        createCodexOAuthState: vi.fn(() => 'state-123'),
+        buildCodexAuthorizationUrl: vi.fn(
+          () => 'https://auth.example.test/login'
+        ),
+        exchangeCodexAuthorizationCode: vi.fn()
+      }
+    })
+
+    const chromeApi = installChrome(DEFAULT_SETTINGS, {
+      tabsUpdate: vi.fn(async () => {
+        throw new Error('navigation failed')
+      })
+    })
+
+    await import('../src/background')
+    const response = await chromeApi.sendCodexOAuthLogin()
+
+    expect(response.error).toContain('navigation failed')
+    expect(chromeApi.tabUpdatedRemoveListener).toHaveBeenCalledTimes(1)
+    expect(chromeApi.tabRemovedRemoveListener).toHaveBeenCalledTimes(1)
+    expect(chromeApi.tabsRemove.mock.calls[0][0]).toBe(123)
+  })
 })
 
-function installChrome(settings: SimpleWordsSettings): {
+function installChrome(
+  settings: SimpleWordsSettings,
+  overrides: { tabsUpdate?: ReturnType<typeof vi.fn> } = {}
+): {
   openOptionsPage: ReturnType<typeof vi.fn>
   storageSet: ReturnType<typeof vi.fn>
   tabsCreate: ReturnType<typeof vi.fn>
@@ -414,7 +449,7 @@ function installChrome(settings: SimpleWordsSettings): {
     Object.assign(storedSettings, values)
   })
   const tabsCreate = vi.fn(async () => ({ id: 123 }))
-  const tabsUpdate = vi.fn(async () => ({ id: 123 }))
+  const tabsUpdate = overrides.tabsUpdate ?? vi.fn(async () => ({ id: 123 }))
   const tabsRemove = vi.fn(async () => undefined)
   const tabUpdatedRemoveListener = vi.fn((listener) => {
     if (tabUpdatedListener === listener) {

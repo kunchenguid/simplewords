@@ -92,11 +92,19 @@
   "codexAuthImportedStatus": {
     "message": "Codex 認証をインポートしました。保存をクリックして設定を保持してください。"
   },
-  "codexOAuthSigningInStatus": { "message": "Codex サインインを開いています..." },
+  "codexOAuthSigningInStatus": {
+    "message": "Codex サインインを開いています..."
+  },
   "codexOAuthSignedInStatus": {
     "message": "Codex にサインインしました。これらの設定は保存されています。"
   },
   "codexOAuthLoginFailed": { "message": "Codex サインインに失敗しました" },
+  "codexOAuthHttpFailure": {
+    "message": "Codex サインインが HTTP $1 で失敗しました"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "Codex サインインレスポンスに access_token がありません"
+  },
   "codexOAuthStateMismatch": {
     "message": "Codex サインインから予期しない状態が返されました"
   },

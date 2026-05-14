@@ -71,7 +71,9 @@
   "codexOAuthSignedInHelp": {
     "message": "आप साइन इन हैं। इसे केवल account बदलने या Codex को फिर से connect करने के लिए इस्तेमाल करें।"
   },
-  "codexAuthFallbackSummary": { "message": "प्रमाणीकरण फ़ाइल का वैकल्पिक तरीका" },
+  "codexAuthFallbackSummary": {
+    "message": "प्रमाणीकरण फ़ाइल का वैकल्पिक तरीका"
+  },
   "codexAuthFallbackHelp": {
     "message": "अगर browser sign-in काम नहीं करता, तो ~/.codex/auth.json पर Codex auth file चुनें।"
   },
@@ -99,6 +101,12 @@
     "message": "Codex में साइन इन हो गया। ये settings सहेजी गई हैं।"
   },
   "codexOAuthLoginFailed": { "message": "Codex sign-in विफल रहा" },
+  "codexOAuthHttpFailure": {
+    "message": "Codex sign-in HTTP $1 के साथ विफल हुआ"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "Codex sign-in response में access_token नहीं था"
+  },
   "codexOAuthStateMismatch": {
     "message": "Codex sign-in ने अनपेक्षित state लौटाई"
   },

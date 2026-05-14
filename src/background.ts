@@ -165,9 +165,14 @@ async function startCodexOAuthLogin(): Promise<CodexOAuthLoginResponse> {
   }
 
   try {
-    const callback = waitForCodexOAuthCallback(tab.id, redirectUri, state)
-    await updateTab(tab.id, { url: authorizationUrl })
-    const code = await callback
+    const callback = createCodexOAuthCallbackWaiter(tab.id, redirectUri, state)
+    try {
+      await updateTab(tab.id, { url: authorizationUrl })
+    } catch (error) {
+      callback.cancel()
+      throw error
+    }
+    const code = await callback.promise
     const tokens = await exchangeCodexAuthorizationCode({
       code,
       redirectUri,
@@ -193,17 +198,19 @@ async function startCodexOAuthLogin(): Promise<CodexOAuthLoginResponse> {
   }
 }
 
-function waitForCodexOAuthCallback(
+function createCodexOAuthCallbackWaiter(
   tabId: number,
   redirectUri: string,
   state: string
-): Promise<string> {
-  return new Promise((resolve, reject) => {
+): { promise: Promise<string>; cancel: () => void } {
+  let cancel = () => {}
+  const promise = new Promise<string>((resolve, reject) => {
     const cleanup = () => {
       clearTimeout(timeout)
       chrome.tabs.onUpdated.removeListener(listener)
       chrome.tabs.onRemoved.removeListener(removedListener)
     }
+    cancel = cleanup
     const listener = (
       updatedTabId: number,
       changeInfo: chrome.tabs.OnUpdatedInfo,
@@ -247,6 +254,8 @@ function waitForCodexOAuthCallback(
     chrome.tabs.onUpdated.addListener(listener)
     chrome.tabs.onRemoved.addListener(removedListener)
   })
+
+  return { promise, cancel }
 }
 
 function parseCodexOAuthCallbackUrl(

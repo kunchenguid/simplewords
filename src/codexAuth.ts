@@ -148,7 +148,10 @@ export async function exchangeCodexAuthorizationCode(
     })
   })
 
-  return readCodexTokenResponse(response)
+  return readCodexTokenResponse(response, {
+    httpFailureKey: 'codexOAuthHttpFailure',
+    missingAccessTokenKey: 'codexOAuthMissingAccessToken'
+  })
 }
 
 export async function refreshCodexTokens(
@@ -173,7 +176,11 @@ export async function refreshCodexTokens(
     })
   })
 
-  return readCodexTokenResponse(response, cleanRefreshToken)
+  return readCodexTokenResponse(response, {
+    fallbackRefreshToken: cleanRefreshToken,
+    httpFailureKey: 'codexTokenRefreshHttpFailure',
+    missingAccessTokenKey: 'codexTokenRefreshMissingAccessToken'
+  })
 }
 
 function extractAccountId(accessToken: string): string | undefined {
@@ -221,10 +228,20 @@ function base64UrlDecode(value: string): string {
 
 async function readCodexTokenResponse(
   response: Response,
-  fallbackRefreshToken = ''
+  {
+    fallbackRefreshToken = '',
+    httpFailureKey,
+    missingAccessTokenKey
+  }: {
+    fallbackRefreshToken?: string
+    httpFailureKey: 'codexOAuthHttpFailure' | 'codexTokenRefreshHttpFailure'
+    missingAccessTokenKey:
+      | 'codexOAuthMissingAccessToken'
+      | 'codexTokenRefreshMissingAccessToken'
+  }
 ): Promise<{ accessToken: string; refreshToken: string }> {
   if (!response.ok) {
-    throw new Error(t('codexTokenRefreshHttpFailure', String(response.status)))
+    throw new Error(t(httpFailureKey, String(response.status)))
   }
 
   const payload = (await response.json()) as {
@@ -233,9 +250,10 @@ async function readCodexTokenResponse(
   }
   const accessToken = cleanString(payload.access_token)
   if (!accessToken) {
-    throw new Error(t('codexTokenRefreshMissingAccessToken'))
+    throw new Error(t(missingAccessTokenKey))
   }
-  const refreshToken = cleanString(payload.refresh_token) ?? fallbackRefreshToken
+  const refreshToken =
+    cleanString(payload.refresh_token) ?? fallbackRefreshToken
   if (!refreshToken) {
     throw new Error(t('codexRefreshTokenMissing'))
   }

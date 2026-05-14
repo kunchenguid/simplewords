@@ -178,6 +178,39 @@ describe('parseCodexAuthJson', () => {
       )
     ).rejects.toThrow(/refresh token/)
   })
+
+  test('reports authorization code exchange failures as sign-in failures', async () => {
+    const fetchFn = async () => new Response('{}', { status: 500 })
+
+    await expect(
+      exchangeCodexAuthorizationCode(
+        {
+          code: 'authorization-code',
+          redirectUri: 'http://localhost:1455/auth/callback',
+          codeVerifier: 'verifier-123'
+        },
+        fetchFn as typeof fetch
+      )
+    ).rejects.toThrow(/Codex sign-in failed with HTTP 500/)
+  })
+
+  test('reports missing authorization code access tokens as sign-in failures', async () => {
+    const fetchFn = async () =>
+      Response.json({
+        refresh_token: 'new-refresh-token'
+      })
+
+    await expect(
+      exchangeCodexAuthorizationCode(
+        {
+          code: 'authorization-code',
+          redirectUri: 'http://localhost:1455/auth/callback',
+          codeVerifier: 'verifier-123'
+        },
+        fetchFn as typeof fetch
+      )
+    ).rejects.toThrow(/Codex sign-in response was missing access_token/)
+  })
 })
 
 function jwtWithPayload(payload: unknown): string {

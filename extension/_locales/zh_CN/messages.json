@@ -87,6 +87,12 @@
     "message": "已登录 Codex。这些设置已保存。"
   },
   "codexOAuthLoginFailed": { "message": "Codex 登录失败" },
+  "codexOAuthHttpFailure": {
+    "message": "Codex 登录失败，HTTP $1"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "Codex 登录响应缺少 access_token"
+  },
   "codexOAuthStateMismatch": {
     "message": "Codex 登录返回了意外状态"
   },

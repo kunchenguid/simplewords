@@ -71,7 +71,9 @@
   "codexOAuthSignedInHelp": {
     "message": "Вы вошли в систему. Используйте это только для смены аккаунта или повторного подключения Codex."
   },
-  "codexAuthFallbackSummary": { "message": "Запасной вариант с файлом авторизации" },
+  "codexAuthFallbackSummary": {
+    "message": "Запасной вариант с файлом авторизации"
+  },
   "codexAuthFallbackHelp": {
     "message": "Если вход через браузер не работает, выберите файл авторизации Codex по пути ~/.codex/auth.json."
   },
@@ -99,6 +101,12 @@
     "message": "Вход в Codex выполнен. Эти настройки сохранены."
   },
   "codexOAuthLoginFailed": { "message": "Не удалось войти в Codex" },
+  "codexOAuthHttpFailure": {
+    "message": "Вход в Codex завершился ошибкой HTTP $1"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "В ответе входа Codex отсутствовал access_token"
+  },
   "codexOAuthStateMismatch": {
     "message": "Вход Codex вернул неожиданное состояние"
   },

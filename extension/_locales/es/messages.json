@@ -71,7 +71,9 @@
   "codexOAuthSignedInHelp": {
     "message": "Has iniciado sesión. Usa esto solo para cambiar de cuenta o volver a conectar Codex."
   },
-  "codexAuthFallbackSummary": { "message": "Alternativa con archivo de autenticación" },
+  "codexAuthFallbackSummary": {
+    "message": "Alternativa con archivo de autenticación"
+  },
   "codexAuthFallbackHelp": {
     "message": "Si el inicio de sesión del navegador no funciona, selecciona el archivo de autenticación de Codex en ~/.codex/auth.json."
   },
@@ -94,11 +96,19 @@
   "codexAuthImportedStatus": {
     "message": "Autenticación de Codex importada. Haz clic en Guardar para conservarla."
   },
-  "codexOAuthSigningInStatus": { "message": "Abriendo inicio de sesión de Codex..." },
+  "codexOAuthSigningInStatus": {
+    "message": "Abriendo inicio de sesión de Codex..."
+  },
   "codexOAuthSignedInStatus": {
     "message": "Sesión iniciada en Codex. Estos ajustes están guardados."
   },
   "codexOAuthLoginFailed": { "message": "Falló el inicio de sesión de Codex" },
+  "codexOAuthHttpFailure": {
+    "message": "El inicio de sesión de Codex falló con HTTP $1"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "La respuesta de inicio de sesión de Codex no incluyó access_token"
+  },
   "codexOAuthStateMismatch": {
     "message": "El inicio de sesión de Codex devolvió un estado inesperado"
   },

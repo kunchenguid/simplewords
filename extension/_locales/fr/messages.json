@@ -71,7 +71,9 @@
   "codexOAuthSignedInHelp": {
     "message": "Vous êtes connecté. Utilisez ceci uniquement pour changer de compte ou reconnecter Codex."
   },
-  "codexAuthFallbackSummary": { "message": "Solution de secours avec fichier d'authentification" },
+  "codexAuthFallbackSummary": {
+    "message": "Solution de secours avec fichier d'authentification"
+  },
   "codexAuthFallbackHelp": {
     "message": "Si la connexion dans le navigateur ne fonctionne pas, sélectionnez le fichier d'authentification Codex dans ~/.codex/auth.json."
   },
@@ -94,11 +96,19 @@
   "codexAuthImportedStatus": {
     "message": "Authentification Codex importée. Cliquez sur Enregistrer pour conserver ces réglages."
   },
-  "codexOAuthSigningInStatus": { "message": "Ouverture de la connexion Codex..." },
+  "codexOAuthSigningInStatus": {
+    "message": "Ouverture de la connexion Codex..."
+  },
   "codexOAuthSignedInStatus": {
     "message": "Connecté à Codex. Ces réglages sont enregistrés."
   },
   "codexOAuthLoginFailed": { "message": "Échec de la connexion Codex" },
+  "codexOAuthHttpFailure": {
+    "message": "La connexion Codex a échoué avec HTTP $1"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "La réponse de connexion Codex ne contenait pas access_token"
+  },
   "codexOAuthStateMismatch": {
     "message": "La connexion Codex a renvoyé un état inattendu"
   },

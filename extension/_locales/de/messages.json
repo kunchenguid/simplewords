@@ -94,11 +94,19 @@
   "codexAuthImportedStatus": {
     "message": "Codex-Auth importiert. Klicke auf Speichern, um diese Einstellungen zu behalten."
   },
-  "codexOAuthSigningInStatus": { "message": "Codex-Anmeldung wird geöffnet..." },
+  "codexOAuthSigningInStatus": {
+    "message": "Codex-Anmeldung wird geöffnet..."
+  },
   "codexOAuthSignedInStatus": {
     "message": "Bei Codex angemeldet. Diese Einstellungen sind gespeichert."
   },
   "codexOAuthLoginFailed": { "message": "Codex-Anmeldung fehlgeschlagen" },
+  "codexOAuthHttpFailure": {
+    "message": "Codex-Anmeldung ist mit HTTP $1 fehlgeschlagen"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "Codex-Anmeldeantwort enthielt kein access_token"
+  },
   "codexOAuthStateMismatch": {
     "message": "Die Codex-Anmeldung hat einen unerwarteten Status zurückgegeben"
   },

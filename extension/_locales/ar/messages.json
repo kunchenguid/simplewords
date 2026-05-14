@@ -99,6 +99,12 @@
     "message": "تم تسجيل الدخول إلى Codex. تم حفظ هذه الإعدادات."
   },
   "codexOAuthLoginFailed": { "message": "فشل تسجيل الدخول إلى Codex" },
+  "codexOAuthHttpFailure": {
+    "message": "فشل تسجيل الدخول إلى Codex مع HTTP $1"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "استجابة تسجيل دخول Codex لا تحتوي على access_token"
+  },
   "codexOAuthStateMismatch": {
     "message": "أرجع تسجيل دخول Codex حالة غير متوقعة"
   },

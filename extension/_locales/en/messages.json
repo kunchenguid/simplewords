@@ -99,6 +99,12 @@
     "message": "Signed in to Codex. These settings are saved."
   },
   "codexOAuthLoginFailed": { "message": "Codex sign-in failed" },
+  "codexOAuthHttpFailure": {
+    "message": "Codex sign-in failed with HTTP $1"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "Codex sign-in response was missing access_token"
+  },
   "codexOAuthStateMismatch": {
     "message": "Codex sign-in returned an unexpected state"
   },

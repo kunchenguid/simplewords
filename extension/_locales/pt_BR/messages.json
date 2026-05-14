@@ -71,7 +71,9 @@
   "codexOAuthSignedInHelp": {
     "message": "Você está conectado. Use isto apenas para trocar de conta ou reconectar o Codex."
   },
-  "codexAuthFallbackSummary": { "message": "Alternativa com arquivo de autenticação" },
+  "codexAuthFallbackSummary": {
+    "message": "Alternativa com arquivo de autenticação"
+  },
   "codexAuthFallbackHelp": {
     "message": "Se o login pelo navegador não funcionar, selecione o arquivo de autenticação do Codex em ~/.codex/auth.json."
   },
@@ -99,6 +101,12 @@
     "message": "Conectado ao Codex. Estas configurações estão salvas."
   },
   "codexOAuthLoginFailed": { "message": "Falha ao entrar no Codex" },
+  "codexOAuthHttpFailure": {
+    "message": "O login do Codex falhou com HTTP $1"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "A resposta de login do Codex não tinha access_token"
+  },
   "codexOAuthStateMismatch": {
     "message": "O login do Codex retornou um estado inesperado"
   },
