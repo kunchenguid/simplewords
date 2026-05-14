@@ -7,7 +7,7 @@ Check the production extension files before treating this kit as pixel-faithful.
 
 1. **Floating button** (`FloatingButton.jsx`) - a prototype pill button with the older sparkles icon and label.
    Production now uses a compact `sw` glyph button near the lower-right edge of focused editable fields, so check the extension files before treating this component as pixel-faithful.
-2. **Refine panel** (`RefinePanel.jsx`) - the floating panel that shows the loading state, the rewritten draft, and the Replace/Dismiss actions.
+2. **Refine panel** (`RefinePanel.jsx`) - the floating panel that shows loading, setup or provider error guidance, rewritten draft states, and Open settings/Replace/Dismiss actions.
 3. **Options page** (`OptionsPage.jsx`) - the settings page prototype with provider config, enabled domains, name field, and advanced system prompt.
 4. **Host page** (`HostPage.jsx`) - a faked Gmail-like compose window, just so the floating button has something to attach to in `index.html`.
 
@@ -23,7 +23,7 @@ Preserve that visibility contract in production-facing work.
 - `FloatingButton` - the prototype brand pill, `border-radius: 999px`, ink-900 background.
   Inherits from `colors_and_type.css`.
 - `RefinePanel` - paper-tinted blur panel with `--shadow-3`.
-  Two states: `loading` ("Refining..." with the loader spin) and `ready` (rewritten reply + actions).
+  Production states include loading, message/error guidance with Open settings, and ready (rewritten reply + actions).
 - `OptionsPage` - single column 680px max width.
   Production uses three step cards: `AI model provider`, `Where it appears`, and `Writing style`.
   The native provider `select` lives in `AI model provider`, and the selected provider still controls the provider-section show/hide contract.
