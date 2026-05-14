@@ -104,7 +104,7 @@
   "codexAuthMissingAccessToken": { "message": "Codex 认证 JSON 缺少访问令牌" },
   "codexRefreshTokenMissing": { "message": "未配置 Codex 刷新令牌" },
   "codexTokenRefreshHttpFailure": {
-    "message": "Codex 令牌刷新失败，HTTP $1。请重新选择 auth.json 或使用 Codex CLI 登录。"
+    "message": "Codex 令牌刷新失败，HTTP $1。请从 Simple Words 使用 Codex 登录，或将 auth.json 作为备用方式选择。"
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "Codex 令牌刷新响应缺少 access_token"

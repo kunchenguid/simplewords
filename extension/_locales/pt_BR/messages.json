@@ -126,7 +126,7 @@
     "message": "O token de atualização do Codex não está configurado"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "A atualização do token do Codex falhou com HTTP $1. Selecione auth.json novamente ou entre com o Codex CLI."
+    "message": "A atualização do token do Codex falhou com HTTP $1. Entre com o Codex pelo Simple Words ou selecione auth.json como alternativa."
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "A resposta de atualização do token do Codex não tinha access_token"

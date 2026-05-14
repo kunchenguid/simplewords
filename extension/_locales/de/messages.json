@@ -126,7 +126,7 @@
     "message": "Codex-Refresh-Token ist nicht konfiguriert"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "Codex-Token-Aktualisierung ist mit HTTP $1 fehlgeschlagen. Wähle auth.json erneut oder melde dich mit Codex CLI an."
+    "message": "Codex-Token-Aktualisierung ist mit HTTP $1 fehlgeschlagen. Melde dich in Simple Words mit Codex an oder wähle auth.json als Fallback."
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "Codex-Token-Aktualisierung enthielt kein access_token"

@@ -83,7 +83,7 @@ export const EN_MESSAGES = {
   codexAuthMissingAccessToken: 'Codex auth JSON is missing an access token',
   codexRefreshTokenMissing: 'Codex refresh token is not configured',
   codexTokenRefreshHttpFailure:
-    'Codex token refresh failed with HTTP $1. Select auth.json again or sign in with Codex CLI.',
+    'Codex token refresh failed with HTTP $1. Sign in with Codex from Simple Words, or select auth.json as a fallback.',
   codexTokenRefreshMissingAccessToken:
     'Codex token refresh response was missing access_token',
   buttonLabel: 'Simple Words',

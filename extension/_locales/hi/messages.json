@@ -124,7 +124,7 @@
     "message": "Codex refresh token configured नहीं है"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "Codex token refresh HTTP $1 के साथ विफल हुआ। auth.json फिर चुनें या Codex CLI से sign in करें।"
+    "message": "Codex token refresh HTTP $1 के साथ विफल हुआ। Simple Words से Codex में sign in करें, या fallback के रूप में auth.json चुनें।"
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "Codex token refresh response में access_token नहीं था"

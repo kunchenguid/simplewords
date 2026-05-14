@@ -126,7 +126,7 @@
     "message": "Токен обновления Codex не настроен"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "Обновление токена Codex завершилось ошибкой HTTP $1. Выберите auth.json снова или войдите через Codex CLI."
+    "message": "Обновление токена Codex завершилось ошибкой HTTP $1. Войдите через Codex в Simple Words или выберите auth.json как запасной вариант."
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "В ответе обновления токена Codex отсутствовал access_token"

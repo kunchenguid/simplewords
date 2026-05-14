@@ -128,7 +128,7 @@
     "message": "Le jeton d'actualisation Codex n'est pas configuré"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "L'actualisation du jeton Codex a échoué avec HTTP $1. Sélectionnez de nouveau auth.json ou connectez-vous avec Codex CLI."
+    "message": "L'actualisation du jeton Codex a échoué avec HTTP $1. Connectez-vous avec Codex depuis Simple Words ou sélectionnez auth.json comme solution de secours."
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "La réponse d'actualisation Codex ne contenait pas access_token"

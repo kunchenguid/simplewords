@@ -124,7 +124,7 @@
     "message": "Codex 更新トークンが設定されていません"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "Codex トークンの更新が HTTP $1 で失敗しました。auth.json を再選択するか、Codex CLI でサインインしてください。"
+    "message": "Codex トークンの更新が HTTP $1 で失敗しました。Simple Words から Codex でサインインするか、代替方法として auth.json を選択してください。"
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "Codex トークン更新レスポンスに access_token がありません"

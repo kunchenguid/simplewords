@@ -120,7 +120,7 @@
   },
   "codexRefreshTokenMissing": { "message": "رمز تحديث Codex غير مهيأ" },
   "codexTokenRefreshHttpFailure": {
-    "message": "فشل تحديث رمز Codex مع HTTP $1. اختر auth.json مرة أخرى أو سجل الدخول باستخدام Codex CLI."
+    "message": "فشل تحديث رمز Codex مع HTTP $1. سجل الدخول إلى Codex من Simple Words، أو اختر auth.json كخيار احتياطي."
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "استجابة تحديث رمز Codex لا تحتوي على access_token"

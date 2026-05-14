@@ -120,7 +120,7 @@
     "message": "Codex refresh token is not configured"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "Codex token refresh failed with HTTP $1. Select auth.json again or sign in with Codex CLI."
+    "message": "Codex token refresh failed with HTTP $1. Sign in with Codex from Simple Words, or select auth.json as a fallback."
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "Codex token refresh response was missing access_token"
