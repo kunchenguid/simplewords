@@ -43,7 +43,7 @@ It keeps the workflow inside the editor you are already using and calls the mode
 ## Quick Start
 
 1. Install Simple Words from the [Chrome Web Store](https://chromewebstore.google.com/detail/simple-words/kmlhfcjpmhcoclpcghckibfkgpfbjfbb).
-2. Open the extension options page and choose a model provider.
+2. Use the options page that opens after install to choose a model provider.
 3. Write a rough reply in Gmail, Outlook, Yahoo Mail, iCloud Mail, Proton Mail, or another enabled domain.
 4. Click **Simple Words**, review the refined draft, then click **Replace draft**.
 
