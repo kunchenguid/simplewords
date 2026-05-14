@@ -160,6 +160,24 @@ describe('parseCodexAuthJson', () => {
       'client_id=app_EMoamEEZ73f0CkXaXp7hrann'
     )
   })
+
+  test('rejects authorization code responses without refresh tokens', async () => {
+    const fetchFn = async () =>
+      Response.json({
+        access_token: 'new-access-token'
+      })
+
+    await expect(
+      exchangeCodexAuthorizationCode(
+        {
+          code: 'authorization-code',
+          redirectUri: 'http://localhost:1455/auth/callback',
+          codeVerifier: 'verifier-123'
+        },
+        fetchFn as typeof fetch
+      )
+    ).rejects.toThrow(/refresh token/)
+  })
 })
 
 function jwtWithPayload(payload: unknown): string {

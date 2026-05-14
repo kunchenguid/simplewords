@@ -322,9 +322,12 @@ describe('background service worker', () => {
       accountId: 'account-new'
     })
     expect(chromeApi.tabsCreate.mock.calls[0][0]).toEqual({
-      active: true,
-      url: 'https://auth.example.test/login'
+      active: true
     })
+    expect(chromeApi.tabsUpdate.mock.calls[0].slice(0, 2)).toEqual([
+      123,
+      { url: 'https://auth.example.test/login' }
+    ])
     expect(exchangeCodexAuthorizationCode).toHaveBeenCalledWith({
       code: 'authorization-code',
       redirectUri: 'http://localhost:1455/auth/callback',
@@ -338,16 +341,51 @@ describe('background service worker', () => {
     })
     expect(chromeApi.tabsRemove.mock.calls[0][0]).toBe(123)
   })
+
+  test('cleans up Codex OAuth login when the auth tab closes', async () => {
+    vi.doMock('../src/codexAuth', async (importOriginal) => {
+      const actual = await importOriginal<typeof import('../src/codexAuth')>()
+      return {
+        ...actual,
+        createCodexPkce: vi.fn(async () => ({
+          codeVerifier: 'verifier-123',
+          codeChallenge: 'challenge-123'
+        })),
+        createCodexOAuthState: vi.fn(() => 'state-123'),
+        buildCodexAuthorizationUrl: vi.fn(
+          () => 'https://auth.example.test/login'
+        ),
+        exchangeCodexAuthorizationCode: vi.fn()
+      }
+    })
+
+    const chromeApi = installChrome(DEFAULT_SETTINGS)
+
+    await import('../src/background')
+    const login = chromeApi.sendCodexOAuthLogin()
+    await chromeApi.waitForTabUpdateListener()
+    chromeApi.sendTabRemoved(123)
+    const response = await login
+
+    expect(response.error).toMatch(/closed|failed/i)
+    expect(chromeApi.tabUpdatedRemoveListener).toHaveBeenCalledTimes(1)
+    expect(chromeApi.tabRemovedRemoveListener).toHaveBeenCalledTimes(1)
+    expect(chromeApi.tabsRemove.mock.calls[0][0]).toBe(123)
+  })
 })
 
 function installChrome(settings: SimpleWordsSettings): {
   openOptionsPage: ReturnType<typeof vi.fn>
   storageSet: ReturnType<typeof vi.fn>
   tabsCreate: ReturnType<typeof vi.fn>
+  tabsUpdate: ReturnType<typeof vi.fn>
   tabsRemove: ReturnType<typeof vi.fn>
+  tabUpdatedRemoveListener: ReturnType<typeof vi.fn>
+  tabRemovedRemoveListener: ReturnType<typeof vi.fn>
   sendRefine: () => Promise<RefineResponse>
   sendCodexOAuthLogin: () => Promise<CodexOAuthLoginResponse>
   sendTabUpdate: (tabId: number, url: string) => void
+  sendTabRemoved: (tabId: number) => void
   waitForTabUpdateListener: () => Promise<void>
 } {
   let messageListener:
@@ -366,6 +404,9 @@ function installChrome(settings: SimpleWordsSettings): {
         tab: chrome.tabs.Tab
       ) => void)
     | undefined
+  let tabRemovedListener:
+    | ((tabId: number, removeInfo: { isWindowClosing: boolean }) => void)
+    | undefined
   let resolveTabUpdateListener: (() => void) | undefined
   const storedSettings = { ...settings }
   const openOptionsPage = vi.fn()
@@ -373,7 +414,18 @@ function installChrome(settings: SimpleWordsSettings): {
     Object.assign(storedSettings, values)
   })
   const tabsCreate = vi.fn(async () => ({ id: 123 }))
+  const tabsUpdate = vi.fn(async () => ({ id: 123 }))
   const tabsRemove = vi.fn(async () => undefined)
+  const tabUpdatedRemoveListener = vi.fn((listener) => {
+    if (tabUpdatedListener === listener) {
+      tabUpdatedListener = undefined
+    }
+  })
+  const tabRemovedRemoveListener = vi.fn((listener) => {
+    if (tabRemovedListener === listener) {
+      tabRemovedListener = undefined
+    }
+  })
 
   vi.stubGlobal('chrome', {
     runtime: {
@@ -395,17 +447,20 @@ function installChrome(settings: SimpleWordsSettings): {
     },
     tabs: {
       create: tabsCreate,
+      update: tabsUpdate,
       remove: tabsRemove,
       onUpdated: {
         addListener: vi.fn((listener) => {
           tabUpdatedListener = listener
           resolveTabUpdateListener?.()
         }),
-        removeListener: vi.fn((listener) => {
-          if (tabUpdatedListener === listener) {
-            tabUpdatedListener = undefined
-          }
-        })
+        removeListener: tabUpdatedRemoveListener
+      },
+      onRemoved: {
+        addListener: vi.fn((listener) => {
+          tabRemovedListener = listener
+        }),
+        removeListener: tabRemovedRemoveListener
       }
     }
   })
@@ -414,7 +469,10 @@ function installChrome(settings: SimpleWordsSettings): {
     openOptionsPage,
     storageSet,
     tabsCreate,
+    tabsUpdate,
     tabsRemove,
+    tabUpdatedRemoveListener,
+    tabRemovedRemoveListener,
     sendRefine: () =>
       new Promise((resolve) => {
         if (!messageListener) {
@@ -449,6 +507,9 @@ function installChrome(settings: SimpleWordsSettings): {
         { url } as chrome.tabs.OnUpdatedInfo,
         { id: tabId, url } as chrome.tabs.Tab
       )
+    },
+    sendTabRemoved: (tabId: number) => {
+      tabRemovedListener?.(tabId, { isWindowClosing: false })
     },
     waitForTabUpdateListener: () => {
       if (tabUpdatedListener) {

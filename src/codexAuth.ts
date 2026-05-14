@@ -235,10 +235,14 @@ async function readCodexTokenResponse(
   if (!accessToken) {
     throw new Error(t('codexTokenRefreshMissingAccessToken'))
   }
+  const refreshToken = cleanString(payload.refresh_token) ?? fallbackRefreshToken
+  if (!refreshToken) {
+    throw new Error(t('codexRefreshTokenMissing'))
+  }
 
   return {
     accessToken,
-    refreshToken: cleanString(payload.refresh_token) ?? fallbackRefreshToken
+    refreshToken
   }
 }
 

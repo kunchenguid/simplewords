@@ -61,6 +61,7 @@ type CodexRefreshResult = {
 }
 
 let codexRefreshPromise: Promise<CodexRefreshResult> | undefined
+const CODEX_OAUTH_CALLBACK_TIMEOUT_MS = 120_000
 
 chrome.runtime.onMessage.addListener(
   (
@@ -153,20 +154,20 @@ async function startCodexOAuthLogin(): Promise<CodexOAuthLoginResponse> {
   const redirectUri = 'http://localhost:1455/auth/callback'
   const pkce = await createCodexPkce()
   const state = createCodexOAuthState()
-  const tab = await createTab({
-    active: true,
-    url: buildCodexAuthorizationUrl({
-      redirectUri,
-      codeChallenge: pkce.codeChallenge,
-      state
-    })
+  const authorizationUrl = buildCodexAuthorizationUrl({
+    redirectUri,
+    codeChallenge: pkce.codeChallenge,
+    state
   })
+  const tab = await createTab({ active: true })
   if (typeof tab.id !== 'number') {
     throw new Error(t('codexOAuthLoginFailed'))
   }
 
   try {
-    const code = await waitForCodexOAuthCallback(tab.id, redirectUri, state)
+    const callback = waitForCodexOAuthCallback(tab.id, redirectUri, state)
+    await updateTab(tab.id, { url: authorizationUrl })
+    const code = await callback
     const tokens = await exchangeCodexAuthorizationCode({
       code,
       redirectUri,
@@ -198,6 +199,11 @@ function waitForCodexOAuthCallback(
   state: string
 ): Promise<string> {
   return new Promise((resolve, reject) => {
+    const cleanup = () => {
+      clearTimeout(timeout)
+      chrome.tabs.onUpdated.removeListener(listener)
+      chrome.tabs.onRemoved.removeListener(removedListener)
+    }
     const listener = (
       updatedTabId: number,
       changeInfo: chrome.tabs.OnUpdatedInfo,
@@ -217,7 +223,7 @@ function waitForCodexOAuthCallback(
         return
       }
 
-      chrome.tabs.onUpdated.removeListener(listener)
+      cleanup()
       if (callback.error) {
         reject(new Error(callback.error))
         return
@@ -225,8 +231,21 @@ function waitForCodexOAuthCallback(
 
       resolve(callback.code ?? '')
     }
+    const removedListener = (removedTabId: number) => {
+      if (removedTabId !== tabId) {
+        return
+      }
+
+      cleanup()
+      reject(new Error(t('codexOAuthLoginFailed')))
+    }
+    const timeout = setTimeout(() => {
+      cleanup()
+      reject(new Error(t('codexOAuthLoginFailed')))
+    }, CODEX_OAUTH_CALLBACK_TIMEOUT_MS)
 
     chrome.tabs.onUpdated.addListener(listener)
+    chrome.tabs.onRemoved.addListener(removedListener)
   })
 }
 
@@ -278,6 +297,32 @@ function createTab(
       resolve(tab)
     }
     const result = chrome.tabs.create(createProperties, handleTab) as
+      | Promise<chrome.tabs.Tab>
+      | undefined
+    result?.then(resolve, reject)
+  })
+}
+
+function updateTab(
+  tabId: number,
+  updateProperties: chrome.tabs.UpdateProperties
+): Promise<chrome.tabs.Tab> {
+  return new Promise((resolve, reject) => {
+    const handleTab = (tab?: chrome.tabs.Tab) => {
+      const message = chrome.runtime.lastError?.message
+      if (message) {
+        reject(new Error(message))
+        return
+      }
+
+      if (!tab) {
+        reject(new Error(t('codexOAuthLoginFailed')))
+        return
+      }
+
+      resolve(tab)
+    }
+    const result = chrome.tabs.update(tabId, updateProperties, handleTab) as
       | Promise<chrome.tabs.Tab>
       | undefined
     result?.then(resolve, reject)
