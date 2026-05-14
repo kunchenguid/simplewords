@@ -2,6 +2,8 @@ import { serializeVisibleTextTree } from './domTree'
 import { t } from './i18n'
 import {
   isExtensionContextValid,
+  isExtensionContextInvalidatedError,
+  markExtensionContextInvalidated,
   onExtensionContextInvalidated,
   safeChromeCall,
   safeChromePromise
@@ -164,6 +166,7 @@ let activeEditor: HTMLElement | null = null
 let dismissedEditor: HTMLElement | null = null
 let activeRefinementId = 0
 let siteEnabled = !hasChromeStorage()
+let interactingWithInjectedUI = false
 
 onExtensionContextInvalidated(disableStaleContentScript)
 
@@ -227,6 +230,10 @@ document.addEventListener('focusout', (event) => {
 
     const relatedTarget = event.relatedTarget
     if (isInjectedUITarget(relatedTarget)) {
+      return
+    }
+
+    if (interactingWithInjectedUI) {
       return
     }
 
@@ -619,16 +626,23 @@ async function requestRefinement(request: {
     return { error: t('unableToRefineReply') }
   }
 
-  const response = await safeChromePromise<RefinementResponse | null>(
-    async () => {
-      if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) {
-        return { error: t('unableToRefineReply') }
-      }
+  if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) {
+    return { error: t('unableToRefineReply') }
+  }
 
-      return (await chrome.runtime.sendMessage(request)) as RefinementResponse
-    },
-    null
-  )
+  let response: RefinementResponse | null | undefined
+  try {
+    response = (await chrome.runtime.sendMessage(request)) as RefinementResponse
+  } catch (error) {
+    if (isExtensionContextInvalidatedError(error)) {
+      markExtensionContextInvalidated()
+      return { error: t('unableToRefineReply') }
+    }
+
+    return {
+      error: error instanceof Error ? error.message : t('unableToRefineReply')
+    }
+  }
 
   return response ?? { error: t('unableToRefineReply') }
 }
@@ -675,6 +689,7 @@ function showPanel(editor: HTMLElement, content: PanelContent): void {
       replace.className = 'sw-btn sw-btn--primary'
       replace.textContent = t('replaceDraftButton')
       replace.addEventListener('click', () => {
+        interactingWithInjectedUI = false
         setEditorText(editor, content.reply)
         panel.hidden = true
         editor.focus()
@@ -685,6 +700,7 @@ function showPanel(editor: HTMLElement, content: PanelContent): void {
       dismiss.className = 'sw-btn sw-btn--ghost'
       dismiss.textContent = t('dismissButton')
       dismiss.addEventListener('click', () => {
+        interactingWithInjectedUI = false
         panel.hidden = true
         editor.focus()
       })
@@ -726,8 +742,14 @@ function getOrCreatePanel(): HTMLDivElement {
   panel.id = PANEL_ID
   panel.setAttribute('role', 'dialog')
   panel.setAttribute('aria-label', t('panelAriaLabel'))
+  panel.addEventListener('pointerdown', preventInjectedUIFocus)
+  panel.addEventListener('mousedown', preventInjectedUIFocus)
   document.documentElement.append(panel)
   return panel
+}
+
+function preventInjectedUIFocus(event: Event): void {
+  event.preventDefault()
 }
 
 function findEditableRoot(target: EventTarget | null): HTMLElement | null {
@@ -896,13 +918,16 @@ function handlePointerStart(target: EventTarget | null): void {
   }
 
   if (!editor || editor.contains(target)) {
+    interactingWithInjectedUI = false
     return
   }
 
   if (isInjectedUITarget(target)) {
+    interactingWithInjectedUI = true
     return
   }
 
+  interactingWithInjectedUI = false
   dismissedEditor = editor
   activeEditor = null
   activeRefinementId += 1
@@ -961,6 +986,10 @@ function isContentEditableBlock(element: HTMLElement): boolean {
 }
 
 function setEditorText(element: HTMLElement, value: string): void {
+  if (replaceWithNativeEditing(element, value)) {
+    return
+  }
+
   if (
     element instanceof HTMLTextAreaElement ||
     element instanceof HTMLInputElement
@@ -989,4 +1018,44 @@ function setEditorText(element: HTMLElement, value: string): void {
     })
   )
   element.dispatchEvent(new Event('change', { bubbles: true }))
+}
+
+function replaceWithNativeEditing(
+  element: HTMLElement,
+  value: string
+): boolean {
+  if (
+    typeof document.execCommand !== 'function' ||
+    !(
+      element instanceof HTMLTextAreaElement ||
+      element instanceof HTMLInputElement ||
+      element.isContentEditable
+    )
+  ) {
+    return false
+  }
+
+  element.focus()
+  if (
+    element instanceof HTMLTextAreaElement ||
+    element instanceof HTMLInputElement
+  ) {
+    element.select()
+  } else {
+    const selection = document.getSelection()
+    if (!selection) {
+      return false
+    }
+
+    const range = document.createRange()
+    range.selectNodeContents(element)
+    selection.removeAllRanges()
+    selection.addRange(range)
+  }
+
+  if (!document.execCommand('insertText', false, value)) {
+    return false
+  }
+
+  return getEditorText(element) === value.trim()
 }
