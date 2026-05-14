@@ -54,11 +54,6 @@
   "codexLead": {
     "message": "Die Anmeldung mit Codex ist der empfohlene Einrichtungsweg. Simple Words öffnet die Codex-Anmeldung, speichert die zurückgegebenen Tokens und aktualisiert sie automatisch."
   },
-  "codexLeadBeforePath": { "message": "Richte Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": ") ein und wähle deine Codex-Auth-Datei aus, normalerweise unter "
-  },
-  "codexLeadAfterPath": { "message": "." },
   "recommendedLabel": { "message": "Empfohlen" },
   "codexOAuthLoginButton": { "message": "Mit Codex anmelden" },
   "codexOAuthLoginAgainButton": {

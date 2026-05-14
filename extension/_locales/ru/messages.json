@@ -54,11 +54,6 @@
   "codexLead": {
     "message": "Вход через Codex - рекомендуемый способ настройки. Simple Words открывает вход Codex, сохраняет полученные токены и автоматически обновляет их."
   },
-  "codexLeadBeforePath": { "message": "Настройте Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": ") и выберите файл авторизации Codex, обычно по пути "
-  },
-  "codexLeadAfterPath": { "message": "." },
   "recommendedLabel": { "message": "Рекомендуется" },
   "codexOAuthLoginButton": { "message": "Войти через Codex" },
   "codexOAuthLoginAgainButton": {

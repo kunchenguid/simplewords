@@ -54,11 +54,6 @@
   "codexLead": {
     "message": "Entrar com o Codex é o caminho de configuração recomendado. O Simple Words abre o login do Codex, armazena os tokens retornados e os atualiza automaticamente."
   },
-  "codexLeadBeforePath": { "message": "Configure o Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": "), e selecione seu arquivo de autenticação do Codex, geralmente em "
-  },
-  "codexLeadAfterPath": { "message": "." },
   "recommendedLabel": { "message": "Recomendado" },
   "codexOAuthLoginButton": { "message": "Entrar com o Codex" },
   "codexOAuthLoginAgainButton": {

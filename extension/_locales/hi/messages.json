@@ -54,11 +54,6 @@
   "codexLead": {
     "message": "Codex से साइन इन करना सुझाया गया सेटअप तरीका है। Simple Words Codex साइन-इन खोलता है, लौटे हुए tokens सहेजता है, और उन्हें अपने आप refresh करता है।"
   },
-  "codexLeadBeforePath": { "message": "Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": ") सेट करें, और अपना Codex auth file चुनें, आम तौर पर "
-  },
-  "codexLeadAfterPath": { "message": "." },
   "recommendedLabel": { "message": "अनुशंसित" },
   "codexOAuthLoginButton": { "message": "Codex से साइन इन करें" },
   "codexOAuthLoginAgainButton": {

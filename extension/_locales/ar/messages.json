@@ -54,11 +54,6 @@
   "codexLead": {
     "message": "تسجيل الدخول باستخدام Codex هو مسار الإعداد الموصى به. يفتح Simple Words تسجيل دخول Codex، ويحفظ الرموز التي يتم إرجاعها، ويحدثها تلقائيا."
   },
-  "codexLeadBeforePath": { "message": "قم بإعداد Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": ")، واختر ملف مصادقة Codex، عادة في "
-  },
-  "codexLeadAfterPath": { "message": "." },
   "recommendedLabel": { "message": "موصى به" },
   "codexOAuthLoginButton": { "message": "تسجيل الدخول باستخدام Codex" },
   "codexOAuthLoginAgainButton": {

@@ -52,11 +52,6 @@
   "codexLead": {
     "message": "Codex でのサインインが推奨されるセットアップ方法です。Simple Words は Codex サインインを開き、返されたトークンを保存して自動的に更新します。"
   },
-  "codexLeadBeforePath": { "message": "Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": ") をセットアップし、Codex 認証ファイルを選択してください。通常は "
-  },
-  "codexLeadAfterPath": { "message": " です。" },
   "recommendedLabel": { "message": "推奨" },
   "codexOAuthLoginButton": { "message": "Codex でサインイン" },
   "codexOAuthLoginAgainButton": {

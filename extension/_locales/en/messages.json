@@ -54,11 +54,6 @@
   "codexLead": {
     "message": "Sign in with Codex is the recommended setup path. Simple Words opens Codex sign-in, stores the returned tokens, and refreshes them automatically."
   },
-  "codexLeadBeforePath": { "message": "Setup Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": "), and select your Codex auth file, usually at "
-  },
-  "codexLeadAfterPath": { "message": "." },
   "recommendedLabel": { "message": "Recommended" },
   "codexOAuthLoginButton": { "message": "Sign in with Codex" },
   "codexOAuthLoginAgainButton": {

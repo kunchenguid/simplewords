@@ -54,11 +54,6 @@
   "codexLead": {
     "message": "La connexion avec Codex est la méthode de configuration recommandée. Simple Words ouvre la connexion Codex, stocke les jetons renvoyés et les actualise automatiquement."
   },
-  "codexLeadBeforePath": { "message": "Configurez Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": "), et sélectionnez votre fichier d'authentification Codex, généralement à "
-  },
-  "codexLeadAfterPath": { "message": "." },
   "recommendedLabel": { "message": "Recommandé" },
   "codexOAuthLoginButton": { "message": "Se connecter avec Codex" },
   "codexOAuthLoginAgainButton": {

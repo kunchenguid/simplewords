@@ -54,11 +54,6 @@
   "codexLead": {
     "message": "Iniciar sesión con Codex es la ruta de configuración recomendada. Simple Words abre el inicio de sesión de Codex, guarda los tokens devueltos y los actualiza automáticamente."
   },
-  "codexLeadBeforePath": { "message": "Configura Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": "), y selecciona tu archivo de autenticación de Codex, normalmente en "
-  },
-  "codexLeadAfterPath": { "message": "." },
   "recommendedLabel": { "message": "Recomendado" },
   "codexOAuthLoginButton": { "message": "Iniciar sesión con Codex" },
   "codexOAuthLoginAgainButton": {

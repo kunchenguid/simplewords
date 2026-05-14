@@ -44,11 +44,6 @@
   "codexLead": {
     "message": "使用 Codex 登录是推荐的设置方式。Simple Words 会打开 Codex 登录，保存返回的令牌，并自动刷新它们。"
   },
-  "codexLeadBeforePath": { "message": "设置 Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": ")，并选择你的 Codex 认证文件，通常位于 "
-  },
-  "codexLeadAfterPath": { "message": "。" },
   "recommendedLabel": { "message": "推荐" },
   "codexOAuthLoginButton": { "message": "使用 Codex 登录" },
   "codexOAuthLoginAgainButton": {

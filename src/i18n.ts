@@ -40,9 +40,6 @@ export const EN_MESSAGES = {
   codexHeading: 'Codex subscription',
   codexLead:
     'Sign in with Codex is the recommended setup path. Simple Words opens Codex sign-in, stores the returned tokens, and refreshes them automatically.',
-  codexLeadBeforePath: 'Setup Codex (',
-  codexLeadAfterDocsLink: '), and select your Codex auth file, usually at ',
-  codexLeadAfterPath: '.',
   recommendedLabel: 'Recommended',
   codexOAuthLoginButton: 'Sign in with Codex',
   codexOAuthLoginAgainButton: 'Sign in again with Codex',
