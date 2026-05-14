@@ -671,6 +671,10 @@ describe('content script button visibility', () => {
     editor.addEventListener('input', (event) => {
       inputEvents.push((event as InputEvent).inputType)
     })
+    const changeEvents: Event[] = []
+    editor.addEventListener('change', (event) => {
+      changeEvents.push(event)
+    })
     const execCommand = vi.fn((command: string, _showUI: boolean, value) => {
       if (command !== 'insertText') {
         return false
@@ -703,6 +707,7 @@ describe('content script button visibility', () => {
     )
     expect(editor.textContent).toBe('polished reply')
     expect(inputEvents).not.toContain('insertReplacementText')
+    expect(changeEvents).toHaveLength(1)
   })
 
   test('does not fall back after Gmail-style native replacement normalizes line breaks', async () => {

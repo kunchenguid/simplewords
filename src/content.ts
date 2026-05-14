@@ -986,37 +986,36 @@ function isContentEditableBlock(element: HTMLElement): boolean {
 }
 
 function setEditorText(element: HTMLElement, value: string): void {
-  if (replaceWithNativeEditing(element, value)) {
-    return
+  if (!replaceWithNativeEditing(element, value)) {
+    if (
+      element instanceof HTMLTextAreaElement ||
+      element instanceof HTMLInputElement
+    ) {
+      element.value = value
+    } else if (element.isContentEditable) {
+      element.replaceChildren()
+      value.split(/\r\n|\r|\n/).forEach((line, index) => {
+        if (index > 0) {
+          element.append(document.createElement('br'))
+        }
+
+        if (line) {
+          element.append(document.createTextNode(line))
+        }
+      })
+    } else {
+      element.textContent = value
+    }
+
+    element.dispatchEvent(
+      new InputEvent('input', {
+        bubbles: true,
+        inputType: 'insertReplacementText',
+        data: value
+      })
+    )
   }
 
-  if (
-    element instanceof HTMLTextAreaElement ||
-    element instanceof HTMLInputElement
-  ) {
-    element.value = value
-  } else if (element.isContentEditable) {
-    element.replaceChildren()
-    value.split(/\r\n|\r|\n/).forEach((line, index) => {
-      if (index > 0) {
-        element.append(document.createElement('br'))
-      }
-
-      if (line) {
-        element.append(document.createTextNode(line))
-      }
-    })
-  } else {
-    element.textContent = value
-  }
-
-  element.dispatchEvent(
-    new InputEvent('input', {
-      bubbles: true,
-      inputType: 'insertReplacementText',
-      data: value
-    })
-  )
   element.dispatchEvent(new Event('change', { bubbles: true }))
 }
 
