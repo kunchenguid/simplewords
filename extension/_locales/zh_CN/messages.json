@@ -42,28 +42,28 @@
   "reasoningEffortLabel": { "message": "推理强度" },
   "codexHeading": { "message": "Codex 订阅" },
   "codexLead": {
-    "message": "Sign in with Codex is the recommended setup path. Simple Words opens Codex sign-in, stores the returned tokens, and refreshes them automatically."
+    "message": "使用 Codex 登录是推荐的设置方式。Simple Words 会打开 Codex 登录，保存返回的令牌，并自动刷新它们。"
   },
   "codexLeadBeforePath": { "message": "设置 Codex (" },
   "codexLeadAfterDocsLink": {
     "message": ")，并选择你的 Codex 认证文件，通常位于 "
   },
   "codexLeadAfterPath": { "message": "。" },
-  "recommendedLabel": { "message": "Recommended" },
-  "codexOAuthLoginButton": { "message": "Sign in with Codex" },
+  "recommendedLabel": { "message": "推荐" },
+  "codexOAuthLoginButton": { "message": "使用 Codex 登录" },
   "codexOAuthLoginAgainButton": {
-    "message": "Sign in again with Codex"
+    "message": "再次使用 Codex 登录"
   },
   "codexOAuthLoginHelp": {
-    "message": "Use this first. You should not need to find a local Codex file."
+    "message": "请先使用此方式。你应该不需要查找本地 Codex 文件。"
   },
-  "codexSignedInStatusLabel": { "message": "Signed in" },
+  "codexSignedInStatusLabel": { "message": "已登录" },
   "codexOAuthSignedInHelp": {
-    "message": "You are signed in. Use this only to switch accounts or reconnect Codex."
+    "message": "你已登录。仅在切换账户或重新连接 Codex 时使用此功能。"
   },
-  "codexAuthFallbackSummary": { "message": "Auth file fallback" },
+  "codexAuthFallbackSummary": { "message": "认证文件备用方式" },
   "codexAuthFallbackHelp": {
-    "message": "If browser sign-in does not work, select the Codex auth file at ~/.codex/auth.json."
+    "message": "如果浏览器登录不起作用，请选择 ~/.codex/auth.json 中的 Codex 认证文件。"
   },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "访问令牌" },
@@ -82,16 +82,16 @@
   "codexAuthImportedStatus": {
     "message": "已导入 Codex 认证。点击保存以保留这些设置。"
   },
-  "codexOAuthSigningInStatus": { "message": "Opening Codex sign-in..." },
+  "codexOAuthSigningInStatus": { "message": "正在打开 Codex 登录..." },
   "codexOAuthSignedInStatus": {
-    "message": "Signed in to Codex. These settings are saved."
+    "message": "已登录 Codex。这些设置已保存。"
   },
-  "codexOAuthLoginFailed": { "message": "Codex sign-in failed" },
+  "codexOAuthLoginFailed": { "message": "Codex 登录失败" },
   "codexOAuthStateMismatch": {
-    "message": "Codex sign-in returned an unexpected state"
+    "message": "Codex 登录返回了意外状态"
   },
   "codexOAuthMissingCode": {
-    "message": "Codex sign-in did not return an authorization code"
+    "message": "Codex 登录未返回授权码"
   },
   "codexAuthInvalidFile": { "message": "请选择有效的 Codex 认证 JSON 文件" },
   "codexAuthMissingTokens": { "message": "Codex 认证 JSON 缺少令牌" },

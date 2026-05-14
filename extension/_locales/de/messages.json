@@ -52,28 +52,28 @@
   "reasoningEffortLabel": { "message": "Reasoning-Aufwand" },
   "codexHeading": { "message": "Codex-Abonnement" },
   "codexLead": {
-    "message": "Sign in with Codex is the recommended setup path. Simple Words opens Codex sign-in, stores the returned tokens, and refreshes them automatically."
+    "message": "Die Anmeldung mit Codex ist der empfohlene Einrichtungsweg. Simple Words öffnet die Codex-Anmeldung, speichert die zurückgegebenen Tokens und aktualisiert sie automatisch."
   },
   "codexLeadBeforePath": { "message": "Richte Codex (" },
   "codexLeadAfterDocsLink": {
     "message": ") ein und wähle deine Codex-Auth-Datei aus, normalerweise unter "
   },
   "codexLeadAfterPath": { "message": "." },
-  "recommendedLabel": { "message": "Recommended" },
-  "codexOAuthLoginButton": { "message": "Sign in with Codex" },
+  "recommendedLabel": { "message": "Empfohlen" },
+  "codexOAuthLoginButton": { "message": "Mit Codex anmelden" },
   "codexOAuthLoginAgainButton": {
-    "message": "Sign in again with Codex"
+    "message": "Erneut mit Codex anmelden"
   },
   "codexOAuthLoginHelp": {
-    "message": "Use this first. You should not need to find a local Codex file."
+    "message": "Nutze dies zuerst. Du solltest keine lokale Codex-Datei suchen müssen."
   },
-  "codexSignedInStatusLabel": { "message": "Signed in" },
+  "codexSignedInStatusLabel": { "message": "Angemeldet" },
   "codexOAuthSignedInHelp": {
-    "message": "You are signed in. Use this only to switch accounts or reconnect Codex."
+    "message": "Du bist angemeldet. Nutze dies nur, um Konten zu wechseln oder Codex erneut zu verbinden."
   },
-  "codexAuthFallbackSummary": { "message": "Auth file fallback" },
+  "codexAuthFallbackSummary": { "message": "Auth-Datei als Ausweichoption" },
   "codexAuthFallbackHelp": {
-    "message": "If browser sign-in does not work, select the Codex auth file at ~/.codex/auth.json."
+    "message": "Wenn die Browser-Anmeldung nicht funktioniert, wähle die Codex-Auth-Datei unter ~/.codex/auth.json aus."
   },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "Zugriffstoken" },
@@ -94,16 +94,16 @@
   "codexAuthImportedStatus": {
     "message": "Codex-Auth importiert. Klicke auf Speichern, um diese Einstellungen zu behalten."
   },
-  "codexOAuthSigningInStatus": { "message": "Opening Codex sign-in..." },
+  "codexOAuthSigningInStatus": { "message": "Codex-Anmeldung wird geöffnet..." },
   "codexOAuthSignedInStatus": {
-    "message": "Signed in to Codex. These settings are saved."
+    "message": "Bei Codex angemeldet. Diese Einstellungen sind gespeichert."
   },
-  "codexOAuthLoginFailed": { "message": "Codex sign-in failed" },
+  "codexOAuthLoginFailed": { "message": "Codex-Anmeldung fehlgeschlagen" },
   "codexOAuthStateMismatch": {
-    "message": "Codex sign-in returned an unexpected state"
+    "message": "Die Codex-Anmeldung hat einen unerwarteten Status zurückgegeben"
   },
   "codexOAuthMissingCode": {
-    "message": "Codex sign-in did not return an authorization code"
+    "message": "Die Codex-Anmeldung hat keinen Autorisierungscode zurückgegeben"
   },
   "codexAuthInvalidFile": {
     "message": "Wähle eine gültige Codex-Auth-JSON-Datei"

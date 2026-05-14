@@ -50,28 +50,28 @@
   "reasoningEffortLabel": { "message": "推論の強さ" },
   "codexHeading": { "message": "Codex サブスクリプション" },
   "codexLead": {
-    "message": "Sign in with Codex is the recommended setup path. Simple Words opens Codex sign-in, stores the returned tokens, and refreshes them automatically."
+    "message": "Codex でのサインインが推奨されるセットアップ方法です。Simple Words は Codex サインインを開き、返されたトークンを保存して自動的に更新します。"
   },
   "codexLeadBeforePath": { "message": "Codex (" },
   "codexLeadAfterDocsLink": {
     "message": ") をセットアップし、Codex 認証ファイルを選択してください。通常は "
   },
   "codexLeadAfterPath": { "message": " です。" },
-  "recommendedLabel": { "message": "Recommended" },
-  "codexOAuthLoginButton": { "message": "Sign in with Codex" },
+  "recommendedLabel": { "message": "推奨" },
+  "codexOAuthLoginButton": { "message": "Codex でサインイン" },
   "codexOAuthLoginAgainButton": {
-    "message": "Sign in again with Codex"
+    "message": "Codex で再度サインイン"
   },
   "codexOAuthLoginHelp": {
-    "message": "Use this first. You should not need to find a local Codex file."
+    "message": "まずこちらを使用してください。ローカルの Codex ファイルを探す必要はないはずです。"
   },
-  "codexSignedInStatusLabel": { "message": "Signed in" },
+  "codexSignedInStatusLabel": { "message": "サインイン済み" },
   "codexOAuthSignedInHelp": {
-    "message": "You are signed in. Use this only to switch accounts or reconnect Codex."
+    "message": "サインイン済みです。アカウントを切り替えるか Codex を再接続する場合にのみ使用してください。"
   },
-  "codexAuthFallbackSummary": { "message": "Auth file fallback" },
+  "codexAuthFallbackSummary": { "message": "認証ファイルによる代替方法" },
   "codexAuthFallbackHelp": {
-    "message": "If browser sign-in does not work, select the Codex auth file at ~/.codex/auth.json."
+    "message": "ブラウザーでのサインインが機能しない場合は、~/.codex/auth.json にある Codex 認証ファイルを選択してください。"
   },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "アクセストークン" },
@@ -92,16 +92,16 @@
   "codexAuthImportedStatus": {
     "message": "Codex 認証をインポートしました。保存をクリックして設定を保持してください。"
   },
-  "codexOAuthSigningInStatus": { "message": "Opening Codex sign-in..." },
+  "codexOAuthSigningInStatus": { "message": "Codex サインインを開いています..." },
   "codexOAuthSignedInStatus": {
-    "message": "Signed in to Codex. These settings are saved."
+    "message": "Codex にサインインしました。これらの設定は保存されています。"
   },
-  "codexOAuthLoginFailed": { "message": "Codex sign-in failed" },
+  "codexOAuthLoginFailed": { "message": "Codex サインインに失敗しました" },
   "codexOAuthStateMismatch": {
-    "message": "Codex sign-in returned an unexpected state"
+    "message": "Codex サインインから予期しない状態が返されました"
   },
   "codexOAuthMissingCode": {
-    "message": "Codex sign-in did not return an authorization code"
+    "message": "Codex サインインから認証コードが返されませんでした"
   },
   "codexAuthInvalidFile": {
     "message": "有効な Codex 認証 JSON ファイルを選択してください"

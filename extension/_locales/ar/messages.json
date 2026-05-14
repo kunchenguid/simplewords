@@ -52,28 +52,28 @@
   "reasoningEffortLabel": { "message": "جهد الاستدلال" },
   "codexHeading": { "message": "اشتراك Codex" },
   "codexLead": {
-    "message": "Sign in with Codex is the recommended setup path. Simple Words opens Codex sign-in, stores the returned tokens, and refreshes them automatically."
+    "message": "تسجيل الدخول باستخدام Codex هو مسار الإعداد الموصى به. يفتح Simple Words تسجيل دخول Codex، ويحفظ الرموز التي يتم إرجاعها، ويحدثها تلقائيا."
   },
   "codexLeadBeforePath": { "message": "قم بإعداد Codex (" },
   "codexLeadAfterDocsLink": {
     "message": ")، واختر ملف مصادقة Codex، عادة في "
   },
   "codexLeadAfterPath": { "message": "." },
-  "recommendedLabel": { "message": "Recommended" },
-  "codexOAuthLoginButton": { "message": "Sign in with Codex" },
+  "recommendedLabel": { "message": "موصى به" },
+  "codexOAuthLoginButton": { "message": "تسجيل الدخول باستخدام Codex" },
   "codexOAuthLoginAgainButton": {
-    "message": "Sign in again with Codex"
+    "message": "تسجيل الدخول مرة أخرى باستخدام Codex"
   },
   "codexOAuthLoginHelp": {
-    "message": "Use this first. You should not need to find a local Codex file."
+    "message": "استخدم هذا أولا. لن تحتاج غالبا إلى العثور على ملف Codex محلي."
   },
-  "codexSignedInStatusLabel": { "message": "Signed in" },
+  "codexSignedInStatusLabel": { "message": "تم تسجيل الدخول" },
   "codexOAuthSignedInHelp": {
-    "message": "You are signed in. Use this only to switch accounts or reconnect Codex."
+    "message": "تم تسجيل دخولك. استخدم هذا فقط لتبديل الحسابات أو إعادة توصيل Codex."
   },
-  "codexAuthFallbackSummary": { "message": "Auth file fallback" },
+  "codexAuthFallbackSummary": { "message": "خيار احتياطي بملف المصادقة" },
   "codexAuthFallbackHelp": {
-    "message": "If browser sign-in does not work, select the Codex auth file at ~/.codex/auth.json."
+    "message": "إذا لم يعمل تسجيل الدخول عبر المتصفح، فاختر ملف مصادقة Codex في ~/.codex/auth.json."
   },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "رمز الوصول" },
@@ -94,16 +94,16 @@
   "codexAuthImportedStatus": {
     "message": "تم استيراد مصادقة Codex. انقر حفظ للاحتفاظ بهذه الإعدادات."
   },
-  "codexOAuthSigningInStatus": { "message": "Opening Codex sign-in..." },
+  "codexOAuthSigningInStatus": { "message": "جار فتح تسجيل دخول Codex..." },
   "codexOAuthSignedInStatus": {
-    "message": "Signed in to Codex. These settings are saved."
+    "message": "تم تسجيل الدخول إلى Codex. تم حفظ هذه الإعدادات."
   },
-  "codexOAuthLoginFailed": { "message": "Codex sign-in failed" },
+  "codexOAuthLoginFailed": { "message": "فشل تسجيل الدخول إلى Codex" },
   "codexOAuthStateMismatch": {
-    "message": "Codex sign-in returned an unexpected state"
+    "message": "أرجع تسجيل دخول Codex حالة غير متوقعة"
   },
   "codexOAuthMissingCode": {
-    "message": "Codex sign-in did not return an authorization code"
+    "message": "لم يرجع تسجيل دخول Codex رمز تفويض"
   },
   "codexAuthInvalidFile": { "message": "اختر ملف JSON صالحا لمصادقة Codex" },
   "codexAuthMissingTokens": {
