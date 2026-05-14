@@ -42,4 +42,32 @@ describe('background service worker', () => {
 
     expect(openOptionsPage).toHaveBeenCalledTimes(1)
   })
+
+  test('does not open the options page after update', async () => {
+    let installedListener:
+      | ((details: chrome.runtime.InstalledDetails) => void)
+      | undefined
+    const openOptionsPage = vi.fn()
+
+    vi.stubGlobal('chrome', {
+      runtime: {
+        onMessage: {
+          addListener: vi.fn()
+        },
+        onInstalled: {
+          addListener: vi.fn(
+            (listener: (details: chrome.runtime.InstalledDetails) => void) => {
+              installedListener = listener
+            }
+          )
+        },
+        openOptionsPage
+      }
+    })
+
+    await import('../src/background')
+    installedListener?.({ reason: 'update' } as chrome.runtime.InstalledDetails)
+
+    expect(openOptionsPage).not.toHaveBeenCalled()
+  })
 })
