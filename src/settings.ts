@@ -57,7 +57,7 @@ export const DEFAULT_SETTINGS: SimpleWordsSettings = {
   codexModel: 'gpt-5.5-fast',
   codexReasoningEffort: 'low',
   ollamaBaseURL: 'http://localhost:11434/v1',
-  ollamaModel: 'llama3.2'
+  ollamaModel: 'gemma4'
 }
 
 export function normalizeSettings(

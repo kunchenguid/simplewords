@@ -70,6 +70,10 @@ describe('domain enablement settings', () => {
 })
 
 describe('provider configuration settings', () => {
+  test('defaults Ollama to the Gemma 4 model', () => {
+    expect(DEFAULT_SETTINGS.ollamaModel).toBe('gemma4')
+  })
+
   test('requires both Codex access and refresh tokens', () => {
     expect(
       isProviderConfigured({
