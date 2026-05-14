@@ -51,11 +51,27 @@
   "openAIModelLabel": { "message": "Modelo" },
   "reasoningEffortLabel": { "message": "Esforço de raciocínio" },
   "codexHeading": { "message": "Assinatura do Codex" },
-  "codexLeadBeforePath": { "message": "Configure o Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": "), e selecione seu arquivo de autenticação do Codex, geralmente em "
+  "codexLead": {
+    "message": "Entrar com o Codex é o caminho de configuração recomendado. O Simple Words abre o login do Codex, armazena os tokens retornados e os atualiza automaticamente."
   },
-  "codexLeadAfterPath": { "message": "." },
+  "recommendedLabel": { "message": "Recomendado" },
+  "codexOAuthLoginButton": { "message": "Entrar com o Codex" },
+  "codexOAuthLoginAgainButton": {
+    "message": "Entrar novamente com o Codex"
+  },
+  "codexOAuthLoginHelp": {
+    "message": "Use isto primeiro. Você não deve precisar encontrar um arquivo local do Codex."
+  },
+  "codexSignedInStatusLabel": { "message": "Conectado" },
+  "codexOAuthSignedInHelp": {
+    "message": "Você está conectado. Use isto apenas para trocar de conta ou reconectar o Codex."
+  },
+  "codexAuthFallbackSummary": {
+    "message": "Alternativa com arquivo de autenticação"
+  },
+  "codexAuthFallbackHelp": {
+    "message": "Se o login pelo navegador não funcionar, selecione o arquivo de autenticação do Codex em ~/.codex/auth.json."
+  },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "Token de acesso" },
   "codexAccessTokenPlaceholder": {
@@ -75,6 +91,23 @@
   "codexAuthImportedStatus": {
     "message": "Autenticação do Codex importada. Clique em Salvar para manter estas configurações."
   },
+  "codexOAuthSigningInStatus": { "message": "Abrindo login do Codex..." },
+  "codexOAuthSignedInStatus": {
+    "message": "Conectado ao Codex. Estas configurações estão salvas."
+  },
+  "codexOAuthLoginFailed": { "message": "Falha ao entrar no Codex" },
+  "codexOAuthHttpFailure": {
+    "message": "O login do Codex falhou com HTTP $1"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "A resposta de login do Codex não tinha access_token"
+  },
+  "codexOAuthStateMismatch": {
+    "message": "O login do Codex retornou um estado inesperado"
+  },
+  "codexOAuthMissingCode": {
+    "message": "O login do Codex não retornou um código de autorização"
+  },
   "codexAuthInvalidFile": {
     "message": "Selecione um arquivo JSON válido de autenticação do Codex"
   },
@@ -88,7 +121,7 @@
     "message": "O token de atualização do Codex não está configurado"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "A atualização do token do Codex falhou com HTTP $1. Selecione auth.json novamente ou entre com o Codex CLI."
+    "message": "A atualização do token do Codex falhou com HTTP $1. Entre com o Codex pelo Simple Words ou selecione auth.json como alternativa."
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "A resposta de atualização do token do Codex não tinha access_token"

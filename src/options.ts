@@ -32,6 +32,13 @@ const fields = {
   codexAuthFile: document.getElementById(
     'codexAuthFile'
   ) as HTMLInputElement | null,
+  codexOAuthLogin: document.getElementById(
+    'codexOAuthLogin'
+  ) as HTMLButtonElement | null,
+  codexPrimaryAction: document.getElementById(
+    'codexPrimaryAction'
+  ) as HTMLElement | null,
+  codexOAuthHelp: document.getElementById('codexOAuthHelp'),
   codexAccessToken: document.getElementById(
     'codexAccessToken'
   ) as HTMLInputElement | null,
@@ -71,6 +78,10 @@ fields.codexAuthFile?.addEventListener('change', () => {
   void importCodexAuthFile()
 })
 
+fields.codexOAuthLogin?.addEventListener('click', () => {
+  void signInWithCodex()
+})
+
 async function restoreOptions(): Promise<void> {
   const settings = (await chrome.storage.local.get(
     DEFAULT_SETTINGS
@@ -93,6 +104,7 @@ async function restoreOptions(): Promise<void> {
   setValue(fields.ollamaBaseURL, settings.ollamaBaseURL)
   setValue(fields.ollamaModel, settings.ollamaModel)
   updateVisibleProviderFields(settings.provider)
+  updateCodexSignInState(codexHasTokens(settings))
 }
 
 async function saveOptions(): Promise<void> {
@@ -154,6 +166,7 @@ async function importCodexAuthFile(): Promise<void> {
     setValue(fields.codexRefreshToken, auth.refreshToken)
     setValue(fields.codexAccountId, auth.accountId)
     updateVisibleProviderFields('codex')
+    updateCodexSignInState(true)
     if (statusElement) {
       statusElement.textContent = t('codexAuthImportedStatus')
     }
@@ -163,6 +176,80 @@ async function importCodexAuthFile(): Promise<void> {
         error instanceof Error ? error.message : t('codexAuthInvalidFile')
     }
   }
+}
+
+async function signInWithCodex(): Promise<void> {
+  if (statusElement) {
+    statusElement.textContent = t('codexOAuthSigningInStatus')
+  }
+  if (fields.codexOAuthLogin) {
+    fields.codexOAuthLogin.disabled = true
+  }
+
+  try {
+    const response = (await chrome.runtime.sendMessage({
+      type: 'simplewords.codexOAuthLogin'
+    })) as {
+      codexAuth?: {
+        accessToken: string
+        refreshToken: string
+        accountId: string
+      }
+      error?: string
+    }
+    if (response.error) {
+      throw new Error(response.error)
+    }
+    if (!response.codexAuth) {
+      throw new Error(t('codexOAuthLoginFailed'))
+    }
+
+    setValue(fields.provider, 'codex')
+    setValue(fields.codexAccessToken, response.codexAuth.accessToken)
+    setValue(fields.codexRefreshToken, response.codexAuth.refreshToken)
+    setValue(fields.codexAccountId, response.codexAuth.accountId)
+    updateVisibleProviderFields('codex')
+    updateCodexSignInState(true)
+    if (statusElement) {
+      statusElement.textContent = t('codexOAuthSignedInStatus')
+    }
+  } catch (error) {
+    if (statusElement) {
+      statusElement.textContent =
+        error instanceof Error ? error.message : t('codexOAuthLoginFailed')
+    }
+  } finally {
+    if (fields.codexOAuthLogin) {
+      fields.codexOAuthLogin.disabled = false
+    }
+  }
+}
+
+function updateCodexSignInState(signedIn: boolean): void {
+  if (fields.codexPrimaryAction) {
+    fields.codexPrimaryAction.dataset.codexSignedIn = signedIn
+      ? 'true'
+      : 'false'
+  }
+  if (fields.codexOAuthLogin) {
+    fields.codexOAuthLogin.textContent = signedIn
+      ? t('codexOAuthLoginAgainButton')
+      : t('codexOAuthLoginButton')
+  }
+  if (fields.codexOAuthHelp) {
+    fields.codexOAuthHelp.textContent = signedIn
+      ? t('codexOAuthSignedInHelp')
+      : t('codexOAuthLoginHelp')
+  }
+}
+
+function codexHasTokens(
+  settings: Pick<SimpleWordsSettings, 'codexAccessToken' | 'codexRefreshToken'>
+): boolean {
+  return (
+    settings.codexAccessToken.trim().length > 0 &&
+    settings.codexRefreshToken.trim().length > 0
+  )
 }
 
 function getValue(

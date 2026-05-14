@@ -51,11 +51,25 @@
   "openAIModelLabel": { "message": "Modell" },
   "reasoningEffortLabel": { "message": "Reasoning-Aufwand" },
   "codexHeading": { "message": "Codex-Abonnement" },
-  "codexLeadBeforePath": { "message": "Richte Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": ") ein und wähle deine Codex-Auth-Datei aus, normalerweise unter "
+  "codexLead": {
+    "message": "Die Anmeldung mit Codex ist der empfohlene Einrichtungsweg. Simple Words öffnet die Codex-Anmeldung, speichert die zurückgegebenen Tokens und aktualisiert sie automatisch."
   },
-  "codexLeadAfterPath": { "message": "." },
+  "recommendedLabel": { "message": "Empfohlen" },
+  "codexOAuthLoginButton": { "message": "Mit Codex anmelden" },
+  "codexOAuthLoginAgainButton": {
+    "message": "Erneut mit Codex anmelden"
+  },
+  "codexOAuthLoginHelp": {
+    "message": "Nutze dies zuerst. Du solltest keine lokale Codex-Datei suchen müssen."
+  },
+  "codexSignedInStatusLabel": { "message": "Angemeldet" },
+  "codexOAuthSignedInHelp": {
+    "message": "Du bist angemeldet. Nutze dies nur, um Konten zu wechseln oder Codex erneut zu verbinden."
+  },
+  "codexAuthFallbackSummary": { "message": "Auth-Datei als Ausweichoption" },
+  "codexAuthFallbackHelp": {
+    "message": "Wenn die Browser-Anmeldung nicht funktioniert, wähle die Codex-Auth-Datei unter ~/.codex/auth.json aus."
+  },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "Zugriffstoken" },
   "codexAccessTokenPlaceholder": {
@@ -75,6 +89,25 @@
   "codexAuthImportedStatus": {
     "message": "Codex-Auth importiert. Klicke auf Speichern, um diese Einstellungen zu behalten."
   },
+  "codexOAuthSigningInStatus": {
+    "message": "Codex-Anmeldung wird geöffnet..."
+  },
+  "codexOAuthSignedInStatus": {
+    "message": "Bei Codex angemeldet. Diese Einstellungen sind gespeichert."
+  },
+  "codexOAuthLoginFailed": { "message": "Codex-Anmeldung fehlgeschlagen" },
+  "codexOAuthHttpFailure": {
+    "message": "Codex-Anmeldung ist mit HTTP $1 fehlgeschlagen"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "Codex-Anmeldeantwort enthielt kein access_token"
+  },
+  "codexOAuthStateMismatch": {
+    "message": "Die Codex-Anmeldung hat einen unerwarteten Status zurückgegeben"
+  },
+  "codexOAuthMissingCode": {
+    "message": "Die Codex-Anmeldung hat keinen Autorisierungscode zurückgegeben"
+  },
   "codexAuthInvalidFile": {
     "message": "Wähle eine gültige Codex-Auth-JSON-Datei"
   },
@@ -88,7 +121,7 @@
     "message": "Codex-Refresh-Token ist nicht konfiguriert"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "Codex-Token-Aktualisierung ist mit HTTP $1 fehlgeschlagen. Wähle auth.json erneut oder melde dich mit Codex CLI an."
+    "message": "Codex-Token-Aktualisierung ist mit HTTP $1 fehlgeschlagen. Melde dich in Simple Words mit Codex an oder wähle auth.json als Fallback."
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "Codex-Token-Aktualisierung enthielt kein access_token"

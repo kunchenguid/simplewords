@@ -41,11 +41,25 @@
   "openAIModelLabel": { "message": "模型" },
   "reasoningEffortLabel": { "message": "推理强度" },
   "codexHeading": { "message": "Codex 订阅" },
-  "codexLeadBeforePath": { "message": "设置 Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": ")，并选择你的 Codex 认证文件，通常位于 "
+  "codexLead": {
+    "message": "使用 Codex 登录是推荐的设置方式。Simple Words 会打开 Codex 登录，保存返回的令牌，并自动刷新它们。"
   },
-  "codexLeadAfterPath": { "message": "。" },
+  "recommendedLabel": { "message": "推荐" },
+  "codexOAuthLoginButton": { "message": "使用 Codex 登录" },
+  "codexOAuthLoginAgainButton": {
+    "message": "再次使用 Codex 登录"
+  },
+  "codexOAuthLoginHelp": {
+    "message": "请先使用此方式。你应该不需要查找本地 Codex 文件。"
+  },
+  "codexSignedInStatusLabel": { "message": "已登录" },
+  "codexOAuthSignedInHelp": {
+    "message": "你已登录。仅在切换账户或重新连接 Codex 时使用此功能。"
+  },
+  "codexAuthFallbackSummary": { "message": "认证文件备用方式" },
+  "codexAuthFallbackHelp": {
+    "message": "如果浏览器登录不起作用，请选择 ~/.codex/auth.json 中的 Codex 认证文件。"
+  },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "访问令牌" },
   "codexAccessTokenPlaceholder": { "message": "从 auth.json 导入或手动粘贴" },
@@ -63,12 +77,29 @@
   "codexAuthImportedStatus": {
     "message": "已导入 Codex 认证。点击保存以保留这些设置。"
   },
+  "codexOAuthSigningInStatus": { "message": "正在打开 Codex 登录..." },
+  "codexOAuthSignedInStatus": {
+    "message": "已登录 Codex。这些设置已保存。"
+  },
+  "codexOAuthLoginFailed": { "message": "Codex 登录失败" },
+  "codexOAuthHttpFailure": {
+    "message": "Codex 登录失败，HTTP $1"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "Codex 登录响应缺少 access_token"
+  },
+  "codexOAuthStateMismatch": {
+    "message": "Codex 登录返回了意外状态"
+  },
+  "codexOAuthMissingCode": {
+    "message": "Codex 登录未返回授权码"
+  },
   "codexAuthInvalidFile": { "message": "请选择有效的 Codex 认证 JSON 文件" },
   "codexAuthMissingTokens": { "message": "Codex 认证 JSON 缺少令牌" },
   "codexAuthMissingAccessToken": { "message": "Codex 认证 JSON 缺少访问令牌" },
   "codexRefreshTokenMissing": { "message": "未配置 Codex 刷新令牌" },
   "codexTokenRefreshHttpFailure": {
-    "message": "Codex 令牌刷新失败，HTTP $1。请重新选择 auth.json 或使用 Codex CLI 登录。"
+    "message": "Codex 令牌刷新失败，HTTP $1。请从 Simple Words 使用 Codex 登录，或将 auth.json 作为备用方式选择。"
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "Codex 令牌刷新响应缺少 access_token"

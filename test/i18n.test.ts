@@ -77,6 +77,42 @@ describe('extension i18n', () => {
     }
   })
 
+  test('translates Codex OAuth setup messages for supported locales', () => {
+    const englishMessages = readJson(
+      join('extension', '_locales', 'en', 'messages.json')
+    )
+    const codexOAuthKeys = [
+      'codexLead',
+      'recommendedLabel',
+      'codexOAuthLoginButton',
+      'codexOAuthLoginAgainButton',
+      'codexOAuthLoginHelp',
+      'codexSignedInStatusLabel',
+      'codexOAuthSignedInHelp',
+      'codexAuthFallbackSummary',
+      'codexAuthFallbackHelp',
+      'codexOAuthSigningInStatus',
+      'codexOAuthSignedInStatus',
+      'codexOAuthLoginFailed',
+      'codexOAuthStateMismatch',
+      'codexOAuthMissingCode'
+    ]
+
+    for (const locale of SUPPORTED_LOCALES.filter(
+      (locale) => locale !== 'en'
+    )) {
+      const messages = readJson(
+        join('extension', '_locales', locale, 'messages.json')
+      )
+
+      for (const key of codexOAuthKeys) {
+        expect(messages[key].message, `${locale}.${key}`).not.toBe(
+          englishMessages[key].message
+        )
+      }
+    }
+  })
+
   test('falls back to English when Chrome has no localized message', async () => {
     vi.stubGlobal('chrome', {
       i18n: {

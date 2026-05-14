@@ -156,6 +156,66 @@ describe('options page', () => {
     )
   })
 
+  test('presents Codex sign-in as the primary setup action', async () => {
+    document.body.innerHTML = await readFile(
+      `${process.cwd()}/extension/options.html`,
+      'utf8'
+    )
+
+    const signIn = document.getElementById('codexOAuthLogin')
+    const authFile = document.getElementById('codexAuthFile')
+    const fallback = authFile?.closest('details')
+
+    expect(signIn).toBeInstanceOf(HTMLButtonElement)
+    expect(signIn?.closest('.codex-primary-action')).not.toBeNull()
+    expect(authFile).toBeInstanceOf(HTMLInputElement)
+    expect(fallback?.querySelector('summary')?.textContent?.trim()).toContain(
+      'Auth file fallback'
+    )
+    expect(signIn?.compareDocumentPosition(authFile as Node)).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING
+    )
+    expect(
+      document.querySelector('[data-i18n="codexLead"]')?.textContent
+    ).not.toContain('auth file')
+  })
+
+  test('shows Codex as already signed in when tokens are configured', async () => {
+    document.body.innerHTML = await readFile(
+      `${process.cwd()}/extension/options.html`,
+      'utf8'
+    )
+
+    vi.stubGlobal('chrome', {
+      storage: {
+        local: {
+          get: vi.fn(async () => ({
+            ...DEFAULT_SETTINGS,
+            provider: 'codex',
+            codexAccessToken: 'access-token',
+            codexRefreshToken: 'refresh-token',
+            codexAccountId: 'account-123'
+          })),
+          set: vi.fn(async () => undefined)
+        }
+      }
+    })
+
+    await import('../src/options')
+    await Promise.resolve()
+    await Promise.resolve()
+
+    expect(document.getElementById('codexConnectionStatus')?.textContent).toBe(
+      'Signed in'
+    )
+    expect(
+      document.getElementById('codexOAuthLogin')?.textContent?.trim()
+    ).toBe('Sign in again with Codex')
+    expect(document.getElementById('codexOAuthHelp')?.textContent).toContain(
+      'You are signed in'
+    )
+  })
+
   test('shows Codex refresh token as an editable field', async () => {
     document.body.innerHTML = await readFile(
       `${process.cwd()}/extension/options.html`,
@@ -168,6 +228,74 @@ describe('options page', () => {
     expect(refreshToken).toBeInstanceOf(HTMLInputElement)
     expect((refreshToken as HTMLInputElement).type).toBe('password')
     expect(label?.getAttribute('data-i18n')).toBe('codexRefreshTokenLabel')
+  })
+
+  test('signs in to Codex from the options page and fills token fields', async () => {
+    document.body.innerHTML = `
+      <select id="provider"><option value="openai">OpenAI</option><option value="codex">Codex</option></select>
+      <input id="openaiApiKey" />
+      <input id="openaiBaseURL" />
+      <input id="openaiModel" />
+      <select id="openaiReasoningEffort"><option value="none">none</option></select>
+      <input id="codexAuthFile" type="file" />
+      <button id="codexOAuthLogin" type="button">Sign in</button>
+      <input id="codexAccessToken" />
+      <input id="codexRefreshToken" />
+      <input id="codexAccountId" />
+      <input id="codexBaseURL" />
+      <input id="codexModel" />
+      <select id="codexReasoningEffort"><option value="none">none</option></select>
+      <input id="ollamaBaseURL" />
+      <input id="ollamaModel" />
+      <input id="myName" />
+      <textarea id="systemPrompt"></textarea>
+      <textarea id="enabledDomains"></textarea>
+      <section data-provider-section="openai"></section>
+      <section data-provider-section="codex" hidden></section>
+      <button id="save" type="button">Save</button>
+      <p id="status" role="status"></p>
+    `
+    const sendMessage = vi.fn(async () => ({
+      codexAuth: {
+        accessToken: 'access-new',
+        refreshToken: 'refresh-new',
+        accountId: 'account-new'
+      }
+    }))
+
+    vi.stubGlobal('chrome', {
+      runtime: { sendMessage },
+      storage: {
+        local: {
+          get: vi.fn(async () => DEFAULT_SETTINGS),
+          set: vi.fn(async () => undefined)
+        }
+      }
+    })
+
+    await import('../src/options')
+    await Promise.resolve()
+    document.getElementById('codexOAuthLogin')?.click()
+    await Promise.resolve()
+
+    expect(sendMessage).toHaveBeenCalledWith({
+      type: 'simplewords.codexOAuthLogin'
+    })
+    expect(
+      (document.getElementById('provider') as HTMLSelectElement).value
+    ).toBe('codex')
+    expect(
+      (document.getElementById('codexAccessToken') as HTMLInputElement).value
+    ).toBe('access-new')
+    expect(
+      (document.getElementById('codexRefreshToken') as HTMLInputElement).value
+    ).toBe('refresh-new')
+    expect(
+      (document.getElementById('codexAccountId') as HTMLInputElement).value
+    ).toBe('account-new')
+    expect(document.getElementById('status')?.textContent).toBe(
+      'Signed in to Codex. These settings are saved.'
+    )
   })
 
   test('localizes visible step labels', async () => {

@@ -51,11 +51,25 @@
   "openAIModelLabel": { "message": "Model" },
   "reasoningEffortLabel": { "message": "Reasoning effort" },
   "codexHeading": { "message": "Codex subscription" },
-  "codexLeadBeforePath": { "message": "Setup Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": "), and select your Codex auth file, usually at "
+  "codexLead": {
+    "message": "Sign in with Codex is the recommended setup path. Simple Words opens Codex sign-in, stores the returned tokens, and refreshes them automatically."
   },
-  "codexLeadAfterPath": { "message": "." },
+  "recommendedLabel": { "message": "Recommended" },
+  "codexOAuthLoginButton": { "message": "Sign in with Codex" },
+  "codexOAuthLoginAgainButton": {
+    "message": "Sign in again with Codex"
+  },
+  "codexOAuthLoginHelp": {
+    "message": "Use this first. You should not need to find a local Codex file."
+  },
+  "codexSignedInStatusLabel": { "message": "Signed in" },
+  "codexOAuthSignedInHelp": {
+    "message": "You are signed in. Use this only to switch accounts or reconnect Codex."
+  },
+  "codexAuthFallbackSummary": { "message": "Auth file fallback" },
+  "codexAuthFallbackHelp": {
+    "message": "If browser sign-in does not work, select the Codex auth file at ~/.codex/auth.json."
+  },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "Access token" },
   "codexAccessTokenPlaceholder": {
@@ -75,6 +89,23 @@
   "codexAuthImportedStatus": {
     "message": "Imported Codex auth. Click Save to keep these settings."
   },
+  "codexOAuthSigningInStatus": { "message": "Opening Codex sign-in..." },
+  "codexOAuthSignedInStatus": {
+    "message": "Signed in to Codex. These settings are saved."
+  },
+  "codexOAuthLoginFailed": { "message": "Codex sign-in failed" },
+  "codexOAuthHttpFailure": {
+    "message": "Codex sign-in failed with HTTP $1"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "Codex sign-in response was missing access_token"
+  },
+  "codexOAuthStateMismatch": {
+    "message": "Codex sign-in returned an unexpected state"
+  },
+  "codexOAuthMissingCode": {
+    "message": "Codex sign-in did not return an authorization code"
+  },
   "codexAuthInvalidFile": { "message": "Select a valid Codex auth JSON file" },
   "codexAuthMissingTokens": { "message": "Codex auth JSON is missing tokens" },
   "codexAuthMissingAccessToken": {
@@ -84,7 +115,7 @@
     "message": "Codex refresh token is not configured"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "Codex token refresh failed with HTTP $1. Select auth.json again or sign in with Codex CLI."
+    "message": "Codex token refresh failed with HTTP $1. Sign in with Codex from Simple Words, or select auth.json as a fallback."
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "Codex token refresh response was missing access_token"

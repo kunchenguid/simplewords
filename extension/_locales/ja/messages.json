@@ -49,11 +49,25 @@
   "openAIModelLabel": { "message": "モデル" },
   "reasoningEffortLabel": { "message": "推論の強さ" },
   "codexHeading": { "message": "Codex サブスクリプション" },
-  "codexLeadBeforePath": { "message": "Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": ") をセットアップし、Codex 認証ファイルを選択してください。通常は "
+  "codexLead": {
+    "message": "Codex でのサインインが推奨されるセットアップ方法です。Simple Words は Codex サインインを開き、返されたトークンを保存して自動的に更新します。"
   },
-  "codexLeadAfterPath": { "message": " です。" },
+  "recommendedLabel": { "message": "推奨" },
+  "codexOAuthLoginButton": { "message": "Codex でサインイン" },
+  "codexOAuthLoginAgainButton": {
+    "message": "Codex で再度サインイン"
+  },
+  "codexOAuthLoginHelp": {
+    "message": "まずこちらを使用してください。ローカルの Codex ファイルを探す必要はないはずです。"
+  },
+  "codexSignedInStatusLabel": { "message": "サインイン済み" },
+  "codexOAuthSignedInHelp": {
+    "message": "サインイン済みです。アカウントを切り替えるか Codex を再接続する場合にのみ使用してください。"
+  },
+  "codexAuthFallbackSummary": { "message": "認証ファイルによる代替方法" },
+  "codexAuthFallbackHelp": {
+    "message": "ブラウザーでのサインインが機能しない場合は、~/.codex/auth.json にある Codex 認証ファイルを選択してください。"
+  },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "アクセストークン" },
   "codexAccessTokenPlaceholder": {
@@ -73,6 +87,25 @@
   "codexAuthImportedStatus": {
     "message": "Codex 認証をインポートしました。保存をクリックして設定を保持してください。"
   },
+  "codexOAuthSigningInStatus": {
+    "message": "Codex サインインを開いています..."
+  },
+  "codexOAuthSignedInStatus": {
+    "message": "Codex にサインインしました。これらの設定は保存されています。"
+  },
+  "codexOAuthLoginFailed": { "message": "Codex サインインに失敗しました" },
+  "codexOAuthHttpFailure": {
+    "message": "Codex サインインが HTTP $1 で失敗しました"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "Codex サインインレスポンスに access_token がありません"
+  },
+  "codexOAuthStateMismatch": {
+    "message": "Codex サインインから予期しない状態が返されました"
+  },
+  "codexOAuthMissingCode": {
+    "message": "Codex サインインから認証コードが返されませんでした"
+  },
   "codexAuthInvalidFile": {
     "message": "有効な Codex 認証 JSON ファイルを選択してください"
   },
@@ -86,7 +119,7 @@
     "message": "Codex 更新トークンが設定されていません"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "Codex トークンの更新が HTTP $1 で失敗しました。auth.json を再選択するか、Codex CLI でサインインしてください。"
+    "message": "Codex トークンの更新が HTTP $1 で失敗しました。Simple Words から Codex でサインインするか、代替方法として auth.json を選択してください。"
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "Codex トークン更新レスポンスに access_token がありません"

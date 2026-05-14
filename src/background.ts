@@ -5,7 +5,11 @@ import {
   type SimpleWordsSettings
 } from './settings'
 import {
+  buildCodexAuthorizationUrl,
   codexAccessTokenIsExpiring,
+  createCodexOAuthState,
+  createCodexPkce,
+  exchangeCodexAuthorizationCode,
   extractCodexAccountId,
   refreshCodexTokens
 } from './codexAuth'
@@ -24,13 +28,31 @@ type OpenOptionsRequest = {
   type: 'simplewords.openOptions'
 }
 
-type RuntimeRequest = RefineRequest | OpenOptionsRequest
+type CodexOAuthLoginRequest = {
+  type: 'simplewords.codexOAuthLogin'
+}
+
+type RuntimeRequest =
+  | RefineRequest
+  | OpenOptionsRequest
+  | CodexOAuthLoginRequest
 
 type RefineResponse = {
   reply?: string
   error?: string
   action?: 'openOptions'
 }
+
+type CodexOAuthLoginResponse = {
+  codexAuth?: {
+    accessToken: string
+    refreshToken: string
+    accountId: string
+  }
+  error?: string
+}
+
+type RuntimeResponse = RefineResponse | CodexOAuthLoginResponse
 
 type CodexRefreshResult = {
   accessToken: string
@@ -39,17 +61,33 @@ type CodexRefreshResult = {
 }
 
 let codexRefreshPromise: Promise<CodexRefreshResult> | undefined
+const CODEX_OAUTH_CALLBACK_TIMEOUT_MS = 120_000
 
 chrome.runtime.onMessage.addListener(
   (
     message: RuntimeRequest,
     _sender,
-    sendResponse: (response: RefineResponse) => void
+    sendResponse: (response: RuntimeResponse) => void
   ) => {
     if (message.type === 'simplewords.openOptions') {
       chrome.runtime.openOptionsPage()
       sendResponse({})
       return false
+    }
+
+    if (message.type === 'simplewords.codexOAuthLogin') {
+      startCodexOAuthLogin()
+        .then(sendResponse)
+        .catch((error: unknown) => {
+          sendResponse({
+            error:
+              error instanceof Error
+                ? error.message
+                : t('codexOAuthLoginFailed')
+          })
+        })
+
+      return true
     }
 
     if (message.type !== 'simplewords.refine') {
@@ -110,6 +148,206 @@ async function refineReply(request: RefineRequest): Promise<RefineResponse> {
   }
 
   return { reply }
+}
+
+async function startCodexOAuthLogin(): Promise<CodexOAuthLoginResponse> {
+  const redirectUri = 'http://localhost:1455/auth/callback'
+  const pkce = await createCodexPkce()
+  const state = createCodexOAuthState()
+  const authorizationUrl = buildCodexAuthorizationUrl({
+    redirectUri,
+    codeChallenge: pkce.codeChallenge,
+    state
+  })
+  const tab = await createTab({ active: true })
+  if (typeof tab.id !== 'number') {
+    throw new Error(t('codexOAuthLoginFailed'))
+  }
+
+  try {
+    const callback = createCodexOAuthCallbackWaiter(tab.id, redirectUri, state)
+    try {
+      await updateTab(tab.id, { url: authorizationUrl })
+    } catch (error) {
+      callback.cancel()
+      throw error
+    }
+    const code = await callback.promise
+    const tokens = await exchangeCodexAuthorizationCode({
+      code,
+      redirectUri,
+      codeVerifier: pkce.codeVerifier
+    })
+    const accountId = extractCodexAccountId(tokens.accessToken) ?? ''
+    const codexAuth = {
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+      accountId
+    }
+
+    await chrome.storage.local.set({
+      provider: 'codex',
+      codexAccessToken: codexAuth.accessToken,
+      codexRefreshToken: codexAuth.refreshToken,
+      codexAccountId: codexAuth.accountId
+    })
+
+    return { codexAuth }
+  } finally {
+    await removeTab(tab.id)
+  }
+}
+
+function createCodexOAuthCallbackWaiter(
+  tabId: number,
+  redirectUri: string,
+  state: string
+): { promise: Promise<string>; cancel: () => void } {
+  let cancel = () => {}
+  const promise = new Promise<string>((resolve, reject) => {
+    const cleanup = () => {
+      clearTimeout(timeout)
+      chrome.tabs.onUpdated.removeListener(listener)
+      chrome.tabs.onRemoved.removeListener(removedListener)
+    }
+    cancel = cleanup
+    const listener = (
+      updatedTabId: number,
+      changeInfo: chrome.tabs.OnUpdatedInfo,
+      tab: chrome.tabs.Tab
+    ) => {
+      if (updatedTabId !== tabId) {
+        return
+      }
+
+      const url = changeInfo.url ?? tab.url
+      if (!url) {
+        return
+      }
+
+      const callback = parseCodexOAuthCallbackUrl(url, redirectUri, state)
+      if (!callback) {
+        return
+      }
+
+      cleanup()
+      if (callback.error) {
+        reject(new Error(callback.error))
+        return
+      }
+
+      resolve(callback.code ?? '')
+    }
+    const removedListener = (removedTabId: number) => {
+      if (removedTabId !== tabId) {
+        return
+      }
+
+      cleanup()
+      reject(new Error(t('codexOAuthLoginFailed')))
+    }
+    const timeout = setTimeout(() => {
+      cleanup()
+      reject(new Error(t('codexOAuthLoginFailed')))
+    }, CODEX_OAUTH_CALLBACK_TIMEOUT_MS)
+
+    chrome.tabs.onUpdated.addListener(listener)
+    chrome.tabs.onRemoved.addListener(removedListener)
+  })
+
+  return { promise, cancel }
+}
+
+function parseCodexOAuthCallbackUrl(
+  rawUrl: string,
+  redirectUri: string,
+  state: string
+):
+  | { code: string; error?: never }
+  | { error: string; code?: never }
+  | undefined {
+  let url: URL
+  try {
+    url = new URL(rawUrl)
+  } catch {
+    return undefined
+  }
+
+  const expected = new URL(redirectUri)
+  if (url.origin !== expected.origin || url.pathname !== expected.pathname) {
+    return undefined
+  }
+
+  if (url.searchParams.get('state') !== state) {
+    return { error: t('codexOAuthStateMismatch') }
+  }
+
+  const error =
+    url.searchParams.get('error_description') ?? url.searchParams.get('error')
+  if (error) {
+    return { error }
+  }
+
+  const code = url.searchParams.get('code')
+  return code ? { code } : { error: t('codexOAuthMissingCode') }
+}
+
+function createTab(
+  createProperties: chrome.tabs.CreateProperties
+): Promise<chrome.tabs.Tab> {
+  return new Promise((resolve, reject) => {
+    const handleTab = (tab: chrome.tabs.Tab) => {
+      const message = chrome.runtime.lastError?.message
+      if (message) {
+        reject(new Error(message))
+        return
+      }
+
+      resolve(tab)
+    }
+    const result = chrome.tabs.create(createProperties, handleTab) as
+      | Promise<chrome.tabs.Tab>
+      | undefined
+    result?.then(resolve, reject)
+  })
+}
+
+function updateTab(
+  tabId: number,
+  updateProperties: chrome.tabs.UpdateProperties
+): Promise<chrome.tabs.Tab> {
+  return new Promise((resolve, reject) => {
+    const handleTab = (tab?: chrome.tabs.Tab) => {
+      const message = chrome.runtime.lastError?.message
+      if (message) {
+        reject(new Error(message))
+        return
+      }
+
+      if (!tab) {
+        reject(new Error(t('codexOAuthLoginFailed')))
+        return
+      }
+
+      resolve(tab)
+    }
+    const result = chrome.tabs.update(tabId, updateProperties, handleTab) as
+      | Promise<chrome.tabs.Tab>
+      | undefined
+    result?.then(resolve, reject)
+  })
+}
+
+function removeTab(tabId: number): Promise<void> {
+  return new Promise((resolve) => {
+    const result = chrome.tabs.remove(tabId, () => resolve()) as
+      | Promise<void>
+      | undefined
+    result?.then(
+      () => resolve(),
+      () => resolve()
+    )
+  })
 }
 
 function refineInput(request: RefineRequest) {

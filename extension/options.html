@@ -265,6 +265,61 @@
         margin: -6px 0 0;
       }
 
+      .codex-primary-action {
+        background: var(--paper-2);
+        border: 1px solid var(--line-cool);
+        border-radius: var(--radius-md);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .codex-primary-action[data-codex-signed-in='true'] {
+        background: var(--paper);
+        border-color: rgba(23, 107, 58, 0.35);
+      }
+
+      .codex-action-head {
+        align-items: center;
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+      }
+
+      .action-kicker {
+        color: var(--accent);
+        font-family: var(--font-mono);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .connection-status {
+        background: rgba(23, 107, 58, 0.1);
+        border: 1px solid rgba(23, 107, 58, 0.22);
+        border-radius: 999px;
+        color: var(--success);
+        display: none;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1;
+        padding: 6px 9px;
+      }
+
+      .codex-primary-action[data-codex-signed-in='true'] .connection-status {
+        display: inline-flex;
+      }
+
+      .codex-primary-action p {
+        margin: 0;
+      }
+
+      .codex-fallback {
+        background: transparent;
+      }
+
       code {
         background: var(--code-bg);
         border-radius: 5px;
@@ -287,7 +342,8 @@
         z-index: 2;
       }
 
-      button#save {
+      button#save,
+      button#codexOAuthLogin {
         background: var(--ink-900);
         border: 0;
         border-radius: var(--radius-sm);
@@ -302,17 +358,31 @@
           transform 120ms var(--ease-out);
       }
 
-      button#save:hover {
+      button#save:hover,
+      button#codexOAuthLogin:hover {
         background: var(--ink-700);
       }
 
-      button#save:active {
+      button#save:active,
+      button#codexOAuthLogin:active {
         transform: scale(0.98);
       }
 
-      button#save:focus-visible {
+      button#save:focus-visible,
+      button#codexOAuthLogin:focus-visible {
         outline: 2px solid var(--accent);
         outline-offset: 2px;
+      }
+
+      button#codexOAuthLogin {
+        align-self: flex-start;
+        font-size: 14px;
+        padding: 12px 18px;
+      }
+
+      button#codexOAuthLogin:disabled {
+        cursor: wait;
+        opacity: 0.65;
       }
 
       #status {
@@ -419,29 +489,63 @@
           <div class="section-head">
             <h2 data-i18n="codexHeading">Codex subscription</h2>
             <p class="section-lead">
-              <span data-i18n="codexLeadBeforePath">Setup Codex (</span
-              ><a
+              <span data-i18n="codexLead"
+                >Sign in with Codex is the recommended setup path. Simple Words
+                opens Codex sign-in, stores the returned tokens, and refreshes
+                them automatically.</span
+              >
+              <a
                 href="https://developers.openai.com/codex"
                 target="_blank"
                 rel="noopener noreferrer"
                 >https://developers.openai.com/codex</a
-              ><span data-i18n="codexLeadAfterDocsLink"
-                >), and select your Codex auth file, usually at</span
               >
-              <code>~/.codex/auth.json</code
-              ><span data-i18n="codexLeadAfterPath">.</span>
             </p>
           </div>
-          <div class="field">
-            <label for="codexAuthFile" data-i18n="codexAuthFileLabel">
-              Codex auth.json
-            </label>
-            <input
-              id="codexAuthFile"
-              type="file"
-              accept="application/json,.json"
-            />
+          <div class="codex-primary-action" id="codexPrimaryAction">
+            <div class="codex-action-head">
+              <span class="action-kicker" data-i18n="recommendedLabel"
+                >Recommended</span
+              >
+              <span
+                class="connection-status"
+                id="codexConnectionStatus"
+                data-i18n="codexSignedInStatusLabel"
+                >Signed in</span
+              >
+            </div>
+            <button
+              id="codexOAuthLogin"
+              type="button"
+              data-i18n="codexOAuthLoginButton"
+            >
+              Sign in with Codex
+            </button>
+            <p id="codexOAuthHelp" data-i18n="codexOAuthLoginHelp">
+              Use this first. You should not need to find a local Codex file.
+            </p>
           </div>
+          <details class="codex-fallback">
+            <summary data-i18n="codexAuthFallbackSummary">
+              Auth file fallback
+            </summary>
+            <div class="disclosure-body">
+              <p data-i18n="codexAuthFallbackHelp">
+                If browser sign-in does not work, select the Codex auth file at
+                <code>~/.codex/auth.json</code>.
+              </p>
+              <div class="field">
+                <label for="codexAuthFile" data-i18n="codexAuthFileLabel">
+                  Codex auth.json
+                </label>
+                <input
+                  id="codexAuthFile"
+                  type="file"
+                  accept="application/json,.json"
+                />
+              </div>
+            </div>
+          </details>
           <div class="field">
             <label for="codexAccessToken" data-i18n="codexAccessTokenLabel">
               Access token

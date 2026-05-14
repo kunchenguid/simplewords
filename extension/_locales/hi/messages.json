@@ -51,11 +51,27 @@
   "openAIModelLabel": { "message": "मॉडल" },
   "reasoningEffortLabel": { "message": "तर्क प्रयास" },
   "codexHeading": { "message": "Codex सदस्यता" },
-  "codexLeadBeforePath": { "message": "Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": ") सेट करें, और अपना Codex auth file चुनें, आम तौर पर "
+  "codexLead": {
+    "message": "Codex से साइन इन करना सुझाया गया सेटअप तरीका है। Simple Words Codex साइन-इन खोलता है, लौटे हुए tokens सहेजता है, और उन्हें अपने आप refresh करता है।"
   },
-  "codexLeadAfterPath": { "message": "." },
+  "recommendedLabel": { "message": "अनुशंसित" },
+  "codexOAuthLoginButton": { "message": "Codex से साइन इन करें" },
+  "codexOAuthLoginAgainButton": {
+    "message": "Codex से फिर साइन इन करें"
+  },
+  "codexOAuthLoginHelp": {
+    "message": "पहले इसे इस्तेमाल करें। आपको local Codex file ढूंढने की जरूरत नहीं होनी चाहिए।"
+  },
+  "codexSignedInStatusLabel": { "message": "साइन इन है" },
+  "codexOAuthSignedInHelp": {
+    "message": "आप साइन इन हैं। इसे केवल account बदलने या Codex को फिर से connect करने के लिए इस्तेमाल करें।"
+  },
+  "codexAuthFallbackSummary": {
+    "message": "प्रमाणीकरण फ़ाइल का वैकल्पिक तरीका"
+  },
+  "codexAuthFallbackHelp": {
+    "message": "अगर browser sign-in काम नहीं करता, तो ~/.codex/auth.json पर Codex auth file चुनें।"
+  },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "Access token" },
   "codexAccessTokenPlaceholder": {
@@ -75,6 +91,23 @@
   "codexAuthImportedStatus": {
     "message": "Codex auth import हो गया। इन सेटिंग्स को रखने के लिए Save क्लिक करें।"
   },
+  "codexOAuthSigningInStatus": { "message": "Codex sign-in खोला जा रहा है..." },
+  "codexOAuthSignedInStatus": {
+    "message": "Codex में साइन इन हो गया। ये settings सहेजी गई हैं।"
+  },
+  "codexOAuthLoginFailed": { "message": "Codex sign-in विफल रहा" },
+  "codexOAuthHttpFailure": {
+    "message": "Codex sign-in HTTP $1 के साथ विफल हुआ"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "Codex sign-in response में access_token नहीं था"
+  },
+  "codexOAuthStateMismatch": {
+    "message": "Codex sign-in ने अनपेक्षित state लौटाई"
+  },
+  "codexOAuthMissingCode": {
+    "message": "Codex sign-in ने प्राधिकरण कोड नहीं लौटाया"
+  },
   "codexAuthInvalidFile": { "message": "एक मान्य Codex auth JSON फ़ाइल चुनें" },
   "codexAuthMissingTokens": {
     "message": "Codex auth JSON में tokens नहीं हैं"
@@ -86,7 +119,7 @@
     "message": "Codex refresh token configured नहीं है"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "Codex token refresh HTTP $1 के साथ विफल हुआ। auth.json फिर चुनें या Codex CLI से sign in करें।"
+    "message": "Codex token refresh HTTP $1 के साथ विफल हुआ। Simple Words से Codex में sign in करें, या fallback के रूप में auth.json चुनें।"
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "Codex token refresh response में access_token नहीं था"

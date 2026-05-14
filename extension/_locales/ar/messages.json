@@ -51,11 +51,25 @@
   "openAIModelLabel": { "message": "النموذج" },
   "reasoningEffortLabel": { "message": "جهد الاستدلال" },
   "codexHeading": { "message": "اشتراك Codex" },
-  "codexLeadBeforePath": { "message": "قم بإعداد Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": ")، واختر ملف مصادقة Codex، عادة في "
+  "codexLead": {
+    "message": "تسجيل الدخول باستخدام Codex هو مسار الإعداد الموصى به. يفتح Simple Words تسجيل دخول Codex، ويحفظ الرموز التي يتم إرجاعها، ويحدثها تلقائيا."
   },
-  "codexLeadAfterPath": { "message": "." },
+  "recommendedLabel": { "message": "موصى به" },
+  "codexOAuthLoginButton": { "message": "تسجيل الدخول باستخدام Codex" },
+  "codexOAuthLoginAgainButton": {
+    "message": "تسجيل الدخول مرة أخرى باستخدام Codex"
+  },
+  "codexOAuthLoginHelp": {
+    "message": "استخدم هذا أولا. لن تحتاج غالبا إلى العثور على ملف Codex محلي."
+  },
+  "codexSignedInStatusLabel": { "message": "تم تسجيل الدخول" },
+  "codexOAuthSignedInHelp": {
+    "message": "تم تسجيل دخولك. استخدم هذا فقط لتبديل الحسابات أو إعادة توصيل Codex."
+  },
+  "codexAuthFallbackSummary": { "message": "خيار احتياطي بملف المصادقة" },
+  "codexAuthFallbackHelp": {
+    "message": "إذا لم يعمل تسجيل الدخول عبر المتصفح، فاختر ملف مصادقة Codex في ~/.codex/auth.json."
+  },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "رمز الوصول" },
   "codexAccessTokenPlaceholder": {
@@ -75,6 +89,23 @@
   "codexAuthImportedStatus": {
     "message": "تم استيراد مصادقة Codex. انقر حفظ للاحتفاظ بهذه الإعدادات."
   },
+  "codexOAuthSigningInStatus": { "message": "جار فتح تسجيل دخول Codex..." },
+  "codexOAuthSignedInStatus": {
+    "message": "تم تسجيل الدخول إلى Codex. تم حفظ هذه الإعدادات."
+  },
+  "codexOAuthLoginFailed": { "message": "فشل تسجيل الدخول إلى Codex" },
+  "codexOAuthHttpFailure": {
+    "message": "فشل تسجيل الدخول إلى Codex مع HTTP $1"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "استجابة تسجيل دخول Codex لا تحتوي على access_token"
+  },
+  "codexOAuthStateMismatch": {
+    "message": "أرجع تسجيل دخول Codex حالة غير متوقعة"
+  },
+  "codexOAuthMissingCode": {
+    "message": "لم يرجع تسجيل دخول Codex رمز تفويض"
+  },
   "codexAuthInvalidFile": { "message": "اختر ملف JSON صالحا لمصادقة Codex" },
   "codexAuthMissingTokens": {
     "message": "ملف JSON لمصادقة Codex لا يحتوي على رموز"
@@ -84,7 +115,7 @@
   },
   "codexRefreshTokenMissing": { "message": "رمز تحديث Codex غير مهيأ" },
   "codexTokenRefreshHttpFailure": {
-    "message": "فشل تحديث رمز Codex مع HTTP $1. اختر auth.json مرة أخرى أو سجل الدخول باستخدام Codex CLI."
+    "message": "فشل تحديث رمز Codex مع HTTP $1. سجل الدخول إلى Codex من Simple Words، أو اختر auth.json كخيار احتياطي."
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "استجابة تحديث رمز Codex لا تحتوي على access_token"

@@ -103,7 +103,9 @@ function CodexPanel({ s, set }) {
       title="Codex subscription"
       lead={
         <>
-          Setup Codex (
+          Sign in with Codex is the recommended setup path. Simple Words opens
+          Codex sign-in, stores the returned tokens, and refreshes them
+          automatically. (
           <a
             href="https://developers.openai.com/codex"
             target="_blank"
@@ -111,12 +113,22 @@ function CodexPanel({ s, set }) {
           >
             https://developers.openai.com/codex
           </a>
-          ), and select your Codex auth file, usually at{' '}
-          <code>~/.codex/auth.json</code>.
+          )
         </>
       }
     >
+      <Field label="Recommended">
+        <p className="help">Signed in</p>
+        <button type="button">Sign in with Codex</button>
+        <p className="help">
+          Use this first. You should not need to find a local Codex file.
+        </p>
+      </Field>
       <Field label="Codex auth.json">
+        <p className="help">
+          Auth file fallback: if browser sign-in does not work, select{' '}
+          <code>~/.codex/auth.json</code>.
+        </p>
         <input type="file" accept="application/json,.json" />
       </Field>
       <Field label="Access token">

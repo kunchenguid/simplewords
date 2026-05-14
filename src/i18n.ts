@@ -38,9 +38,19 @@ export const EN_MESSAGES = {
   openAIModelLabel: 'Model',
   reasoningEffortLabel: 'Reasoning effort',
   codexHeading: 'Codex subscription',
-  codexLeadBeforePath: 'Setup Codex (',
-  codexLeadAfterDocsLink: '), and select your Codex auth file, usually at ',
-  codexLeadAfterPath: '.',
+  codexLead:
+    'Sign in with Codex is the recommended setup path. Simple Words opens Codex sign-in, stores the returned tokens, and refreshes them automatically.',
+  recommendedLabel: 'Recommended',
+  codexOAuthLoginButton: 'Sign in with Codex',
+  codexOAuthLoginAgainButton: 'Sign in again with Codex',
+  codexOAuthLoginHelp:
+    'Use this first. You should not need to find a local Codex file.',
+  codexSignedInStatusLabel: 'Signed in',
+  codexOAuthSignedInHelp:
+    'You are signed in. Use this only to switch accounts or reconnect Codex.',
+  codexAuthFallbackSummary: 'Auth file fallback',
+  codexAuthFallbackHelp:
+    'If browser sign-in does not work, select the Codex auth file at ~/.codex/auth.json.',
   codexAuthFileLabel: 'Codex auth.json',
   codexAccessTokenLabel: 'Access token',
   codexAccessTokenPlaceholder: 'Imported from auth.json or pasted manually',
@@ -57,12 +67,20 @@ export const EN_MESSAGES = {
   savedStatus: 'Saved.',
   codexAuthImportedStatus:
     'Imported Codex auth. Click Save to keep these settings.',
+  codexOAuthSigningInStatus: 'Opening Codex sign-in...',
+  codexOAuthSignedInStatus: 'Signed in to Codex. These settings are saved.',
+  codexOAuthLoginFailed: 'Codex sign-in failed',
+  codexOAuthHttpFailure: 'Codex sign-in failed with HTTP $1',
+  codexOAuthMissingAccessToken:
+    'Codex sign-in response was missing access_token',
+  codexOAuthStateMismatch: 'Codex sign-in returned an unexpected state',
+  codexOAuthMissingCode: 'Codex sign-in did not return an authorization code',
   codexAuthInvalidFile: 'Select a valid Codex auth JSON file',
   codexAuthMissingTokens: 'Codex auth JSON is missing tokens',
   codexAuthMissingAccessToken: 'Codex auth JSON is missing an access token',
   codexRefreshTokenMissing: 'Codex refresh token is not configured',
   codexTokenRefreshHttpFailure:
-    'Codex token refresh failed with HTTP $1. Select auth.json again or sign in with Codex CLI.',
+    'Codex token refresh failed with HTTP $1. Sign in with Codex from Simple Words, or select auth.json as a fallback.',
   codexTokenRefreshMissingAccessToken:
     'Codex token refresh response was missing access_token',
   buttonLabel: 'Simple Words',

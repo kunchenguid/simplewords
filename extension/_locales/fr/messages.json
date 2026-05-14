@@ -51,11 +51,27 @@
   "openAIModelLabel": { "message": "Modèle" },
   "reasoningEffortLabel": { "message": "Effort de raisonnement" },
   "codexHeading": { "message": "Abonnement Codex" },
-  "codexLeadBeforePath": { "message": "Configurez Codex (" },
-  "codexLeadAfterDocsLink": {
-    "message": "), et sélectionnez votre fichier d'authentification Codex, généralement à "
+  "codexLead": {
+    "message": "La connexion avec Codex est la méthode de configuration recommandée. Simple Words ouvre la connexion Codex, stocke les jetons renvoyés et les actualise automatiquement."
   },
-  "codexLeadAfterPath": { "message": "." },
+  "recommendedLabel": { "message": "Recommandé" },
+  "codexOAuthLoginButton": { "message": "Se connecter avec Codex" },
+  "codexOAuthLoginAgainButton": {
+    "message": "Se reconnecter avec Codex"
+  },
+  "codexOAuthLoginHelp": {
+    "message": "Utilisez d'abord cette option. Vous ne devriez pas avoir à chercher un fichier Codex local."
+  },
+  "codexSignedInStatusLabel": { "message": "Connecté" },
+  "codexOAuthSignedInHelp": {
+    "message": "Vous êtes connecté. Utilisez ceci uniquement pour changer de compte ou reconnecter Codex."
+  },
+  "codexAuthFallbackSummary": {
+    "message": "Solution de secours avec fichier d'authentification"
+  },
+  "codexAuthFallbackHelp": {
+    "message": "Si la connexion dans le navigateur ne fonctionne pas, sélectionnez le fichier d'authentification Codex dans ~/.codex/auth.json."
+  },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "Jeton d'accès" },
   "codexAccessTokenPlaceholder": {
@@ -75,6 +91,25 @@
   "codexAuthImportedStatus": {
     "message": "Authentification Codex importée. Cliquez sur Enregistrer pour conserver ces réglages."
   },
+  "codexOAuthSigningInStatus": {
+    "message": "Ouverture de la connexion Codex..."
+  },
+  "codexOAuthSignedInStatus": {
+    "message": "Connecté à Codex. Ces réglages sont enregistrés."
+  },
+  "codexOAuthLoginFailed": { "message": "Échec de la connexion Codex" },
+  "codexOAuthHttpFailure": {
+    "message": "La connexion Codex a échoué avec HTTP $1"
+  },
+  "codexOAuthMissingAccessToken": {
+    "message": "La réponse de connexion Codex ne contenait pas access_token"
+  },
+  "codexOAuthStateMismatch": {
+    "message": "La connexion Codex a renvoyé un état inattendu"
+  },
+  "codexOAuthMissingCode": {
+    "message": "La connexion Codex n'a pas renvoyé de code d'autorisation"
+  },
   "codexAuthInvalidFile": {
     "message": "Sélectionnez un fichier JSON d'authentification Codex valide"
   },
@@ -88,7 +123,7 @@
     "message": "Le jeton d'actualisation Codex n'est pas configuré"
   },
   "codexTokenRefreshHttpFailure": {
-    "message": "L'actualisation du jeton Codex a échoué avec HTTP $1. Sélectionnez de nouveau auth.json ou connectez-vous avec Codex CLI."
+    "message": "L'actualisation du jeton Codex a échoué avec HTTP $1. Connectez-vous avec Codex depuis Simple Words ou sélectionnez auth.json comme solution de secours."
   },
   "codexTokenRefreshMissingAccessToken": {
     "message": "La réponse d'actualisation Codex ne contenait pas access_token"
