@@ -154,17 +154,20 @@ async function configureExtension(
   const serviceWorker =
     context.serviceWorkers()[0] ?? (await context.waitForEvent('serviceworker'))
 
-  await serviceWorker.evaluate(({ baseURL: apiBaseURL, model: modelName }) => {
-    return chrome.storage.local.set({
-      provider: 'openai',
-      openaiApiKey: 'e2e-key',
-      openaiBaseURL: `${apiBaseURL}/v1`,
-      openaiModel: modelName,
-      openaiReasoningEffort: 'none',
-      enabledDomains: ['127.0.0.1'],
-      systemPrompt: 'Return a concise polished email reply.'
-    })
-  }, { baseURL, model })
+  await serviceWorker.evaluate(
+    ({ baseURL: apiBaseURL, model: modelName }) => {
+      return chrome.storage.local.set({
+        provider: 'openai',
+        openaiApiKey: 'e2e-key',
+        openaiBaseURL: `${apiBaseURL}/v1`,
+        openaiModel: modelName,
+        openaiReasoningEffort: 'none',
+        enabledDomains: ['127.0.0.1'],
+        systemPrompt: 'Return a concise polished email reply.'
+      })
+    },
+    { baseURL, model }
+  )
 }
 
 async function configureSiteEnablementOnly(

@@ -64,7 +64,9 @@ chrome.runtime.onInstalled.addListener((details) => {
 })
 
 async function refineReply(request: RefineRequest): Promise<RefineResponse> {
-  const settings = normalizeSettings(await chrome.storage.local.get(DEFAULT_SETTINGS))
+  const settings = normalizeSettings(
+    await chrome.storage.local.get(DEFAULT_SETTINGS)
+  )
 
   if (!isProviderConfigured(settings)) {
     chrome.runtime.openOptionsPage()
