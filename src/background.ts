@@ -43,6 +43,12 @@ chrome.runtime.onMessage.addListener(
   }
 )
 
+chrome.runtime.onInstalled.addListener((details) => {
+  if (details.reason === 'install') {
+    chrome.runtime.openOptionsPage()
+  }
+})
+
 async function refineReply(request: RefineRequest): Promise<RefineResponse> {
   const settings = await settingsWithFreshCodexToken(
     normalizeSettings(await chrome.storage.local.get(DEFAULT_SETTINGS))
