@@ -4,7 +4,11 @@ import {
   normalizeSettings,
   type SimpleWordsSettings
 } from './settings'
-import { codexAccessTokenIsExpiring, refreshCodexTokens } from './codexAuth'
+import {
+  codexAccessTokenIsExpiring,
+  extractCodexAccountId,
+  refreshCodexTokens
+} from './codexAuth'
 import { t } from './i18n'
 import { refineWithProvider } from './llm'
 
@@ -27,6 +31,14 @@ type RefineResponse = {
   error?: string
   action?: 'openOptions'
 }
+
+type CodexRefreshResult = {
+  accessToken: string
+  refreshToken: string
+  accountId?: string
+}
+
+let codexRefreshPromise: Promise<CodexRefreshResult> | undefined
 
 chrome.runtime.onMessage.addListener(
   (
@@ -76,20 +88,37 @@ async function refineReply(request: RefineRequest): Promise<RefineResponse> {
   let reply: string
   try {
     const freshSettings = await settingsWithFreshCodexToken(settings)
-    reply = await refineWithProvider(freshSettings, {
-      draft: request.draft,
-      contextTree: request.contextTree,
-      title: request.title,
-      url: request.url
-    })
+    try {
+      reply = await refineWithProvider(freshSettings, refineInput(request))
+    } catch (error) {
+      if (!shouldRetryWithFreshCodexToken(freshSettings, error)) {
+        throw error
+      }
+
+      reply = await refineWithProvider(
+        await refreshAndPersistCodexToken(freshSettings),
+        refineInput(request)
+      )
+    }
   } catch (error) {
     return {
       error: providerFailureMessage(error),
-      action: 'openOptions'
+      ...(shouldOpenOptionsForProviderFailure(error)
+        ? { action: 'openOptions' as const }
+        : {})
     }
   }
 
   return { reply }
+}
+
+function refineInput(request: RefineRequest) {
+  return {
+    draft: request.draft,
+    contextTree: request.contextTree,
+    title: request.title,
+    url: request.url
+  }
 }
 
 function providerFailureMessage(error: unknown): string {
@@ -115,16 +144,82 @@ async function settingsWithFreshCodexToken(
     return settings
   }
 
-  const tokens = await refreshCodexTokens(settings.codexRefreshToken)
-  await chrome.storage.local.set({
-    codexAccessToken: tokens.accessToken,
-    codexRefreshToken: tokens.refreshToken
-  })
+  return refreshAndPersistCodexToken(settings)
+}
+
+async function refreshAndPersistCodexToken(
+  settings: SimpleWordsSettings
+): Promise<SimpleWordsSettings> {
+  if (!codexRefreshPromise) {
+    codexRefreshPromise = refreshCodexTokens(settings.codexRefreshToken)
+      .then(async (tokens) => {
+        const accountId = extractCodexAccountId(tokens.accessToken)
+        const storedTokens = {
+          codexAccessToken: tokens.accessToken,
+          codexRefreshToken: tokens.refreshToken,
+          ...(accountId ? { codexAccountId: accountId } : {})
+        }
+
+        await chrome.storage.local.set(storedTokens)
+
+        return {
+          ...tokens,
+          ...(accountId ? { accountId } : {})
+        }
+      })
+      .finally(() => {
+        codexRefreshPromise = undefined
+      })
+  }
+
+  const tokens = await codexRefreshPromise
   return {
     ...settings,
     codexAccessToken: tokens.accessToken,
-    codexRefreshToken: tokens.refreshToken
+    codexRefreshToken: tokens.refreshToken,
+    codexAccountId: tokens.accountId ?? settings.codexAccountId
   }
+}
+
+function shouldRetryWithFreshCodexToken(
+  settings: SimpleWordsSettings,
+  error: unknown
+): boolean {
+  return settings.provider === 'codex' && errorStatus(error) === 401
+}
+
+function shouldOpenOptionsForProviderFailure(error: unknown): boolean {
+  const status = errorStatus(error)
+  if (status === 401 || status === 403) {
+    return true
+  }
+
+  const detail = error instanceof Error ? error.message : ''
+  return /codex .*refresh|refresh token/i.test(detail)
+}
+
+function errorStatus(error: unknown): number | undefined {
+  if (!error || typeof error !== 'object') {
+    return undefined
+  }
+
+  const directStatus = readStatus(error)
+  if (directStatus) {
+    return directStatus
+  }
+
+  return errorStatus((error as { cause?: unknown }).cause)
+}
+
+function readStatus(error: object): number | undefined {
+  const status = (error as { statusCode?: unknown; status?: unknown })
+    .statusCode
+  if (typeof status === 'number') {
+    return status
+  }
+
+  const fallbackStatus = (error as { status?: unknown }).status
+  return typeof fallbackStatus === 'number' ? fallbackStatus : undefined
 }
 
 export {}

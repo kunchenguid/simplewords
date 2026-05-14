@@ -58,9 +58,13 @@ export function codexAccessTokenIsExpiring(
 ): boolean {
   const exp = decodeJwtPayload(accessToken)?.exp
   return (
-    typeof exp === 'number' &&
+    typeof exp !== 'number' ||
     exp * 1000 <= nowMs + CODEX_ACCESS_TOKEN_REFRESH_SKEW_MS
   )
+}
+
+export function extractCodexAccountId(accessToken: string): string | undefined {
+  return extractAccountId(accessToken)
 }
 
 export async function refreshCodexTokens(
