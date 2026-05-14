@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.3...simplewords-v0.1.4) (2026-05-14)
+
+
+### Bug Fixes
+
+* replace Gmail-like drafts through native editor input ([#18](https://github.com/kunchenguid/simplewords/issues/18)) ([75583e8](https://github.com/kunchenguid/simplewords/commit/75583e8036a8f2b83af71516863f60780c87b553))
+
 ## [0.1.3](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.2...simplewords-v0.1.3) (2026-05-13)
 
 
