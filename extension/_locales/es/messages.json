@@ -51,11 +51,30 @@
   "openAIModelLabel": { "message": "Modelo" },
   "reasoningEffortLabel": { "message": "Esfuerzo de razonamiento" },
   "codexHeading": { "message": "Suscripción de Codex" },
+  "codexLead": {
+    "message": "Sign in with Codex is the recommended setup path. Simple Words opens Codex sign-in, stores the returned tokens, and refreshes them automatically."
+  },
   "codexLeadBeforePath": { "message": "Configura Codex (" },
   "codexLeadAfterDocsLink": {
     "message": "), y selecciona tu archivo de autenticación de Codex, normalmente en "
   },
   "codexLeadAfterPath": { "message": "." },
+  "recommendedLabel": { "message": "Recommended" },
+  "codexOAuthLoginButton": { "message": "Sign in with Codex" },
+  "codexOAuthLoginAgainButton": {
+    "message": "Sign in again with Codex"
+  },
+  "codexOAuthLoginHelp": {
+    "message": "Use this first. You should not need to find a local Codex file."
+  },
+  "codexSignedInStatusLabel": { "message": "Signed in" },
+  "codexOAuthSignedInHelp": {
+    "message": "You are signed in. Use this only to switch accounts or reconnect Codex."
+  },
+  "codexAuthFallbackSummary": { "message": "Auth file fallback" },
+  "codexAuthFallbackHelp": {
+    "message": "If browser sign-in does not work, select the Codex auth file at ~/.codex/auth.json."
+  },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "Token de acceso" },
   "codexAccessTokenPlaceholder": {
@@ -74,6 +93,17 @@
   "savedStatus": { "message": "Guardado." },
   "codexAuthImportedStatus": {
     "message": "Autenticación de Codex importada. Haz clic en Guardar para conservarla."
+  },
+  "codexOAuthSigningInStatus": { "message": "Opening Codex sign-in..." },
+  "codexOAuthSignedInStatus": {
+    "message": "Signed in to Codex. These settings are saved."
+  },
+  "codexOAuthLoginFailed": { "message": "Codex sign-in failed" },
+  "codexOAuthStateMismatch": {
+    "message": "Codex sign-in returned an unexpected state"
+  },
+  "codexOAuthMissingCode": {
+    "message": "Codex sign-in did not return an authorization code"
   },
   "codexAuthInvalidFile": {
     "message": "Selecciona un archivo JSON de autenticación de Codex válido"

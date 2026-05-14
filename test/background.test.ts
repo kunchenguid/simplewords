@@ -10,10 +10,23 @@ type RefineRequest = {
   url: string
 }
 
+type CodexOAuthLoginRequest = {
+  type: 'simplewords.codexOAuthLogin'
+}
+
 type RefineResponse = {
   reply?: string
   error?: string
   action?: 'openOptions'
+}
+
+type CodexOAuthLoginResponse = {
+  codexAuth?: {
+    accessToken: string
+    refreshToken: string
+    accountId: string
+  }
+  error?: string
 }
 
 const refineRequest: RefineRequest = {
@@ -265,25 +278,102 @@ describe('background service worker', () => {
     expect(response.action).toBeUndefined()
     expect(chromeApi.openOptionsPage).not.toHaveBeenCalled()
   })
+
+  test('signs in to Codex by intercepting the localhost OAuth callback', async () => {
+    const exchangeCodexAuthorizationCode = vi.fn(async () => ({
+      accessToken: jwtWithPayload({
+        exp: futureExp(),
+        'https://api.openai.com/auth': {
+          chatgpt_account_id: 'account-new'
+        }
+      }),
+      refreshToken: 'refresh-new'
+    }))
+    vi.doMock('../src/codexAuth', async (importOriginal) => {
+      const actual = await importOriginal<typeof import('../src/codexAuth')>()
+      return {
+        ...actual,
+        createCodexPkce: vi.fn(async () => ({
+          codeVerifier: 'verifier-123',
+          codeChallenge: 'challenge-123'
+        })),
+        createCodexOAuthState: vi.fn(() => 'state-123'),
+        buildCodexAuthorizationUrl: vi.fn(
+          () => 'https://auth.example.test/login'
+        ),
+        exchangeCodexAuthorizationCode
+      }
+    })
+
+    const chromeApi = installChrome(DEFAULT_SETTINGS)
+
+    await import('../src/background')
+    const login = chromeApi.sendCodexOAuthLogin()
+    await chromeApi.waitForTabUpdateListener()
+    chromeApi.sendTabUpdate(
+      123,
+      'http://localhost:1455/auth/callback?code=authorization-code&state=state-123'
+    )
+    const response = await login
+
+    expect(response.error).toBeUndefined()
+    expect(response.codexAuth).toMatchObject({
+      refreshToken: 'refresh-new',
+      accountId: 'account-new'
+    })
+    expect(chromeApi.tabsCreate.mock.calls[0][0]).toEqual({
+      active: true,
+      url: 'https://auth.example.test/login'
+    })
+    expect(exchangeCodexAuthorizationCode).toHaveBeenCalledWith({
+      code: 'authorization-code',
+      redirectUri: 'http://localhost:1455/auth/callback',
+      codeVerifier: 'verifier-123'
+    })
+    expect(chromeApi.storageSet).toHaveBeenCalledWith({
+      provider: 'codex',
+      codexAccessToken: response.codexAuth?.accessToken,
+      codexRefreshToken: 'refresh-new',
+      codexAccountId: 'account-new'
+    })
+    expect(chromeApi.tabsRemove.mock.calls[0][0]).toBe(123)
+  })
 })
 
 function installChrome(settings: SimpleWordsSettings): {
   openOptionsPage: ReturnType<typeof vi.fn>
   storageSet: ReturnType<typeof vi.fn>
+  tabsCreate: ReturnType<typeof vi.fn>
+  tabsRemove: ReturnType<typeof vi.fn>
   sendRefine: () => Promise<RefineResponse>
+  sendCodexOAuthLogin: () => Promise<CodexOAuthLoginResponse>
+  sendTabUpdate: (tabId: number, url: string) => void
+  waitForTabUpdateListener: () => Promise<void>
 } {
   let messageListener:
     | ((
-        message: RefineRequest,
+        message: RefineRequest | CodexOAuthLoginRequest,
         sender: chrome.runtime.MessageSender,
-        sendResponse: (response: RefineResponse) => void
+        sendResponse: (
+          response: RefineResponse | CodexOAuthLoginResponse
+        ) => void
       ) => boolean | undefined)
     | undefined
+  let tabUpdatedListener:
+    | ((
+        tabId: number,
+        changeInfo: chrome.tabs.OnUpdatedInfo,
+        tab: chrome.tabs.Tab
+      ) => void)
+    | undefined
+  let resolveTabUpdateListener: (() => void) | undefined
   const storedSettings = { ...settings }
   const openOptionsPage = vi.fn()
   const storageSet = vi.fn(async (values: Partial<SimpleWordsSettings>) => {
     Object.assign(storedSettings, values)
   })
+  const tabsCreate = vi.fn(async () => ({ id: 123 }))
+  const tabsRemove = vi.fn(async () => undefined)
 
   vi.stubGlobal('chrome', {
     runtime: {
@@ -302,23 +392,73 @@ function installChrome(settings: SimpleWordsSettings): {
         get: vi.fn(async () => storedSettings),
         set: storageSet
       }
+    },
+    tabs: {
+      create: tabsCreate,
+      remove: tabsRemove,
+      onUpdated: {
+        addListener: vi.fn((listener) => {
+          tabUpdatedListener = listener
+          resolveTabUpdateListener?.()
+        }),
+        removeListener: vi.fn((listener) => {
+          if (tabUpdatedListener === listener) {
+            tabUpdatedListener = undefined
+          }
+        })
+      }
     }
   })
 
   return {
     openOptionsPage,
     storageSet,
+    tabsCreate,
+    tabsRemove,
     sendRefine: () =>
       new Promise((resolve) => {
         if (!messageListener) {
           throw new Error('message listener was not installed')
         }
-        messageListener(
+        const result = messageListener(
           refineRequest,
           {} as chrome.runtime.MessageSender,
           resolve
         )
+        if (result !== true) {
+          resolve({})
+        }
+      }),
+    sendCodexOAuthLogin: () =>
+      new Promise((resolve) => {
+        if (!messageListener) {
+          throw new Error('message listener was not installed')
+        }
+        const result = messageListener(
+          { type: 'simplewords.codexOAuthLogin' },
+          {} as chrome.runtime.MessageSender,
+          resolve
+        )
+        if (result !== true) {
+          resolve({})
+        }
+      }),
+    sendTabUpdate: (tabId: number, url: string) => {
+      tabUpdatedListener?.(
+        tabId,
+        { url } as chrome.tabs.OnUpdatedInfo,
+        { id: tabId, url } as chrome.tabs.Tab
+      )
+    },
+    waitForTabUpdateListener: () => {
+      if (tabUpdatedListener) {
+        return Promise.resolve()
+      }
+
+      return new Promise((resolve) => {
+        resolveTabUpdateListener = resolve
       })
+    }
   }
 }
 

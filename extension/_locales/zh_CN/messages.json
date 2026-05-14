@@ -41,11 +41,30 @@
   "openAIModelLabel": { "message": "模型" },
   "reasoningEffortLabel": { "message": "推理强度" },
   "codexHeading": { "message": "Codex 订阅" },
+  "codexLead": {
+    "message": "Sign in with Codex is the recommended setup path. Simple Words opens Codex sign-in, stores the returned tokens, and refreshes them automatically."
+  },
   "codexLeadBeforePath": { "message": "设置 Codex (" },
   "codexLeadAfterDocsLink": {
     "message": ")，并选择你的 Codex 认证文件，通常位于 "
   },
   "codexLeadAfterPath": { "message": "。" },
+  "recommendedLabel": { "message": "Recommended" },
+  "codexOAuthLoginButton": { "message": "Sign in with Codex" },
+  "codexOAuthLoginAgainButton": {
+    "message": "Sign in again with Codex"
+  },
+  "codexOAuthLoginHelp": {
+    "message": "Use this first. You should not need to find a local Codex file."
+  },
+  "codexSignedInStatusLabel": { "message": "Signed in" },
+  "codexOAuthSignedInHelp": {
+    "message": "You are signed in. Use this only to switch accounts or reconnect Codex."
+  },
+  "codexAuthFallbackSummary": { "message": "Auth file fallback" },
+  "codexAuthFallbackHelp": {
+    "message": "If browser sign-in does not work, select the Codex auth file at ~/.codex/auth.json."
+  },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "访问令牌" },
   "codexAccessTokenPlaceholder": { "message": "从 auth.json 导入或手动粘贴" },
@@ -62,6 +81,17 @@
   "savedStatus": { "message": "已保存。" },
   "codexAuthImportedStatus": {
     "message": "已导入 Codex 认证。点击保存以保留这些设置。"
+  },
+  "codexOAuthSigningInStatus": { "message": "Opening Codex sign-in..." },
+  "codexOAuthSignedInStatus": {
+    "message": "Signed in to Codex. These settings are saved."
+  },
+  "codexOAuthLoginFailed": { "message": "Codex sign-in failed" },
+  "codexOAuthStateMismatch": {
+    "message": "Codex sign-in returned an unexpected state"
+  },
+  "codexOAuthMissingCode": {
+    "message": "Codex sign-in did not return an authorization code"
   },
   "codexAuthInvalidFile": { "message": "请选择有效的 Codex 认证 JSON 文件" },
   "codexAuthMissingTokens": { "message": "Codex 认证 JSON 缺少令牌" },

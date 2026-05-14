@@ -49,11 +49,30 @@
   "openAIModelLabel": { "message": "モデル" },
   "reasoningEffortLabel": { "message": "推論の強さ" },
   "codexHeading": { "message": "Codex サブスクリプション" },
+  "codexLead": {
+    "message": "Sign in with Codex is the recommended setup path. Simple Words opens Codex sign-in, stores the returned tokens, and refreshes them automatically."
+  },
   "codexLeadBeforePath": { "message": "Codex (" },
   "codexLeadAfterDocsLink": {
     "message": ") をセットアップし、Codex 認証ファイルを選択してください。通常は "
   },
   "codexLeadAfterPath": { "message": " です。" },
+  "recommendedLabel": { "message": "Recommended" },
+  "codexOAuthLoginButton": { "message": "Sign in with Codex" },
+  "codexOAuthLoginAgainButton": {
+    "message": "Sign in again with Codex"
+  },
+  "codexOAuthLoginHelp": {
+    "message": "Use this first. You should not need to find a local Codex file."
+  },
+  "codexSignedInStatusLabel": { "message": "Signed in" },
+  "codexOAuthSignedInHelp": {
+    "message": "You are signed in. Use this only to switch accounts or reconnect Codex."
+  },
+  "codexAuthFallbackSummary": { "message": "Auth file fallback" },
+  "codexAuthFallbackHelp": {
+    "message": "If browser sign-in does not work, select the Codex auth file at ~/.codex/auth.json."
+  },
   "codexAuthFileLabel": { "message": "Codex auth.json" },
   "codexAccessTokenLabel": { "message": "アクセストークン" },
   "codexAccessTokenPlaceholder": {
@@ -72,6 +91,17 @@
   "savedStatus": { "message": "保存しました。" },
   "codexAuthImportedStatus": {
     "message": "Codex 認証をインポートしました。保存をクリックして設定を保持してください。"
+  },
+  "codexOAuthSigningInStatus": { "message": "Opening Codex sign-in..." },
+  "codexOAuthSignedInStatus": {
+    "message": "Signed in to Codex. These settings are saved."
+  },
+  "codexOAuthLoginFailed": { "message": "Codex sign-in failed" },
+  "codexOAuthStateMismatch": {
+    "message": "Codex sign-in returned an unexpected state"
+  },
+  "codexOAuthMissingCode": {
+    "message": "Codex sign-in did not return an authorization code"
   },
   "codexAuthInvalidFile": {
     "message": "有効な Codex 認証 JSON ファイルを選択してください"
