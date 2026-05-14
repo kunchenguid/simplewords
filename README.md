@@ -115,11 +115,11 @@ If the button or panel disappears after the extension reloads or updates while a
 
 ### Provider Settings
 
-| Provider                                       | Settings                                                            |
-| ---------------------------------------------- | ------------------------------------------------------------------- |
-| OpenAI (or a compatible endpoint) with API Key | API key, base URL, model, and reasoning effort.                     |
+| Provider                                       | Settings                                                                                |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------- |
+| OpenAI (or a compatible endpoint) with API Key | API key, base URL, model, and reasoning effort.                                         |
 | Codex subscription                             | Access token, refresh token, ChatGPT account ID, base URL, model, and reasoning effort. |
-| Ollama                                         | Local base URL and model.                                           |
+| Ollama                                         | Local base URL and model.                                                               |
 
 ## Configuration
 
