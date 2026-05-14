@@ -38,7 +38,7 @@ If you use a remote provider such as OpenAI or Codex, requests are sent to that 
 ## Local Storage
 
 Simple Words stores settings locally in Chrome extension storage.
-These settings may include your provider choice, enabled domains, API endpoint, model name, API key, Codex access and refresh tokens, optional name, and custom writing instructions.
+These settings may include your provider choice, enabled domains, API endpoint, model name, API key, Codex access and refresh tokens, ChatGPT account ID, optional name, and custom writing instructions.
 This information is used only to run the extension with your chosen configuration.
 
 ## Data Sharing
