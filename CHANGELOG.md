@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.4...simplewords-v0.1.5) (2026-05-14)
+
+
+### Features
+
+* open options page after install ([#20](https://github.com/kunchenguid/simplewords/issues/20)) ([c93e666](https://github.com/kunchenguid/simplewords/commit/c93e666a1795147f76620d4453d766eb13e19a8e))
+
 ## [0.1.4](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.3...simplewords-v0.1.4) (2026-05-14)
 
 
