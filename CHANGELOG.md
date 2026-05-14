@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.5...simplewords-v0.1.6) (2026-05-14)
+
+
+### Bug Fixes
+
+* **extension:** improve provider setup error handling ([#22](https://github.com/kunchenguid/simplewords/issues/22)) ([3d07904](https://github.com/kunchenguid/simplewords/commit/3d07904972afd4b8f0400834d20b3c3574818de6))
+
 ## [0.1.5](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.4...simplewords-v0.1.5) (2026-05-14)
 
 
