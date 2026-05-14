@@ -98,7 +98,9 @@ describe('extension i18n', () => {
       'codexOAuthMissingCode'
     ]
 
-    for (const locale of SUPPORTED_LOCALES.filter((locale) => locale !== 'en')) {
+    for (const locale of SUPPORTED_LOCALES.filter(
+      (locale) => locale !== 'en'
+    )) {
       const messages = readJson(
         join('extension', '_locales', locale, 'messages.json')
       )
