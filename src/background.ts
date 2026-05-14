@@ -1,5 +1,6 @@
 import {
   DEFAULT_SETTINGS,
+  isProviderConfigured,
   normalizeSettings,
   type SimpleWordsSettings
 } from './settings'
@@ -15,17 +16,30 @@ type RefineRequest = {
   url: string
 }
 
+type OpenOptionsRequest = {
+  type: 'simplewords.openOptions'
+}
+
+type RuntimeRequest = RefineRequest | OpenOptionsRequest
+
 type RefineResponse = {
   reply?: string
   error?: string
+  action?: 'openOptions'
 }
 
 chrome.runtime.onMessage.addListener(
   (
-    message: RefineRequest,
+    message: RuntimeRequest,
     _sender,
     sendResponse: (response: RefineResponse) => void
   ) => {
+    if (message.type === 'simplewords.openOptions') {
+      chrome.runtime.openOptionsPage()
+      sendResponse({})
+      return false
+    }
+
     if (message.type !== 'simplewords.refine') {
       return false
     }
@@ -50,17 +64,43 @@ chrome.runtime.onInstalled.addListener((details) => {
 })
 
 async function refineReply(request: RefineRequest): Promise<RefineResponse> {
-  const settings = await settingsWithFreshCodexToken(
-    normalizeSettings(await chrome.storage.local.get(DEFAULT_SETTINGS))
-  )
-  const reply = await refineWithProvider(settings, {
-    draft: request.draft,
-    contextTree: request.contextTree,
-    title: request.title,
-    url: request.url
-  })
+  const settings = normalizeSettings(await chrome.storage.local.get(DEFAULT_SETTINGS))
+
+  if (!isProviderConfigured(settings)) {
+    chrome.runtime.openOptionsPage()
+    return { error: t('providerSetupRequired'), action: 'openOptions' }
+  }
+
+  let reply: string
+  try {
+    const freshSettings = await settingsWithFreshCodexToken(settings)
+    reply = await refineWithProvider(freshSettings, {
+      draft: request.draft,
+      contextTree: request.contextTree,
+      title: request.title,
+      url: request.url
+    })
+  } catch (error) {
+    return {
+      error: providerFailureMessage(error),
+      action: 'openOptions'
+    }
+  }
 
   return { reply }
+}
+
+function providerFailureMessage(error: unknown): string {
+  const detail = error instanceof Error ? error.message.trim() : ''
+  if (!detail) {
+    return t('providerRefineFailed')
+  }
+
+  return [
+    t('providerRefineFailed'),
+    '',
+    `${t('providerErrorDetailLabel')} ${detail.slice(0, 600)}`
+  ].join('\n')
 }
 
 async function settingsWithFreshCodexToken(

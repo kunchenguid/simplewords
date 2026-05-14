@@ -1,4 +1,10 @@
-import { test, expect, chromium, type BrowserContext } from '@playwright/test'
+import {
+  test,
+  expect,
+  chromium,
+  type BrowserContext,
+  type Page
+} from '@playwright/test'
 import { createServer, type Server } from 'node:http'
 import { mkdtemp } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
@@ -59,24 +65,154 @@ test('refines and replaces a Gmail-like contenteditable draft', async () => {
   }
 })
 
+test('opens options and explains setup when the provider is not configured', async () => {
+  const app = await startFixtureServer()
+  const extensionPath = path.join(process.cwd(), 'extension')
+  const userDataDir = await mkdtemp(path.join(tmpdir(), 'simplewords-e2e-'))
+  let context: BrowserContext | undefined
+
+  try {
+    context = await chromium.launchPersistentContext(userDataDir, {
+      headless: false,
+      args: [
+        `--disable-extensions-except=${extensionPath}`,
+        `--load-extension=${extensionPath}`
+      ]
+    })
+    const extensionBaseURL = await extensionBaseUrl(context)
+    await closeOptionsPages(context, extensionBaseURL)
+    await configureSiteEnablementOnly(context)
+
+    const page = await context.newPage()
+    await page.goto(`${app.baseURL}/gmail-like`)
+    await page.locator('#editor').click()
+
+    await page.locator('#simplewords-button').click()
+
+    await expect(page.locator('#simplewords-panel')).toContainText(
+      'Set up Simple Words first'
+    )
+    const optionsPage = await waitForOptionsPage(context, extensionBaseURL)
+    await expect(optionsPage).toHaveURL(`${extensionBaseURL}options.html`)
+  } finally {
+    await context?.close()
+    await app.close()
+  }
+})
+
+test('suggests settings when a configured provider returns an error', async () => {
+  const app = await startFixtureServer()
+  const extensionPath = path.join(process.cwd(), 'extension')
+  const userDataDir = await mkdtemp(path.join(tmpdir(), 'simplewords-e2e-'))
+  let context: BrowserContext | undefined
+
+  try {
+    context = await chromium.launchPersistentContext(userDataDir, {
+      headless: false,
+      args: [
+        `--disable-extensions-except=${extensionPath}`,
+        `--load-extension=${extensionPath}`
+      ]
+    })
+    const extensionBaseURL = await extensionBaseUrl(context)
+    await closeOptionsPages(context, extensionBaseURL)
+    await configureExtension(context, app.baseURL, 'gpt-error')
+
+    const page = await context.newPage()
+    await page.goto(`${app.baseURL}/gmail-like`)
+    await page.locator('#editor').click()
+    await page.locator('#simplewords-button').click()
+
+    await expect(page.locator('#simplewords-panel')).toContainText(
+      'Something went wrong with your AI model provider',
+      { timeout: 15_000 }
+    )
+    await expect(page.locator('#simplewords-panel')).toContainText(
+      'fixture model failure'
+    )
+    await expect(page.locator('#simplewords-panel')).toContainText(
+      "Couldn't refine draft"
+    )
+    await expect(
+      page.getByRole('button', { name: 'Open settings' })
+    ).toBeVisible()
+
+    await page.getByRole('button', { name: 'Open settings' }).click()
+    const optionsPage = await waitForOptionsPage(context, extensionBaseURL)
+    await expect(optionsPage).toHaveURL(`${extensionBaseURL}options.html`)
+  } finally {
+    await context?.close()
+    await app.close()
+  }
+})
+
 async function configureExtension(
   context: BrowserContext,
-  baseURL: string
+  baseURL: string,
+  model = 'gpt-test'
 ): Promise<void> {
   const serviceWorker =
     context.serviceWorkers()[0] ?? (await context.waitForEvent('serviceworker'))
 
-  await serviceWorker.evaluate((apiBaseURL) => {
+  await serviceWorker.evaluate(({ baseURL: apiBaseURL, model: modelName }) => {
     return chrome.storage.local.set({
       provider: 'openai',
       openaiApiKey: 'e2e-key',
       openaiBaseURL: `${apiBaseURL}/v1`,
-      openaiModel: 'gpt-test',
+      openaiModel: modelName,
       openaiReasoningEffort: 'none',
       enabledDomains: ['127.0.0.1'],
       systemPrompt: 'Return a concise polished email reply.'
     })
-  }, baseURL)
+  }, { baseURL, model })
+}
+
+async function configureSiteEnablementOnly(
+  context: BrowserContext
+): Promise<void> {
+  const serviceWorker =
+    context.serviceWorkers()[0] ?? (await context.waitForEvent('serviceworker'))
+
+  await serviceWorker.evaluate(() => {
+    return chrome.storage.local.set({
+      enabledDomains: ['127.0.0.1']
+    })
+  })
+}
+
+async function extensionBaseUrl(context: BrowserContext): Promise<string> {
+  const serviceWorker =
+    context.serviceWorkers()[0] ?? (await context.waitForEvent('serviceworker'))
+  return new URL('/', serviceWorker.url()).href
+}
+
+async function closeOptionsPages(
+  context: BrowserContext,
+  extensionBaseURL: string
+): Promise<void> {
+  await waitForOptionsPage(context, extensionBaseURL, 1_000).catch(() => null)
+  await Promise.all(
+    context
+      .pages()
+      .filter((page) => page.url() === `${extensionBaseURL}options.html`)
+      .map((page) => page.close())
+  )
+}
+
+async function waitForOptionsPage(
+  context: BrowserContext,
+  extensionBaseURL: string,
+  timeout = 5_000
+): Promise<Page> {
+  const url = `${extensionBaseURL}options.html`
+  const existingPage = context.pages().find((page) => page.url() === url)
+  if (existingPage) {
+    return existingPage
+  }
+
+  const openedPage = await context.waitForEvent('page', { timeout })
+  await openedPage.waitForURL(url, { timeout })
+  return openedPage
 }
 
 async function startFixtureServer(): Promise<{
@@ -91,8 +227,24 @@ async function startFixtureServer(): Promise<{
     }
 
     if (request.url === '/v1/chat/completions') {
-      request.resume()
+      let body = ''
+      request.setEncoding('utf8')
+      request.on('data', (chunk) => {
+        body += chunk
+      })
       request.on('end', () => {
+        const payload = JSON.parse(body) as { model?: string }
+        if (payload.model === 'gpt-error') {
+          response.writeHead(500, {
+            ...corsHeaders(),
+            'content-type': 'application/json'
+          })
+          response.end(
+            JSON.stringify({ error: { message: 'fixture model failure' } })
+          )
+          return
+        }
+
         response.writeHead(200, {
           ...corsHeaders(),
           'content-type': 'application/json'

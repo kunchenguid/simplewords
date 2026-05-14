@@ -61,6 +61,8 @@
   "codexAccessTokenPlaceholder": {
     "message": "Importado de auth.json ou colado manualmente"
   },
+  "codexRefreshTokenLabel": { "message": "Token de atualização" },
+  "codexRefreshTokenPlaceholder": { "message": "Importado de auth.json" },
   "codexAccountIdLabel": { "message": "ID da conta ChatGPT" },
   "codexAccountIdPlaceholder": { "message": "Opcional" },
   "codexBaseURLLabel": { "message": "URL base" },
@@ -97,9 +99,18 @@
   "noReplyMessage": { "message": "Nenhuma resposta retornada." },
   "loadingPanelTitle": { "message": "Refinando rascunho" },
   "resultPanelTitle": { "message": "Rascunho refinado" },
+  "messagePanelTitle": { "message": "Não foi possível refinar o rascunho" },
   "loadingPanelMessage": { "message": "Refinando..." },
   "replaceDraftButton": { "message": "Substituir rascunho" },
+  "openSettingsButton": { "message": "Abrir configurações" },
   "dismissButton": { "message": "Fechar" },
   "panelAriaLabel": { "message": "Refinamento do Simple Words" },
+  "providerSetupRequired": {
+    "message": "Configure o Simple Words primeiro. Escolha um provedor de IA para começar a refinar rascunhos."
+  },
+  "providerRefineFailed": {
+    "message": "Algo deu errado com seu provedor de IA. Verifique suas configurações e tente novamente."
+  },
+  "providerErrorDetailLabel": { "message": "Erro do provedor:" },
   "unableToRefineReply": { "message": "Não foi possível refinar a resposta" }
 }

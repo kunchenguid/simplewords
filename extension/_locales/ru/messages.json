@@ -61,6 +61,8 @@
   "codexAccessTokenPlaceholder": {
     "message": "Импортирован из auth.json или вставлен вручную"
   },
+  "codexRefreshTokenLabel": { "message": "Токен обновления" },
+  "codexRefreshTokenPlaceholder": { "message": "Импортирован из auth.json" },
   "codexAccountIdLabel": { "message": "ID аккаунта ChatGPT" },
   "codexAccountIdPlaceholder": { "message": "Необязательно" },
   "codexBaseURLLabel": { "message": "Базовый URL" },
@@ -97,9 +99,18 @@
   "noReplyMessage": { "message": "Ответ не получен." },
   "loadingPanelTitle": { "message": "Улучшение черновика" },
   "resultPanelTitle": { "message": "Улучшенный черновик" },
+  "messagePanelTitle": { "message": "Не удалось улучшить черновик" },
   "loadingPanelMessage": { "message": "Улучшение..." },
   "replaceDraftButton": { "message": "Заменить черновик" },
+  "openSettingsButton": { "message": "Открыть настройки" },
   "dismissButton": { "message": "Закрыть" },
   "panelAriaLabel": { "message": "Улучшение Simple Words" },
+  "providerSetupRequired": {
+    "message": "Сначала настройте Simple Words. Выберите поставщика модели ИИ, чтобы улучшать черновики."
+  },
+  "providerRefineFailed": {
+    "message": "С поставщиком модели ИИ что-то пошло не так. Проверьте настройки и попробуйте снова."
+  },
+  "providerErrorDetailLabel": { "message": "Ошибка поставщика:" },
   "unableToRefineReply": { "message": "Не удалось улучшить ответ" }
 }

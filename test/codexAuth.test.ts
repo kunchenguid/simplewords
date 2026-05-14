@@ -48,6 +48,11 @@ describe('parseCodexAuthJson', () => {
     expect(() => parseCodexAuthJson(JSON.stringify({ tokens: {} }))).toThrow(
       /access token/
     )
+    expect(() =>
+      parseCodexAuthJson(
+        JSON.stringify({ tokens: { access_token: 'codex-access-token' } })
+      )
+    ).toThrow(/refresh token/)
   })
 
   test('detects expiring access tokens', () => {

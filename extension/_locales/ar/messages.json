@@ -61,6 +61,8 @@
   "codexAccessTokenPlaceholder": {
     "message": "مستورد من auth.json أو ملصق يدويا"
   },
+  "codexRefreshTokenLabel": { "message": "رمز التحديث" },
+  "codexRefreshTokenPlaceholder": { "message": "مستورد من auth.json" },
   "codexAccountIdLabel": { "message": "معرف حساب ChatGPT" },
   "codexAccountIdPlaceholder": { "message": "اختياري" },
   "codexBaseURLLabel": { "message": "عنوان URL الأساسي" },
@@ -93,9 +95,18 @@
   "noReplyMessage": { "message": "لم يتم إرجاع أي رد." },
   "loadingPanelTitle": { "message": "جار تحسين المسودة" },
   "resultPanelTitle": { "message": "المسودة المحسنة" },
+  "messagePanelTitle": { "message": "تعذر تحسين المسودة" },
   "loadingPanelMessage": { "message": "جار التحسين..." },
   "replaceDraftButton": { "message": "استبدال المسودة" },
+  "openSettingsButton": { "message": "فتح الإعدادات" },
   "dismissButton": { "message": "إغلاق" },
   "panelAriaLabel": { "message": "تحسين Simple Words" },
+  "providerSetupRequired": {
+    "message": "أعد إعداد Simple Words أولا. اختر موفر نموذج ذكاء اصطناعي لبدء تحسين المسودات."
+  },
+  "providerRefineFailed": {
+    "message": "حدث خطأ في موفر نموذج الذكاء الاصطناعي. راجع الإعدادات ثم حاول مرة أخرى."
+  },
+  "providerErrorDetailLabel": { "message": "خطأ الموفر:" },
   "unableToRefineReply": { "message": "تعذر تحسين الرد" }
 }

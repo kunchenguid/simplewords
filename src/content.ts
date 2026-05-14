@@ -602,7 +602,8 @@ async function refineActiveEditor(): Promise<void> {
   if (response.error || !response.reply) {
     showPanel(editor, {
       kind: 'message',
-      message: response.error ?? t('noReplyMessage')
+      message: response.error ?? t('noReplyMessage'),
+      action: response.action
     })
     return
   }
@@ -613,6 +614,7 @@ async function refineActiveEditor(): Promise<void> {
 type RefinementResponse = {
   reply?: string
   error?: string
+  action?: 'openOptions'
 }
 
 async function requestRefinement(request: {
@@ -649,7 +651,7 @@ async function requestRefinement(request: {
 
 type PanelContent =
   | { kind: 'loading' }
-  | { kind: 'message'; message: string }
+  | { kind: 'message'; message: string; action?: 'openOptions' }
   | { kind: 'result'; reply: string }
 
 function showPanel(editor: HTMLElement, content: PanelContent): void {
@@ -660,8 +662,7 @@ function showPanel(editor: HTMLElement, content: PanelContent): void {
   head.className = 'sw-head'
   head.innerHTML = SPARKLES_SVG
   const heading = document.createElement('span')
-  heading.textContent =
-    content.kind === 'loading' ? t('loadingPanelTitle') : t('resultPanelTitle')
+  heading.textContent = panelTitle(content)
   head.append(heading)
   panel.append(head)
 
@@ -680,20 +681,39 @@ function showPanel(editor: HTMLElement, content: PanelContent): void {
       content.kind === 'result' ? content.reply : content.message
     panel.append(body)
 
-    if (content.kind === 'result') {
+    const opensOptions =
+      content.kind === 'message' && content.action === 'openOptions'
+    if (content.kind === 'result' || opensOptions) {
       const actions = document.createElement('div')
       actions.className = 'sw-actions'
 
-      const replace = document.createElement('button')
-      replace.type = 'button'
-      replace.className = 'sw-btn sw-btn--primary'
-      replace.textContent = t('replaceDraftButton')
-      replace.addEventListener('click', () => {
-        interactingWithInjectedUI = false
-        setEditorText(editor, content.reply)
-        panel.hidden = true
-        editor.focus()
-      })
+      if (content.kind === 'result') {
+        const replace = document.createElement('button')
+        replace.type = 'button'
+        replace.className = 'sw-btn sw-btn--primary'
+        replace.textContent = t('replaceDraftButton')
+        replace.addEventListener('click', () => {
+          interactingWithInjectedUI = false
+          setEditorText(editor, content.reply)
+          panel.hidden = true
+          editor.focus()
+        })
+
+        actions.append(replace)
+      }
+
+      if (opensOptions) {
+        const openSettings = document.createElement('button')
+        openSettings.type = 'button'
+        openSettings.className = 'sw-btn sw-btn--primary'
+        openSettings.textContent = t('openSettingsButton')
+        openSettings.addEventListener('click', () => {
+          interactingWithInjectedUI = false
+          void requestOpenOptionsPage()
+        })
+
+        actions.append(openSettings)
+      }
 
       const dismiss = document.createElement('button')
       dismiss.type = 'button'
@@ -705,13 +725,43 @@ function showPanel(editor: HTMLElement, content: PanelContent): void {
         editor.focus()
       })
 
-      actions.append(replace, dismiss)
+      actions.append(dismiss)
       panel.append(actions)
     }
   }
 
   panel.hidden = false
   positionVisiblePanel()
+}
+
+function panelTitle(content: PanelContent): string {
+  if (content.kind === 'loading') {
+    return t('loadingPanelTitle')
+  }
+
+  if (content.kind === 'result') {
+    return t('resultPanelTitle')
+  }
+
+  return t('messagePanelTitle')
+}
+
+async function requestOpenOptionsPage(): Promise<void> {
+  if (!isExtensionContextValid()) {
+    return
+  }
+
+  if (typeof chrome === 'undefined' || !chrome.runtime?.sendMessage) {
+    return
+  }
+
+  try {
+    await chrome.runtime.sendMessage({ type: 'simplewords.openOptions' })
+  } catch (error) {
+    if (isExtensionContextInvalidatedError(error)) {
+      markExtensionContextInvalidated()
+    }
+  }
 }
 
 function positionVisiblePanel(): void {

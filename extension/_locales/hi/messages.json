@@ -61,6 +61,8 @@
   "codexAccessTokenPlaceholder": {
     "message": "auth.json से import किया गया या manually paste किया गया"
   },
+  "codexRefreshTokenLabel": { "message": "Refresh token" },
+  "codexRefreshTokenPlaceholder": { "message": "auth.json से import किया गया" },
   "codexAccountIdLabel": { "message": "ChatGPT account ID" },
   "codexAccountIdPlaceholder": { "message": "वैकल्पिक" },
   "codexBaseURLLabel": { "message": "बेस URL" },
@@ -95,9 +97,18 @@
   "noReplyMessage": { "message": "कोई reply वापस नहीं आया।" },
   "loadingPanelTitle": { "message": "Draft सुधार रहा है" },
   "resultPanelTitle": { "message": "सुधरा हुआ draft" },
+  "messagePanelTitle": { "message": "Draft सुधार नहीं सका" },
   "loadingPanelMessage": { "message": "सुधार रहा है..." },
   "replaceDraftButton": { "message": "Draft बदलें" },
+  "openSettingsButton": { "message": "Settings खोलें" },
   "dismissButton": { "message": "बंद करें" },
   "panelAriaLabel": { "message": "Simple Words refinement" },
+  "providerSetupRequired": {
+    "message": "पहले Simple Words सेट करें। Drafts सुधारना शुरू करने के लिए AI model provider चुनें।"
+  },
+  "providerRefineFailed": {
+    "message": "आपके AI model provider में कुछ गड़बड़ हुई। अपनी settings जांचें, फिर दोबारा कोशिश करें।"
+  },
+  "providerErrorDetailLabel": { "message": "Provider error:" },
   "unableToRefineReply": { "message": "Reply सुधार नहीं सका" }
 }

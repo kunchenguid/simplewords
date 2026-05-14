@@ -44,6 +44,8 @@ export const EN_MESSAGES = {
   codexAuthFileLabel: 'Codex auth.json',
   codexAccessTokenLabel: 'Access token',
   codexAccessTokenPlaceholder: 'Imported from auth.json or pasted manually',
+  codexRefreshTokenLabel: 'Refresh token',
+  codexRefreshTokenPlaceholder: 'Imported from auth.json',
   codexAccountIdLabel: 'ChatGPT account ID',
   codexAccountIdPlaceholder: 'Optional',
   codexBaseURLLabel: 'Base URL',
@@ -69,10 +71,17 @@ export const EN_MESSAGES = {
   noReplyMessage: 'No reply returned.',
   loadingPanelTitle: 'Refining draft',
   resultPanelTitle: 'Refined draft',
+  messagePanelTitle: "Couldn't refine draft",
   loadingPanelMessage: 'Refining...',
   replaceDraftButton: 'Replace draft',
+  openSettingsButton: 'Open settings',
   dismissButton: 'Dismiss',
   panelAriaLabel: 'Simple Words refinement',
+  providerSetupRequired:
+    'Set up Simple Words first. Choose an AI model provider to start refining drafts.',
+  providerRefineFailed:
+    'Something went wrong with your AI model provider. Double-check your settings, then try again.',
+  providerErrorDetailLabel: 'Provider error:',
   unableToRefineReply: 'Unable to refine reply'
 } as const
 

@@ -121,6 +121,21 @@ export function isSimpleWordsEnabledForUrl(
   )
 }
 
+export function isProviderConfigured(settings: SimpleWordsSettings): boolean {
+  if (settings.provider === 'openai') {
+    return settings.openaiApiKey.trim().length > 0
+  }
+
+  if (settings.provider === 'codex') {
+    return (
+      settings.codexAccessToken.trim().length > 0 &&
+      settings.codexRefreshToken.trim().length > 0
+    )
+  }
+
+  return true
+}
+
 function normalizeDomain(domain: string): string {
   return domain.trim().toLowerCase().replace(/\.$/, '')
 }
