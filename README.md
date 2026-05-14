@@ -30,6 +30,14 @@
 
 <h3 align="center">Reply faster. Sound better.</h3>
 
+<p align="center">
+  <img
+    alt="Simple Words turns a rough reply into a respectful draft"
+    src="marketing-video/simplewords-marketing-square.gif"
+    width="720"
+  />
+</p>
+
 Turn a rough reply into a respectful draft before you send.
 Say what you mean, click Simple Words, and keep the version that sounds like you meant it to sound.
 
