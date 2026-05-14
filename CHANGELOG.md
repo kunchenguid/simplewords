@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.7](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.6...simplewords-v0.1.7) (2026-05-14)
+
+
+### Features
+
+* **extension:** add Codex OAuth sign-in ([#27](https://github.com/kunchenguid/simplewords/issues/27)) ([e79cbe6](https://github.com/kunchenguid/simplewords/commit/e79cbe614cf54efceb4b56b5e325c41927f4e952))
+
+
+### Bug Fixes
+
+* default Ollama model to gemma4 ([#29](https://github.com/kunchenguid/simplewords/issues/29)) ([0b80377](https://github.com/kunchenguid/simplewords/commit/0b80377a7e3bb62dd214b07ecf7dbc2739ac2a7b))
+* refresh expired Codex tokens during requests ([#24](https://github.com/kunchenguid/simplewords/issues/24)) ([0f24ac1](https://github.com/kunchenguid/simplewords/commit/0f24ac1260d4a2edcb74ae1dade70811a909315e))
+
 ## [0.1.6](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.5...simplewords-v0.1.6) (2026-05-14)
 
 
