@@ -61,7 +61,7 @@ describe('parseCodexAuthJson', () => {
 
     expect(codexAccessTokenIsExpiring(expiring, 900_000)).toBe(true)
     expect(codexAccessTokenIsExpiring(valid, 900_000)).toBe(false)
-    expect(codexAccessTokenIsExpiring('not-a-jwt', 900_000)).toBe(false)
+    expect(codexAccessTokenIsExpiring('not-a-jwt', 900_000)).toBe(true)
   })
 
   test('refreshes Codex tokens using the Codex OAuth client', async () => {

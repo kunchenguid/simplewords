@@ -100,7 +100,7 @@ test('opens options and explains setup when the provider is not configured', asy
   }
 })
 
-test('suggests settings when a configured provider returns an error', async () => {
+test('shows provider details without settings action for non-auth errors', async () => {
   const app = await startFixtureServer()
   const extensionPath = path.join(process.cwd(), 'extension')
   const userDataDir = await mkdtemp(path.join(tmpdir(), 'simplewords-e2e-'))
@@ -135,11 +135,7 @@ test('suggests settings when a configured provider returns an error', async () =
     )
     await expect(
       page.getByRole('button', { name: 'Open settings' })
-    ).toBeVisible()
-
-    await page.getByRole('button', { name: 'Open settings' }).click()
-    const optionsPage = await waitForOptionsPage(context, extensionBaseURL)
-    await expect(optionsPage).toHaveURL(`${extensionBaseURL}options.html`)
+    ).toHaveCount(0)
   } finally {
     await context?.close()
     await app.close()
