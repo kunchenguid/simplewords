@@ -950,6 +950,10 @@ function isInjectedUITarget(target: EventTarget | null): boolean {
 }
 
 function handlePointerStart(target: EventTarget | null): void {
+  if (!canHandleEvents()) {
+    return
+  }
+
   const editor = activeEditor
   if (!(target instanceof Node)) {
     return
