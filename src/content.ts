@@ -41,6 +41,7 @@ const CLICKABLE_AVOID_SELECTOR = [
   'summary'
 ].join(',')
 const CLICKABLE_AVOID_PROXIMITY = 80
+const CLICKABLE_AVOID_INTERIOR_SAMPLE_STEP = 4
 
 const BRAND_GLYPH_SVG = `<svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><text x="32" y="47" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-weight="700" font-size="48">sw</text></svg>`
 
@@ -649,6 +650,24 @@ function elementsFromCandidateRect(
     elements.push(...elementsFromPoint(rect.left, y))
     elements.push(...elementsFromPoint(right, y))
     elements.push(...elementsFromPoint(centerX, y))
+  }
+
+  for (
+    let x = rect.left + CLICKABLE_AVOID_INTERIOR_SAMPLE_STEP;
+    x < right;
+    x += CLICKABLE_AVOID_INTERIOR_SAMPLE_STEP
+  ) {
+    if (x === centerX) {
+      continue
+    }
+
+    for (
+      let y = rect.top + CLICKABLE_AVOID_INTERIOR_SAMPLE_STEP;
+      y < bottom;
+      y += CLICKABLE_AVOID_INTERIOR_SAMPLE_STEP
+    ) {
+      elements.push(...elementsFromPoint(x, y))
+    }
   }
 
   return elements
