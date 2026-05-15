@@ -27,4 +27,10 @@ describe('extension metadata', () => {
       132
     )
   })
+
+  test('does not request the sensitive tabs permission', () => {
+    const manifest = readJson(join('extension', 'manifest.json'))
+
+    expect(manifest.permissions).not.toContain('tabs')
+  })
 })
