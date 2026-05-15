@@ -180,33 +180,36 @@ test('signs in with Codex OAuth without the tabs permission', async () => {
         })
       }
     )
-    await context.route('https://auth.openai.com/oauth/token', async (route) => {
-      expect(route.request().method()).toBe('POST')
-      const params = new URLSearchParams(route.request().postData() ?? '')
-      tokenRequests.push(params)
-      expect(params.get('grant_type')).toBe('authorization_code')
-      expect(params.get('code')).toBe('e2e-code')
-      expect(params.get('redirect_uri')).toBe(
-        'http://localhost:1455/auth/callback'
-      )
-      expect(params.get('code_verifier')).toBeTruthy()
+    await context.route(
+      'https://auth.openai.com/oauth/token',
+      async (route) => {
+        expect(route.request().method()).toBe('POST')
+        const params = new URLSearchParams(route.request().postData() ?? '')
+        tokenRequests.push(params)
+        expect(params.get('grant_type')).toBe('authorization_code')
+        expect(params.get('code')).toBe('e2e-code')
+        expect(params.get('redirect_uri')).toBe(
+          'http://localhost:1455/auth/callback'
+        )
+        expect(params.get('code_verifier')).toBeTruthy()
 
-      await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        headers: {
-          'access-control-allow-origin': '*'
-        },
-        body: JSON.stringify({
-          access_token: jwtWithPayload({
-            'https://api.openai.com/auth': {
-              chatgpt_account_id: 'account-e2e'
-            }
-          }),
-          refresh_token: 'refresh-e2e'
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          headers: {
+            'access-control-allow-origin': '*'
+          },
+          body: JSON.stringify({
+            access_token: jwtWithPayload({
+              'https://api.openai.com/auth': {
+                chatgpt_account_id: 'account-e2e'
+              }
+            }),
+            refresh_token: 'refresh-e2e'
+          })
         })
-      })
-    })
+      }
+    )
 
     const extensionBaseURL = await extensionBaseUrl(context)
     await closeOptionsPages(context, extensionBaseURL)
