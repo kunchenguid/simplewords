@@ -16,9 +16,11 @@ import {
   type SimpleWordsSettings
 } from './settings'
 import {
+  buttonCandidateRectsNearEditor,
   buttonPositionNearEditor,
   panelPositionAboveButton
 } from './uiPosition'
+import type { RectLike } from './uiPosition'
 
 const BUTTON_ID = 'simplewords-button'
 const PANEL_ID = 'simplewords-panel'
@@ -569,6 +571,49 @@ function clickableAvoidRectsNearEditor(
   editor: HTMLElement,
   editorRect: DOMRect
 ): DOMRect[] {
+  const size = buttonSizeForEditor(editorRect)
+  const buttonSize = { width: size, height: size }
+  const candidateRects = buttonCandidateRectsNearEditor({
+    editorRect,
+    buttonSize,
+    viewportSize: { width: window.innerWidth, height: window.innerHeight }
+  })
+  const elementsFromPoint = document.elementsFromPoint?.bind(document)
+
+  if (elementsFromPoint) {
+    const elements = new Set<HTMLElement>()
+
+    for (const candidateRect of candidateRects) {
+      for (const element of elementsFromCandidateRect(
+        candidateRect,
+        elementsFromPoint
+      )) {
+        const clickableElement = element.closest<HTMLElement>(
+          CLICKABLE_AVOID_SELECTOR
+        )
+        if (clickableElement) {
+          elements.add(clickableElement)
+        }
+      }
+    }
+
+    return Array.from(elements)
+      .filter((element) => element !== editor)
+      .filter((element) => !element.contains(editor))
+      .filter((element) => !isInjectedUITarget(element))
+      .filter((element) => {
+        const visibility = getComputedStyle(element).visibility
+        return visibility !== 'hidden' && visibility !== 'collapse'
+      })
+      .map((element) => element.getBoundingClientRect())
+      .filter((rect) => rect.width > 0 && rect.height > 0)
+      .filter((rect) =>
+        candidateRects.some((candidateRect) =>
+          rectsOverlap(rect, candidateRect)
+        )
+      )
+  }
+
   const proximityRect = expandedRect(editorRect, CLICKABLE_AVOID_PROXIMITY)
 
   return Array.from(
@@ -586,6 +631,21 @@ function clickableAvoidRectsNearEditor(
     .filter((rect) => rectsOverlap(rect, proximityRect))
 }
 
+function elementsFromCandidateRect(
+  rect: RectLike,
+  elementsFromPoint: (x: number, y: number) => Element[]
+): Element[] {
+  const right = rect.right - 1
+  const bottom = rect.bottom - 1
+  return [
+    ...elementsFromPoint(rect.left, rect.top),
+    ...elementsFromPoint(right, rect.top),
+    ...elementsFromPoint(rect.left, bottom),
+    ...elementsFromPoint(right, bottom),
+    ...elementsFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2)
+  ]
+}
+
 function expandedRect(rect: DOMRect, amount: number): DOMRect {
   return new DOMRect(
     rect.left - amount,
@@ -595,7 +655,7 @@ function expandedRect(rect: DOMRect, amount: number): DOMRect {
   )
 }
 
-function rectsOverlap(a: DOMRect, b: DOMRect): boolean {
+function rectsOverlap(a: RectLike, b: RectLike): boolean {
   return (
     a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top
   )

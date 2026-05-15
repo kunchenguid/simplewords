@@ -8,6 +8,7 @@ describe('content script button visibility', () => {
     document.getElementById('simplewords-button')?.remove()
     document.getElementById('simplewords-panel')?.remove()
     vi.restoreAllMocks()
+    Reflect.deleteProperty(document, 'elementsFromPoint')
     Reflect.deleteProperty(globalThis, 'chrome')
     resetExtensionContextForTests()
   })
@@ -158,6 +159,55 @@ describe('content script button visibility', () => {
       'simplewords-button'
     ) as HTMLButtonElement
     expect(button.style.top).toBe('168px')
+    expect(button.style.left).toBe('268px')
+  })
+
+  test('does not measure distant page buttons while positioning', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button" data-near>Send</button><button type="button" data-far>Archive</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const nearButton = document.querySelector(
+      '[data-near]'
+    ) as HTMLButtonElement
+    const farButton = document.querySelector('[data-far]') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    const nearRect = {
+      top: 160,
+      left: 260,
+      right: 310,
+      bottom: 210,
+      width: 50,
+      height: 50,
+      x: 260,
+      y: 160,
+      toJSON: () => null
+    }
+    vi.spyOn(nearButton, 'getBoundingClientRect').mockReturnValue(nearRect)
+    const farRectSpy = vi.spyOn(farButton, 'getBoundingClientRect')
+    Object.defineProperty(document, 'elementsFromPoint', {
+      configurable: true,
+      value: () => []
+    })
+    vi.spyOn(document, 'elementsFromPoint').mockReturnValue([nearButton])
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    expect(farRectSpy).not.toHaveBeenCalled()
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('108px')
     expect(button.style.left).toBe('268px')
   })
 

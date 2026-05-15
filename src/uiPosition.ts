@@ -41,7 +41,22 @@ export function buttonPositionNearEditor(options: {
   viewportSize: Size
   avoidRects?: RectLike[]
 }): { top: number; left: number } {
-  const { editorRect, buttonSize, viewportSize, avoidRects = [] } = options
+  const { avoidRects = [] } = options
+  const candidates = buttonCandidateRectsNearEditor(options)
+
+  const nonOverlappingCandidate = candidates.find(
+    (candidate) => !rectOverlapsAny(candidate, avoidRects)
+  )
+
+  return nonOverlappingCandidate ?? candidates[0]
+}
+
+export function buttonCandidateRectsNearEditor(options: {
+  editorRect: RectLike
+  buttonSize: Size
+  viewportSize: Size
+}): RectLike[] {
+  const { editorRect, buttonSize, viewportSize } = options
   const fitsInsideEditor =
     editorRect.height >= buttonSize.height + BUTTON_GAP * 2
   const lowerRightTop = fitsInsideEditor
@@ -50,7 +65,7 @@ export function buttonPositionNearEditor(options: {
   const rightAlignedLeft = editorRect.right - buttonSize.width - BUTTON_GAP
   const maxTop = viewportSize.height - buttonSize.height - VIEWPORT_GUTTER
   const maxLeft = viewportSize.width - buttonSize.width - VIEWPORT_GUTTER
-  const candidates = [
+  return [
     { top: lowerRightTop, left: rightAlignedLeft },
     { top: editorRect.top + BUTTON_GAP, left: rightAlignedLeft },
     { top: editorRect.bottom + BUTTON_GAP, left: rightAlignedLeft },
@@ -63,27 +78,18 @@ export function buttonPositionNearEditor(options: {
       top: lowerRightTop,
       left: editorRect.left - buttonSize.width - BUTTON_GAP
     }
-  ].map((candidate) => ({
-    top: Math.max(VIEWPORT_GUTTER, Math.min(maxTop, candidate.top)),
-    left: Math.max(VIEWPORT_GUTTER, Math.min(maxLeft, candidate.left))
-  }))
-
-  const nonOverlappingCandidate = candidates.find(
-    (candidate) =>
-      !rectOverlapsAny(
-        {
-          top: candidate.top,
-          left: candidate.left,
-          right: candidate.left + buttonSize.width,
-          bottom: candidate.top + buttonSize.height,
-          width: buttonSize.width,
-          height: buttonSize.height
-        },
-        avoidRects
-      )
-  )
-
-  return nonOverlappingCandidate ?? candidates[0]
+  ].map((candidate) => {
+    const top = Math.max(VIEWPORT_GUTTER, Math.min(maxTop, candidate.top))
+    const left = Math.max(VIEWPORT_GUTTER, Math.min(maxLeft, candidate.left))
+    return {
+      top,
+      left,
+      right: left + buttonSize.width,
+      bottom: top + buttonSize.height,
+      width: buttonSize.width,
+      height: buttonSize.height
+    }
+  })
 }
 
 function rectOverlapsAny(rect: RectLike, avoidRects: RectLike[]): boolean {
