@@ -123,6 +123,44 @@ describe('content script button visibility', () => {
     expect(button.style.left).toBe('268px')
   })
 
+  test('does not avoid invisible page buttons near the editor', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button" style="visibility: hidden">Send</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const sendButton = document.querySelector('button') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    vi.spyOn(sendButton, 'getBoundingClientRect').mockReturnValue({
+      top: 160,
+      left: 260,
+      right: 310,
+      bottom: 210,
+      width: 50,
+      height: 50,
+      x: 260,
+      y: 160,
+      toJSON: () => null
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('168px')
+    expect(button.style.left).toBe('268px')
+  })
+
   test('does not avoid broad tabindex containers near the editor', () => {
     document.body.innerHTML =
       '<textarea>rough reply</textarea><div tabindex="0">Focusable wrapper</div>'

@@ -577,6 +577,10 @@ function clickableAvoidRectsNearEditor(
     .filter((element) => element !== editor)
     .filter((element) => !element.contains(editor))
     .filter((element) => !isInjectedUITarget(element))
+    .filter((element) => {
+      const visibility = getComputedStyle(element).visibility
+      return visibility !== 'hidden' && visibility !== 'collapse'
+    })
     .map((element) => element.getBoundingClientRect())
     .filter((rect) => rect.width > 0 && rect.height > 0)
     .filter((rect) => rectsOverlap(rect, proximityRect))
