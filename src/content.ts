@@ -635,15 +635,24 @@ function elementsFromCandidateRect(
   rect: RectLike,
   elementsFromPoint: (x: number, y: number) => Element[]
 ): Element[] {
+  const elements: Element[] = []
+  const sampleInterval = 1
   const right = rect.right - 1
   const bottom = rect.bottom - 1
-  return [
-    ...elementsFromPoint(rect.left, rect.top),
-    ...elementsFromPoint(right, rect.top),
-    ...elementsFromPoint(rect.left, bottom),
-    ...elementsFromPoint(right, bottom),
-    ...elementsFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2)
-  ]
+
+  for (let y = rect.top; y < rect.bottom; y += sampleInterval) {
+    for (let x = rect.left; x < rect.right; x += sampleInterval) {
+      elements.push(...elementsFromPoint(x, y))
+    }
+    elements.push(...elementsFromPoint(right, y))
+  }
+
+  for (let x = rect.left; x < rect.right; x += sampleInterval) {
+    elements.push(...elementsFromPoint(x, bottom))
+  }
+  elements.push(...elementsFromPoint(right, bottom))
+
+  return elements
 }
 
 function expandedRect(rect: DOMRect, amount: number): DOMRect {
