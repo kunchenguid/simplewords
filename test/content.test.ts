@@ -85,6 +85,82 @@ describe('content script button visibility', () => {
     expect(button.innerHTML).toContain('font-size="48"')
   })
 
+  test('moves the Simple Words button away from overlapping page buttons', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button">Send</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const sendButton = document.querySelector('button') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    vi.spyOn(sendButton, 'getBoundingClientRect').mockReturnValue({
+      top: 160,
+      left: 260,
+      right: 310,
+      bottom: 210,
+      width: 50,
+      height: 50,
+      x: 260,
+      y: 160,
+      toJSON: () => null
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('108px')
+    expect(button.style.left).toBe('268px')
+  })
+
+  test('does not avoid broad tabindex containers near the editor', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><div tabindex="0">Focusable wrapper</div>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const focusableWrapper = document.querySelector('div') as HTMLDivElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    vi.spyOn(focusableWrapper, 'getBoundingClientRect').mockReturnValue({
+      top: 160,
+      left: 260,
+      right: 310,
+      bottom: 210,
+      width: 50,
+      height: 50,
+      x: 260,
+      y: 160,
+      toJSON: () => null
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('168px')
+    expect(button.style.left).toBe('268px')
+  })
+
   test('uses the editable root when input events come from a contenteditable child', () => {
     document.body.innerHTML =
       '<div contenteditable="true"><div data-child>rough reply</div></div>'

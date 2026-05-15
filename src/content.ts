@@ -27,6 +27,18 @@ const MAX_CONTEXT_CHARS = 30_000
 const BUTTON_SIZE = 24
 const SMALL_BUTTON_SIZE = 20
 const SMALL_EDITOR_HEIGHT = 34
+const CLICKABLE_AVOID_SELECTOR = [
+  'button',
+  'a[href]',
+  '[role="button"]',
+  '[role="menuitem"]',
+  '[role="option"]',
+  'input[type="button"]',
+  'input[type="submit"]',
+  'input[type="reset"]',
+  'summary'
+].join(',')
+const CLICKABLE_AVOID_PROXIMITY = 80
 
 const BRAND_GLYPH_SVG = `<svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><text x="32" y="47" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-weight="700" font-size="48">sw</text></svg>`
 
@@ -546,10 +558,43 @@ function positionButton(editor: HTMLElement): void {
   const position = buttonPositionNearEditor({
     editorRect: rect,
     buttonSize: { width: size, height: size },
-    viewportSize: { width: window.innerWidth, height: window.innerHeight }
+    viewportSize: { width: window.innerWidth, height: window.innerHeight },
+    avoidRects: clickableAvoidRectsNearEditor(editor, rect)
   })
   button.style.top = `${position.top}px`
   button.style.left = `${position.left}px`
+}
+
+function clickableAvoidRectsNearEditor(
+  editor: HTMLElement,
+  editorRect: DOMRect
+): DOMRect[] {
+  const proximityRect = expandedRect(editorRect, CLICKABLE_AVOID_PROXIMITY)
+
+  return Array.from(
+    document.querySelectorAll<HTMLElement>(CLICKABLE_AVOID_SELECTOR)
+  )
+    .filter((element) => element !== editor)
+    .filter((element) => !element.contains(editor))
+    .filter((element) => !isInjectedUITarget(element))
+    .map((element) => element.getBoundingClientRect())
+    .filter((rect) => rect.width > 0 && rect.height > 0)
+    .filter((rect) => rectsOverlap(rect, proximityRect))
+}
+
+function expandedRect(rect: DOMRect, amount: number): DOMRect {
+  return new DOMRect(
+    rect.left - amount,
+    rect.top - amount,
+    rect.width + amount * 2,
+    rect.height + amount * 2
+  )
+}
+
+function rectsOverlap(a: DOMRect, b: DOMRect): boolean {
+  return (
+    a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top
+  )
 }
 
 function buttonSizeForEditor(rect: DOMRect): number {
