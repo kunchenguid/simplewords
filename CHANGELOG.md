@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.7...simplewords-v0.1.8) (2026-05-15)
+
+
+### Bug Fixes
+
+* **extension:** remove tabs permission ([#30](https://github.com/kunchenguid/simplewords/issues/30)) ([3af3c97](https://github.com/kunchenguid/simplewords/commit/3af3c970416c44dd1d8a94dca6c3521869654f74))
+
 ## [0.1.7](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.6...simplewords-v0.1.7) (2026-05-14)
 
 
