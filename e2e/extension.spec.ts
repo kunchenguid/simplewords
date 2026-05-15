@@ -142,6 +142,116 @@ test('shows provider details without settings action for non-auth errors', async
   }
 })
 
+test('signs in with Codex OAuth without the tabs permission', async () => {
+  const extensionPath = path.join(process.cwd(), 'extension')
+  const userDataDir = await mkdtemp(path.join(tmpdir(), 'simplewords-e2e-'))
+  let context: BrowserContext | undefined
+  let authorizeSeen = false
+  const tokenRequests: URLSearchParams[] = []
+
+  try {
+    context = await chromium.launchPersistentContext(userDataDir, {
+      headless: false,
+      args: [
+        `--disable-extensions-except=${extensionPath}`,
+        `--load-extension=${extensionPath}`
+      ]
+    })
+
+    await context.route(
+      'https://auth.openai.com/oauth/authorize**',
+      async (route) => {
+        authorizeSeen = true
+        const url = new URL(route.request().url())
+        const state = url.searchParams.get('state')
+        expect(state).toBeTruthy()
+        expect(url.searchParams.get('redirect_uri')).toBe(
+          'http://localhost:1455/auth/callback'
+        )
+
+        await route.fulfill({
+          status: 302,
+          headers: {
+            location: `http://localhost:1455/auth/callback?code=e2e-code&state=${encodeURIComponent(
+              state ?? ''
+            )}`
+          },
+          body: ''
+        })
+      }
+    )
+    await context.route('https://auth.openai.com/oauth/token', async (route) => {
+      expect(route.request().method()).toBe('POST')
+      const params = new URLSearchParams(route.request().postData() ?? '')
+      tokenRequests.push(params)
+      expect(params.get('grant_type')).toBe('authorization_code')
+      expect(params.get('code')).toBe('e2e-code')
+      expect(params.get('redirect_uri')).toBe(
+        'http://localhost:1455/auth/callback'
+      )
+      expect(params.get('code_verifier')).toBeTruthy()
+
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        headers: {
+          'access-control-allow-origin': '*'
+        },
+        body: JSON.stringify({
+          access_token: jwtWithPayload({
+            'https://api.openai.com/auth': {
+              chatgpt_account_id: 'account-e2e'
+            }
+          }),
+          refresh_token: 'refresh-e2e'
+        })
+      })
+    })
+
+    const extensionBaseURL = await extensionBaseUrl(context)
+    await closeOptionsPages(context, extensionBaseURL)
+
+    const page = await context.newPage()
+    await page.goto(`${extensionBaseURL}options.html`)
+    await page.locator('#provider').selectOption('codex')
+    await page.getByRole('button', { name: 'Sign in with Codex' }).click()
+
+    await expect(page.locator('#status')).toHaveText(
+      'Signed in to Codex. These settings are saved.',
+      { timeout: 15_000 }
+    )
+    await expect(
+      page.getByRole('button', { name: 'Sign in again with Codex' })
+    ).toBeEnabled()
+
+    const storage = await getExtensionStorage<{
+      provider?: string
+      codexAccessToken?: string
+      codexRefreshToken?: string
+      codexAccountId?: string
+    }>(context, [
+      'provider',
+      'codexAccessToken',
+      'codexRefreshToken',
+      'codexAccountId'
+    ])
+
+    expect(authorizeSeen).toBe(true)
+    expect(tokenRequests).toHaveLength(1)
+    expect(storage.provider).toBe('codex')
+    expect(storage.codexAccessToken).toBeTruthy()
+    expect(storage.codexRefreshToken).toBe('refresh-e2e')
+    expect(storage.codexAccountId).toBe('account-e2e')
+    expect(
+      context
+        .pages()
+        .some((openPage) => openPage.url().includes('/auth/callback'))
+    ).toBe(false)
+  } finally {
+    await context?.close()
+  }
+})
+
 async function configureExtension(
   context: BrowserContext,
   baseURL: string,
@@ -183,6 +293,17 @@ async function extensionBaseUrl(context: BrowserContext): Promise<string> {
   const serviceWorker =
     context.serviceWorkers()[0] ?? (await context.waitForEvent('serviceworker'))
   return new URL('/', serviceWorker.url()).href
+}
+
+async function getExtensionStorage<T>(
+  context: BrowserContext,
+  keys: string[]
+): Promise<T> {
+  const serviceWorker =
+    context.serviceWorkers()[0] ?? (await context.waitForEvent('serviceworker'))
+  return serviceWorker.evaluate((storageKeys) => {
+    return chrome.storage.local.get<Record<string, unknown>>(storageKeys)
+  }, keys) as Promise<T>
 }
 
 async function closeOptionsPages(
@@ -411,6 +532,22 @@ function gmailLikePage(): string {
     </script>
   </body>
 </html>`
+}
+
+function jwtWithPayload(payload: Record<string, unknown>): string {
+  return [
+    base64UrlEncode(JSON.stringify({ alg: 'none', typ: 'JWT' })),
+    base64UrlEncode(JSON.stringify(payload)),
+    'signature'
+  ].join('.')
+}
+
+function base64UrlEncode(value: string): string {
+  return Buffer.from(value)
+    .toString('base64')
+    .replace(/=/g, '')
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
 }
 
 declare global {
