@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.9](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.8...simplewords-v0.1.9) (2026-05-15)
+
+
+### Bug Fixes
+
+* **extension:** prevent blocked sites from showing button ([#32](https://github.com/kunchenguid/simplewords/issues/32)) ([6739dda](https://github.com/kunchenguid/simplewords/commit/6739ddae8321a77930ecf9d005d7195637c2cabd))
+
 ## [0.1.8](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.7...simplewords-v0.1.8) (2026-05-15)
 
 
