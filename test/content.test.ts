@@ -260,7 +260,7 @@ describe('content script button visibility', () => {
     expect(button.style.left).toBe('268px')
   })
 
-  test('bounds overlap hit testing while positioning the button', () => {
+  test('stops overlap hit testing after finding a clear button position', () => {
     document.body.innerHTML =
       '<textarea>rough reply</textarea><button type="button">Send</button>'
 
@@ -304,7 +304,7 @@ describe('content script button visibility', () => {
 
     editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
 
-    expect(elementsFromPoint).toHaveBeenCalledTimes(804)
+    expect(elementsFromPoint).toHaveBeenCalledTimes(268)
     const button = document.getElementById(
       'simplewords-button'
     ) as HTMLButtonElement
