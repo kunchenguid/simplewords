@@ -49,4 +49,29 @@ describe('content script site enablement', () => {
 
     expect(document.getElementById('simplewords-button')).toBeNull()
   })
+
+  test('does not show the button from pointer events when the current site is blocked', async () => {
+    Reflect.set(globalThis, 'chrome', {
+      storage: {
+        local: {
+          get: vi.fn(async () => ({ enabledDomains: [] }))
+        },
+        onChanged: {
+          addListener: vi.fn()
+        }
+      },
+      runtime: {
+        sendMessage: vi.fn()
+      }
+    })
+
+    await import('../src/content')
+    await Promise.resolve()
+    document.body.innerHTML = '<textarea>rough reply</textarea>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    editor.dispatchEvent(new Event('pointerdown', { bubbles: true }))
+
+    expect(document.getElementById('simplewords-button')).toBeNull()
+  })
 })
