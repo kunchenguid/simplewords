@@ -78,4 +78,32 @@ describe('buttonPositionNearEditor', () => {
     expect(position.top).toBe(40)
     expect(position.left).toBe(192)
   })
+
+  test('uses the upper-right of the editor when the lower-right overlaps an avoided control', () => {
+    const position = buttonPositionNearEditor({
+      editorRect: {
+        top: 100,
+        left: 100,
+        right: 300,
+        bottom: 200,
+        width: 200,
+        height: 100
+      },
+      buttonSize: { width: 24, height: 24 },
+      viewportSize: { width: 500, height: 500 },
+      avoidRects: [
+        {
+          top: 160,
+          left: 260,
+          right: 310,
+          bottom: 210,
+          width: 50,
+          height: 50
+        }
+      ]
+    })
+
+    expect(position.top).toBe(108)
+    expect(position.left).toBe(268)
+  })
 })

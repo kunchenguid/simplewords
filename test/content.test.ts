@@ -8,6 +8,7 @@ describe('content script button visibility', () => {
     document.getElementById('simplewords-button')?.remove()
     document.getElementById('simplewords-panel')?.remove()
     vi.restoreAllMocks()
+    Reflect.deleteProperty(document, 'elementsFromPoint')
     Reflect.deleteProperty(globalThis, 'chrome')
     resetExtensionContextForTests()
   })
@@ -83,6 +84,420 @@ describe('content script button visibility', () => {
     expect(button.style.top).toBe('40px')
     expect(button.style.left).toBe('192px')
     expect(button.innerHTML).toContain('font-size="48"')
+  })
+
+  test('moves the Simple Words button away from overlapping page buttons', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button">Send</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const sendButton = document.querySelector('button') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    vi.spyOn(sendButton, 'getBoundingClientRect').mockReturnValue({
+      top: 160,
+      left: 260,
+      right: 310,
+      bottom: 210,
+      width: 50,
+      height: 50,
+      x: 260,
+      y: 160,
+      toJSON: () => null
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('108px')
+    expect(button.style.left).toBe('268px')
+  })
+
+  test('does not avoid invisible page buttons near the editor', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button" style="visibility: hidden">Send</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const sendButton = document.querySelector('button') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    vi.spyOn(sendButton, 'getBoundingClientRect').mockReturnValue({
+      top: 160,
+      left: 260,
+      right: 310,
+      bottom: 210,
+      width: 50,
+      height: 50,
+      x: 260,
+      y: 160,
+      toJSON: () => null
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('168px')
+    expect(button.style.left).toBe('268px')
+  })
+
+  test('does not measure distant page buttons while positioning', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button" data-near>Send</button><button type="button" data-far>Archive</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const nearButton = document.querySelector(
+      '[data-near]'
+    ) as HTMLButtonElement
+    const farButton = document.querySelector('[data-far]') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    const nearRect = {
+      top: 160,
+      left: 260,
+      right: 310,
+      bottom: 210,
+      width: 50,
+      height: 50,
+      x: 260,
+      y: 160,
+      toJSON: () => null
+    }
+    vi.spyOn(nearButton, 'getBoundingClientRect').mockReturnValue(nearRect)
+    const farRectSpy = vi.spyOn(farButton, 'getBoundingClientRect')
+    Object.defineProperty(document, 'elementsFromPoint', {
+      configurable: true,
+      value: () => []
+    })
+    vi.spyOn(document, 'elementsFromPoint').mockReturnValue([nearButton])
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    expect(farRectSpy).not.toHaveBeenCalled()
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('108px')
+    expect(button.style.left).toBe('268px')
+  })
+
+  test('avoids page buttons that partially overlap a candidate between sampled points', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button">Send</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const sendButton = document.querySelector('button') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    const sendRect = {
+      top: 170,
+      left: 282,
+      right: 302,
+      bottom: 178,
+      width: 20,
+      height: 8,
+      x: 282,
+      y: 170,
+      toJSON: () => null
+    }
+    vi.spyOn(sendButton, 'getBoundingClientRect').mockReturnValue(sendRect)
+    Object.defineProperty(document, 'elementsFromPoint', {
+      configurable: true,
+      value: (x: number, y: number) =>
+        x >= sendRect.left &&
+        x < sendRect.right &&
+        y >= sendRect.top &&
+        y < sendRect.bottom
+          ? [sendButton]
+          : []
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('108px')
+    expect(button.style.left).toBe('268px')
+  })
+
+  test('stops overlap hit testing after finding a clear button position', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button">Send</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const sendButton = document.querySelector('button') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    const sendRect = {
+      top: 170,
+      left: 282,
+      right: 302,
+      bottom: 178,
+      width: 20,
+      height: 8,
+      x: 282,
+      y: 170,
+      toJSON: () => null
+    }
+    vi.spyOn(sendButton, 'getBoundingClientRect').mockReturnValue(sendRect)
+    const elementsFromPoint = vi.fn((x: number, y: number) =>
+      x >= sendRect.left &&
+      x < sendRect.right &&
+      y >= sendRect.top &&
+      y < sendRect.bottom
+        ? [sendButton]
+        : []
+    )
+    Object.defineProperty(document, 'elementsFromPoint', {
+      configurable: true,
+      value: elementsFromPoint
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    expect(elementsFromPoint).toHaveBeenCalledTimes(187)
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('108px')
+    expect(button.style.left).toBe('268px')
+  })
+
+  test('short-circuits overlap hit testing for blocked button positions', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button">Send</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const sendButton = document.querySelector('button') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    const sendRect = {
+      top: 168,
+      left: 268,
+      right: 292,
+      bottom: 192,
+      width: 24,
+      height: 24,
+      x: 268,
+      y: 168,
+      toJSON: () => null
+    }
+    vi.spyOn(sendButton, 'getBoundingClientRect').mockReturnValue(sendRect)
+    const elementsFromPoint = vi.fn((x: number, y: number) =>
+      x >= sendRect.left &&
+      x < sendRect.right &&
+      y >= sendRect.top &&
+      y < sendRect.bottom
+        ? [sendButton]
+        : []
+    )
+    Object.defineProperty(document, 'elementsFromPoint', {
+      configurable: true,
+      value: elementsFromPoint
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    expect(elementsFromPoint).toHaveBeenCalledTimes(135)
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('108px')
+    expect(button.style.left).toBe('268px')
+  })
+
+  test('avoids small page buttons that overlap between sampled rows and columns', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button">Send</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const sendButton = document.querySelector('button') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    const sendRect = {
+      top: 170,
+      left: 278,
+      right: 282,
+      bottom: 174,
+      width: 4,
+      height: 4,
+      x: 278,
+      y: 170,
+      toJSON: () => null
+    }
+    vi.spyOn(sendButton, 'getBoundingClientRect').mockReturnValue(sendRect)
+    Object.defineProperty(document, 'elementsFromPoint', {
+      configurable: true,
+      value: (x: number, y: number) =>
+        x >= sendRect.left &&
+        x < sendRect.right &&
+        y >= sendRect.top &&
+        y < sendRect.bottom
+          ? [sendButton]
+          : []
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('108px')
+    expect(button.style.left).toBe('268px')
+  })
+
+  test('avoids small page buttons fully inside a candidate away from sampled lines', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button">Send</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const sendButton = document.querySelector('button') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    const sendRect = {
+      top: 176,
+      left: 276,
+      right: 280,
+      bottom: 180,
+      width: 4,
+      height: 4,
+      x: 276,
+      y: 176,
+      toJSON: () => null
+    }
+    vi.spyOn(sendButton, 'getBoundingClientRect').mockReturnValue(sendRect)
+    Object.defineProperty(document, 'elementsFromPoint', {
+      configurable: true,
+      value: (x: number, y: number) =>
+        x >= sendRect.left &&
+        x < sendRect.right &&
+        y >= sendRect.top &&
+        y < sendRect.bottom
+          ? [sendButton]
+          : []
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('108px')
+    expect(button.style.left).toBe('268px')
+  })
+
+  test('does not avoid broad tabindex containers near the editor', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><div tabindex="0">Focusable wrapper</div>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const focusableWrapper = document.querySelector('div') as HTMLDivElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    vi.spyOn(focusableWrapper, 'getBoundingClientRect').mockReturnValue({
+      top: 160,
+      left: 260,
+      right: 310,
+      bottom: 210,
+      width: 50,
+      height: 50,
+      x: 260,
+      y: 160,
+      toJSON: () => null
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('168px')
+    expect(button.style.left).toBe('268px')
   })
 
   test('uses the editable root when input events come from a contenteditable child', () => {
