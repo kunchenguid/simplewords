@@ -304,7 +304,7 @@ describe('content script button visibility', () => {
 
     editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
 
-    expect(elementsFromPoint).toHaveBeenCalledTimes(1014)
+    expect(elementsFromPoint).toHaveBeenCalledTimes(684)
     const button = document.getElementById(
       'simplewords-button'
     ) as HTMLButtonElement

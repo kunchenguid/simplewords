@@ -636,21 +636,20 @@ function elementsFromCandidateRect(
   elementsFromPoint: (x: number, y: number) => Element[]
 ): Element[] {
   const elements: Element[] = []
-  const sampleInterval = 2
   const right = rect.right - 1
   const bottom = rect.bottom - 1
+  const centerX = Math.floor(rect.left + rect.width / 2)
 
-  for (let y = rect.top; y < rect.bottom; y += sampleInterval) {
-    for (let x = rect.left; x < rect.right; x += sampleInterval) {
-      elements.push(...elementsFromPoint(x, y))
-    }
-    elements.push(...elementsFromPoint(right, y))
-  }
-
-  for (let x = rect.left; x < rect.right; x += sampleInterval) {
+  for (let x = rect.left; x < rect.right; x += 1) {
+    elements.push(...elementsFromPoint(x, rect.top))
     elements.push(...elementsFromPoint(x, bottom))
   }
-  elements.push(...elementsFromPoint(right, bottom))
+
+  for (let y = rect.top + 1; y < bottom; y += 1) {
+    elements.push(...elementsFromPoint(rect.left, y))
+    elements.push(...elementsFromPoint(right, y))
+    elements.push(...elementsFromPoint(centerX, y))
+  }
 
   return elements
 }
