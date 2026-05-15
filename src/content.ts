@@ -593,7 +593,7 @@ function clickableAvoidRectsForCandidate(
   const elementsFromPoint = document.elementsFromPoint?.bind(document)
 
   if (elementsFromPoint) {
-    const elements = new Set<HTMLElement>()
+    const seenElements = new Set<HTMLElement>()
 
     for (const element of elementsFromCandidateRect(
       candidateRect,
@@ -602,22 +602,41 @@ function clickableAvoidRectsForCandidate(
       const clickableElement = element.closest<HTMLElement>(
         CLICKABLE_AVOID_SELECTOR
       )
-      if (clickableElement) {
-        elements.add(clickableElement)
+
+      if (!clickableElement || seenElements.has(clickableElement)) {
+        continue
+      }
+
+      seenElements.add(clickableElement)
+
+      if (clickableElement === editor) {
+        continue
+      }
+
+      if (clickableElement.contains(editor)) {
+        continue
+      }
+
+      if (isInjectedUITarget(clickableElement)) {
+        continue
+      }
+
+      const visibility = getComputedStyle(clickableElement).visibility
+      if (visibility === 'hidden' || visibility === 'collapse') {
+        continue
+      }
+
+      const rect = clickableElement.getBoundingClientRect()
+      if (
+        rect.width > 0 &&
+        rect.height > 0 &&
+        rectsOverlap(rect, candidateRect)
+      ) {
+        return [rect]
       }
     }
 
-    return Array.from(elements)
-      .filter((element) => element !== editor)
-      .filter((element) => !element.contains(editor))
-      .filter((element) => !isInjectedUITarget(element))
-      .filter((element) => {
-        const visibility = getComputedStyle(element).visibility
-        return visibility !== 'hidden' && visibility !== 'collapse'
-      })
-      .map((element) => element.getBoundingClientRect())
-      .filter((rect) => rect.width > 0 && rect.height > 0)
-      .filter((rect) => rectsOverlap(rect, candidateRect))
+    return []
   }
 
   const proximityRect = expandedRect(candidateRect, CLICKABLE_AVOID_PROXIMITY)
@@ -637,24 +656,23 @@ function clickableAvoidRectsForCandidate(
     .filter((rect) => rectsOverlap(rect, proximityRect))
 }
 
-function elementsFromCandidateRect(
+function* elementsFromCandidateRect(
   rect: RectLike,
   elementsFromPoint: (x: number, y: number) => Element[]
-): Element[] {
-  const elements: Element[] = []
+): Iterable<Element> {
   const right = rect.right - 1
   const bottom = rect.bottom - 1
   const centerX = Math.floor(rect.left + rect.width / 2)
 
   for (let x = rect.left; x < rect.right; x += 1) {
-    elements.push(...elementsFromPoint(x, rect.top))
-    elements.push(...elementsFromPoint(x, bottom))
+    yield* elementsFromPoint(x, rect.top)
+    yield* elementsFromPoint(x, bottom)
   }
 
   for (let y = rect.top + 1; y < bottom; y += 1) {
-    elements.push(...elementsFromPoint(rect.left, y))
-    elements.push(...elementsFromPoint(right, y))
-    elements.push(...elementsFromPoint(centerX, y))
+    yield* elementsFromPoint(rect.left, y)
+    yield* elementsFromPoint(right, y)
+    yield* elementsFromPoint(centerX, y)
   }
 
   for (
@@ -671,11 +689,9 @@ function elementsFromCandidateRect(
       y < bottom;
       y += CLICKABLE_AVOID_INTERIOR_SAMPLE_STEP
     ) {
-      elements.push(...elementsFromPoint(x, y))
+      yield* elementsFromPoint(x, y)
     }
   }
-
-  return elements
 }
 
 function expandedRect(rect: RectLike, amount: number): DOMRect {
