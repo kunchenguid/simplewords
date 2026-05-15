@@ -260,6 +260,58 @@ describe('content script button visibility', () => {
     expect(button.style.left).toBe('268px')
   })
 
+  test('bounds overlap hit testing while positioning the button', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button">Send</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const sendButton = document.querySelector('button') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    const sendRect = {
+      top: 170,
+      left: 282,
+      right: 302,
+      bottom: 178,
+      width: 20,
+      height: 8,
+      x: 282,
+      y: 170,
+      toJSON: () => null
+    }
+    vi.spyOn(sendButton, 'getBoundingClientRect').mockReturnValue(sendRect)
+    const elementsFromPoint = vi.fn((x: number, y: number) =>
+      x >= sendRect.left &&
+      x < sendRect.right &&
+      y >= sendRect.top &&
+      y < sendRect.bottom
+        ? [sendButton]
+        : []
+    )
+    Object.defineProperty(document, 'elementsFromPoint', {
+      configurable: true,
+      value: elementsFromPoint
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    expect(elementsFromPoint).toHaveBeenCalledTimes(96)
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('108px')
+    expect(button.style.left).toBe('268px')
+  })
+
   test('does not avoid broad tabindex containers near the editor', () => {
     document.body.innerHTML =
       '<textarea>rough reply</textarea><div tabindex="0">Focusable wrapper</div>'

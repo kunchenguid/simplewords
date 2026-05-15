@@ -636,7 +636,7 @@ function elementsFromCandidateRect(
   elementsFromPoint: (x: number, y: number) => Element[]
 ): Element[] {
   const elements: Element[] = []
-  const sampleInterval = 1
+  const sampleInterval = 8
   const right = rect.right - 1
   const bottom = rect.bottom - 1
 
