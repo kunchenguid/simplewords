@@ -10,7 +10,9 @@ const evidenceDir = path.join(process.cwd(), 'test-results', 'button-overlap')
 test('places the Simple Words button away from page buttons but not broad tabindex containers', async () => {
   const app = await startFixtureServer()
   const extensionPath = path.join(process.cwd(), 'extension')
-  const userDataDir = await mkdtemp(path.join(tmpdir(), 'simplewords-overlap-e2e-'))
+  const userDataDir = await mkdtemp(
+    path.join(tmpdir(), 'simplewords-overlap-e2e-')
+  )
   let context: BrowserContext | undefined
 
   try {
@@ -84,13 +86,19 @@ async function startFixtureServer(): Promise<{
   const server: Server = createServer((request, response) => {
     if (request.url === '/button-overlap') {
       response.writeHead(200, { 'content-type': 'text/html' })
-      response.end(fixturePage('<button id="avoid-target" type="button">Send</button>'))
+      response.end(
+        fixturePage('<button id="avoid-target" type="button">Send</button>')
+      )
       return
     }
 
     if (request.url === '/tabindex-nearby') {
       response.writeHead(200, { 'content-type': 'text/html' })
-      response.end(fixturePage('<div id="avoid-target" tabindex="0">Focusable wrapper</div>'))
+      response.end(
+        fixturePage(
+          '<div id="avoid-target" tabindex="0">Focusable wrapper</div>'
+        )
+      )
       return
     }
 
@@ -201,7 +209,9 @@ function measurePlacement(): {
 
   const editor = plainRect(document.getElementById('editor'))
   const avoidTarget = plainRect(document.getElementById('avoid-target'))
-  const simpleWordsButton = plainRect(document.getElementById('simplewords-button'))
+  const simpleWordsButton = plainRect(
+    document.getElementById('simplewords-button')
+  )
 
   return {
     editor,
