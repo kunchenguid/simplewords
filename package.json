@@ -1,7 +1,7 @@
 {
   "name": "simplewords",
   "description": "Never waste time wordsmithing your replies. Just say what you mean, and let AI help turn it into a respectful draft before you send.",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "private": true,
   "type": "module",
   "scripts": {
