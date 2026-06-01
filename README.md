@@ -67,11 +67,13 @@ https://chromewebstore.google.com/detail/simple-words/kmlhfcjpmhcoclpcghckibfkgp
 
 **From Source**
 
+This project uses [pnpm](https://pnpm.io) (enable it with `corepack enable`).
+
 ```sh
 git clone https://github.com/kunchenguid/simplewords.git
 cd simplewords
-npm ci
-npm run build
+pnpm install
+pnpm run build
 ```
 
 Then open `chrome://extensions`, enable **Developer mode**, click **Load unpacked**, and select the `extension/` directory.
@@ -148,17 +150,17 @@ There is no hosted Simple Words backend in the request path.
 ## Development
 
 ```sh
-npm ci # Install dependencies
-npx playwright install --with-deps chromium # Install Playwright Chromium
-npm run build # Type-check and bundle the extension files
-npm test # Run Vitest
-npm run test:e2e # Run Playwright browser tests
-npm run lint # Run ESLint
-npm run format:check # Check formatting
-npm run check # Run format, lint, Vitest, build, and browser tests
+pnpm install # Install dependencies
+pnpm exec playwright install --with-deps chromium # Install Playwright Chromium
+pnpm run build # Type-check and bundle the extension files
+pnpm test # Run Vitest
+pnpm run test:e2e # Run Playwright browser tests
+pnpm run lint # Run ESLint
+pnpm run format:check # Check formatting
+pnpm run check # Run format, lint, Vitest, build, and browser tests
 ```
 
-`npm run test:e2e` launches the extension in headed Chromium, so it requires a graphical display.
+`pnpm run test:e2e` launches the extension in headed Chromium, so it requires a graphical display.
 
 The built files `extension/background.js`, `extension/content.js`, `extension/options.js`, and `extension/chunks/` are generated artifacts and are not tracked in Git.
 

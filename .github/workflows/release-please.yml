@@ -20,16 +20,19 @@ jobs:
       - uses: actions/checkout@v6
         if: ${{ steps.release.outputs.release_created }}
 
+      - uses: pnpm/action-setup@v4
+        if: ${{ steps.release.outputs.release_created }}
+
       - uses: actions/setup-node@v6
         if: ${{ steps.release.outputs.release_created }}
         with:
           node-version: 22
-          cache: npm
+          cache: pnpm
 
-      - run: npm ci
+      - run: pnpm install --frozen-lockfile
         if: ${{ steps.release.outputs.release_created }}
 
-      - run: npm run build
+      - run: pnpm run build
         if: ${{ steps.release.outputs.release_created }}
 
       - name: Package extension
@@ -59,4 +62,4 @@ jobs:
         if: ${{ steps.release.outputs.release_created && steps.check_keys.outputs.present == 'true' }}
         env:
           SUBMIT_KEYS: ${{ secrets.SUBMIT_KEYS }}
-        run: npm run publish:chrome-web-store
+        run: pnpm run publish:chrome-web-store

@@ -4,22 +4,24 @@ This file provides guidance to coding agents when working with code in this repo
 
 ## Commands
 
+This project uses **pnpm** (pinned via the `packageManager` field; run through Corepack). Do not use npm or yarn - the global pnpm config enforces a `minimumReleaseAge` supply-chain cooldown and pnpm blocks dependency build scripts by default (only the packages in `pnpm-workspace.yaml`'s `allowBuilds` are permitted, currently just `esbuild`).
+
 ```sh
-npm ci                       # Install dependencies
-npx playwright install --with-deps chromium  # One-time: Playwright Chromium for e2e
-npm run build                # tsc --noEmit + esbuild bundle into extension/
-npm test                     # Vitest (jsdom) - unit tests in test/
-npx vitest run test/llm.test.ts        # Run a single Vitest file
-npx vitest run -t 'pattern'            # Run tests matching a name
-npm run test:e2e             # Playwright (headed Chromium; needs a display)
-npm run lint                 # ESLint
-npm run format:check         # Prettier check (use `npm run format` to write)
-npm run check                # format:check + lint + test + build + test:e2e
+pnpm install                 # Install dependencies (use --frozen-lockfile in CI)
+pnpm exec playwright install --with-deps chromium  # One-time: Playwright Chromium for e2e
+pnpm run build               # tsc --noEmit + esbuild bundle into extension/
+pnpm test                    # Vitest (jsdom) - unit tests in test/
+pnpm exec vitest run test/llm.test.ts  # Run a single Vitest file
+pnpm exec vitest run -t 'pattern'      # Run tests matching a name
+pnpm run test:e2e            # Playwright (headed Chromium; needs a display)
+pnpm run lint                # ESLint
+pnpm run format:check        # Prettier check (use `pnpm run format` to write)
+pnpm run check               # format:check + lint + test + build + test:e2e
 ```
 
 `build:background` bundles `src/background.ts` as an ES module with code-splitting into `extension/` and `extension/chunks/`. `build:pages` bundles `src/content.ts` and `src/options.ts` as IIFE. All generated `extension/*.js` and `extension/chunks/` are git-ignored.
 
-To load the unpacked extension: `npm run build`, then in `chrome://extensions` enable Developer mode and Load unpacked from `extension/`.
+To load the unpacked extension: `pnpm run build`, then in `chrome://extensions` enable Developer mode and Load unpacked from `extension/`.
 
 ## Architecture
 
@@ -39,7 +41,7 @@ This is a Manifest V3 Chrome extension. There is no hosted backend - the browser
 
 **Tests:** Vitest unit tests in `test/` use jsdom and cover each `src/` module by name. Playwright e2e in `e2e/extension.spec.ts` launches the built `extension/` directory in real Chromium.
 
-**Releases:** release-please reads conventional commits on `main` and opens release PRs that bump `package.json`, `package-lock.json`, and `extension/manifest.json` together. `CHANGELOG.md` and `.release-please-manifest.json` are auto-generated - do not edit by hand. On release, CI zips `extension/` into `simplewords.zip`, attaches it to the GitHub Release, and (if the `SUBMIT_KEYS` secret is set) uploads via `scripts/chrome-web-store-publish.mjs`.
+**Releases:** release-please reads conventional commits on `main` and opens release PRs that bump `package.json` and `extension/manifest.json` together (the version does not appear in `pnpm-lock.yaml`, so the lockfile is untouched). `CHANGELOG.md` and `.release-please-manifest.json` are auto-generated - do not edit by hand. On release, CI zips `extension/` into `simplewords.zip`, attaches it to the GitHub Release, and (if the `SUBMIT_KEYS` secret is set) uploads via `scripts/chrome-web-store-publish.mjs`.
 
 ## Marketing Video
 
@@ -53,7 +55,7 @@ The committed render is `marketing-video/simplewords-marketing.mp4`.
 
 Releases are managed by release-please from conventional commits on `main`.
 
-Release PRs update `package.json`, `package-lock.json`, and `extension/manifest.json`.
+Release PRs update `package.json` and `extension/manifest.json`.
 
 When a release is created, GitHub Actions builds the extension, packages `extension/` as `simplewords.zip`, and attaches the zip to the GitHub Release.
 

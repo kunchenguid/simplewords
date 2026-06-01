@@ -1,0 +1,5 @@
+# pnpm reads project settings from here (pnpm >= 11), not the package.json "pnpm" field.
+# Dependency build/install scripts are blocked by default as a supply-chain guardrail.
+# Only packages explicitly set to true below are allowed to run their scripts.
+allowBuilds:
+  esbuild: true
