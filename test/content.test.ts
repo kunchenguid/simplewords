@@ -181,9 +181,7 @@ describe('content script button visibility', () => {
       configurable: true,
       value: (x: number, y: number) => {
         const button = document.getElementById('simplewords-button')
-        return button && hitsDefaultCandidate(x, y)
-          ? [button, sendButton]
-          : []
+        return button && hitsDefaultCandidate(x, y) ? [button, sendButton] : []
       }
     })
 
