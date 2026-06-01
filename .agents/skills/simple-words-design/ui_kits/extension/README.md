@@ -6,7 +6,7 @@ Check the production extension files before treating this kit as pixel-faithful.
 ## Surfaces
 
 1. **Floating button** (`FloatingButton.jsx`) - a prototype pill button with the older sparkles icon and label.
-   Production now uses a compact `sw` glyph button that starts near the lower-right edge of focused editable fields and can move to avoid button-like page controls, so check the extension files before treating this component as pixel-faithful.
+   Production now uses a compact `sw` glyph button that starts near the lower-right edge of focused editable fields and can move when a candidate button center would sit over a button-like page control, so check the extension files before treating this component as pixel-faithful.
 2. **Refine panel** (`RefinePanel.jsx`) - the floating panel that shows loading, setup or provider error guidance, rewritten draft states, and Open settings/Replace/Dismiss actions.
 3. **Options page** (`OptionsPage.jsx`) - the settings page prototype with provider config, enabled domains, name field, and advanced system prompt.
 4. **Host page** (`HostPage.jsx`) - a faked Gmail-like compose window, just so the floating button has something to attach to in `index.html`.
@@ -33,7 +33,7 @@ Preserve that visibility contract in production-facing work.
 ## Demo
 
 `index.html` boots a fake Gmail compose window with a draft typed in.
-The prototype still positions its legacy pill below the textarea; production starts the compact `sw` button near the editor's lower-right edge and can move it to avoid button-like page controls.
+The prototype still positions its legacy pill below the textarea; production starts the compact `sw` button near the editor's lower-right edge and can move it when the candidate center would sit over a button-like page control.
 Clicking the button opens the refine panel with a 1-second simulated "Refining..." state, then a rewritten draft.
 Click "Replace draft" to swap the textarea content; click "Dismiss" to close.
 There's also a tab switch at the top to jump to the **Options page** view.

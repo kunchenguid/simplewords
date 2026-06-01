@@ -180,8 +180,8 @@ The options page is fully opaque.
 
 ### Layout rules
 
-- **Floating button** is `position: fixed`, `z-index: 2147483647` (max), starts near the active editable field's lower-right edge, and can move to avoid button-like page controls.
-  This is non-negotiable — it must clear every host page, including ones with their own floating UI.
+- **Floating button** is `position: fixed`, `z-index: 2147483647` (max), starts near the active editable field's lower-right edge, and can move when a candidate button center would sit over a button-like page control.
+  Keep this placement check lightweight so typing, selection, scroll, and caret movement stay responsive on heavy host pages.
   Use a compact 24px `sw` glyph button for normal editors and a 20px version for short inputs.
   The injected button and panel are visible only while the current domain is enabled and the active editor is connected, focused, and visible, including empty editors.
   Hide them when the editor or any ancestor is `hidden`, `aria-hidden="true"`, or `display: none`, when the editor itself is `visibility: hidden` or `visibility: collapse`, inside a closed `dialog`, or inside closed `details` content.
