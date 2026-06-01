@@ -68,6 +68,7 @@ https://chromewebstore.google.com/detail/simple-words/kmlhfcjpmhcoclpcghckibfkgp
 **From Source**
 
 This project uses [pnpm](https://pnpm.io) (enable it with `corepack enable`).
+Do not use npm or yarn; pnpm keeps the release-age and dependency-build-script guardrails active for installs.
 
 ```sh
 git clone https://github.com/kunchenguid/simplewords.git
