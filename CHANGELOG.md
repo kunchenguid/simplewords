@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.11](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.10...simplewords-v0.1.11) (2026-06-01)
+
+
+### Bug Fixes
+
+* migrate project tooling to pnpm ([#37](https://github.com/kunchenguid/simplewords/issues/37)) ([27b339b](https://github.com/kunchenguid/simplewords/commit/27b339b217c436f535ac1e356eb315cb0d531cfd))
+
 ## [0.1.10](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.9...simplewords-v0.1.10) (2026-06-01)
 
 
