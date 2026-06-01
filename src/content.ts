@@ -591,24 +591,26 @@ function candidateCenterCoversClickable(
   editor: HTMLElement,
   candidateRect: RectLike
 ): boolean {
-  const elementFromPoint = document.elementFromPoint?.bind(document)
-  if (!elementFromPoint) {
-    return false
-  }
-
   const centerX = candidateRect.left + candidateRect.width / 2
   const centerY = candidateRect.top + candidateRect.height / 2
-  const element = elementFromPoint(centerX, centerY)
-  if (!(element instanceof Element)) {
-    return false
+  const elements = document.elementsFromPoint?.(centerX, centerY) ?? [
+    document.elementFromPoint?.(centerX, centerY)
+  ]
+
+  for (const element of elements) {
+    if (!(element instanceof Element) || isInjectedUITarget(element)) {
+      continue
+    }
+
+    const clickable = element.closest<HTMLElement>(CLICKABLE_AVOID_SELECTOR)
+    if (!clickable || clickable === editor || clickable.contains(editor)) {
+      return false
+    }
+
+    return !isInjectedUITarget(clickable)
   }
 
-  const clickable = element.closest<HTMLElement>(CLICKABLE_AVOID_SELECTOR)
-  if (!clickable || clickable === editor || clickable.contains(editor)) {
-    return false
-  }
-
-  return !isInjectedUITarget(clickable)
+  return false
 }
 
 function buttonSizeForEditor(rect: DOMRect): number {

@@ -136,6 +136,66 @@ describe('content script button visibility', () => {
     expect(button.style.left).toBe('268px')
   })
 
+  test('looks past the visible Simple Words button when checking for covered page buttons', () => {
+    document.body.innerHTML =
+      '<textarea>rough reply</textarea><button type="button">Send</button>'
+
+    const editor = document.querySelector('textarea') as HTMLTextAreaElement
+    const sendButton = document.querySelector('button') as HTMLButtonElement
+    vi.spyOn(editor, 'getBoundingClientRect').mockReturnValue({
+      top: 100,
+      left: 100,
+      right: 300,
+      bottom: 200,
+      width: 200,
+      height: 100,
+      x: 100,
+      y: 100,
+      toJSON: () => null
+    })
+    const sendRect = {
+      top: 168,
+      left: 268,
+      right: 292,
+      bottom: 192,
+      width: 24,
+      height: 24,
+      x: 268,
+      y: 168,
+      toJSON: () => null
+    }
+    vi.spyOn(sendButton, 'getBoundingClientRect').mockReturnValue(sendRect)
+    const hitsDefaultCandidate = (x: number, y: number) =>
+      x >= sendRect.left &&
+      x < sendRect.right &&
+      y >= sendRect.top &&
+      y < sendRect.bottom
+    Object.defineProperty(document, 'elementFromPoint', {
+      configurable: true,
+      value: (x: number, y: number) => {
+        const button = document.getElementById('simplewords-button')
+        return button && hitsDefaultCandidate(x, y) ? button : null
+      }
+    })
+    Object.defineProperty(document, 'elementsFromPoint', {
+      configurable: true,
+      value: (x: number, y: number) => {
+        const button = document.getElementById('simplewords-button')
+        return button && hitsDefaultCandidate(x, y)
+          ? [button, sendButton]
+          : []
+      }
+    })
+
+    editor.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.style.top).toBe('108px')
+    expect(button.style.left).toBe('268px')
+  })
+
   test('does not avoid an invisible page button under its default position', () => {
     document.body.innerHTML =
       '<textarea>rough reply</textarea><button type="button" style="visibility: hidden">Send</button>'
