@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.10](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.9...simplewords-v0.1.10) (2026-06-01)
+
+
+### Bug Fixes
+
+* **extension:** avoid overlapping page controls ([#34](https://github.com/kunchenguid/simplewords/issues/34)) ([8ae0b8d](https://github.com/kunchenguid/simplewords/commit/8ae0b8d8ef711d8f97f1c5875d09c4dc78bfa97c))
+* **extension:** speed up floating button placement ([#36](https://github.com/kunchenguid/simplewords/issues/36)) ([909ebdd](https://github.com/kunchenguid/simplewords/commit/909ebddca748fee70979e7654e838488034666d0))
+
 ## [0.1.9](https://github.com/kunchenguid/simplewords/compare/simplewords-v0.1.8...simplewords-v0.1.9) (2026-05-15)
 
 
