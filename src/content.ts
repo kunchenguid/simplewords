@@ -39,9 +39,6 @@ const CLICKABLE_AVOID_SELECTOR = [
   'input[type="reset"]',
   'summary'
 ].join(',')
-const CLICKABLE_AVOID_PROXIMITY = 80
-const CLICKABLE_AVOID_INTERIOR_SAMPLE_STEP = 4
-
 const BRAND_GLYPH_SVG = `<svg viewBox="0 0 64 64" fill="currentColor" aria-hidden="true"><text x="32" y="47" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-weight="700" font-size="48">sw</text></svg>`
 
 const SPARKLES_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></svg>`
@@ -577,8 +574,7 @@ function collisionAwareButtonPositionNearEditor(options: {
   const candidateRects = buttonCandidateRectsNearEditor(positionOptions)
 
   for (const candidateRect of candidateRects) {
-    const avoidRects = clickableAvoidRectsForCandidate(editor, candidateRect)
-    if (!avoidRects.some((rect) => rectsOverlap(rect, candidateRect))) {
+    if (!candidateCenterCoversClickable(editor, candidateRect)) {
       return candidateRect
     }
   }
@@ -586,127 +582,35 @@ function collisionAwareButtonPositionNearEditor(options: {
   return candidateRects[0]
 }
 
-function clickableAvoidRectsForCandidate(
+// Cheap collision check: hit-test a single point at the candidate's center.
+// This avoids the topmost clickable control sitting directly under the button
+// without the cost of scanning every pixel of the candidate rect, which made
+// repositioning sluggish on heavy pages (it runs on scroll, input, and caret
+// moves). The browser's hit-testing already skips hidden/non-painted elements.
+function candidateCenterCoversClickable(
   editor: HTMLElement,
   candidateRect: RectLike
-): DOMRect[] {
-  const elementsFromPoint = document.elementsFromPoint?.bind(document)
+): boolean {
+  const centerX = candidateRect.left + candidateRect.width / 2
+  const centerY = candidateRect.top + candidateRect.height / 2
+  const elements = document.elementsFromPoint?.(centerX, centerY) ?? [
+    document.elementFromPoint?.(centerX, centerY)
+  ]
 
-  if (elementsFromPoint) {
-    const seenElements = new Set<HTMLElement>()
-
-    for (const element of elementsFromCandidateRect(
-      candidateRect,
-      elementsFromPoint
-    )) {
-      const clickableElement = element.closest<HTMLElement>(
-        CLICKABLE_AVOID_SELECTOR
-      )
-
-      if (!clickableElement || seenElements.has(clickableElement)) {
-        continue
-      }
-
-      seenElements.add(clickableElement)
-
-      if (clickableElement === editor) {
-        continue
-      }
-
-      if (clickableElement.contains(editor)) {
-        continue
-      }
-
-      if (isInjectedUITarget(clickableElement)) {
-        continue
-      }
-
-      const visibility = getComputedStyle(clickableElement).visibility
-      if (visibility === 'hidden' || visibility === 'collapse') {
-        continue
-      }
-
-      const rect = clickableElement.getBoundingClientRect()
-      if (
-        rect.width > 0 &&
-        rect.height > 0 &&
-        rectsOverlap(rect, candidateRect)
-      ) {
-        return [rect]
-      }
-    }
-
-    return []
-  }
-
-  const proximityRect = expandedRect(candidateRect, CLICKABLE_AVOID_PROXIMITY)
-
-  return Array.from(
-    document.querySelectorAll<HTMLElement>(CLICKABLE_AVOID_SELECTOR)
-  )
-    .filter((element) => element !== editor)
-    .filter((element) => !element.contains(editor))
-    .filter((element) => !isInjectedUITarget(element))
-    .filter((element) => {
-      const visibility = getComputedStyle(element).visibility
-      return visibility !== 'hidden' && visibility !== 'collapse'
-    })
-    .map((element) => element.getBoundingClientRect())
-    .filter((rect) => rect.width > 0 && rect.height > 0)
-    .filter((rect) => rectsOverlap(rect, proximityRect))
-}
-
-function* elementsFromCandidateRect(
-  rect: RectLike,
-  elementsFromPoint: (x: number, y: number) => Element[]
-): Iterable<Element> {
-  const right = rect.right - 1
-  const bottom = rect.bottom - 1
-  const centerX = Math.floor(rect.left + rect.width / 2)
-
-  for (let x = rect.left; x < rect.right; x += 1) {
-    yield* elementsFromPoint(x, rect.top)
-    yield* elementsFromPoint(x, bottom)
-  }
-
-  for (let y = rect.top + 1; y < bottom; y += 1) {
-    yield* elementsFromPoint(rect.left, y)
-    yield* elementsFromPoint(right, y)
-    yield* elementsFromPoint(centerX, y)
-  }
-
-  for (
-    let x = rect.left + CLICKABLE_AVOID_INTERIOR_SAMPLE_STEP;
-    x < right;
-    x += CLICKABLE_AVOID_INTERIOR_SAMPLE_STEP
-  ) {
-    if (x === centerX) {
+  for (const element of elements) {
+    if (!(element instanceof Element) || isInjectedUITarget(element)) {
       continue
     }
 
-    for (
-      let y = rect.top + CLICKABLE_AVOID_INTERIOR_SAMPLE_STEP;
-      y < bottom;
-      y += CLICKABLE_AVOID_INTERIOR_SAMPLE_STEP
-    ) {
-      yield* elementsFromPoint(x, y)
+    const clickable = element.closest<HTMLElement>(CLICKABLE_AVOID_SELECTOR)
+    if (!clickable || clickable === editor || clickable.contains(editor)) {
+      return false
     }
+
+    return !isInjectedUITarget(clickable)
   }
-}
 
-function expandedRect(rect: RectLike, amount: number): DOMRect {
-  return new DOMRect(
-    rect.left - amount,
-    rect.top - amount,
-    rect.width + amount * 2,
-    rect.height + amount * 2
-  )
-}
-
-function rectsOverlap(a: RectLike, b: RectLike): boolean {
-  return (
-    a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top
-  )
+  return false
 }
 
 function buttonSizeForEditor(rect: DOMRect): number {
