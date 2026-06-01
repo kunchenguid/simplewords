@@ -4,5 +4,5 @@ extension/content.js
 extension/options.js
 extension/chunks/
 extension/manifest.json
-package-lock.json
+pnpm-lock.yaml
 CHANGELOG.md

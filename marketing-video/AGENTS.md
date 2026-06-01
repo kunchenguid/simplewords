@@ -13,10 +13,10 @@ Skills encode patterns like `window.__timelines` registration, `data-*` attribut
 ## Commands
 
 ```bash
-npm run dev          # preview in browser (studio editor)
-npm run check        # lint + validate + inspect
-npm run render       # render to MP4
-npm run publish      # publish and get a shareable link
+pnpm run dev         # preview in browser (studio editor)
+pnpm run check       # lint + validate + inspect
+pnpm run render      # render to MP4
+pnpm run publish     # publish and get a shareable link
 npx hyperframes docs <topic> # reference docs in terminal
 ```
 
@@ -24,7 +24,7 @@ npx hyperframes docs <topic> # reference docs in terminal
 
 - `index.html` — main composition (root timeline)
 - `assets/` — media files (video, audio, images)
-- `simplewords-marketing.mp4` — rendered marketing video output from `npm run render`
+- `simplewords-marketing.mp4` — rendered marketing video output from `pnpm run render`
 - `meta.json` — project metadata (id, name)
 - `transcript.json` — whisper word-level transcript (if generated)
 
@@ -33,7 +33,7 @@ npx hyperframes docs <topic> # reference docs in terminal
 After creating or editing any `.html` composition, run the full check before considering the task complete:
 
 ```bash
-npm run check
+pnpm run check
 ```
 
 Fix all errors before presenting the result.

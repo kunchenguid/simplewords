@@ -25,10 +25,10 @@
 ## Commands
 
 ```bash
-npm run dev          # preview in browser (studio editor)
-npm run check        # lint + validate + inspect
-npm run render       # render to MP4
-npm run publish      # publish and get a shareable link
+pnpm run dev         # preview in browser (studio editor)
+pnpm run check       # lint + validate + inspect
+pnpm run render      # render to MP4
+pnpm run publish     # publish and get a shareable link
 npx hyperframes lint --verbose  # include info-level findings
 npx hyperframes lint --json     # machine-readable output for CI
 npx hyperframes docs <topic> # reference docs in terminal
@@ -54,7 +54,7 @@ https://hyperframes.heygen.com/llms.txt
 
 - `index.html` — main composition (root timeline)
 - `assets/` - source media files used by the marketing video
-- `simplewords-marketing.mp4` - rendered marketing video output from `npm run render`
+- `simplewords-marketing.mp4` - rendered marketing video output from `pnpm run render`
 - `meta.json` — project metadata (id, name)
 - `transcript.json` — whisper word-level transcript (if generated)
 
@@ -63,7 +63,7 @@ https://hyperframes.heygen.com/llms.txt
 After creating or editing any `.html` composition, **always** run the full check before considering the task complete:
 
 ```bash
-npm run check
+pnpm run check
 ```
 
 Fix all errors before presenting the result. Inspect warnings should be reviewed before rendering.

@@ -4,14 +4,15 @@
   "version": "0.1.10",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@11.5.0",
   "scripts": {
-    "check": "npm run format:check && npm run lint && npm test && npm run build && npm run test:e2e",
+    "check": "pnpm run format:check && pnpm run lint && pnpm test && pnpm run build && pnpm run test:e2e",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "build": "tsc --noEmit && npm run build:background && npm run build:pages",
+    "build": "tsc --noEmit && pnpm run build:background && pnpm run build:pages",
     "build:background": "esbuild src/background.ts --bundle --outdir=extension --format=esm --splitting --chunk-names=chunks/[name]-[hash] --target=chrome120",
     "build:pages": "esbuild src/content.ts src/options.ts --bundle --outdir=extension --format=iife --target=chrome120",
     "publish:chrome-web-store": "node scripts/chrome-web-store-publish.mjs --zip simplewords.zip"
@@ -21,16 +22,15 @@
     "@types/chrome": "^0.1.42",
     "@types/jsdom": "^28.0.1",
     "@types/node": "^25.6.2",
-    "@vitest/browser": "latest",
     "esbuild": "^0.28.0",
     "eslint": "^10.3.0",
     "globals": "^17.6.0",
     "@playwright/test": "^1.60.0",
-    "jsdom": "latest",
+    "jsdom": "^29.1.1",
     "prettier": "^3.8.3",
-    "typescript": "latest",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.2",
-    "vitest": "latest"
+    "vitest": "^4.1.7"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.63",

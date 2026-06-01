@@ -39,4 +39,4 @@ ffmpeg -ss 21.100 -i ../marketing-video/simplewords-marketing.mp4 -frames:v 1 -v
 From `chrome-web-store-assets/sources`, serve the files and open `render.html?file=<source-name>` with headless Chrome.
 For example, `render.html?file=screenshot-01-reply-faster` renders `screenshot-01-reply-faster.svg`.
 
-Export each upload PNG at its listed size with Chrome's `--screenshot` and `--window-size` flags, then run `npm test` to verify the dimensions and RGB color type.
+Export each upload PNG at its listed size with Chrome's `--screenshot` and `--window-size` flags, then run `pnpm test` to verify the dimensions and RGB color type.
