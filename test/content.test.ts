@@ -1167,4 +1167,54 @@ describe('content script button visibility', () => {
       })
     )
   })
+
+  test('attaches to a Quill composer without following its off-screen clipboard node', () => {
+    document.body.innerHTML = `
+      <div class="ql-container">
+        <div class="ql-editor" contenteditable="true" data-qa="texty_input"><p>hey</p><p>can you take a look</p></div>
+        <div class="ql-clipboard" contenteditable="true"></div>
+      </div>
+    `
+
+    const composer = document.querySelector('.ql-editor') as HTMLDivElement
+    const clipboard = document.querySelector('.ql-clipboard') as HTMLDivElement
+    Object.defineProperty(composer, 'isContentEditable', { value: true })
+    Object.defineProperty(clipboard, 'isContentEditable', { value: true })
+    vi.spyOn(composer, 'getBoundingClientRect').mockReturnValue({
+      top: 500,
+      left: 100,
+      right: 950,
+      bottom: 538,
+      width: 850,
+      height: 38,
+      x: 100,
+      y: 500,
+      toJSON: () => null
+    })
+    vi.spyOn(clipboard, 'getBoundingClientRect').mockReturnValue({
+      top: 0,
+      left: -99363,
+      right: -99362,
+      bottom: 1,
+      width: 1,
+      height: 1,
+      x: -99363,
+      y: 0,
+      toJSON: () => null
+    })
+
+    composer.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    const button = document.getElementById(
+      'simplewords-button'
+    ) as HTMLButtonElement
+    expect(button.hidden).toBe(false)
+    expect(Number.parseFloat(button.style.top)).toBeGreaterThanOrEqual(500)
+    expect(Number.parseFloat(button.style.top)).toBeLessThan(538)
+    expect(Number.parseFloat(button.style.left)).toBeLessThan(950)
+
+    clipboard.dispatchEvent(new FocusEvent('focusin', { bubbles: true }))
+
+    expect(button.hidden).toBe(true)
+  })
 })
