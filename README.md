@@ -52,7 +52,7 @@ It keeps the workflow inside the editor you are already using and calls the mode
 
 1. Install Simple Words from the [Chrome Web Store](https://chromewebstore.google.com/detail/simple-words/kmlhfcjpmhcoclpcghckibfkgpfbjfbb).
 2. Use the options page that opens after install to choose a model provider.
-3. Write a rough reply in Gmail, Outlook, Yahoo Mail, iCloud Mail, Proton Mail, or another enabled domain.
+3. Write a rough reply in Gmail, Outlook, Yahoo Mail, iCloud Mail, Proton Mail, Slack, or another enabled domain.
 4. Click **Simple Words**, review the refined draft, then click **Replace draft**.
 
 ## Install
@@ -137,16 +137,16 @@ If the button or panel disappears after the extension reloads or updates while a
 Simple Words stores configuration in `chrome.storage.local`.
 There is no hosted Simple Words backend in the request path.
 
-| Setting         | Default                                                                                                       |
-| --------------- | ------------------------------------------------------------------------------------------------------------- |
-| Provider        | `openai`                                                                                                      |
-| OpenAI base URL | `https://api.openai.com/v1`                                                                                   |
-| OpenAI model    | `gpt-5.5`                                                                                                     |
-| Codex base URL  | `https://chatgpt.com/backend-api/codex`                                                                       |
-| Codex model     | `gpt-5.5-fast`                                                                                                |
-| Ollama base URL | `http://localhost:11434/v1`                                                                                   |
-| Ollama model    | `gemma4`                                                                                                      |
-| Enabled domains | `mail.google.com`, `outlook.live.com`, `outlook.office.com`, `mail.yahoo.com`, `icloud.com`, `mail.proton.me` |
+| Setting         | Default                                                                                                                        |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Provider        | `openai`                                                                                                                       |
+| OpenAI base URL | `https://api.openai.com/v1`                                                                                                    |
+| OpenAI model    | `gpt-5.5`                                                                                                                      |
+| Codex base URL  | `https://chatgpt.com/backend-api/codex`                                                                                        |
+| Codex model     | `gpt-5.5-fast`                                                                                                                 |
+| Ollama base URL | `http://localhost:11434/v1`                                                                                                    |
+| Ollama model    | `gemma4`                                                                                                                       |
+| Enabled domains | `mail.google.com`, `outlook.live.com`, `outlook.office.com`, `mail.yahoo.com`, `icloud.com`, `mail.proton.me`, `app.slack.com` |
 
 ## Development
 

@@ -13,18 +13,19 @@ import {
   normalizeSettings
 } from '../src/settings'
 
-const DEFAULT_EMAIL_DOMAINS = [
+const DEFAULT_DOMAINS = [
   'mail.google.com',
   'outlook.live.com',
   'outlook.office.com',
   'mail.yahoo.com',
   'icloud.com',
-  'mail.proton.me'
+  'mail.proton.me',
+  'app.slack.com'
 ]
 
 describe('domain enablement settings', () => {
-  test('enables Simple Words by default only on popular email services', () => {
-    expect(DEFAULT_SETTINGS.enabledDomains).toEqual(DEFAULT_EMAIL_DOMAINS)
+  test('enables Simple Words by default on popular email and chat clients', () => {
+    expect(DEFAULT_SETTINGS.enabledDomains).toEqual(DEFAULT_DOMAINS)
   })
 
   test('normalizes configured domains to lowercase unique entries', () => {
@@ -64,7 +65,16 @@ describe('domain enablement settings', () => {
       isSimpleWordsEnabledForUrl?.(DEFAULT_SETTINGS, 'https://www.icloud.com/')
     ).toBe(true)
     expect(
+      isSimpleWordsEnabledForUrl?.(
+        DEFAULT_SETTINGS,
+        'https://app.slack.com/client/T0123ABCD/C0123ABCD'
+      )
+    ).toBe(true)
+    expect(
       isSimpleWordsEnabledForUrl?.(DEFAULT_SETTINGS, 'https://docs.google.com/')
+    ).toBe(false)
+    expect(
+      isSimpleWordsEnabledForUrl?.(DEFAULT_SETTINGS, 'https://slack.com/')
     ).toBe(false)
   })
 })

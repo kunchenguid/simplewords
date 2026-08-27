@@ -38,7 +38,8 @@ export const DEFAULT_ENABLED_DOMAINS = [
   'outlook.office.com',
   'mail.yahoo.com',
   'icloud.com',
-  'mail.proton.me'
+  'mail.proton.me',
+  'app.slack.com'
 ]
 
 export const DEFAULT_SETTINGS: SimpleWordsSettings = {
